@@ -23,18 +23,11 @@ const transporter=nodemailer.createTransport({
 
 //Route-1:Temporary creation of a user in the database(T completed)
 router.post('/user/signup1',async (req,res)=>{
+      console.log(req.body);
       const user=new User(req.body);
       try{
             await user.save();
             user.Status=false;
-            const otp1=RegistrationUtil.GetOtp();
-            const otp2=RegistrationUtil.GetOtp();
-            const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
-            const messagebody=RegistrationUtil.MessageBody(otp2);
-            let emailinfo=await transporter.sendMail(emailbody);
-            let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
-            user.RecentEmailOtps.push(otp1);
-            user.RecentMobileOtps.push(otp2);
             const ProvidedAddress=user.NearestLandmark+user.Pincode+user.City+user.State+user.Country;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
             if (response.data.items.length===0)
@@ -42,14 +35,25 @@ router.post('/user/signup1',async (req,res)=>{
                   res.status(400).send("Invalid Address");
             }
             const coordinates=Object.values(response.data.items[0].position);
-            user.PositionCoordinates.push(coordinates[0]);
-            user.PositionCoordinates.push(coordinates[1]);
+            await user.PositionCoordinates.push(coordinates[0]);
+            await user.PositionCoordinates.push(coordinates[1]);
             await user.save();
+            console.log(user);
             res.status(201).send(user);
       }catch(err){
             res.status(400).send(err);
       }
 });
+/*
+const otp1=RegistrationUtil.GetOtp();
+const otp2=RegistrationUtil.GetOtp();
+const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
+const messagebody=RegistrationUtil.MessageBody(otp2);
+let emailinfo=await transporter.sendMail(emailbody);
+let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
+user.RecentEmailOtps.push(otp1);
+user.RecentMobileOtps.push(otp2);            
+*/
 
 //Route-2:Permanent creation of a user in the database if OTP verification succeeds.(T completed)
 router.post('/user/signup2',async (req,res)=>{

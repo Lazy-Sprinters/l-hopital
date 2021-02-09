@@ -22,7 +22,7 @@ export class RegisterForm extends Component {
     UserName:"0",
     Age:0,
     Gender:"0",
-    PhoneNumber:0,
+    PhoneNumber:"0",
     IdType:"0",
     IdentificationIdNumber:"0",
     Email:"0",
@@ -64,11 +64,12 @@ export class RegisterForm extends Component {
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
 
-    this.setState({ access_key: Math.floor(( Math.random() * 100000000)+1) });
+    // this.setState({ access_key: Math.floor(( Math.random() * 100000000)+1) });
   };
   register = (data) =>{
     this.handleLoad();
-    Axios.post("http://localhost:5000/users", data)
+    // console.log(data);
+    Axios.post("http://localhost:5000/user/signup1", data)
           .then((res) => {
             // console.log("Hey this is your result", res);
             res.status==201 ? this.handleRegister() : this.handleFaulty();
@@ -156,7 +157,7 @@ export class RegisterForm extends Component {
                   placeholder="Enter Your Age"
                   label="Age"
                   variant="outlined"
-                  onChange={this.handleChange('age')}
+                  onChange={this.handleChange('Age')}
                   type="number" inputProps={{ min: 1, max: 120, step: 1}}
                   helperText={(! errors.age && values.age) ? "Invalid": '' }
                   error={(! errors.age&& values.age)} 
@@ -171,8 +172,8 @@ export class RegisterForm extends Component {
                   variant="outlined"
                   onChange={this.handleChange('PhoneNumber')}
                   type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
-                  helperText={(! errors.PhoneNumber && values.PhoneNumber) ? "Not a valid Phone Number": '' }
-                  error={(! errors.PhoneNumber && values.PhoneNumber)} 
+                  helperText={(! errors.PhoneNumber ) ? "Not a valid Phone Number": '' }
+                  error={(! errors.PhoneNumber )} 
                   margin="normal"
                   fullWidth
                 />
@@ -238,8 +239,8 @@ export class RegisterForm extends Component {
                   label="Password"
                   variant="outlined"
                   onChange={this.handleChange('Password')}
-                  helperText={(! errors.Password && values.Password) ? "The Password should be at least 8 characters long": '' }
-                  error={(! errors.Password && values.Password)} 
+                  helperText={(! errors.Password ) ? "The Password should be at least 8 characters long": '' }
+                  error={(! errors.Password )} 
                   type="password"
                   margin="normal"
                   fullWidth
@@ -310,8 +311,8 @@ export class RegisterForm extends Component {
                   {!isLoading && !isLoaded && <Button
                       color="primary"
                       variant="contained"
-        
-                      onClick={!errors.final ? ()=> this.handleFaulty() : () => this.register(data)  }
+                    
+                      onClick={!errors.final ? ()=> this.handleFaulty() : () => this.register(values)  }
                     >
                       Register
                     </Button>}

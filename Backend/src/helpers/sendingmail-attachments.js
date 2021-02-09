@@ -9,7 +9,7 @@ const transporter=nodemailer.createTransport({
 });
 const mailOptions = {
       from: 'r20324pavitra@dpsrkp.net',
-      to: 'goyalpavitra.pg@gmail.com',
+      to: 'anurajag117@gmail.com',
       subject: 'Sending Email using Node.js',
       text: 'that was easy',
       attachments:[
