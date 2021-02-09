@@ -3,4 +3,4 @@
  -> Patient
   : Work In Progress
  -> Testing-Center
-  : Futture Plans
+  : Future Plans
