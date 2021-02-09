@@ -9,19 +9,31 @@ import {
   Container,
   LinearProgress
 } from "@material-ui/core";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import './RegisterForm.css'
 
 export class RegisterForm extends Component {
 
   state = {
-    name:"0",
-    age:0,
-    phoneNum:0,
-    access_key:0,
-    AadhaarNo:0,
-    email:"0",
-    password:0,
-    cpassword:0,
+    UserName:"0",
+    Age:0,
+    Gender:"0",
+    PhoneNumber:0,
+    IdType:"0",
+    IdentificationIdNumber:"0",
+    Email:"0",
+    Password:"0",
+    NearestLandmark:"0",
+    City:"0",
+    Pincode:"0",
+    State:"0",
+    Country:"0",
+    otp1:0,
+    opt2:0,
     isLoading:false,
     isLoaded:false,
     isRegistered:false,
@@ -69,38 +81,45 @@ export class RegisterForm extends Component {
   }
   render() {
      const{ 
-      name,
-      age,
-      access_key,
-      phoneNum,
-      AadhaarNo,
-      email,
-      password,
-      cpassword,
+      UserName,
+      Age,
+      Gender,
+      PhoneNumber,
+      IdType,
+      IdentificationIdNumber,
+      Email,
+      Password,
+      NearestLandmark,
+      City,
+      Pincode,
+      State,
+      Country,
+      otp1,
+      opt2,
       isLoading,
-      isRegistered,
       isLoaded,
+      isRegistered,
       isFaulty
-      
-
     } = this.state;
     const values = { 
-      name,
-      age,
-      phoneNum,
-      AadhaarNo,
-      email,
-      password,
-      cpassword
+      UserName,
+      Age,
+      Gender,
+      PhoneNumber,
+      IdType,
+      IdentificationIdNumber,
+      Email,
+      Password,
+      NearestLandmark,
+      City,
+      Pincode,
+      State,
+      Country
     };
     const data = { 
-      name,
-      age,
-      phoneNum,
-      AadhaarNo,
-      email,
-      password,
-      access_key
+      Email,
+      otp1,
+      opt2
     };
     const  errors = validateInfo(values);
 
@@ -121,10 +140,10 @@ export class RegisterForm extends Component {
               <div className="reg-col">
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter Your Name"
-                  label="Name"
+                  placeholder="Enter Your User Name"
+                  label="User Name"
                   variant="outlined"
-                  onChange={this.handleChange('name')}
+                  onChange={this.handleChange('UserName')}
                   type="text"
                   fullWidth
                 />
@@ -147,38 +166,54 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter your mobile number"
+                  placeholder="Enter your Phone Number"
                   label="Phone Number"
                   variant="outlined"
-                  onChange={this.handleChange('phoneNum')}
+                  onChange={this.handleChange('PhoneNumber')}
                   type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
-                  helperText={(! errors.phoneNum && values.phoneNum) ? "Not a valid Phone Number": '' }
-                  error={(! errors.phoneNum && values.phoneNum)} 
+                  helperText={(! errors.PhoneNumber && values.PhoneNumber) ? "Not a valid Phone Number": '' }
+                  error={(! errors.PhoneNumber && values.PhoneNumber)} 
                   margin="normal"
                   fullWidth
                 />
                 <br />
                 </div>
-                <div className="txtfld">
-                <TextField
-                  placeholder="Enter your Aadhaar Number"
-                  label="Aadhaar Number"
-                  variant="outlined"
-                  onChange={this.handleChange('AadhaarNo')}
-                  type="number" 
-                  helperText={(! errors.AadhaarNo && values.AadhaarNo) ? "Invalid AadhaarNo": '' }
-                  error={(! errors.AadhaarNo && values.AadhaarNo)} 
-                  margin="normal"
-                  fullWidth
-                />
+                <div className="drpdwn">
+                <FormControl>
+                  <InputLabel>
+                    Id Type
+                  </InputLabel>
+                  <Select
+                    onChange={this.handleChange('IdType')}
+                    inputProps={{ 'aria-label': 'Without label' }}
+                  >
+                    <MenuItem value="" disabled>
+                      <em>Enter your Id Type</em>
+                    </MenuItem>
+                    <MenuItem value={"Aadhaar"}>Aadhaar</MenuItem>
+                    <MenuItem value={"VoterId"}>VoterId</MenuItem>
+                    <MenuItem value={"PanCard"}>PanCard</MenuItem>
+                  </Select>
+                </FormControl>
+
+                {/*<TextField
+                                  placeholder="Enter your Id Type *change to dropdown*"
+                                  label="Id Type"
+                                  variant="outlined"
+                                  onChange={this.handleChange('IdType')}
+                                  type="text"
+                                  margin="normal"
+                                  fullWidth
+                                />*/}
                 <br />
-                </div>
-                <div className="txtfld">
+                <br />
+                <br />
+                </div><div className="txtfld">
                 <TextField
-                  placeholder="Enter you email address"
-                  label="email address"
+                  placeholder="Enter you Identification Id Number"
+                  label="Identification Id Number"
                   variant="outlined"
-                  onChange={this.handleChange('email')}
+                  onChange={this.handleChange('IdentificationIdNumber')}
                   type="text"
                   margin="normal"
                   fullWidth
@@ -187,12 +222,24 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter your password"
+                  placeholder="Enter you Email address"
+                  label="Email address"
+                  variant="outlined"
+                  onChange={this.handleChange('Email')}
+                  type="text"
+                  margin="normal"
+                  fullWidth
+                />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter your Password"
                   label="Password"
                   variant="outlined"
-                  onChange={this.handleChange('password')}
-                  helperText={(! errors.password && values.password) ? "The password should be at least 8 characters long": '' }
-                  error={(! errors.password && values.password)} 
+                  onChange={this.handleChange('Password')}
+                  helperText={(! errors.Password && values.Password) ? "The Password should be at least 8 characters long": '' }
+                  error={(! errors.Password && values.Password)} 
                   type="password"
                   margin="normal"
                   fullWidth
@@ -201,13 +248,59 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Re-enter your password"
-                  label="Confirm Password"
+                  placeholder="Enter you Nearest Landmark"
+                  label="Nearest Landmark"
                   variant="outlined"
-                  onChange={this.handleChange('cpassword')}
-                  helperText={(! errors.cpassword && values.cpassword) ? "The password doesn't match": '' }
-                  error={(! errors.cpassword && values.cpassword)} 
-                  type="password"
+                  onChange={this.handleChange('NearestLandmark')}
+                  type="text"
+                  margin="normal"
+                  fullWidth
+                />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter you City"
+                  label="City"
+                  variant="outlined"
+                  onChange={this.handleChange('City')}
+                  type="text"
+                  margin="normal"
+                  fullWidth
+                />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter you Pincode"
+                  label="Pincode"
+                  variant="outlined"
+                  onChange={this.handleChange('Pincode')}
+                  type="text"
+                  margin="normal"
+                  fullWidth
+                />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter you State"
+                  label="State"
+                  variant="outlined"
+                  onChange={this.handleChange('State')}
+                  type="text"
+                  margin="normal"
+                  fullWidth
+                />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter you Country"
+                  label="Country"
+                  variant="outlined"
+                  onChange={this.handleChange('Country')}
+                  type="text"
                   margin="normal"
                   fullWidth
                 />
