@@ -1,0 +1,7 @@
+1.develop pdf to image functionality
+2.saving pdfs in database
+3.add feature for security deposit
+*******
+currently only mailing the results
+++we don't store your results (privacy) points
+**we only display your testhistory 
