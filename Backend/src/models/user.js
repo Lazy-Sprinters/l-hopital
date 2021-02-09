@@ -45,8 +45,7 @@ const UserSchema=mongoose.Schema({
       },
       Password:{
             type:String,
-            required:true,
-            minlength:8
+            required:true
       },
       RecentMobileOtps:[Number],
       RecentEmailOtps:[Number],
