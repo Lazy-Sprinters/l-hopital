@@ -41,10 +41,10 @@ const appointmentSchema=mongoose.Schema({
                   }
             }
       },
-      Center:{
+      owner:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,
-            ref:'center'
+            ref:'Center'
       }
 });
 

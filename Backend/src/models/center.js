@@ -38,7 +38,6 @@ const centerSchema=mongoose.Schema({
       OpeningTime:{
             type:String,
             required:true,
-            minlength:8
       },
       ClosingTime:{
             type:String,
@@ -73,18 +72,10 @@ const centerSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      LicenseNum:{
+      LicenceNum:{
             type:String,
             required:true
       },
-      Facilities:[
-            {
-                 name:{type:String,required:true},
-                 capacityperslot:{type:Number,required:true},
-                 price:{type:Number,required:true}
-                 //of 1 hr ...following COVID-19 Guidelines
-            }
-      ],
       PositionCoordinates:[Number],
       Reviews:[{
             text:{type:String},
