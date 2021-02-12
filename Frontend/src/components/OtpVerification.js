@@ -28,8 +28,14 @@ export class OtpVerification extends Component {
     this.setState({['complete']: false});
 
   };
+   sendOtp = () =>{
+      // const { data } =this.props.location;
+      // console.log(data);
+  };
+
   start = () => {
     this.setState({['counter']: 29})
+    this.sendOtp();
     this.id = setInterval(this.initiate, 1000);
   };
 
@@ -93,6 +99,8 @@ export class OtpVerification extends Component {
     //         this.handleFaulty();
     //       });
   }
+  
+
   render() {
      const{ 
       Email,
@@ -125,10 +133,21 @@ export class OtpVerification extends Component {
     return (
        <div>
           <br/> <br/>
-          {console.log(counter)}
+          {console.log({counter})}
           {counter==30 ? this.start() : null}
           <div className="err-msg">
             <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
+          </div>
+          <div className="txtfld1">
+            <TextField
+              placeholder="Enter the Email "
+              label="Email "
+              variant="outlined"
+              onChange={this.handleChange('Email')}
+              type="number"
+              fullWidth
+            />
+            <br /> <br />
           </div>
           <div className="txtfld1">
             <TextField

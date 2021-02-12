@@ -5,10 +5,12 @@ import Footer from './Footer';
 import OtpVerifyOrSkip from './OtpVerification';
 
 function Register() {
+
   return (
     <>
+
       <Navbar />
-      <OtpVerifyOrSkip />
+      <OtpVerifyOrSkip/>
       <Footer />
     </>
   );

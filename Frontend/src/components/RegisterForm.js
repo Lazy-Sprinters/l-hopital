@@ -68,17 +68,18 @@ export class RegisterForm extends Component {
   };
   register = (data) =>{
     this.handleLoad();
+    this.handleRegister();
     // console.log(data);
-    Axios.post("http://localhost:5000/user/signup1", data)
-          .then((res) => {
-            // console.log("Hey this is your result", res);
-            res.status==201 ? this.handleRegister() : this.handleFaulty();
-
-          })
-          .catch((err) => {
-            console.log("Axios", err);
-            this.handleFaulty();
-          });
+    {/*Axios.post("http://localhost:5000/user/signup1", data)
+              .then((res) => {
+                // console.log("Hey this is your result", res);
+                res.status==201 ? this.handleRegister() : this.handleFaulty();
+    
+              })
+              .catch((err) => {
+                console.log("Axios", err);
+                this.handleFaulty();
+              });*/}
   }
   render() {
      const{ 
@@ -160,7 +161,7 @@ export class RegisterForm extends Component {
                   onChange={this.handleChange('Age')}
                   type="number" inputProps={{ min: 1, max: 120, step: 1}}
                   helperText={(! errors.age && values.age) ? "Invalid": '' }
-                  error={(! errors.age&& values.age)} 
+                  error={(! errors.age && values.age)} 
                   fullWidth
                 />
                 <br />
@@ -172,7 +173,7 @@ export class RegisterForm extends Component {
                   variant="outlined"
                   onChange={this.handleChange('PhoneNumber')}
                   type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
-                  helperText={(! errors.PhoneNumber ) ? "Not a valid Phone Number": '' }
+                  helperText={(! errors.PhoneNumber  ) ? "Not a valid Phone Number": '' }
                   error={(! errors.PhoneNumber )} 
                   margin="normal"
                   fullWidth
@@ -328,7 +329,13 @@ export class RegisterForm extends Component {
                 <br />
                 {isRegistered && isLoaded && 
                   <div className="btn2">
-                    <Link to='/verify'>
+                  {console.log(values.Email)}
+                    <Link to={{
+                      pathname: "/verify", 
+                      state: {
+                          Email: true
+                      }
+                     }}>
                       <Button
                         color="primary"
                         variant="contained"
