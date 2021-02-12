@@ -1,6 +1,8 @@
 const express=require('express');
 const cors=require('cors');
-const Chalk=require('chalk');
+const faker=require('faker');
+const axios=require('axios');
+const Center=require('./models/center');
  
 require('./db/mongoose');
 const userRouter=require('./routers/user');
@@ -17,6 +19,16 @@ app.use(express.json());
 app.use(cors());
 app.use(userRouter);
 
+
+app.get('/',(req,res)=>{
+      res.send("Hello,Atleast this is working1");
+})
+
+app.listen(port,()=>{
+      console.log('Server is running on port:',port);
+})
+
+
 //functionality to remove non-verified users from the database 
 //to reduce server load
 // const getdocs=async ()=>{
@@ -28,12 +40,3 @@ app.use(userRouter);
 //       }
 // }
 // const filterprocess=setInterval(getdocs,1800000);
-
-
-app.get('/',(req,res)=>{
-      res.send("Hello,Atleast this is working1");
-})
-
-app.listen(port,()=>{
-      console.log('Server is running on port:',port);
-})

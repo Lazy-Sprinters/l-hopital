@@ -141,9 +141,7 @@ for (let i = 0; i < 10; i++) {
   );
 }
 const saveuser=async (cdata,add)=>{
-  const ncenter=new Center(cdata);
-  ncenter.save();
-  console.log(ncenter);
+  console.log(cdata,add);
 }
 for (let i = 0; i < 1; i++) {
   const apicallcompleteaddress=Landmarks[i]+' '+Pincodes[i]+' '+Cities[i]+' '+States[i]+' '+Countries[i];
