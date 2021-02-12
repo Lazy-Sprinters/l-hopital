@@ -323,17 +323,17 @@ export class RegisterForm extends Component {
                 <br/>
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
-                {isRegistered && isLoaded && <h1>You have Registered Successfully.Check your registered email address for further instructions.Click the button to proceed to login page.</h1>}
+                {isRegistered && isLoaded && <h1>You have Registered Successfully.Check your registered email address for further instructions.Click the button to proceed to Verification page.</h1>}
                 {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
                 <br />
                 {isRegistered && isLoaded && 
                   <div className="btn2">
-                    <Link to='/login'>
+                    <Link to='/verify'>
                       <Button
                         color="primary"
                         variant="contained"
                       >
-                        Move to Login Page
+                        Verify My Account
                       </Button>
                     </Link>
                   </div>
