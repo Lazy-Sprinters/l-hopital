@@ -75,16 +75,16 @@ export class RegisterForm extends Component {
     this.handleLoad();
     this.handleRegister();
     // console.log(data);
-    {/*Axios.post("http://localhost:5000/user/signup1", data)
-              .then((res) => {
-                // console.log("Hey this is your result", res);
-                res.status==201 ? this.handleRegister(data) : this.handleFaulty();
-    
-              })
-              .catch((err) => {
-                console.log("Axios", err);
-                this.handleFaulty();
-              });*/}
+    // Axios.post("http://localhost:5000/user/signup1", data)
+    // .then((res) => {
+    //   // console.log("Hey this is your result", res);
+    //   res.status==201 ? this.handleRegister(data) : this.handleFaulty();
+
+    // })
+    // .catch((err) => {
+    //   console.log("Axios", err);
+    //   this.handleFaulty();
+    // });
 
   }
   render() {
@@ -218,16 +218,6 @@ export class RegisterForm extends Component {
                     <MenuItem value={"PanCard"}>PanCard</MenuItem>
                   </Select>
                 </FormControl>
-
-                {/*<TextField
-                                  placeholder="Enter your Id Type *change to dropdown*"
-                                  label="Id Type"
-                                  variant="outlined"
-                                  onChange={this.handleChange('IdType')}
-                                  type="text"
-                                  margin="normal"
-                                  fullWidth
-                                />*/}
                 <br />
                 <br />
                 <br />
@@ -345,7 +335,6 @@ export class RegisterForm extends Component {
                 <br/>
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
-                {/*isRegistered && isLoaded && <h1>You have Registered Successfully.Check your registered email address for further instructions.Click the button to proceed to Verification page.</h1>*/}
                 {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page. > > > ></h1>}
                 {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
                 <br />
@@ -353,22 +342,6 @@ export class RegisterForm extends Component {
                       pathname: "/verify", 
                       data: values.Email
                      }} />}
-                {/*isRegistered && isLoaded && 
-                  <div className="btn2">
-                  {console.log(data)}
-                    <Link to={{
-                      pathname: "/verify", 
-                      data: values.Email
-                     }}>
-                      <Button
-                        color="primary"
-                        variant="contained"
-                      >
-                        Verify My Account
-                      </Button>
-                    </Link>
-                  </div>
-                */}
                 </div>
                 <br />
                 <br />

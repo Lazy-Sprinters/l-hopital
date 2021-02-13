@@ -20,19 +20,12 @@ export class OtpVerification extends Component {
     isLoading:false,
     isLoaded:false,
     isVerified:false,
-    isFaulty:false
+    isOtpFaulty:false
   };
   handleCounter = (x) =>{
     this.setState({ ['counter']: 30 });
     this.setState({['complete']: false});
-     // Axios.post("http://localhost:5000/users/signup2", x)
-    //       .then((res) => {
-    //         ;
-
-    //       })
-    //       .catch((err) => {
-    //         console.log("Axios", err);
-    //       });
+     this.sendOtp(x);
   };
    sendOtp = (x) =>{
     // Axios.post("http://localhost:5000/users/signup2", x)
@@ -42,6 +35,7 @@ export class OtpVerification extends Component {
     //       })
     //       .catch((err) => {
     //         console.log("Axios", err);
+    //         this.handleOtpFaulty();
     //       });
   };
 
@@ -67,7 +61,7 @@ export class OtpVerification extends Component {
   handleLoad = () =>  {
 
     this.setState({ ['isLoading']: true });
-    this.setState({ ['isFaulty']: false });
+    this.setState({ ['isOtpFaulty']: false });
 
   };
 
@@ -80,7 +74,12 @@ export class OtpVerification extends Component {
   
 
   handleFaulty = () =>  {
-    this.setState({ ['isFaulty']: true });
+    this.setState({ ['isLoading']: false });
+    this.setState({ ['isLoaded']: true });
+
+  };
+  handleOtpFaulty = () =>  {
+    this.setState({ ['isOtpFaulty']: true });
     this.setState({ ['isLoading']: false });
 
   };
@@ -115,7 +114,8 @@ export class OtpVerification extends Component {
       isLoading,
       isLoaded,
       isVerified,
-      isFaulty
+      isFaulty,
+      isOtpFaulty
     } = this.state;
     const data = { 
       email,
@@ -164,6 +164,7 @@ export class OtpVerification extends Component {
             <br /> <br />
             <br /> <br />
           </div>
+          {!isVerified && !isLoaded && <div>
           <div className="otp1btn">
             <Button
               color="primary"
@@ -185,20 +186,24 @@ export class OtpVerification extends Component {
             </Button>
           </div>
           <br /> <br />
-           <div className="btn2">
-              <Link to='/login' style={{textDecoration:'none'}}>
-                <Button
-                  color="primary"
-                  variant="contained"
-                >
-                  Skip for now >>
-                </Button>
-              </Link>
-            </div>
           <br /> <br />
-          <br/>
-          <br/>
-          {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
+           
+              <div className="btn2">
+               <Link to='/login' style={{textDecoration:'none'}}>
+                 <Button
+                   color="primary"
+                   variant="contained"
+                 >
+                   Skip for now >>
+                 </Button>
+               </Link>
+               <br /> <br />
+              </div>
+
+              </div>
+            } 
+          
+          {isOtpFaulty && <h2>There is an error in sending the OTP to the der=sired email or phone number.Please try again.</h2>}
           <br/>
           <div className="no-chng">
             {isLoading && <LinearProgress />}                
@@ -207,12 +212,12 @@ export class OtpVerification extends Component {
           <br />
           {isVerified && isLoaded && 
             <div className="btn2">
-              <Link to={{
-                pathname: "/login", 
-                state: {
-                    Email: true
-                }
-               }}>
+              <Link 
+                to={{
+                    pathname: "/login"
+                   }}
+               style={{textDecoration:'none'}}
+              >
                 <Button
                   color="primary"
                   variant="contained"
