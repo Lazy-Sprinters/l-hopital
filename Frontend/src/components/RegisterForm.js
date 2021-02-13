@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import validateInfo from './error.js';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import Axios from "axios";
 import {
   TextField,
@@ -37,7 +37,8 @@ export class RegisterForm extends Component {
     isLoading:false,
     isLoaded:false,
     isRegistered:false,
-    isFaulty:false
+    isFaulty:false,
+    indicate:false
   };
 
   handleLoad = () =>  {
@@ -47,11 +48,15 @@ export class RegisterForm extends Component {
 
   };
 
-  handleRegister = () =>  {
+  handleRegister = (data) =>  {
     this.setState({ ['isRegistered']: true });
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
 
+    setTimeout(
+      () => this.setState({['indicate']:true}), 3000
+    );
+    
   };
   
 
@@ -73,13 +78,14 @@ export class RegisterForm extends Component {
     {/*Axios.post("http://localhost:5000/user/signup1", data)
               .then((res) => {
                 // console.log("Hey this is your result", res);
-                res.status==201 ? this.handleRegister() : this.handleFaulty();
+                res.status==201 ? this.handleRegister(data) : this.handleFaulty();
     
               })
               .catch((err) => {
                 console.log("Axios", err);
                 this.handleFaulty();
               });*/}
+
   }
   render() {
      const{ 
@@ -101,7 +107,9 @@ export class RegisterForm extends Component {
       isLoading,
       isLoaded,
       isRegistered,
-      isFaulty
+      isFaulty,
+      indicate
+
     } = this.state;
     const values = { 
       UserName,
@@ -119,10 +127,9 @@ export class RegisterForm extends Component {
       Country
     };
     const data = { 
-      Email,
-      otp1,
-      opt2
+      Email
     };
+
     const  errors = validateInfo(values);
 
     return (
@@ -165,6 +172,20 @@ export class RegisterForm extends Component {
                   fullWidth
                 />
                 <br />
+                <br />
+                </div>
+                <div className="txtfld">
+                <TextField
+                  placeholder="Enter Your Gender"
+                  label="Gender"
+                  variant="outlined"
+                  onChange={this.handleChange('Gender')}
+                  type="text"
+                  fullWidth
+                />
+                <br />
+                <br />
+
                 </div>
                 <div className="txtfld">
                 <TextField
@@ -173,8 +194,8 @@ export class RegisterForm extends Component {
                   variant="outlined"
                   onChange={this.handleChange('PhoneNumber')}
                   type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
-                  helperText={(! errors.PhoneNumber  ) ? "Not a valid Phone Number": '' }
-                  error={(! errors.PhoneNumber )} 
+                  helperText={(! errors.PhoneNumber  && parseInt(values.PhoneNumber)) ? "Not a valid Phone Number": '' }
+                  error={(! errors.PhoneNumber && parseInt(values.PhoneNumber))} 
                   margin="normal"
                   fullWidth
                 />
@@ -240,8 +261,8 @@ export class RegisterForm extends Component {
                   label="Password"
                   variant="outlined"
                   onChange={this.handleChange('Password')}
-                  helperText={(! errors.Password ) ? "The Password should be at least 8 characters long": '' }
-                  error={(! errors.Password )} 
+                  helperText={(! errors.Password && parseInt(values.Password)) ? "The Password should be at least 8 characters long": '' }
+                  error={(! errors.Password && parseInt(values.Password))} 
                   type="password"
                   margin="normal"
                   fullWidth
@@ -324,17 +345,20 @@ export class RegisterForm extends Component {
                 <br/>
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
-                {isRegistered && isLoaded && <h1>You have Registered Successfully.Check your registered email address for further instructions.Click the button to proceed to Verification page.</h1>}
+                {/*isRegistered && isLoaded && <h1>You have Registered Successfully.Check your registered email address for further instructions.Click the button to proceed to Verification page.</h1>*/}
+                {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page. > > > ></h1>}
                 {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
                 <br />
-                {isRegistered && isLoaded && 
+                {indicate && <Redirect to={{
+                      pathname: "/verify", 
+                      data: values.Email
+                     }} />}
+                {/*isRegistered && isLoaded && 
                   <div className="btn2">
-                  {console.log(values.Email)}
+                  {console.log(data)}
                     <Link to={{
                       pathname: "/verify", 
-                      state: {
-                          Email: true
-                      }
+                      data: values.Email
                      }}>
                       <Button
                         color="primary"
@@ -344,7 +368,7 @@ export class RegisterForm extends Component {
                       </Button>
                     </Link>
                   </div>
-                }
+                */}
                 </div>
                 <br />
                 <br />

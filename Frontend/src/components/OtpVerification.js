@@ -14,28 +14,40 @@ export class OtpVerification extends Component {
 
   state = {
     counter:30,
-    Email:"0",
     otp1:0,
-    opt2:0,
+    otp2:0,
     complete:false,
     isLoading:false,
     isLoaded:false,
     isVerified:false,
     isFaulty:false
   };
-  handleCounter = () =>{
+  handleCounter = (x) =>{
     this.setState({ ['counter']: 30 });
     this.setState({['complete']: false});
+     // Axios.post("http://localhost:5000/users/signup2", x)
+    //       .then((res) => {
+    //         ;
 
+    //       })
+    //       .catch((err) => {
+    //         console.log("Axios", err);
+    //       });
   };
-   sendOtp = () =>{
-      // const { data } =this.props.location;
-      // console.log(data);
+   sendOtp = (x) =>{
+    // Axios.post("http://localhost:5000/users/signup2", x)
+    //       .then((res) => {
+    //        ;
+
+    //       })
+    //       .catch((err) => {
+    //         console.log("Axios", err);
+    //       });
   };
 
-  start = () => {
+  start = (x) => {
     this.setState({['counter']: 29})
-    this.sendOtp();
+    this.sendOtp(x);
     this.id = setInterval(this.initiate, 1000);
   };
 
@@ -47,17 +59,9 @@ export class OtpVerification extends Component {
       if (this.state.counter === 0) {
         clearInterval(this.id);
         this.setState({ complete: true });
+
       }
     }
-    // this.setState({['counter']: 29})
-    // console.log("hey its here");
-
-    // console.log(this.state.counter);
-    // // while(this.state.counter>0){
-    //     this.id = setInterval(this.setState({['counter']: this.state.counter-1}), 1000);
-
-      
-    // this.setState({['complete']: true});
   };
 
   handleLoad = () =>  {
@@ -88,10 +92,10 @@ export class OtpVerification extends Component {
   verifyOtp = (data) =>{
     this.handleLoad();
     this.handleVerification();
-    // Axios.post("http://localhost:5000/users", data)
+    // Axios.post("http://localhost:5000/users/signup2", data)
     //       .then((res) => {
     //         // console.log("Hey this is your result", res);
-    //         res.status==201 ? this.handleVerification() : this.handleFaulty();
+    //         res.status==200 ? this.handleVerification() : this.handleFaulty();
 
     //       })
     //       .catch((err) => {
@@ -102,10 +106,10 @@ export class OtpVerification extends Component {
   
 
   render() {
+    const{email}=this.props;
      const{ 
-      Email,
       otp1,
-      opt2,
+      otp2,
       counter,
       complete,
       isLoading,
@@ -114,31 +118,19 @@ export class OtpVerification extends Component {
       isFaulty
     } = this.state;
     const data = { 
-      Email,
+      email,
       otp1,
-      opt2
+      otp2
     };
-    {/*const onResendOtp = () => {
-            setResendingOtp(true);
-            setTimeout(() => setResendingOtp(false), 3000);
-            setOtp("");
-            setCounter(30);
-        }
-    
-        useEffect(() => {
-            if(counter > 0){
-                setTimeout(() => setCounter(counter-1), 1000);
-            }
-        });*/}
+
     return (
        <div>
           <br/> <br/>
-          {console.log({counter})}
-          {counter==30 ? this.start() : null}
+          {counter==30 ? this.start(email) : null}
           <div className="err-msg">
             <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
           </div>
-          <div className="txtfld1">
+          {/*<div className="txtfld1">
             <TextField
               placeholder="Enter the Email "
               label="Email "
@@ -148,7 +140,7 @@ export class OtpVerification extends Component {
               fullWidth
             />
             <br /> <br />
-          </div>
+          </div>*/}
           <div className="txtfld1">
             <TextField
               placeholder="Enter the Email OTP"
@@ -177,7 +169,7 @@ export class OtpVerification extends Component {
               color="primary"
               variant="contained"
               disabled={!complete}
-              onClick={() => this.handleCounter()}
+              onClick={() => this.handleCounter(email)}
             >
               {parseInt(Object.values({counter}))==0 ? "Resend Otp" :"Resend Otp ( "+ parseInt(Object.values({counter})) + " sec )"}
             </Button>
@@ -186,6 +178,7 @@ export class OtpVerification extends Component {
             <Button
               color="primary"
               variant="contained"
+              disabled={!((data.otp1.length>=5 ) && (data.otp2.length>=5 ))}
               onClick={() => this.verifyOtp(data)}
             >
               Verify
@@ -203,7 +196,35 @@ export class OtpVerification extends Component {
               </Link>
             </div>
           <br /> <br />
-
+          <br/>
+          <br/>
+          {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
+          <br/>
+          <div className="no-chng">
+            {isLoading && <LinearProgress />}                
+          {isVerified && isLoaded && <h1>You hare verified</h1>}
+          {!isVerified && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
+          <br />
+          {isVerified && isLoaded && 
+            <div className="btn2">
+              <Link to={{
+                pathname: "/login", 
+                state: {
+                    Email: true
+                }
+               }}>
+                <Button
+                  color="primary"
+                  variant="contained"
+                >
+                  Proceed to Login
+                </Button>
+              </Link>
+            </div>
+          }
+          </div>
+          <br />
+          <br />
           </div>
     );
   }
