@@ -30,14 +30,6 @@ router.post('/user/signup1',async (req,res)=>{
       try{
             await user.save();
             user.Status=false;
-            const otp1=RegistrationUtil.GetOtp();
-            const otp2=RegistrationUtil.GetOtp();
-            const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
-            // const messagebody=RegistrationUtil.MessageBody(otp2);
-            let emailinfo=await transporter.sendMail(emailbody);
-            // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
-            user.RecentEmailOtps.push(otp1);
-            user.RecentMobileOtps.push(otp2);            
             const ProvidedAddress=user.NearestLandmark+user.Pincode+user.City+user.State+user.Country;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
             if (response.data.items.length===0)
@@ -104,6 +96,7 @@ router.post('/user/login',async (req,res)=>{
 //Route-4:Resending an OTP,requires useremailid (T completed)
 router.post('/user/newotps',async (req,res)=>{
       try{
+            console.log(req.body);
             const UserEmail=req.body.email;
             const user=await User.findOne({Email:UserEmail});
             if (user!==undefined && user.Status==false)
@@ -112,8 +105,8 @@ router.post('/user/newotps',async (req,res)=>{
                   const otp2=RegistrationUtil.GetOtp();
                   const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
                   const messagebody=RegistrationUtil.MessageBody(otp2);
-                  let emailinfo=await transporter.sendMail(emailbody);
-                  let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
+                  // let emailinfo=await transporter.sendMail(emailbody);
+                  // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
                   user.RecentEmailOtps.push(otp1);
                   user.RecentMobileOtps.push(otp2);
                   await user.save();

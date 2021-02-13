@@ -28,15 +28,15 @@ export class OtpVerification extends Component {
      this.sendOtp(x);
   };
    sendOtp = (x) =>{
-    // Axios.post("http://localhost:5000/users/signup2", x)
-    //       .then((res) => {
-    //        ;
+  Axios.post("http://localhost:5000/user/newotps", x)
+      .then((res) => {
+        ;
 
-    //       })
-    //       .catch((err) => {
-    //         console.log("Axios", err);
-    //         this.handleOtpFaulty();
-    //       });
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+        this.handleOtpFaulty();
+      });
   };
 
   start = (x) => {
@@ -90,17 +90,17 @@ export class OtpVerification extends Component {
   };
   verifyOtp = (data) =>{
     this.handleLoad();
-    this.handleVerification();
-    // Axios.post("http://localhost:5000/users/signup2", data)
-    //       .then((res) => {
-    //         // console.log("Hey this is your result", res);
-    //         res.status==200 ? this.handleVerification() : this.handleFaulty();
+    // this.handleVerification();
+    Axios.post("http://localhost:5000/user/signup2", data)
+    .then((res) => {
+      // console.log("Hey this is your result", res);
+      res.status==200 ? this.handleVerification() : this.handleFaulty();
 
-    //       })
-    //       .catch((err) => {
-    //         console.log("Axios", err);
-    //         this.handleFaulty();
-    //       });
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+      this.handleFaulty();
+    });
   }
   
 
@@ -126,7 +126,7 @@ export class OtpVerification extends Component {
     return (
        <div>
           <br/> <br/>
-          {counter==30 ? this.start(email) : null}
+          {counter==30 ? this.start({email}) : null}
           <div className="err-msg">
             <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
           </div>
@@ -194,7 +194,7 @@ export class OtpVerification extends Component {
                    color="primary"
                    variant="contained"
                  >
-                   Skip for now >>
+                   Skip for now 
                  </Button>
                </Link>
                <br /> <br />

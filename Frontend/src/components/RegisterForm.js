@@ -68,23 +68,21 @@ export class RegisterForm extends Component {
 
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
-
-    // this.setState({ access_key: Math.floor(( Math.random() * 100000000)+1) });
   };
   register = (data) =>{
     this.handleLoad();
-    this.handleRegister();
-    // console.log(data);
-    // Axios.post("http://localhost:5000/user/signup1", data)
-    // .then((res) => {
-    //   // console.log("Hey this is your result", res);
-    //   res.status==201 ? this.handleRegister(data) : this.handleFaulty();
+    // this.handleRegister();
+    console.log(data);
+    Axios.post("http://localhost:5000/user/signup1", data)
+    .then((res) => {
+      // console.log("Hey this is your result", res);
+      res.status==201 ? this.handleRegister(data) : this.handleFaulty();
 
-    // })
-    // .catch((err) => {
-    //   console.log("Axios", err);
-    //   this.handleFaulty();
-    // });
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+      this.handleFaulty();
+    });
 
   }
   render() {
@@ -335,7 +333,7 @@ export class RegisterForm extends Component {
                 <br/>
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
-                {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page. > > > ></h1>}
+                {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page.</h1>}
                 {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
                 <br />
                 {indicate && <Redirect to={{
