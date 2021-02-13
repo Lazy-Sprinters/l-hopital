@@ -30,12 +30,8 @@ router.post('/user/signup1',async (req,res)=>{
       try{
             await user.save();
             user.Status=false;
-            const ProvidedAddress=user.NearestLandmark+user.Pincode+user.City+user.State+user.Country;
+            const ProvidedAddress=user.NearestLandmark+' '+user.Pincode+' '+user.City+' '+user.State+' '+user.Country;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
-            if (response.data.items.length===0)
-            {
-                  res.status(400).send("Invalid Address");
-            }
             const coordinates=Object.values(response.data.items[0].position);
             await user.PositionCoordinates.push(coordinates[0]);
             await user.PositionCoordinates.push(coordinates[1]);
@@ -43,7 +39,26 @@ router.post('/user/signup1',async (req,res)=>{
             console.log(user);
             res.status(201).send(user);
       }catch(err){
-            res.status(400).send(err);
+            //fix delete functionality for re-registration thing
+            //if all fields are fine because registration can only fail for false address
+            //Case 1:Ill-formatted data from the user as for email
+            //Case 2:Wrong address
+            //Case 3:Re-registration
+            const UserinQuestion=await User.findOne({Email:req.body.Email});
+            console.log(UserinQuestion);
+            if (UserinQuestion==undefined)
+            {
+                  res.status(400).send("Email is invalid");
+            }
+            else if (UserinQuestion.PositionCoordinates.length==0)
+            {
+                  await User.deleteOne({Email:req.body.Email});
+                  res.status(400).send("Invalid Address");
+            }
+            else
+            {
+                  res.status(400).send("User is already registered");
+            }
       }
 });
 
@@ -51,14 +66,13 @@ router.post('/user/signup1',async (req,res)=>{
 router.post('/user/signup2',async (req,res)=>{
       console.log(req.body);
       try{
-            const user=await User.find({Email:req.body.Email}) 
+            const user=await User.find({Email:req.body.email}) 
             if (user.length===0)
             {
                   res.status(404).send();
             }
             else
             {
-                  console.log(user);   
                   if (RegistrationUtil.Verificationutil(user,req)==true)
                   {
                         user[0].Status=true;
@@ -81,13 +95,7 @@ router.post('/user/signup2',async (req,res)=>{
 router.post('/user/login',async (req,res)=>{
       try{
             const user=await User.findbycredentials(req.body.email,req.body.password);
-            if (user.Status==false)
-            {
-                  res.status(400).send("Not Verified,redirect to verification page");
-            }else
-            {
-                  res.status(200).send(user);      
-            }
+            res.status(200).send(user);
       }catch(err){
             res.status(404).send("User not registered");
       }

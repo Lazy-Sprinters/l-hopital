@@ -23,15 +23,40 @@ const transporter=nodemailer.createTransport({
       }
 });
 
-router.post('/center.signup1',async (req,res)=>{
-      console.log(req.body);
-      const ncenter=new Center(req.body);
+router.post('/center/signup1',async (req,res)=>{
+      const center=new Center(req.body);
       try{
-            await ncenter.save();
-            ncenter.Status=false;
-            const otp1=RegistrationUtil.GetOtp();
-            const otp2=RegistrationUtil.GetOtp();
+            await center.save();
+            center.Status=false;
+            const ProvidedAddress=center.NearestLandmark+' '+center.Pincode+' '+center.City+' '+center.State+' '+center.Country;
+            const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+            const coordinates=Object.values(response.data.items[0].position);
+            await center.PositionCoordinates.push(coordinates[0]);
+            await center.PositionCoordinates.push(coordinates[1]);
+            await center.save();
+            res.status(201).send(center);
       }catch(err){
-            res.status(400).send(err);
+            //fix delete functionality for re-registration thing
+            //if all fields are fine because registration can only fail for false address
+            //Case 1:Ill-formatted data from the user as for email
+            //Case 2:Wrong address
+            //Case 3:Re-registration
+            const CenterinQuestion=await Center.findOne({Email:req.body.Email});
+            console.log(CenterinQuestion);
+            if (CenterinQuestion==undefined)
+            {
+                  res.status(400).send("Email is invalid");
+            }
+            else if (CenterinQuestion.PositionCoordinates.length==0)
+            {
+                  await Center.deleteOne({Email:req.body.Email});
+                  res.status(400).send("Invalid Address");
+            }
+            else
+            {
+                  res.status(400).send("User is already registered");
+            }
       }
 })
+
+module.exports=router;

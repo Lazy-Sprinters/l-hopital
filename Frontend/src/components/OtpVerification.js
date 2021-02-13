@@ -25,7 +25,7 @@ export class OtpVerification extends Component {
   handleCounter = (x) =>{
     this.setState({ ['counter']: 30 });
     this.setState({['complete']: false});
-     this.sendOtp(x);
+    //  this.sendOtp(x);
   };
    sendOtp = (x) =>{
   Axios.post("http://localhost:5000/user/newotps", x)
@@ -164,13 +164,12 @@ export class OtpVerification extends Component {
             <br /> <br />
             <br /> <br />
           </div>
-          {!isVerified && !isLoaded && <div>
           <div className="otp1btn">
             <Button
               color="primary"
               variant="contained"
               disabled={!complete}
-              onClick={() => this.handleCounter(email)}
+              onClick={() => this.handleCounter({email})}
             >
               {parseInt(Object.values({counter}))==0 ? "Resend Otp" :"Resend Otp ( "+ parseInt(Object.values({counter})) + " sec )"}
             </Button>
@@ -200,10 +199,18 @@ export class OtpVerification extends Component {
                <br /> <br />
               </div>
 
-              </div>
-            } 
           
-          {isOtpFaulty && <h2>There is an error in sending the OTP to the der=sired email or phone number.Please try again.</h2>}
+          {isOtpFaulty && <div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <div className="err-msg">
+            <h2>There is an error in sending the OTP to the desired email or phone number.You must have reloaed the page ,please login to verify your account.</h2>
+            </div>
+            <br />
+            </div>
+          }
           <br/>
           <div className="no-chng">
             {isLoading && <LinearProgress />}                

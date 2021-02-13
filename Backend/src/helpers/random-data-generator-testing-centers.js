@@ -1,6 +1,7 @@
 const faker = require("faker");
 const axios=require('axios');
 const Center=require('../models/center');
+const fs=require('fs');
 
 let data = [];
 const NewCentre = async (add, nearland, city, pincode, state, county, nam) => {
@@ -140,10 +141,9 @@ for (let i = 0; i < 10; i++) {
     Names[i]
   );
 }
-const saveuser=async (cdata,add)=>{
-  console.log(cdata,add);
-}
-for (let i = 0; i < 1; i++) {
+for (let i = 0; i < 10; i++) {
   const apicallcompleteaddress=Landmarks[i]+' '+Pincodes[i]+' '+Cities[i]+' '+States[i]+' '+Countries[i];
-  saveuser(data[i],apicallcompleteaddress);
+  const flag=JSON.stringify(data[i]);
+  fs.appendFileSync('demo-center-data',flag);
+  fs.appendFileSync('demo-center-data',"\n");
 }

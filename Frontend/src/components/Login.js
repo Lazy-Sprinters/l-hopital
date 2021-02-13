@@ -51,7 +51,7 @@ export class Login extends Component {
   login = (data) => {
     this.handleLoginLoad();
     // this.handleLogin();  
-    Axios.post("http://localhost:5000/users/login", data)
+    Axios.post("http://localhost:5000/user/login", data)
     .then((res) => {
       this.handleLoginUser(res);
       // console.log(res);

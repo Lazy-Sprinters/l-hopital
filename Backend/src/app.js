@@ -6,6 +6,7 @@ const Center=require('./models/center');
  
 require('./db/mongoose');
 const userRouter=require('./routers/user');
+const centerRouter=require('./routers/center');
 // const prescriptionRouter=require('./routers/prescription');
 const User=require('./models/user');
 const bodyParser=require('body-parser');
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 app.use(express.json());
 app.use(cors());
 app.use(userRouter);
+app.use(centerRouter);
 
 
 app.get('/',(req,res)=>{
