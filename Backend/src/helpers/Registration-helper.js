@@ -42,7 +42,7 @@ const MessageBody=(otp)=>{
 const Verificationutil=(user,otpobj)=>{
       const len1=user[0].RecentEmailOtps.length;
       const len2=user[0].RecentMobileOtps.length;
-      const final=user[0].RecentEmailOtps[len1-1]==otpobj.body.otp2 && user[0].RecentMobileOtps[len2-1]==otpobj.body.otp1;
+      const final=user[0].RecentEmailOtps[len1-1]==otpobj.body.otp1 && user[0].RecentMobileOtps[len2-1]==otpobj.body.otp2;
       return final;          
 }
 

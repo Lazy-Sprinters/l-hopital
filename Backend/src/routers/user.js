@@ -57,14 +57,16 @@ router.post('/user/signup1',async (req,res)=>{
 
 //Route-2:Permanent creation of a user in the database if OTP verification succeeds.(T completed)
 router.post('/user/signup2',async (req,res)=>{
+      console.log(req.body);
       try{
-            const user=await User.find({Email:req.body.Email})    
+            const user=await User.find({Email:req.body.Email}) 
             if (user.length===0)
             {
                   res.status(404).send();
             }
             else
             {
+                  console.log(user);   
                   if (RegistrationUtil.Verificationutil(user,req)==true)
                   {
                         user[0].Status=true;
