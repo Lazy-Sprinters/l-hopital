@@ -6,7 +6,7 @@ import Axios from "axios";
 
 export class BookAnAppointment extends React.Component {
   state = {
-    onOpen:true,
+    onOpen:0,
     testList:"0",
     test:"0",
     date:"0"
@@ -14,16 +14,19 @@ export class BookAnAppointment extends React.Component {
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
+  handleBooking = (x) =>{
+    this.setState({['testList']:x.alloptions});
+  };
   retrieveTests = (data) =>{
-    Axios.post("http://localhost:5000/user/login",data)
-    // .then((res) => {
-    //   this.handleLoginUser(res);
-    //   // console.log(res);
-    //   res.status == 200 ? this.setState([testList]:res.alloptions);
-    // })
-    // .catch((err) => {
-    //   console.log("Axios", err);
-    // });
+    this.setState({onOpen:1});
+    Axios.post("http://localhost:5000/facility/all",data)
+    .then((res) => {
+      console.log(res);
+      this.handleBooking(res);
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
   };
   dropdownShow = (data) => {
     return(
@@ -64,7 +67,8 @@ export class BookAnAppointment extends React.Component {
     };
     return (
       <div>
-      {onOpen==true ? this.retrieveTests(userInfo) : null}
+      {console.log(test)}
+      {onOpen==0 ? this.retrieveTests(userInfo) : null}
         <div className="bkap-btn">
           <button 
             className="btn btn-success my-5"

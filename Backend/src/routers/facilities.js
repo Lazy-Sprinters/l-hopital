@@ -14,5 +14,10 @@ const daysarr=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Satu
 //       }
 // })
 
+router.post('/facility/all',async(req,res)=>{
+      console.log(req.body);
+      const alloptions=["Thypoid","Diabetes","Rabies"];
+      res.status(200).send(alloptions);
+})
 
 module.exports=router;
