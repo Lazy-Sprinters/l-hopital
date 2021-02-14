@@ -84,7 +84,8 @@ const centerSchema=mongoose.Schema({
       AvgStars:{
             type:Number,
             required:true
-      }
+      },
+      Alloptions:[String]
 })
 
 const Center=mongoose.model('Center',centerSchema);

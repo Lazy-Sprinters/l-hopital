@@ -14,7 +14,7 @@ const facilitySchema=mongoose.Schema({
             type:Number,
             required:true
       },
-      SlotAvailability:[[Number]],//fixed size of next 7 working days
+      SlotAvailability:[[{day:{type:String},capacity:{type:Number}}]],//fixed size of next 7 working days
       Offdays:[String],
       owner:{
             type:mongoose.Schema.Types.ObjectId,

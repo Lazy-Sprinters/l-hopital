@@ -101,7 +101,7 @@ router.post('/user/login',async (req,res)=>{
       }
 });
 
-//Route-4:Sending OTPS
+//Route-4:Sending OTP
 router.post('/user/newotps',async (req,res)=>{
       try{
             console.log(req.body);
