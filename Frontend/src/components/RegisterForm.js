@@ -7,12 +7,16 @@ import {
   TextField,
   Button,
   Container,
-  LinearProgress
+  LinearProgress,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel
 } from "@material-ui/core";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import './RegisterForm.css'
 
@@ -38,7 +42,8 @@ export class RegisterForm extends Component {
     isLoaded:false,
     isRegistered:false,
     isFaulty:false,
-    indicate:false
+    indicate:false,
+    radioControl:"0"
   };
 
   handleLoad = () =>  {
@@ -106,7 +111,9 @@ export class RegisterForm extends Component {
       isLoaded,
       isRegistered,
       isFaulty,
-      indicate
+      indicate,
+      radioControl
+
 
     } = this.state;
     const values = { 
@@ -173,15 +180,29 @@ export class RegisterForm extends Component {
                 <br />
                 </div>
                 <div className="txtfld">
-                <TextField
-                  placeholder="Enter Your Gender"
-                  label="Gender"
-                  variant="outlined"
-                  onChange={this.handleChange('Gender')}
-                  type="text"
-                  fullWidth
-                />
-                <br />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Gender</FormLabel>
+                  <RadioGroup row defaultValue="Male" onChange={this.handleChange('Gender')}>
+                    <FormControlLabel
+                      value="Male"
+                      control={<Radio color="primary" />}
+                      label="Male"
+                      labelPlacement="start"
+                    />
+                    <FormControlLabel
+                      value="Female"
+                      control={<Radio color="primary" />}
+                      label="Female"
+                      labelPlacement="start"
+                    />
+                    <FormControlLabel
+                      value="Other"
+                      control={<Radio color="primary" />}
+                      label="Other"
+                      labelPlacement="start"
+                    />
+                  </RadioGroup>
+                </FormControl>
                 <br />
 
                 </div>
@@ -198,23 +219,37 @@ export class RegisterForm extends Component {
                   fullWidth
                 />
                 <br />
+                <br />
                 </div>
                 <div className="drpdwn">
-                <FormControl>
-                  <InputLabel>
-                    Id Type
-                  </InputLabel>
-                  <Select
-                    onChange={this.handleChange('IdType')}
-                    inputProps={{ 'aria-label': 'Without label' }}
-                  >
-                    <MenuItem value="" disabled>
-                      <em>Enter your Id Type</em>
-                    </MenuItem>
-                    <MenuItem value={"Aadhaar"}>Aadhaar</MenuItem>
-                    <MenuItem value={"VoterId"}>VoterId</MenuItem>
-                    <MenuItem value={"PanCard"}>PanCard</MenuItem>
-                  </Select>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Id Type</FormLabel>
+                  <RadioGroup row defaultValue="Voter Id" onChange={this.handleChange('IdType')}>
+                    <FormControlLabel
+                      value="Voter Id"
+                      control={<Radio color="primary" />}
+                      label="Voter Id"
+                      labelPlacement="start"
+                    />
+                    <FormControlLabel
+                      value="Aadhaar Number"
+                      control={<Radio color="primary" />}
+                      label="Aadhaar Number"
+                      labelPlacement="start"
+                    />
+                    <FormControlLabel
+                      value="PAN Card"
+                      control={<Radio color="primary" />}
+                      label="PAN Card"
+                      labelPlacement="start"
+                    />
+                    <FormControlLabel
+                      value="Passport"
+                      control={<Radio color="primary" />}
+                      label="Passport"
+                      labelPlacement="start"
+                    />
+                  </RadioGroup>
                 </FormControl>
                 <br />
                 <br />

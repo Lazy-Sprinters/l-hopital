@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import './LoginNavbar.css';
 import Axios from "axios";
 import {
@@ -8,41 +8,18 @@ import {
 
 class LoginNavbar extends Component {
   state = {
-    click:false
+    click:false,
+    loggedOut:false
   };
   handleClick = (value) => {
     value==true ? this.setState({ ['click']: false }) : this.setState({ ['click']: true });
   };
 
-  closeMobileMenu = (ch) => {
+  closeMobileMenu = () => {
     this.setState({ ['click']: false });
-    switch(ch){
-      case 0: this.Home(this);break;
-      case 1: this.Add(this);break;
-      case 2: this.View(this);break;
-      case 3: this.Delete(this);break;
-    }
-    
-  };
-
-  Home = (e) => {
-    this.props.NavHome();
-  };
-
-  Add = (e) => {
-    this.props.NavAdd();
-  };
-
-  View = (e) => {
-    this.props.NavView();
-  };
-
-  Delete = (e) => {
-    this.props.NavDelete();
   };
 
   LogOut = (data) =>{
-
       // this.props.handleLogout();
       Axios.post("http://localhost:5000/users/logout",data)
       .then((res) => {
@@ -51,18 +28,20 @@ class LoginNavbar extends Component {
       .catch((err) => {
         console.log("Axios", err);
       });
+      this.setState({['loggedOut']:true});
   };
 
   render(){
-    const {userValues,handleLogout,NavHome,NavAdd,NavView,NavDelete} = this.props;
+    const {userInfo} = this.props;
     const {
-      click
+      click,
+      loggedOut
     }=this.state;
     return (
         <nav className='navbar'>
           <div className='navbar-container'>
-            <Link to='/login' className='navbar-logo' onClick={() => this.closeMobileMenu(0)}>
-                MEDICOS
+            <Link to='/login' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
+                MakeMyAppointment
             </Link>
             <div className='menu-icon' onClick={() => this.handleClick(click)}>
               <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -70,35 +49,26 @@ class LoginNavbar extends Component {
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
                 <Link
-                  to='/login'  className='nav-links' onClick={() => this.closeMobileMenu(0)}>
+                  to='/loginHome'  className='nav-links' onClick={() => this.closeMobileMenu()}>
                   HOME
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/login'
+                  to='/test'
                   className='nav-links'
-                  onClick={() => this.closeMobileMenu(1)}
+                  onClick={() => this.closeMobileMenu()}
                 >
-                  ADD 
+                  Tests 
                 </Link>
               </li>
               <li className='nav-item'>
                 <Link
-                  to="/login"
+                  to="/profile"
                   className='nav-links'
-                  onClick={() => this.closeMobileMenu(2)}
+                  onClick={() => this.closeMobileMenu()}
                 >
-                  VIEW
-                </Link>
-              </li>
-              <li className='nav-item'>
-                <Link
-                  to='/login'
-                  className='nav-links'
-                  onClick={() => this.closeMobileMenu(3)}
-                >
-                  DELETE
+                  Profile
                 </Link>
               </li>
               <li className='nav-item'>
@@ -106,7 +76,7 @@ class LoginNavbar extends Component {
                   to="/login"
                   className='nav-links'
                   color="primary"
-                  onClick={() => this.closeMobileMenu(4),() => this.LogOut(userValues)}
+                  onClick={() => this.closeMobileMenu(),() => this.LogOut(userInfo)}
                 >
                   LOGOUT
                 </Link>
@@ -114,6 +84,14 @@ class LoginNavbar extends Component {
               
             </ul>
           </div>
+          {loggedOut && 
+            <Redirect 
+              to={{
+                pathname: "/login", 
+                data: loggedOut
+              }} 
+            />
+          }
         </nav>
     );
   }

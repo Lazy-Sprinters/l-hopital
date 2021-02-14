@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import { Link,Redirect } from 'react-router-dom';
 import "../App.css";
 import Navbar from "./navbar";
 import Footer from "./Footer";
 import LoginHome from "./LoginHome";
-import validateInfo from "./loginError";
 import Axios from "axios";
 import "./Login.css";
 import { TextField, LinearProgress } from "@material-ui/core";
@@ -17,7 +17,7 @@ export class Login extends Component {
     isLoadingL: false,
     isLoadedL: false,
     isFaultyL: false,
-    isLoggedOutL:false,
+    isLoggedIn:false,
     userInfo: 0,
   };
 
@@ -34,15 +34,10 @@ export class Login extends Component {
   };
   handleLogin = () => {
     this.setState({ ["isLoadingL"]: false });
-    const { step } = this.state;
-    this.setState({ step: step + 1 });
+    this.setState({ ["isLoggedIn"]: true });
+
   };
-  handleLogout = () => {
-    this.setState({ ["isFaultyL"]: false });
-    this.setState({ ["isLoggedOutL"]: true });
-    const { step } = this.state;
-    this.setState({ step: step - 1 });
-  };
+
   handleLoginFaulty = () => {
     this.setState({ ["isFaultyL"]: true });
     this.setState({ ["isLoadingL"]: false });
@@ -62,20 +57,21 @@ export class Login extends Component {
       this.handleLoginFaulty();
     });
   };
-  handleEnter = (data,cond) => (e) => {
+  handleEnter = (data) => (e) => {
     if(e.key === 'Enter'){
-      !cond
+      !(data.password!==0  && data.email!=="0")
         ?  this.handleLoginFaulty()
         :  this.login(data);
     }
   };
   render() {
+    const { loggedOut } = this.props.location.data==undefined ? false : true ;
+
     const {
-      step,
       email,
       password,
       isLoadingL,
-      isLoggedOutL,
+      isLoggedIn,
       isLoadedL,
       isFaultyL,
       userInfo,
@@ -85,14 +81,6 @@ export class Login extends Component {
       password,
     };
 
-    const userValues = {
-      userInfo,
-      step
-    };
-
-    const errorsL = validateInfo(values);
-    switch (step) {
-      case 0:
         return (
           <div>
             <Navbar />
@@ -110,7 +98,7 @@ export class Login extends Component {
                       onChange={this.handleLoginChange("email")}
                       type="text"
                       placeholder="username"
-                      onKeyPress={ this.handleEnter(values,errorsL.final) }
+                      onKeyPress={ this.handleEnter(values) }
                     />
                   </div>
                   <br />
@@ -120,7 +108,7 @@ export class Login extends Component {
                       onChange={this.handleLoginChange("password")}
                       type="password"
                       placeholder="password"
-                      onKeyPress={ this.handleEnter(values,errorsL.final) }
+                      onKeyPress={ this.handleEnter(values) }
                     />
                   </div>
                 </div>
@@ -133,7 +121,7 @@ export class Login extends Component {
                   type="submit"
                   className="btn"
                   onClick={
-                    !errorsL.final
+                    !(values.password!==0  && values.email!=="0")
                       ? () => this.handleLoginFaulty()
                       : () => this.login(values)
                   }
@@ -149,7 +137,7 @@ export class Login extends Component {
                   </h2>
                 </div>
               )}
-              {isLoggedOutL && (
+              {loggedOut && (
                 <div className="err-msg">
                   <h2>Logged Out</h2>
                 </div>
@@ -157,18 +145,13 @@ export class Login extends Component {
               {!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}
             </div>
             </div>
-            
+            {isLoggedIn && <Redirect to={{
+                      pathname: "/loginHome", 
+                      data: userInfo
+                     }} />}
             <Footer />
           </div>
         );
-      case 1:
-        return (
-		  <>
-
-	     <LoginHome handleLogout={this.handleLogout} userValues={userValues} userInfo={userInfo} />
-	    </>
-        );
-    }
   }
 }
 
