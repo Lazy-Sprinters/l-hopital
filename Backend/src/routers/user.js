@@ -101,7 +101,7 @@ router.post('/user/login',async (req,res)=>{
       }
 });
 
-//Route-4:Resending an OTP,requires useremailid (T completed)
+//Route-4:Sending OTPS
 router.post('/user/newotps',async (req,res)=>{
       try{
             console.log(req.body);
