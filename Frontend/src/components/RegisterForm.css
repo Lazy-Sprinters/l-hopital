@@ -59,3 +59,8 @@
 	width:100vw;
 	margin-left: -3vw;
 }
+.bkap-btn{
+	text-align: center;
+	position: relative;
+	margin:2vh 30vw;
+}

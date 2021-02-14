@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
 import BookAnAppointment from "./BookAnAppointment";
-import AddDoc from "./AddDoc";
-import ViewDoc from "./ViewDoc";
-import DeleteDoc from "./DeleteDoc";
 import LoginNavbar from "./LoginNavbar";
 import Footer from "./Footer";
 
@@ -20,7 +17,7 @@ export class LoginHome extends Component {
       <BookAnAppointment userInfo={userInfo} />
       <Footer />
     </div>
-    )
+    );
   }
 }
 

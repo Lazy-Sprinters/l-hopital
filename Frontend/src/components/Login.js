@@ -45,17 +45,17 @@ export class Login extends Component {
   
   login = (data) => {
     this.handleLoginLoad();
-    // this.handleLogin();  
-    Axios.post("http://localhost:5000/user/login", data)
-    .then((res) => {
-      this.handleLoginUser(res);
-      // console.log(res);
-      res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
-    })
-    .catch((err) => {
-      console.log("Axios", err);
-      this.handleLoginFaulty();
-    });
+    this.handleLogin();  
+    // Axios.post("http://localhost:5000/user/login", data)
+    // .then((res) => {
+    //   this.handleLoginUser(res);
+    //   // console.log(res);
+    //   res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
+    // })
+    // .catch((err) => {
+    //   console.log("Axios", err);
+    //   this.handleLoginFaulty();
+    // });
   };
   handleEnter = (data) => (e) => {
     if(e.key === 'Enter'){
