@@ -6,7 +6,6 @@ import Axios from "axios";
 
 export class BookAnAppointment extends React.Component {
   state = {
-    onOpen:0,
     testList:"0",
     test:"0",
     date:"0"
@@ -18,7 +17,7 @@ export class BookAnAppointment extends React.Component {
     this.setState({['testList']:x.alloptions});
   };
   retrieveTests = (data) =>{
-    this.setState({onOpen:1});
+    this.setState({onOpen:false});
     Axios.post("http://localhost:5000/facility/all",data)
     .then((res) => {
       console.log(res);
@@ -43,7 +42,7 @@ export class BookAnAppointment extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.state = { show: false };
+    this.state = { show: false, onOpen:true };
   }
   book() {
     this.setState({ show: true});
@@ -55,7 +54,6 @@ export class BookAnAppointment extends React.Component {
     const { userInfo} = this.props;
 
     const{ 
-      onOpen,
       testList,
       test,
       date
@@ -67,8 +65,7 @@ export class BookAnAppointment extends React.Component {
     };
     return (
       <div>
-      {console.log(test)}
-      {onOpen==0 ? this.retrieveTests(userInfo) : null}
+      {this.state.onOpen==true ? this.retrieveTests(userInfo) : null}
         <div className="bkap-btn">
           <button 
             className="btn btn-success my-5"

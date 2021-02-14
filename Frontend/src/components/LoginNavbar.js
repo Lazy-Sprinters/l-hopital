@@ -21,7 +21,7 @@ class LoginNavbar extends Component {
 
   LogOut = (data) =>{
       // this.props.handleLogout();
-      Axios.post("http://localhost:5000/users/logout",data)
+      Axios.post("http://localhost:5000/user/logout",data)
       .then((res) => {
         this.props.handleLogout();
       })
