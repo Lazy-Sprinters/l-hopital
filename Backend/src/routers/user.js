@@ -45,7 +45,6 @@ router.post('/user/signup1',async (req,res)=>{
             //Case 2:Wrong address
             //Case 3:Re-registration
             const UserinQuestion=await User.findOne({Email:req.body.Email});
-            console.log(UserinQuestion);
             if (UserinQuestion==undefined)
             {
                   res.status(400).send("Email is invalid");
@@ -95,6 +94,7 @@ router.post('/user/signup2',async (req,res)=>{
 router.post('/user/login',async (req,res)=>{
       try{
             const user=await User.findbycredentials(req.body.email,req.body.password);
+            console.log(user);
             res.status(200).send(user);
       }catch(err){
             res.status(404).send("User not registered");

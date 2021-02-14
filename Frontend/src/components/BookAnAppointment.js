@@ -14,7 +14,7 @@ export class BookAnAppointment extends React.Component {
     this.setState({ [input]: e.target.value });
   };
   handleBooking = (x) =>{
-    this.setState({['testList']:x.alloptions});
+    this.setState({['testList']:x.data});
   };
   retrieveTests = (data) =>{
     this.setState({onOpen:false});
