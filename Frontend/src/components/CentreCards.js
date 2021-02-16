@@ -11,30 +11,35 @@ export class CentreCards extends React.Component {
   state = {
     centre:"0",
     selected:false,
-    intial:false
+    initial:true
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
-  // show(centreList){          /* tochange */
-    // return(
-    //   <div>
-    //     <div className="home__hero-row">
-    //     {centreList!=undefined && centreList.map((value,i) =>{
-    //       return(
-    //         if(i%4==0 && i!=0){
-    //         </div>
-    //         <div className="home__hero-row">
-    //         }
-    //         <CardComponent img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.OpeningTime} ClosingTime={value.ClosingTime}  />
-    //       );
-    //     })}
-    //     </div>
-    //   </div>
-    //   )
-  // };
+  show(centreList){          /* tochange */
+    this.setState({initial:false})
+    console.log("show nhi karenge bas")
+    return(
+      <div>
+    {console.log("show")}
+        <div className="home__hero-row">
+        {centreList!=undefined && centreList.map((value,i) =>{
+          console.log(value);
+          return(
+            
+            // if(i%4==0 && i!=0){
+            // </div>
+            // <div className="home__hero-row">
+            // }
+            <CardComponent img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.OpeningTime} ClosingTime={value.ClosingTime}  />
+          );
+        })}
+        </div>
+      </div>
+      )
+  };
   render() {
-    // const { centreList} = this.props;        /* tochange */
+    const { centreList} = this.props;        /* tochange */
 
     const{ 
       centre,
@@ -47,15 +52,15 @@ export class CentreCards extends React.Component {
     };
     return (
       <div>
-        {/*initial && this.show(centreList)*/}        {/* tochange */}
-        <div className="home__hero-row">
+      {console.log("pahoch rha hai")}
+        {initial && this.show(centreList)}        {/* tochange */}
+       {/* <div className="home__hero-row">
 
-          <CardComponent {...style1}/>
-          <CardComponent {...style1}/>
-          <CardComponent {...style1}/>
-          <CardComponent {...style1}/>
-        </div>
-
+        //   <CardComponent {...style1}/>
+        //   <CardComponent {...style1}/>
+        //   <CardComponent {...style1}/>
+        //   <CardComponent {...style1}/>
+        // </div>*/}
         {selected && <Redirect to={{
                       pathname: "/selectionPage2", 
                       // data: {centre}           /* tochange */

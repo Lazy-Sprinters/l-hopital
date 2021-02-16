@@ -38,11 +38,6 @@ router.post('/center/signup1',async (req,res)=>{
             await center.save();
             res.status(201).send(center);
       }catch(err){
-            //fix delete functionality for re-registration thing
-            //if all fields are fine because registration can only fail for false address
-            //Case 1:Ill-formatted data from the user as for email
-            //Case 2:Wrong address
-            //Case 3:Re-registration
             const CenterinQuestion=await Center.findOne({Email:req.body.Email});
             console.log(CenterinQuestion);
             if (CenterinQuestion==undefined)
@@ -66,19 +61,25 @@ router.post('/center/match',async (req,res)=>{
       try{
             const requiredFacility=req.body.test;
             const requiredDate=req.body.date;
-            const user=req.body.userInfo;
+            const user=req.body.userInfo.data;
+            // console.log(user);
             const step1=await Facility.find({FacilityName:requiredFacility});
+            // console.log(step1);
             let ids=[];
-            step1.forEach(element => {
+            for(let i=0;i<step1.length;i++) {
+                  const element=step1[i];
+                  // console.log(element);
                   const v1=element.SlotAvailability.find(e=> e.date==requiredDate);
+                  // console.log(v1);
                   if (v1!=undefined)
                   {
                         let check=false;
-                        for(let i in v1.slotinfo)
+                        for(let j=0;j<v1.slotinfo.length;j++)
                         {
-                              check=check | (i.det2>0);     
+                              let k=v1.slotinfo[j];
+                              check=check | (k.det2>0);     
                         }
-                        if (check2!=false)
+                        if (check!=false)
                         {
                               const ob={
                                     own:element.owner,
@@ -87,24 +88,27 @@ router.post('/center/match',async (req,res)=>{
                               ids.push(ob);
                         }
                   }
-            });
+            };
             let ret=[];
-            for(let i in ids)
+            for(let j=0;j<ids.length;j++)
             {
+                  let i=ids[j];
                   const center=await Center.findOne({_id:i.own});
                   const clientcoor=user.PositionCoordinates[0].toString()+','+user.PositionCoordinates[1].toString();
                   const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
                   const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk';
                   const response=await axios.get(url);
+                  // console.log(response);
                   const retobj={
                         cen:center,
-                        dis:response.routes[0].sections[0].summary.length/1000,
+                        dis:response.data.routes[0].sections[0].summary.length/1000,
                         costing:i.costing1
                   }
                   ret.push(retobj);
             }
             res.status(200).send(ret);
       }catch(err){
+            console.log(err);
             res.status(404).send();
       }
 }) 

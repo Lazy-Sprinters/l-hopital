@@ -55,20 +55,16 @@ export class BookAnAppointment extends React.Component {
   }
   proceed(data) {
     this.setState({ show: false });
-    setTimeout( () => 
-      this.setState({recieved : true})    /* tochange */
-
-      // Axios.post("http://localhost:5000/facility/all",data)
-      // .then((res) => {
-      //   console.log(res);
-      //   this.handleSearch(res);
-      // })
-      // .catch((err) => {
-      //   console.log("Axios", err);
-      // }) 
-      , 2000
-    
-    );
+    console.log(data);
+      // this.setState({recieved : true})    /* tochange */
+      Axios.post("http://localhost:5000/center/match",data)
+      .then((res) => {
+        console.log(res);
+        this.handleSearch(res);
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      }); 
   }
   getTodayDate = (num) =>{
     var tempDate = new Date();

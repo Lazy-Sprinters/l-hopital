@@ -16,7 +16,7 @@ export class selectionPage1 extends Component {
       userInfo={data.userInfo}                  /* tochange */
       />
       <CentreCards 
-      // centreList={data.centreList}              /* tochange */
+      centreList={data.centreList}              /* tochange */
       />  
       <Footer />
     </>
