@@ -14,8 +14,18 @@ const facilitySchema=mongoose.Schema({
             type:Number,
             required:true
       },
-      SlotAvailability:[[{day:{type:String},capacity:{type:Number}}]],//fixed size of next 7 working days
-      Offdays:[String],
+      SlotAvailability:[//starttime and endtime will be derived from center data
+            {
+                  date:{
+                        type:String
+                  },
+                  slotinfo:[{
+                        det1:String,
+                        det2:Number
+                  }]
+            }
+      ],//fixed size of next 7 working days
+      Offdays:[String],//will be derived from the center data
       owner:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,

@@ -30,13 +30,12 @@ router.post('/user/signup1',async (req,res)=>{
       try{
             await user.save();
             user.Status=false;
-            const ProvidedAddress=user.NearestLandmark+' '+user.Pincode+' '+user.City+' '+user.State+' '+user.Country;
+            const ProvidedAddress=user.NearestLandmark+' '+user.City+' '+user.Pincode+' '+user.State+' '+user.Country;
             const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
             const coordinates=Object.values(response.data.items[0].position);
             await user.PositionCoordinates.push(coordinates[0]);
             await user.PositionCoordinates.push(coordinates[1]);
             await user.save();
-            console.log(user);
             res.status(201).send(user);
       }catch(err){
             //fix delete functionality for re-registration thing
@@ -94,7 +93,6 @@ router.post('/user/signup2',async (req,res)=>{
 router.post('/user/login',async (req,res)=>{
       try{
             const user=await User.findbycredentials(req.body.email,req.body.password);
-            console.log(user);
             res.status(200).send(user);
       }catch(err){
             res.status(404).send("User not registered");

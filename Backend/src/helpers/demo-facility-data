@@ -1,0 +1,11 @@
+[
+{"FacilityName":"Thyroid","CapacityperSlot":1,"Price":77,"Offdays":["Thursday"],"owner":"60282d80f4d1a525303f4abc"},
+{"FacilityName":"Thyroid","CapacityperSlot":2,"Price":405,"Offdays":["Saturday"],"owner":"60282db3f4d1a525303f4ac1"},
+{"FacilityName":"Thyroid","CapacityperSlot":1,"Price":146,"Offdays":["Monday"],"owner":"60282e1ef4d1a525303f4ac6"},
+{"FacilityName":"Thyroid","CapacityperSlot":5,"Price":106,"Offdays":["Saturday"],"owner":"60282e3ef4d1a525303f4acb"},
+{"FacilityName":"Thyroid","CapacityperSlot":1,"Price":422,"Offdays":["Saturday"],"owner":"60282e5cf4d1a525303f4ad0"},
+{"FacilityName":"Thyroid","CapacityperSlot":2,"Price":317,"Offdays":["Thursday"],"owner":"60282e72f4d1a525303f4ad5"},
+{"FacilityName":"Thyroid","CapacityperSlot":1,"Price":215,"Offdays":["Tuesday"],"owner":"60282e96f4d1a525303f4ada"},
+{"FacilityName":"Thyroid","CapacityperSlot":3,"Price":110,"Offdays":["Saturday"],"owner":"60282ea9f4d1a525303f4adf"},
+{"FacilityName":"Thyroid","CapacityperSlot":3,"Price":376,"Offdays":["Saturday"],"owner":"60282ebff4d1a525303f4ae4"},
+]
