@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link,Redirect } from 'react-router-dom';
 import Axios from "axios";
 import {
   TextField,
@@ -20,7 +20,9 @@ export class OtpVerification extends Component {
     isLoading:false,
     isLoaded:false,
     isVerified:false,
-    isOtpFaulty:false
+    isOtpFaulty:false,
+    indicate:false,
+    userInfo:"0"
   };
   handleCounter = (x) =>{
     this.setState({ ['counter']: 30 });
@@ -65,11 +67,15 @@ export class OtpVerification extends Component {
 
   };
 
-  handleVerification = () =>  {
+  handleVerification = (res) =>  {
     this.setState({ ['isVerified']: true });
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
-
+    this.setState({ ['userInfo']: res });
+    setTimeout(
+      () => this.setState({['indicate']:true}), 3000
+    );
+    
   };
   
 
@@ -90,11 +96,11 @@ export class OtpVerification extends Component {
   };
   verifyOtp = (data) =>{
     this.handleLoad();
-    // this.handleVerification();
+    // this.handleVerification();                  
     Axios.post("http://localhost:5000/user/signup2", data)
     .then((res) => {
       // console.log("Hey this is your result", res);
-      res.status==200 ? this.handleVerification() : this.handleFaulty();
+      res.status==200 ? this.handleVerification(res) : this.handleFaulty();
 
     })
     .catch((err) => {
@@ -105,7 +111,7 @@ export class OtpVerification extends Component {
   
 
   render() {
-    const{email}=this.props;
+    const{email,check}=this.props;
      const{ 
       otp1,
       otp2,
@@ -115,7 +121,9 @@ export class OtpVerification extends Component {
       isLoaded,
       isVerified,
       isFaulty,
-      isOtpFaulty
+      isOtpFaulty,
+      indicate,
+      userInfo
     } = this.state;
     const data = { 
       email,
@@ -186,7 +194,7 @@ export class OtpVerification extends Component {
           </div>
           <br /> <br />
           <br /> <br />
-           
+          {check==0 && 
               <div className="btn2">
                <Link to='/login' style={{textDecoration:'none'}}>
                  <Button
@@ -198,7 +206,7 @@ export class OtpVerification extends Component {
                </Link>
                <br /> <br />
               </div>
-
+          }
           
           {isOtpFaulty && <div>
             <br />
@@ -214,24 +222,40 @@ export class OtpVerification extends Component {
           <br/>
           <div className="no-chng">
             {isLoading && <LinearProgress />}                
-          {isVerified && isLoaded && <h1>You hare verified</h1>}
+          {isVerified && isLoaded && <h1>You are verified</h1>}
           {!isVerified && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
           <br />
-          {isVerified && isLoaded && 
-            <div className="btn2">
-              <Link 
-                to={{
-                    pathname: "/login"
-                   }}
-               style={{textDecoration:'none'}}
-              >
-                <Button
-                  color="primary"
-                  variant="contained"
+          {check==0 && 
+            <div>
+            {isVerified && isLoaded && 
+              <div className="btn2">
+                <Link 
+                  to={{
+                      pathname: "/login"
+                     }}
+                 style={{textDecoration:'none'}}
                 >
-                  Proceed to Login
-                </Button>
-              </Link>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                  >
+                    Proceed to Login
+                  </Button>
+                </Link>
+              </div>
+            }
+            </div>
+          }
+          {check==1 && 
+            <div>
+            {isVerified && isLoaded && <h1>You can now book appointments.</h1>}
+            {indicate && 
+              <Redirect 
+                to={{
+                  pathname: "/loginHome", 
+                  data: userInfo
+                }} 
+              />}
             </div>
           }
           </div>

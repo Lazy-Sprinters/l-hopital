@@ -64,3 +64,10 @@
 	position: relative;
 	margin:2vh 30vw;
 }
+.verify{
+	position:relative;
+	background:#fcffa4;
+  display: flex;
+	text-align: center;
+	justify-content: center;
+}

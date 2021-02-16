@@ -49,8 +49,12 @@ class LoginNavbar extends Component {
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
                 <Link
-                  to='/loginHome'  className='nav-links' onClick={() => this.closeMobileMenu()}>
+                  to={{
+                      pathname: '/loginHome', 
+                      data: {userInfo}
+                     }}  className='nav-links' onClick={() => this.closeMobileMenu()}>
                   HOME
+                  {console.log(userInfo)}
                 </Link>
               </li>
               <li className='nav-item'>
@@ -59,7 +63,7 @@ class LoginNavbar extends Component {
                   className='nav-links'
                   onClick={() => this.closeMobileMenu()}
                 >
-                  Tests 
+                  TESTS 
                 </Link>
               </li>
               <li className='nav-item'>
@@ -68,7 +72,7 @@ class LoginNavbar extends Component {
                   className='nav-links'
                   onClick={() => this.closeMobileMenu()}
                 >
-                  Profile
+                  PROFILE
                 </Link>
               </li>
               <li className='nav-item'>

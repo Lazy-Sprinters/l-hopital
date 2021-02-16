@@ -3,6 +3,7 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import validateInfo from './error.js';
 import { Link,Redirect } from 'react-router-dom';
 import Axios from "axios";
+import TnCModal from "./TnCModal";
 import {
   TextField,
   Button,
@@ -12,12 +13,12 @@ import {
   RadioGroup,
   FormControl,
   FormControlLabel,
-  FormLabel
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  FormHelperText,
+  Select
 } from "@material-ui/core";
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
 import './RegisterForm.css'
 
 export class RegisterForm extends Component {
@@ -36,14 +37,14 @@ export class RegisterForm extends Component {
     Pincode:"0",
     State:"0",
     Country:"0",
-    otp1:0,
-    opt2:0,
+    check:0,
     isLoading:false,
     isLoaded:false,
     isRegistered:false,
     isFaulty:false,
     indicate:false,
-    radioControl:"0"
+    radioControl:"0",
+    ModalShow:false
   };
 
   handleLoad = () =>  {
@@ -64,7 +65,9 @@ export class RegisterForm extends Component {
     
   };
   
-
+  handleModal = (x) => {
+    this.setState({ModalShow:x})
+  };
   handleFaulty = () =>  {
     this.setState({ ['isFaulty']: true });
     this.setState({ ['isLoading']: false });
@@ -75,6 +78,7 @@ export class RegisterForm extends Component {
     this.setState({ [input]: e.target.value });
   };
   register = (data) =>{
+    this.handleModal(false);
     this.handleLoad();
     // this.handleRegister();
     console.log(data);
@@ -105,16 +109,14 @@ export class RegisterForm extends Component {
       Pincode,
       State,
       Country,
-      otp1,
-      opt2,
+      check,
       isLoading,
       isLoaded,
       isRegistered,
       isFaulty,
       indicate,
-      radioControl
-
-
+      radioControl,
+      ModalShow
     } = this.state;
     const values = { 
       UserName,
@@ -132,14 +134,20 @@ export class RegisterForm extends Component {
       Country
     };
     const data = { 
-      Email
+      Email,
+      check
     };
 
     const  errors = validateInfo(values);
 
     return (
+      <> 
+      <TnCModal
+        show={ModalShow}
+        onHide={() => this.handleModal(false)}
+        onAgree={() => this.register(values)}
+      />
       <div  className="form_input">
-          
           <div className="terms"> 
             <br/> 
             <h1>Registration Form</h1>
@@ -182,7 +190,7 @@ export class RegisterForm extends Component {
                 <div className="txtfld">
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Gender</FormLabel>
-                  <RadioGroup row defaultValue="Male" onChange={this.handleChange('Gender')}>
+                  <RadioGroup row defaultValue="" onChange={this.handleChange('Gender')}>
                     <FormControlLabel
                       value="Male"
                       control={<Radio color="primary" />}
@@ -224,7 +232,7 @@ export class RegisterForm extends Component {
                 <div className="drpdwn">
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Id Type</FormLabel>
-                  <RadioGroup row defaultValue="Voter Id" onChange={this.handleChange('IdType')}>
+                  <RadioGroup row defaultValue="" onChange={this.handleChange('IdType')}>
                     <FormControlLabel
                       value="Voter Id"
                       control={<Radio color="primary" />}
@@ -357,11 +365,12 @@ export class RegisterForm extends Component {
                       color="primary"
                       variant="contained"
                     
-                      onClick={!errors.final ? ()=> this.handleFaulty() : () => this.register(values)  }
+                      onClick={!errors.final ? ()=> this.handleFaulty() : () => this.handleModal(true)  }
                     >
                       Register
                     </Button>}
                 </div>
+                
                 <br/>
                 <br/>
                 {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
@@ -373,7 +382,7 @@ export class RegisterForm extends Component {
                 <br />
                 {indicate && <Redirect to={{
                       pathname: "/verify", 
-                      data: values.Email
+                      data: data
                      }} />}
                 </div>
                 <br />
@@ -385,8 +394,8 @@ export class RegisterForm extends Component {
             </div>
 
           </div>
-
-      </div>
+        </div>
+      </>
     );
   }
 }

@@ -93,6 +93,9 @@ h1 {
   padding: 20px 30px 30px;
 }
 
+.cards__item__info h6{
+  font-size:15px;
+}
 .cards__item__text {
   color: #252e48;
   font-size: 18px;

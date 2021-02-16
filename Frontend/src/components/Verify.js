@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import '../App.css';
+import './RegisterForm.css';
 import Navbar from './navbar';
+import LoginNavbar from "./LoginNavbar";
 import Footer from './Footer';
 import OtpVerifyOrSkip from './OtpVerification';
 
-export class Register extends Component {
+export class Verify extends Component {
 	
 	render(){
-		const email=this.props.location.data;
-		// console.log(email)
+		const data=this.props.location.data;
+		// console.log(data)
   return (
     <>
 
-      <Navbar />
-      <OtpVerifyOrSkip email={email}/>
+      {data.check==0 ? <Navbar /> : <LoginNavbar userInfo={data.userInfo} />}
+      <OtpVerifyOrSkip email={data.email} check={data.check}/>
       <Footer />
     </>
   );
 }
 }
 
-export default Register;
+export default Verify;
