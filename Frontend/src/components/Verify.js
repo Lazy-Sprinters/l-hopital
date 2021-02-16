@@ -14,7 +14,7 @@ export class Verify extends Component {
     <>
 
       {data.check==0 ? <Navbar /> : <LoginNavbar userInfo={data.userInfo} />}
-      <OtpVerifyOrSkip email={data.email} check={data.check}/>
+      <OtpVerifyOrSkip email={data.Email} check={data.check}/>
       <Footer />
     </>
   );

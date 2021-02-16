@@ -29,7 +29,7 @@ export class VerifyWarning extends Component {
                 <Link 
                   to={{
                       pathname: "/verify",
-                      data: {"check":check,"email":userInfo.data.Email,"userInfo":userInfo}
+                      data: {"check":check,"Email":userInfo.data.Email,"userInfo":userInfo}
                      }}
                  style={{textDecoration:'none' ,fontSize:'18px'}}
                 >                  
