@@ -105,7 +105,6 @@ export class BookAnAppointment extends React.Component {
     }
     return (
       <div>
-      {console.log("hey",userInfo)}
       {this.state.onOpen==true ? this.retrieveTests(userInfo) : null}
         <div className="bkap-btn">
           <button 
@@ -133,7 +132,6 @@ export class BookAnAppointment extends React.Component {
                         min: this.getTodayDate(1),
                         max: this.getTodayDate(7)
                       }}
-                      // onKeyPress={ this.handleEnter(values) }
                     />
                   </div>
                 </div>

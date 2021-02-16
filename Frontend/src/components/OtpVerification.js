@@ -195,6 +195,8 @@ export class OtpVerification extends Component {
           <br /> <br />
           <br /> <br />
           {check==0 && 
+            <div>
+            {!(isVerified && isLoaded) && 
               <div className="btn2">
                <Link to='/login' style={{textDecoration:'none'}}>
                  <Button
@@ -206,6 +208,8 @@ export class OtpVerification extends Component {
                </Link>
                <br /> <br />
               </div>
+            }
+            </div>
           }
           
           {isOtpFaulty && <div>
@@ -253,7 +257,7 @@ export class OtpVerification extends Component {
               <Redirect 
                 to={{
                   pathname: "/loginHome", 
-                  data: userInfo
+                  data: {userInfo}
                 }} 
               />}
             </div>

@@ -26,7 +26,7 @@ export class CentreCards extends React.Component {
     //         </div>
     //         <div className="home__hero-row">
     //         }
-    //         <CardComponent img={value.} alt={value.} Name={value.} Address={value.} Cost={value.} Distance={value.} OpeningTime={value.} ClosingTime={value.} Tags={value.} />
+    //         <CardComponent img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.OpeningTime} ClosingTime={value.ClosingTime}  />
     //       );
     //     })}
     //     </div>
