@@ -30,6 +30,7 @@ h1 {
   flex: 1;
   margin: 0 1rem;
   border-radius: 10px;
+  width:50%;
 }
 
 .cards__item__link {
@@ -47,8 +48,9 @@ h1 {
 .cards__item__pic-wrap {
   position: relative;
   width: 100%;
-  padding-top: 67%;
+  padding-top: 70%;
   overflow: hidden;
+  margin-top:-20%;
 }
 
 .fade-img {
@@ -72,9 +74,9 @@ h1 {
 
 .cards__item__img {
   position: absolute;
-  top: 0;
+  top: 30%;
   right: 0;
-  bottom: 0;
+  bottom:0;
   left: 0;
   display: block;
   width: 100%;

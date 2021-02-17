@@ -98,10 +98,10 @@ router.post('/center/match',async (req,res)=>{
                   const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
                   const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk';
                   const response=await axios.get(url);
-                  // console.log(response);
                   const retobj={
                         cen:center,
                         dis:response.data.routes[0].sections[0].summary.length/1000,
+                        // dis:100,
                         costing:i.costing1
                   }
                   ret.push(retobj);

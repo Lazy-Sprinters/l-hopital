@@ -17,24 +17,23 @@ export class CentreCards extends React.Component {
     this.setState({ [input]: e.target.value });
   };
   show(centreList){          /* tochange */
-    this.setState({initial:false})
-    console.log("show nhi karenge bas")
+    // this.setState({initial:false})
     return(
       <div>
-    {console.log("show")}
-        <div className="home__hero-row">
+      {/*<div className="home__hero-row">*/}
         {centreList!=undefined && centreList.map((value,i) =>{
-          console.log(value);
+          // {console.log(value.cen.Image)}
+
           return(
             
-            // if(i%4==0 && i!=0){
-            // </div>
-            // <div className="home__hero-row">
-            // }
-            <CardComponent img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.OpeningTime} ClosingTime={value.ClosingTime}  />
+            <>
+            <CardComponent img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.cen.OpeningTime} ClosingTime={value.cen.ClosingTime}  />
+            {i%2==0 && i!=0 &&  <div className="home__hero-row"> </div>}
+        
+            </>
           );
         })}
-        </div>
+        {/*</div>*/}
       </div>
       )
   };
@@ -52,7 +51,7 @@ export class CentreCards extends React.Component {
     };
     return (
       <div>
-      {console.log("pahoch rha hai")}
+        
         {initial && this.show(centreList)}        {/* tochange */}
        {/* <div className="home__hero-row">
 
