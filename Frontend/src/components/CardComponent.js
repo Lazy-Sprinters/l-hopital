@@ -30,4 +30,4 @@ function CardComponent ({img,alt,Name,Address,Cost,Distance,OpeningTime,ClosingT
 }
 export default CardComponent;
 
-{/*https://material-ui.com/components/cards/*/}
+

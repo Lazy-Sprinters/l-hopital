@@ -11,6 +11,7 @@ export class BookAnAppointment extends React.Component {
     test:"0",
     date:"0",
     centreList:"0"
+
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -21,18 +22,22 @@ export class BookAnAppointment extends React.Component {
   handleSearch = (x) =>{
     this.setState({centreList : x.data});
     this.setState({recieved : true});
-  }
+  };
+  handleProceedFaulty = () =>  {
+    this.setState({ ['isProceedFaulty']: true });
+
+  };
   retrieveTests = (data) =>{
     this.setState({onOpen:false});
     Axios.post("http://localhost:5000/facility/all",data)
     .then((res) => {
-      console.log(res);
       this.handleBooking(res);
     })
     .catch((err) => {
       console.log("Axios", err);
     });
   };
+
   dropdownShow = (data) => {
     return(
       <div>
@@ -48,13 +53,14 @@ export class BookAnAppointment extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.state = { show: false, onOpen:true , recieved:false };
+    this.state = { show: false, onOpen:true , recieved:false ,isProceedFaulty:false };
   }
   book() {
     this.setState({ show: true});
   }
   proceed(data) {
     this.setState({ show: false });
+    this.setState({ ['isProceedFaulty']: false });
     console.log(data);
       // this.setState({recieved : true})    /* tochange */
       Axios.post("http://localhost:5000/center/match",data)
@@ -64,6 +70,7 @@ export class BookAnAppointment extends React.Component {
       })
       .catch((err) => {
         console.log("Axios", err);
+        this.handleProceedFaulty();
       }); 
   }
   getTodayDate = (num) =>{
@@ -87,7 +94,8 @@ export class BookAnAppointment extends React.Component {
       test,
       date,
       centreList,
-      recieved
+      recieved,
+      isProceedFaulty
     } = this.state;
     
     const values = {
@@ -142,6 +150,7 @@ export class BookAnAppointment extends React.Component {
             Proceed
           </button>
         </div>
+        {isProceedFaulty && <h2>No Test Centres Available for the desired test and date.Please select another date.</h2>}
         {recieved && <Redirect to={{
                       pathname: "/selectionPage1", 
                       data: data

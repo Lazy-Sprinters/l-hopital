@@ -1,0 +1,16 @@
+.tags {
+  background: #fff;
+  padding: 1px;
+  overflow: hidden;
+}
+
+.tag {
+  color: #fff;
+  font-weight: bold;
+  background: #3498db;
+  float: left;
+  padding: 0px 5px;
+  border-radius: 7px;
+  margin: 5px;
+}
+

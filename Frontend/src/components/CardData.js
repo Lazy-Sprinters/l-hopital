@@ -3,11 +3,12 @@ export const style1 = {
 	alt:'Post_normal',
 	Name:'Some Random text',
 	Address:'Some Random text',
-	Cost:'Some Random text',
-	Distance:'Some Random text',
-	OpeningTime:'Some Random text',
-	ClosingTime:'Some Random text',
-	Tags:'Some Random text'
+	Cost:'text',
+	Distance:'Some',
+	OpeningTime:'Random',
+	ClosingTime:'Random',
+	Rating:'3',
+	Tags:['Some', 'Random', 'text','Some', 'Random', 'text','Some']
 };
 export const style2 = {
 	img:'/images/2.jpg',
