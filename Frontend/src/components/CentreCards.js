@@ -13,6 +13,7 @@ export class CentreCards extends React.Component {
     centre:"0",
     selected:false,
     initial:true,
+    initial1:true,
     origcode:"",
   };
   handleChange = (input) => (e) => {
@@ -20,26 +21,54 @@ export class CentreCards extends React.Component {
   };
   show(centreList){          /* tochange */
     this.setState({initial:false});
-    let len=centreList.length
+    let len=centreList.length;
     console.log(len);
     let i;
-    let code=`<div>`;
-    for(i=0; i < len; i+=2){
+    const code: JSX.Element[] = []
+    for(i=0; i < len-2; i+=3){
     let value=centreList[i];
-      code+=`
-              <div className="home__hero-row">
-              <CardComponent1 img=${value.cen.FrontImage} Name=${value.cen.Name} Address=${value.cen.Address} Cost=${value.costing} Distance=${value.dis} OpeningTime=${value.cen.OpeningTime} ClosingTime=${value.cen.ClosingTime}  />
-            `
-      if(i+1<len){
-        let value1=centreList[i+1];
-        code+=`<CardComponent1 img=${value1.cen.FrontImage} Name=${value1.cen.Name} Address=${value1.cen.Address} Cost=${value1.costing} Distance=${value1.dis} OpeningTime=${value1.cen.OpeningTime} ClosingTime=${value1.cen.ClosingTime}  />`
-      }
-      code+=`</div>`
+    let value1=centreList[i+1];
+    let value2=centreList[i+2];
+      code.push(<div className="home__hero-row">
+      <CardComponent1 img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.cen.OpeningTime} ClosingTime={value.cen.ClosingTime}/>
+      <CardComponent1 img={value1.cen.FrontImage} Name={value1.cen.Name} Address={value1.cen.Address} Cost={value1.costing} Distance={value1.dis} OpeningTime={value1.cen.OpeningTime} ClosingTime={value1.cen.ClosingTime}  />
+      <CardComponent1 img={value2.cen.FrontImage} Name={value2.cen.Name} Address={value2.cen.Address} Cost={value2.costing} Distance={value2.dis} OpeningTime={value2.cen.OpeningTime} ClosingTime={value2.cen.ClosingTime}  />
+      </div>);
     }
-      code+=`</div>`
+    let value=centreList[len-(len*(len/3))];
+    let value1=centreList[len-(len*(len/3))+1];
+    let value2=centreList[len-(len*(len/3))+2];
+    if((len%3)==1){
+      code.push(<div className="home__hero-row">
+      <CardComponent1 img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.cen.OpeningTime} ClosingTime={value.cen.ClosingTime}/>
+      </div>)
+    }
+    if((len%3)==2){
+      code.push(<div className="home__hero-row">
+      <CardComponent1 img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.cen.OpeningTime} ClosingTime={value.cen.ClosingTime}/>
+      <CardComponent1 img={value1.cen.FrontImage} Name={value1.cen.Name} Address={value1.cen.Address} Cost={value1.costing} Distance={value1.dis} OpeningTime={value1.cen.OpeningTime} ClosingTime={value1.cen.ClosingTime}  />
+      </div>)
+    }
+    if((len%3)==3){
+      code.push(<div className="home__hero-row">
+      <CardComponent1 img={value.cen.FrontImage} Name={value.cen.Name} Address={value.cen.Address} Cost={value.costing} Distance={value.dis} OpeningTime={value.cen.OpeningTime} ClosingTime={value.cen.ClosingTime}/>
+      <CardComponent1 img={value1.cen.FrontImage} Name={value1.cen.Name} Address={value1.cen.Address} Cost={value1.costing} Distance={value1.dis} OpeningTime={value1.cen.OpeningTime} ClosingTime={value1.cen.ClosingTime}  />
+      <CardComponent1 img={value2.cen.FrontImage} Name={value2.cen.Name} Address={value2.cen.Address} Cost={value2.costing} Distance={value2.dis} OpeningTime={value2.cen.OpeningTime} ClosingTime={value2.cen.ClosingTime}  />
+      </div>)
+    }
       {console.log(code)}
       this.setState({origcode:code});
   };
+  codeshow = (data) => {
+    this.setState({initial1:false});
+    return(
+      <div>
+      {data.map((value,i) => {
+        return(<div>{value}</div>)
+      })}
+      </div>
+      )
+  }
   render() {
     const { centreList} = this.props;        /* tochange */
 
@@ -47,6 +76,7 @@ export class CentreCards extends React.Component {
       centre,
       selected,
       initial,
+      initial1,
       origcode
     } = this.state;
     
@@ -58,7 +88,8 @@ export class CentreCards extends React.Component {
         
         {/*initial && this.show(centreList)*/}        {/* tochange */}
         {initial && this.show(centreList)}        {/* tochange */}
-        {console.log(origcode)}
+        {/*initial1 && this.codeshow(origcode)*/}
+        {origcode}
       { /*<div className="home__hero-row">
 
           <CardComponent1 {...style1}/>
