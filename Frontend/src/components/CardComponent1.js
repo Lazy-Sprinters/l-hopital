@@ -9,8 +9,8 @@ import {Card , CardHeader , CardMedia , CardContent , CardActions , Collapse , A
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: '40%',
-    margin:'2% 5%'
+    maxWidth: '29.33%',
+    margin:'2% 2%'
   },
   media: {
     height: 0,

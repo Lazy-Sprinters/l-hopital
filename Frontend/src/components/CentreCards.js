@@ -23,34 +23,10 @@ export class CentreCards extends React.Component {
     var len=centreList.length
     console.log(len);
     var i;
-    var code='';
-    // return(
-      // <div>
-        {/*<div className="home__hero-row">*/}
-        // {
-          for(i=0; i < len; i++){
-          /*centreList!=undefined && centreList.map((value,i) =>{*/
-            var value=centreList[i];
-            // return(
-              
-            //   <>
-            code+=`
-                    <div className="home__hero-row">
-                    <CardComponent img=${value.cen.FrontImage} Name=${value.cen.Name} Address=${value.cen.Address} Cost=${value.costing} Distance=${value.dis} OpeningTime=${value.cen.OpeningTime} ClosingTime=${value.cen.ClosingTime}  />
-                  `
-
-            if(i+1<len){
-              var value1=centreList[i+1];
-              code+=`<CardComponent img=${value1.cen.FrontImage} Name=${value1.cen.Name} Address=${value1.cen.Address} Cost=${value1.costing} Distance=${value1.dis} OpeningTime=${value1.cen.OpeningTime} ClosingTime=${value1.cen.ClosingTime}  />`
-            }
-              code+=`</div>`
-              // </>
-            // );
-          }
-        // }
-        {/*</div>*/}
-      // </div>
-      // )
+    var code=`<div>`;
+    code+=`<CardComponent1 {...style1}/>`
+      code+=`</div>`
+      {console.log(code)}
       this.setState({origcode:code});
   };
   render() {
@@ -70,17 +46,20 @@ export class CentreCards extends React.Component {
       <div>
         
         {/*initial && this.show(centreList)*/}        {/* tochange */}
-        {initial && this.show(centreList)}        {/* tochange */}
-        <div dangerouslySetInnerHTML={{__html:origcode}}></div>
-       <div className="home__hero-row">
+        {/*{initial && this.show(centreList)}        {/* tochange */}
+        {/*console.log(origcode)}
+    <div dangerouslySetInnerHTML={{__html:origcode}}></div>}*/}
+      <div className="home__hero-row">
 
+          <CardComponent1 {...style1}/>
           <CardComponent1 {...style1}/>
           <CardComponent1 {...style1}/>
           </div>
           <div className="home__hero-row">
           <CardComponent1 {...style1}/>
           <CardComponent1 {...style1}/>
-        </div>
+          <CardComponent1 {...style1}/>
+    </div>
         {selected && <Redirect to={{
                       pathname: "/selectionPage2", 
                       // data: {centre}           /* tochange */
