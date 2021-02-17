@@ -105,7 +105,7 @@ router.post('/center/match',async (req,res)=>{
                         costing:i.costing1,
                         service:requiredFacility,
                         askeddate:requiredDate,
-                        tags:["Hello","Hi"]
+                        tags:center.Alloptions
                   }
                   ret.push(retobj);
             }

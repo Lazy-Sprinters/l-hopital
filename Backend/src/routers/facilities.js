@@ -13,11 +13,11 @@ router.post('/facility/new',async (req,res)=>{
                   s.add(element);
             });
             let allprovidedfacilities=Array.from(s);
-            console.log(allprovidedfacilities);
+            // console.log(allprovidedfacilities);
             allprovidedfacilities.forEach(async(element) => {
                   const newFac=new Facility(element);
                   const AssociatedCenter=await Center.findOne({_id:element.owner});
-                  AssociatedCenter.Alloptions.push(element.Facility);
+                  AssociatedCenter.Alloptions.push(element.FacilityName);
                   await AssociatedCenter.save();
                   const currdate=FacilityRegHelper.formatdate(new Date());
                   newFac.SlotAvailability=FacilityRegHelper.listofnextsevendays(element.Offdays,currdate,element.CapacityperSlot,AssociatedCenter.OpeningTime,AssociatedCenter.ClosingTime);

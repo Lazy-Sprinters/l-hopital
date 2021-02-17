@@ -4,6 +4,7 @@ const Center=require('../models/center');
 require('../db/mongoose');
 
 const daysarr=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const names=["Thypoid","Thyroid","Diabetes","CT Scan","MRI","Neuro Scan","Thermal Scan"];
 const randomdata=async ()=>{
       try{
             let data=[];
@@ -12,15 +13,15 @@ const randomdata=async ()=>{
             allcenters.forEach(element => {
                   allids.push(element._id);
             });
-            for(let i=0;i<allids.length;i++)
+            for(let i=0;i<30;i++)
             {
                   const obj=
                   {
-                        FacilityName:"Thyroid",
+                        FacilityName:names[faker.random.number()%(names.length)],
                         CapacityperSlot:1+faker.random.number()%5,
                         Price:1+faker.random.number()%500,
                         Offdays:[daysarr[faker.random.number()%7]],
-                        owner:allids[i]
+                        owner:allids[faker.random.number()%(allids.length)]
                   }
                   data.push(obj);
             }
