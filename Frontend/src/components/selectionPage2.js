@@ -15,10 +15,10 @@ export class selectionPage1 extends Component {
       <LoginNavbar            
       userInfo={data.userInfo}                  /* tochange */
       />
-      <CentreCards 
-      userInfo={data.userInfo}                  /* tochange */
-      centreList={data.centreList}              /* tochange */
-      />  
+      {/*<ParticularCard 
+                  userInfo={data.userInfo}                  
+                  slots={data.slots}             
+            /> */}
       <Footer />
     </>
   );
