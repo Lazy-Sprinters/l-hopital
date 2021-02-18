@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
   right: {
     textAlign:'right',
-    marginRight:'10px',
-    marginTop:'-9%',
+    marginRight:'20px',
+    marginTop:'-12%',
     fontSize:'100%'
   },
   left: {
-    marginLeft:'10px',
+    marginLeft:'20px',
     fontSize:'100%'
   },
   expandOpen: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardComponent1({img,Name,Address,Cost,Distance,OpeningTime,ClosingTime,Rating,Tags}) {
+export default function CardComponent1({img,Name,Address,Cost,Distance,OpeningTime,ClosingTime,Rating,Tags,value}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -50,26 +50,15 @@ export default function CardComponent1({img,Name,Address,Cost,Distance,OpeningTi
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardHeader className={classes.head}
-        // avatar={
-        //   <Avatar aria-label="recipe" className={classes.avatar}>
-        //     R
-        //   </Avatar>
-        // }
-        // action={
-        //   <IconButton aria-label="settings">
-        //     <MoreVert />
-        //   </IconButton>
-        // }
         title={Name}
       />
-        {/*subheader={"Estimated Cost: ₹"+Object.values({Cost})}*/}
         <Typography variant="body2" color="textPrimary" component="p"className={classes.left}>
-          <b>Estimated Distace:</b><br /> {Distance}km
+          <b>Estimated Distance</b><br /> {Distance}km
       </Typography>
       <Typography variant="body2" color="textPrimary" component="p"className={classes.right}>
-          <b>Estimated Cost:</b><br /> ₹{Cost}
+          <b>Estimated Cost</b><br /> ₹{Cost}
       </Typography>
       <CardMedia
         className={classes.media}
@@ -78,10 +67,10 @@ export default function CardComponent1({img,Name,Address,Cost,Distance,OpeningTi
       />
       <CardContent>
         <Typography  color="textPrimary" component="p">
-          {Address}
+          <b>Address: </b>{Address}
         </Typography>
         <Typography  color="textPrimary" component="p">
-          Opening Hours: {OpeningTime} - {ClosingTime}
+          <b>Open Hours: </b>{OpeningTime} - {ClosingTime}
         </Typography>
         <TagsComponent tags={Tags}/>
       </CardContent>

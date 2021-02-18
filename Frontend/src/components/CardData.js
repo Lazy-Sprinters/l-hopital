@@ -8,6 +8,7 @@ export const style1 = {
 	OpeningTime:'Random',
 	ClosingTime:'Random',
 	Rating:'3',
+	value:"hey this is your data",
 	Tags:['Some', 'Random', 'text','Some', 'Random', 'text','Some']
 };
 export const style2 = {
