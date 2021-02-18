@@ -44,41 +44,43 @@ router.post('/facility/all',async(req,res)=>{
 })
 
 router.post('/facility/slots',async (req,res)=>{
-      try{
-            const own=req.body.owner;
-            const fac=req.body.facility1;
-            const date=req.body.selecteddate
-            const facility=await Facility.findOne({owner:own,FacilityName:fac});
-            let ret=[];
-            for(let i=0;i<facility.SlotAvailability.length;i++)
-            {
-                  const currobj=facility.SlotAvailability[i];
-                  const date1=new Date(date);
-                  const date2=new Date(currobj.date);
-                  if ((date1.getMonth()==date2.getMonth()) && (date1.getDate()==date2.getDate()) && (date1.getFullYear()==date2.getFullYear()))
-                  {
-                        for(let j=0;j<currobj.slotinfo.length;j++)
-                        {
-                              const c2=currobj.slotinfo[j];
-                              if (c2.det2>0)
-                              {
-                                    ret.push(c2.det1);
-                              }
-                        }
-                  }      
-            }
-            if (ret.length!=0)
-            {
-                  res.status(200).send(ret);
-            }
-            else
-            {
-                  res.status(404).send("No empty slot found for the date");
-            }
-      }catch(err){
-            console.log(err);
-            res.status(404).send("No Open Slots found!");
-      }
+      console.log(req.body);
+      res.send('Chal bae');
+      // try{
+      //       const own=req.body.owner;
+      //       const fac=req.body.facility1;
+      //       const date=req.body.selecteddate
+      //       const facility=await Facility.findOne({owner:own,FacilityName:fac});
+      //       let ret=[];
+      //       for(let i=0;i<facility.SlotAvailability.length;i++)
+      //       {
+      //             const currobj=facility.SlotAvailability[i];
+      //             const date1=new Date(date);
+      //             const date2=new Date(currobj.date);
+      //             if ((date1.getMonth()==date2.getMonth()) && (date1.getDate()==date2.getDate()) && (date1.getFullYear()==date2.getFullYear()))
+      //             {
+      //                   for(let j=0;j<currobj.slotinfo.length;j++)
+      //                   {
+      //                         const c2=currobj.slotinfo[j];
+      //                         if (c2.det2>0)
+      //                         {
+      //                               ret.push(c2.det1);
+      //                         }
+      //                   }
+      //             }      
+      //       }
+      //       if (ret.length!=0)
+      //       {
+      //             res.status(200).send(ret);
+      //       }
+      //       else
+      //       {
+      //             res.status(404).send("No empty slot found for the date");
+      //       }
+      // }catch(err){
+      //       console.log(err);
+      //       res.status(404).send("No Open Slots found!");
+      // }
 })
 
 module.exports=router;

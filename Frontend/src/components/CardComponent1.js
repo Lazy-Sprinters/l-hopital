@@ -56,8 +56,7 @@ export default function CardComponent1({handleSlot,data,img,Name,Address,Cost,Di
     handleSlot(x);
   }
   return (
-    <div onClick={() => Slot({data})}>
-    <Card className={classes.root} >
+    <Card className={classes.root}  onClick={() => Slot({data})}>
       <CardHeader className={classes.head}
         subheader={Name}
       />
@@ -112,6 +111,5 @@ export default function CardComponent1({handleSlot,data,img,Name,Address,Cost,Di
         </CardContent>
       </Collapse>
     </Card>
-    </div>
   );
 }
