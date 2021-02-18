@@ -10,7 +10,7 @@ import {Card , CardHeader , CardMedia , CardContent , CardActions , Collapse , A
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: '29.33%',
-    margin:'2% 2%'
+    margin:'2% 2%',
   },
   media: {
     height: 0,
@@ -26,12 +26,15 @@ const useStyles = makeStyles((theme) => ({
   right: {
     textAlign:'right',
     marginRight:'20px',
-    marginTop:'-12%',
+    marginTop:'-5%',
     fontSize:'100%'
   },
   left: {
     marginLeft:'20px',
     fontSize:'100%'
+  },
+  head:{
+    fontStyle:'Bold'
   },
   expandOpen: {
     transform: 'rotate(180deg)',
@@ -52,13 +55,13 @@ export default function CardComponent1({img,Name,Address,Cost,Distance,OpeningTi
   return (
     <Card className={classes.root} >
       <CardHeader className={classes.head}
-        title={Name}
+        subheader={Name}
       />
         <Typography variant="body2" color="textPrimary" component="p"className={classes.left}>
-          <b>Estimated Distance</b><br /> {Distance}km
+         {Distance}km
       </Typography>
       <Typography variant="body2" color="textPrimary" component="p"className={classes.right}>
-          <b>Estimated Cost</b><br /> ₹{Cost}
+         ₹{Cost}
       </Typography>
       <CardMedia
         className={classes.media}

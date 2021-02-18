@@ -15,7 +15,7 @@ export class TagsComponent extends React.Component {
           <ul>
             {this.props.tags.map((tag, i) => (
               <li key={tag + i} className="tag">
-                #{tag}
+                {tag}
               </li>
             ))}
           </ul>
