@@ -9,7 +9,9 @@ import {
 class LoginNavbar extends Component {
   state = {
     click:false,
-    loggedOut:false
+    loggedOut:false,
+    GotTests:false,
+    testInfo:"0"
   };
   handleClick = (value) => {
     value==true ? this.setState({ ['click']: false }) : this.setState({ ['click']: true });
@@ -20,23 +22,37 @@ class LoginNavbar extends Component {
   };
 
   LogOut = (data) =>{
-      // this.props.handleLogout();
       Axios.post("http://localhost:5000/user/logout",data)
       .then((res) => {
-        this.props.handleLogout();
+        this.setState({['loggedOut']:true});
       })
       .catch((err) => {
         console.log("Axios", err);
       });
-      this.setState({['loggedOut']:true});
   };
+  getTests = (data) =>{
 
+      // this.props.handleLogout();
+      // Axios.post("http://localhost:5000/user/logout",data)
+      // .then((res) => {
+          // this.setState({testInfo:res.data});    
+      // })
+      // .catch((err) => {
+        // console.log("Axios", err);
+      // });
+  };
   render(){
     const {userInfo} = this.props;
     const {
       click,
-      loggedOut
+      loggedOut,
+      testInfo,
+      GotTests
     }=this.state;
+    const values={
+      userInfo,
+      testInfo
+    }
     return (
         <nav className='navbar'>
           <div className='navbar-container'>
@@ -58,9 +74,12 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/test'
+                  to={{
+                      pathname: '/test', 
+                      data: values
+                     }} 
                   className='nav-links'
-                  onClick={() => this.closeMobileMenu()}
+                  onClick={() => this.closeMobileMenu(),() => this.getTests(userInfo)}
                 >
                   TESTS 
                 </Link>
@@ -95,6 +114,7 @@ class LoginNavbar extends Component {
               }} 
             />
           }
+          
         </nav>
     );
   }

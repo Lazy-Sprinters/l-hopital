@@ -1,7 +1,10 @@
+import { Link,Redirect } from 'react-router-dom';
 import React from "react";
 import "./ParticularCard.css";
+import Axios from "axios";
 import Ratings from "./StarRatingComponent";
 import EnhancedTable from "./EnhancedTable";
+import TnCModal from "./TnCModal";
 import { Button } from "react-bootstrap";
 
 export class ParticularCard extends React.Component {
@@ -9,6 +12,10 @@ export class ParticularCard extends React.Component {
     selectedTime: "0",
     facilityShow: true,
     facilities: "0",
+    ModalShow1:false,
+    ModalShow2:false,
+    disableSuccess:true,
+    proceedToHome:false
   };
   show1 = (x) => {
     this.setState({ facilityShow: false });
@@ -19,15 +26,78 @@ export class ParticularCard extends React.Component {
     }
     this.setState({ facilities: ans });
   };
+  handleModal1 = (x) => {
+    this.setState({disableSuccess:true})
+    this.setState({ModalShow1:x})
+  };
+  handleModal2 = (x) => {
+    this.setState({disableSuccess:true})
+    this.setState({ModalShow2:x})
+  };
   handleTime = (x) => {
     if (x.length > 0) this.setState({ selectedTime: x });
     else this.setState({ selectedTime: "0" });
   };
+  success = (data) => {
+    this.handleModal1(false);
+    this.handleModal2(true) ;
+    this.setState({disableSuccess:false})
+    // Axios.post("http://localhost:5000/user/signup1", data)
+    // .then((res) => {
+    //   // console.log("Hey this is your result", res);
+    //   this.handleModal2(true) ;
+    // })
+    // .catch((err) => {
+    //   console.log("Axios", err);
+    // });
+  };
   render() {
-    const { selectedTime, facilityShow, facilities } = this.state;
+    const { 
+      selectedTime,
+      facilityShow,
+      facilities,
+      ModalShow1,
+      ModalShow2,
+      disableSuccess,
+      proceedToHome
+    } = this.state;
     const { CentreValue, userInfo, slots } = this.props; /* tochange */
+    const values={
+      CentreValue,
+      userInfo,
+      slots,
+      selectedTime
+    }
     return (
       <>
+      <TnCModal
+        name="Terms & Conditions"
+        head="Read The Terms And Conditions Carefully"
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+                     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+                     mollit anim id est laborum."
+        show={ModalShow1}
+        onHide={() => this.handleModal1(false)}
+        onAgree={() => this.success(values)}
+      />
+      <TnCModal
+        name="Success"
+        head="Your appointment has been booked successfully."
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+                     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+                     mollit anim id est laborum."
+        show={ModalShow2}
+        onHide={() => this.handleModal2(false)}
+        onAgree={() => this.setState({proceedToHome:true})}
+      />
         {facilityShow && this.show1(CentreValue)}
         <div className="user-row">
           <div className="user-col">
@@ -42,31 +112,31 @@ export class ParticularCard extends React.Component {
                 </h4>
               </div>
               <div className="center-details">
-                <>
+                
                   <b>Address: </b>
                   {CentreValue.cen.Address}
-                </>
+                
               </div>
               <div className="center-details">
-                <>
+                
                   <b>PhoneNo: </b>
                   {CentreValue.cen.PhoneNo}
-                </>
+                
               </div>
               <div className="center-details">
-                <>
+                
                   <b>Email: </b>
                   {CentreValue.cen.Email}
-                </>
+                
               </div>
               <div className="center-details">
-                <>Timings:</>
-                <>
+                Timings:
+                
                   {CentreValue.cen.OpeningTime} - {CentreValue.cen.ClosingTime}
-                </>
+                
               </div>
               <div className="center-details">
-                <>Rating:</>
+                Rating:
               </div>
               <div className="center-details">
                 <h6>
@@ -74,9 +144,7 @@ export class ParticularCard extends React.Component {
                 </h6>
               </div>
               {/*<div className="center-details">
-                    <>
                       Facilities: {facilities}
-                    </>
     </div>*/}
             </div>
           </div>
@@ -112,8 +180,9 @@ export class ParticularCard extends React.Component {
                     <div className="details-col">
                       <div className="proceed-btn">
                         <Button
-                          disabled={selectedTime == "0" || selectedTime == []}
+                          disabled={disableSuccess && (selectedTime == "0" || selectedTime == [])}
                           variant="success"
+                          onClick={() => this.handleModal1(true)}
                         >
                           Success
                         </Button>
@@ -145,6 +214,10 @@ export class ParticularCard extends React.Component {
             </div>
           </div>
         </div>
+        {proceedToHome && <Redirect to={{
+                      pathname: "/loginHome", 
+                      data: userInfo
+                     }} />}
       </>
     );
   }
