@@ -44,7 +44,7 @@ router.post('/facility/all',async(req,res)=>{
 })
 
 router.post('/facility/slots',async (req,res)=>{
-      console.log(req.body);
+      // console.log(req.body);
       try{
             const own=req.body.cen._id;
             const fac=req.body.service;
@@ -84,7 +84,7 @@ router.post('/facility/slots',async (req,res)=>{
                         concerneddate:req.body.askeddate,
                         user:CurrentUser
                   }
-                  console.log(finalretvalue);
+                  // console.log(finalretvalue);
                   res.status(200).send(finalretvalue);
             }
             else

@@ -15,10 +15,12 @@ export class ParticularCard extends React.Component {
     ModalShow1:false,
     ModalShow2:false,
     disableSuccess:true,
-    proceedToHome:false
+    proceedToHome:false,
+    client:""
   };
-  show1 = (x) => {
+  show1 = (x,userInfo) => {
     this.setState({ facilityShow: false });
+    this.setState({client:userInfo})
     let ans = [];
     console.log(x);
     for (let i = 0; i < x.tags.length; i++) {
@@ -40,16 +42,14 @@ export class ParticularCard extends React.Component {
   };
   success = (data) => {
     this.handleModal1(false);
-    this.handleModal2(true) ;
     this.setState({disableSuccess:false})
-    // Axios.post("http://localhost:5000/user/signup1", data)
-    // .then((res) => {
-    //   // console.log("Hey this is your result", res);
-    //   this.handleModal2(true) ;
-    // })
-    // .catch((err) => {
-    //   console.log("Axios", err);
-    // });
+    Axios.post("http://localhost:5000/appointment/new", data)
+    .then((res) => {
+      this.handleModal2(true) ;
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
   };
   render() {
     const { 
@@ -59,13 +59,12 @@ export class ParticularCard extends React.Component {
       ModalShow1,
       ModalShow2,
       disableSuccess,
-      proceedToHome
+      proceedToHome,
+	client
     } = this.state;
     const { CentreValue, userInfo, slots } = this.props; /* tochange */
     const values={
       CentreValue,
-      userInfo,
-      slots,
       selectedTime
     }
     return (
@@ -98,7 +97,7 @@ export class ParticularCard extends React.Component {
         onHide={() => this.handleModal2(false)}
         onAgree={() => this.setState({proceedToHome:true})}
       />
-        {facilityShow && this.show1(CentreValue)}
+        {facilityShow && this.show1(CentreValue,userInfo)}
         <div className="user-row">
           <div className="user-col">
             <div className="UserPanel">
@@ -216,7 +215,7 @@ export class ParticularCard extends React.Component {
         </div>
         {proceedToHome && <Redirect to={{
                       pathname: "/loginHome", 
-                      data: userInfo
+                      data: {userInfo}
                      }} />}
       </>
     );

@@ -8,6 +8,7 @@ require('./db/mongoose');
 const userRouter=require('./routers/user');
 const centerRouter=require('./routers/center');
 const facilityRouter=require('./routers/facilities');
+const appointmentRouter=require('./routers/appointment');
 // const prescriptionRouter=require('./routers/prescription');
 const User=require('./models/user');
 const bodyParser=require('body-parser');
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(userRouter);
 app.use(centerRouter);
 app.use(facilityRouter);
+app.use(appointmentRouter);
 
 app.get('/',(req,res)=>{
       res.send("Hello,Atleast this is working1");

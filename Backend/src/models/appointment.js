@@ -2,49 +2,30 @@ const validator=require('validator');
 const mongoose=require('mongoose');
 
 const appointmentSchema=mongoose.Schema({
-      Name:{
-            type:String,
+      user_id:{
+            type:mongoose.Schema.Types.ObjectId,
             required:true
       },
-      Purpose:{
-            type:String,
-            required:true
-      },
-      Age:{
-            type:Number,
-            required:true
-      },
-      IdType:{
-            type:String,
-            required:true
-      },
-      IdNumber:{
-            type:String,
-            required:true
-      },
-      PayStatus:{
-            type:String,
-            required:true
-      },
-      Amount:{
-            type:String,
-            required:true
-      },
-      Email:{
-            type:String,
-            required:true,
-            trim: true,
-            lowercase: true,
-            validate(value){
-                  if (!validator.isEmail(value)){
-                        throw new Error('Email is invalid');
-                  }
-            }
-      },
-      owner:{
+      center_id:{
             type:mongoose.Schema.Types.ObjectId,
             required:true,
             ref:'Center'
+      },
+      dateofappointment:{
+            type:String,
+            required:true
+      },
+      amount:{
+            type:Number,
+            required:true
+      },
+      facilityused:{
+            type:String,
+            required:true
+      },
+      Slotdetails:{
+            type:String,
+            required:true
       }
 });
 
