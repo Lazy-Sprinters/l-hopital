@@ -26,21 +26,21 @@ function createData(time, vacancy) {
   return { time, vacancy };
 }
 
-const rows = [
-  createData('Cupcake', 305),
-  createData('Donut', 452),
-  createData('Eclair', 262),
-  createData('Frozen yoghurt', 159),
-  createData('Gingerbread', 356),
-  createData('Honeycomb', 408),
-  createData('Ice cream sandwich', 237),
-  createData('Jelly Bean', 375),
-  createData('KitKat', 518),
-  createData('Lollipop', 392),
-  createData('Marshmallow', 318),
-  createData('Nougat', 360),
-  createData('Oreo', 437),
-];
+// const rows = [
+//   createData('Cupcake', 305),
+//   createData('Donut', 452),
+//   createData('Eclair', 262),
+//   createData('Frozen yoghurt', 159),
+//   createData('Gingerbread', 356),
+//   createData('Honeycomb', 408),
+//   createData('Ice cream sandwich', 237),
+//   createData('Jelly Bean', 375),
+//   createData('KitKat', 518),
+//   createData('Lollipop', 392),
+//   createData('Marshmallow', 318),
+//   createData('Nougat', 360),
+//   createData('Oreo', 437),
+// ];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -198,7 +198,7 @@ export default function EnhancedTable({handleTime,slots}) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
+  const [rows, setRows] = React.useState([]);
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -228,7 +228,10 @@ export default function EnhancedTable({handleTime,slots}) {
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
-
+  const convertToRows = (x) => {
+    const ans = x.map((value,i) => [value.timeslot,value.capacity] );
+    setRows(ans);
+  };
   const isSelected = (time) => selected.indexOf(time) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -251,6 +254,7 @@ export default function EnhancedTable({handleTime,slots}) {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
+            {this.convertToRows(slots)}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
