@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import LoginNavbar from "./LoginNavbar";
 import Footer from './Footer';
-import CentreCards from './CentreCards';
+import ParticularCard from './ParticularCard';
 
 export class selectionPage1 extends Component {
 	
@@ -15,11 +15,11 @@ export class selectionPage1 extends Component {
       <LoginNavbar            
       userInfo={data.userInfo}                  /* tochange */
       />
-      {/*<ParticularCard 
-                  userInfo={data.userInfo}                  
-                  slots={data.slots}             
-            /> */}
-      <Footer />
+      {<ParticularCard 
+                  // userInfo={data.userInfo}                  
+                  // slots={data.slots}             
+                  // CentreValue={data.CentreValue}             
+            /> }
     </>
   );
 }

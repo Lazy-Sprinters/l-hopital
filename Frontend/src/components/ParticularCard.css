@@ -25,7 +25,6 @@
   width:27vw;
   margin-top:-2vh;
   height: 84vh;
-  border-right: 1px solid #fff;
   position:fixed;
 }
 .profile-row {
@@ -36,7 +35,6 @@
   margin-top: 5vh;
 }
 .profile-col i{
-  color:white !important;
   font-size: 40px;
 }
 .profile-col {
@@ -50,7 +48,8 @@
   flex: 1;
   max-width: 50vw;
   flex-basis: 10vw;
-  margin-top: 10vh;
+  margin-top: 3vh;
+  margin-right: 5vw;
 
 }
 .user-row{
@@ -76,35 +75,18 @@
   margin-left:-10vw;
   margin-bottom: 5vh;
 }
-.content-col i{
-  margin-top: 0.6vh;
-  font-size: 4vh;
-  color:#fff !important;
+.tble{
+  margin-left: -1vw;
 }
-.content-col div{
-  margin-top: 2vh;
-  display: flex;
-  justify-content: center;
-  border:2px solid #fff ;
-  width:6vw;
-  height: 5vh;
-}
-.content-col{
-  margin-top: 5vh;
-  margin-left: 10vw;
-  justify-content: center;
-  flex: 1 ;
-  max-width: 1vw ;
-  flex-basis: 20vw ;
-}
-.post-row{
+.info-row{
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
   display: flex ;
   flex-wrap: wrap ;
   align-content: stretch ;
-  margin-left: -34vw;
-  margin-bottom: 3vh;
+  margin-left: -1vw;
+  margin-bottom: 2vh;
 }
-.post-img{
+.info-img{
   display: flex;
   justify-content: center;
   margin-bottom: 1vh;
@@ -112,10 +94,30 @@
   width: 40vh;
   height: 35vh;
 }
-.post-img-col{
+.info-col{
   flex: 1;
-  /*margin-right: 10vw;*/
-  margin-left: 14vw;
-  max-width: 10vw;
-  flex-basis: 20vw;
+  margin-right: 5vw; 
+  margin-left: 5vw;
+  max-width: 15vw;
+  flex-basis: 10vw;
+}
+.info-time-col{
+  flex: 1;
+  margin-right: 5vw; 
+  margin-left: 5vw;
+  flex-basis: 10vw;
+}
+.selected-time{
+  margin-right: 20vw; 
+
+}
+.details-row{
+  display: flex ;
+  flex-wrap: wrap ;
+  align-content: stretch ;
+  margin-bottom: 3vh;
+}
+.proceed-btn{
+  margin-top: 10vh;
+  margin-left: 7vw;
 }

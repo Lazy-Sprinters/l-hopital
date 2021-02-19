@@ -54,7 +54,6 @@ class LoginNavbar extends Component {
                       data: {userInfo}
                      }}  className='nav-links' onClick={() => this.closeMobileMenu()}>
                   HOME
-                  {console.log(userInfo)}
                 </Link>
               </li>
               <li className='nav-item'>
