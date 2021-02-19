@@ -110,10 +110,10 @@ router.post('/center/match',async (req,res)=>{
                   };
                   ret.push(retobj);
             }
-            // for(let i=0;i<ret.length;i++)
-            // {
-            //       console.log(ret[i].cen.Name);
-            // }
+            for(let i=0;i<ret.length;i++)
+            {
+                  console.log(ret[i].cen.Name);
+            }
             // console.log(ret.length);
             res.status(200).send(ret);
       }catch(err){

@@ -8,18 +8,18 @@ export class selectionPage1 extends Component {
 	
 	render(){
 		const data =this.props.location.data;       /* tochange */
-		// console.log(email)
+		console.log(data)
   return (
     <>
 
       <LoginNavbar            
       userInfo={data.userInfo}                  /* tochange */
       />
-      {<ParticularCard 
+      <ParticularCard 
                   userInfo={data.userInfo}                  
                   slots={data.slots}             
                   CentreValue={data.CentreValue}             
-            /> }
+            /> 
     </>
   );
 }

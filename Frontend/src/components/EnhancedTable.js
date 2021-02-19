@@ -197,6 +197,7 @@ export default function EnhancedTable({handleTime,slots}) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(true);
+  const [start, setStart] = React.useState(true);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   const handleRequestSort = (event, property) => {
@@ -229,7 +230,12 @@ export default function EnhancedTable({handleTime,slots}) {
     setDense(event.target.checked);
   };
   const convertToRows = (x) => {
-    const ans = x.map((value,i) => [value.timeslot,value.capacity] );
+    setStart(false);
+    let ans=[];
+    for(let i=0;i<x.length;i++)
+    {
+      ans.push(createData(x[i].timeslot,x[i].capacity));
+    }
     setRows(ans);
   };
   const isSelected = (time) => selected.indexOf(time) !== -1;
@@ -254,7 +260,7 @@ export default function EnhancedTable({handleTime,slots}) {
               onRequestSort={handleRequestSort}
             />
             <TableBody>
-            {this.convertToRows(slots)}
+            {start && convertToRows(slots.allslots)}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
