@@ -18,27 +18,27 @@ export class ParticularCard extends React.Component {
   	const{
   		selectedTime
   	}=this.state;
-    // const { CentreValue,userInfo,slots} = this.props;        /* tochange */
+    const { CentreValue,userInfo,slots} = this.props;        /* tochange */
 	  return (
 	    <>
 		<div className="user-row">
 			<div className="user-col">
 				<div className="UserPanel">
 				        <div className="user-avatar">
-				                {/*<img src={CentreValue.cen.FrontImage} alt='profile' />*/}
+				                {<img src={CentreValue.cen.FrontImage} alt='profile' />}
 				                
 				        </div>
 				        <div className="name" style={{color:'white'}}>
-				                {/*CentreValue.cen.Name*/}
+				                {CentreValue.cen.Name}
 				        </div>
 				        <div className="name">
-				                <h5>{/*CentreValue.cen.Address*/}</h5>
+				                <h5>{CentreValue.cen.Address}</h5>
 				        </div>
 				        <div className="name">
-				                <h5>{/*CentreValue.cen.OpeningTime*/}</h5>
+				                <h5>{CentreValue.cen.OpeningTime}</h5>
 				        </div>
 				        <div className="name">
-				                <h5>{/*CentreValue.cen.ClosingTime*/}</h5>
+				                <h5>{CentreValue.cen.ClosingTime}</h5>
 				        </div>
 				        {/*<div className="profile-row">
 				        				        	<div className="profile-col">
@@ -60,7 +60,7 @@ export class ParticularCard extends React.Component {
 			</div>
 			<div className="user-col">
 				<div className="tble">
-					<EnhancedTable handleTime={this.handleTime}/>
+					<EnhancedTable handleTime={this.handleTime} slots={slots}/>
 				</div>
 				<div className="info-row">
 					<div className="info-time-col">
@@ -70,13 +70,13 @@ export class ParticularCard extends React.Component {
 				<div className="info-row">
 					<div className="info-col">
             	<div className="details-row">
-            		Test : {/*CentreValue.cen.Name*/}
+            		Test : {CentreValue.service}
             	</div>
             	<div className="details-row">
-            		Distance : {/*CentreValue.dis*/}
+            		Distance : {CentreValue.dis}
             	</div>
             	<div className="details-row">
-            		Cost : 	{/*CentreValue.costing*/}
+            		Cost : 	{CentreValue.costing}
             	</div>
 					</div>
 					{console.log(selectedTime)}

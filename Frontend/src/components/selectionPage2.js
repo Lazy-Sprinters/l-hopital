@@ -16,9 +16,9 @@ export class selectionPage1 extends Component {
       userInfo={data.userInfo}                  /* tochange */
       />
       {<ParticularCard 
-                  // userInfo={data.userInfo}                  
-                  // slots={data.slots}             
-                  // CentreValue={data.CentreValue}             
+                  userInfo={data.userInfo}                  
+                  slots={data.slots}             
+                  CentreValue={data.CentreValue}             
             /> }
     </>
   );
