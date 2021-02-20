@@ -26,6 +26,10 @@ const appointmentSchema=mongoose.Schema({
       Slotdetails:{
             type:String,
             required:true
+      },
+      ResultStatus:{
+            type:Boolean,
+            default:false
       }
 });
 

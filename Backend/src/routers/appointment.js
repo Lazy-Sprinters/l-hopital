@@ -52,10 +52,41 @@ router.post('/appointment/new',async(req,res)=>{
 });
 
 //Route-2 Sending all appointments for a user
-router.post('/appointment/new',async(req,res)=>{
+router.post('/appointment/all',async(req,res)=>{
       try{
-            const userinquestion=await User.find({_id:req.body.user_id});
+            const userinquestion=await User.find({_id:req.body.data._id});
+            const allappointments=await Appointment.find({user_id:req.body.data._id});
+            //it can be an array of objects
+            let ret=[];       
+            if (allappointments.length==0)
+            {
+                  res.status(404).send();
+            }
+            else
+            {
 
+                  // ans.push(createData(x[i].CenterName,x[i].TestName,x[i].TestDate,x[i].AmountPaid,x[i].Status,x[i].Result,x[i].TimeSlot,x[i].ContactDet,x[i]));
+                  console.log(allappointments);
+                  for(let i=0;i<allappointments.length;i++)
+                  {
+                        const concernedcenter=await Center.findOne({_id:allappointments[i].center_id});
+                        const obj1={
+                              CenterName:concernedcenter.Name,
+                              TestName:allappointments[i].facilityused,
+                              TestDate:allappointments[i].dateofappointment,
+                              AmountPaid:allappointments[i].amount,
+                              //add handler for missed tests also so as to calculate penalty
+                              Status:((new Date(allappointments[i].dateofappointment).getTime())<=(new Date().getTime())?"Completed":"Upcoming"),
+                              Result:((allappointments[i].ResultStatus==true)?"Ready":"In Process"),
+                              TimeSlot:allappointments[i].Slotdetails,
+                              ContactDet:concernedcenter.PhoneNo,
+                              Cenid:concernedcenter._id
+                        }
+                        ret.push(obj1);
+                  }
+                  console.log(ret);
+                  res.status(200).send(ret);
+            }
       }catch(err){
             console.log(err);
             res.status(400).send(err);

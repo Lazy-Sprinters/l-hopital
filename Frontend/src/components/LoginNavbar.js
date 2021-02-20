@@ -11,7 +11,8 @@ class LoginNavbar extends Component {
     click:false,
     loggedOut:false,
     GotTests:false,
-    testInfo:"0"
+    testInfo:"0",
+    succeed:false
   };
   handleClick = (value) => {
     value==true ? this.setState({ ['click']: false }) : this.setState({ ['click']: true });
@@ -31,15 +32,18 @@ class LoginNavbar extends Component {
       });
   };
   getTests = (data) =>{
+      console.log(data)
+      Axios.post("http://localhost:5000/appointment/all",data)
+      .then((res) => {
+        console.log(res)
+          this.setState({testInfo:res.data});   
+          this.setState({['succeed']:true});
 
-      // this.props.handleLogout();
-      // Axios.post("http://localhost:5000/user/logout",data)
-      // .then((res) => {
-          // this.setState({testInfo:res.data});    
-      // })
-      // .catch((err) => {
-        // console.log("Axios", err);
-      // });
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
+
   };
   render(){
     const {userInfo} = this.props;
@@ -47,7 +51,8 @@ class LoginNavbar extends Component {
       click,
       loggedOut,
       testInfo,
-      GotTests
+      GotTests,
+      succeed
     }=this.state;
     const values={
       userInfo,
@@ -55,6 +60,7 @@ class LoginNavbar extends Component {
     }
     return (
         <nav className='navbar'>
+
           <div className='navbar-container'>
             <Link to='/login' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
                 MakeMyAppointment
@@ -74,10 +80,6 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
-                  to={{
-                      pathname: '/test', 
-                      data: values
-                     }} 
                   className='nav-links'
                   onClick={() => this.closeMobileMenu(),() => this.getTests(userInfo)}
                 >
@@ -114,7 +116,14 @@ class LoginNavbar extends Component {
               }} 
             />
           }
-          
+          {succeed && 
+            <Redirect 
+              to={{
+                pathname: '/test', 
+                data: values
+              }} 
+            />
+          }
         </nav>
     );
   }

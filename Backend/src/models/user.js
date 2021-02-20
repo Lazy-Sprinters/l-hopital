@@ -78,7 +78,10 @@ const UserSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      PositionCoordinates:[Number]
+      PositionCoordinates:[Number],
+      penaltycount:{
+            type:Number
+      }
 });
 
 //Adding below options will automatically hide all auth-related data for the user

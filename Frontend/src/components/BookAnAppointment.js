@@ -10,7 +10,8 @@ export class BookAnAppointment extends React.Component {
     testList:"0",
     test:"0",
     date:"0",
-    centreList:"0"
+    centreList:"0",
+    errmsg:""
 
   };
   handleChange = (input) => (e) => {
@@ -27,6 +28,9 @@ export class BookAnAppointment extends React.Component {
     this.setState({ ['isProceedFaulty']: true });
 
   };
+  handleVerfiyErr = (x) => {
+    this.setState ({errmsg : x });
+  }
   retrieveTests = (data) =>{
     this.setState({onOpen:false});
     Axios.post("http://localhost:5000/facility/all",data)
@@ -35,6 +39,7 @@ export class BookAnAppointment extends React.Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+        this.handleProceedFaulty();
     });
   };
 
@@ -69,8 +74,13 @@ export class BookAnAppointment extends React.Component {
         this.handleSearch(res);
       })
       .catch((err) => {
-        console.log("Axios", err);
-        this.handleProceedFaulty();
+        if(err.response.status==403){
+          this.handleVerfiyErr(err.response.data);
+        }
+        else{
+          console.log("Axios", err.message);
+          this.handleProceedFaulty();
+        }
       }); 
   }
   getTodayDate = (num) =>{
@@ -95,7 +105,8 @@ export class BookAnAppointment extends React.Component {
       date,
       centreList,
       recieved,
-      isProceedFaulty
+      isProceedFaulty,
+      errmsg
     } = this.state;
     
     const values = {
@@ -150,6 +161,7 @@ export class BookAnAppointment extends React.Component {
             Proceed
           </button>
         </div>
+        <h2>{errmsg}</h2>
         {isProceedFaulty && <h2>No Test Centres Available for the desired test and date.Please select another date.</h2>}
         {recieved && <Redirect to={{
                       pathname: "/selectionPage1", 

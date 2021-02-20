@@ -16,7 +16,8 @@ const centerSchema=mongoose.Schema({
       },
       PhoneNo:{
             type:String,
-            required:true
+            required:true,
+            trim:true
       },
       Email:{
             type:String,
