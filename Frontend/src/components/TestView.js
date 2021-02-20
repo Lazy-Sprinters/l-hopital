@@ -4,18 +4,19 @@ import Axios from "axios";
 import Ratings from "./StarRatingComponent";
 import CollapsibleTable from "./CollapsibleTable";
 
-export class ParticularCard extends React.Component {
+export class TestView extends React.Component {
   state = {
   };
   
   render() {
-    
+    const {userInfo,testInfo} =this.props;
+
     return (
       <>
-      <CollapsibleTable/>
+      <CollapsibleTable testInfo={testInfo}/>
       </>
     );
   }
 }
 
-export default ParticularCard;
+export default TestView;

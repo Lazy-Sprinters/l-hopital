@@ -143,6 +143,7 @@ export class RegisterForm extends Component {
     return (
       <> 
       <TnCModal
+        size="lg"
         name="Terms & Conditions"
         head="Read The Terms And Conditions Carefully"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 

@@ -1,19 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import {Box , Collapse , IconButton , Table , TableBody , TableCell , TableContainer , TableHead , TableRow , Typography , Paper} from '@material-ui/core';
+import { KeyboardArrow , KeyboardArrowUp } from '@material-ui/icons';
+import TnCModal from "./TnCModal";
 
 const useRowStyles = makeStyles({
   root: {
@@ -37,7 +27,19 @@ function createData(name, calories, fat, carbs, protein, price) {
     ],
   };
 }
-
+// function createData(CenterName, TestName, TestDate, Amount, Status, Result, TimeSlot,ContactDet,value) {
+//   return {
+//     CenterName, 
+//     TestName,
+//     TestDate, 
+//     Amount, 
+//     Status, 
+//     Result,
+//     MoreInfo: [
+//       { TimeSlot: TimeSlot, ContactDet: ContactDet, value: value }
+//     ],
+//   };
+// }
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
@@ -54,6 +56,7 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
+        <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.calories}</TableCell>
         <TableCell align="right">{row.fat}</TableCell>
         <TableCell align="right">{row.carbs}</TableCell>
@@ -98,6 +101,89 @@ function Row(props) {
   );
 }
 
+// function Row(props) {
+//   const { row } = props;
+//   const [open, setOpen] = React.useState(false);
+//   const [modal, setModal] = React.useState(false);
+//   const classes = useRowStyles();
+//   const handleReview = (x) =>{
+//     this.setModal(true);
+//   }
+//   return (
+//     <TnCModal
+//         size="lg"
+//         name="Terms & Conditions"
+//         head="Read The Terms And Conditions Carefully"
+//         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+//                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+//                     ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+//                     aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+//                      in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+//                      sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+//                      mollit anim id est laborum."
+//         show={modal}
+//         onHide={() => this.setModal(false)}
+//         onAgree={() => this.setModal(false)}
+//       />
+//     <React.Fragment>
+//       <TableRow className={classes.root}>
+//         <TableCell>
+//           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+//             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+//           </IconButton>
+//         </TableCell>
+//         <TableCell component="th" scope="row">
+//           {row.CenterName}
+//         </TableCell>
+//         <TableCell align="right">{row.TestName}</TableCell>
+//         <TableCell align="right">{row.TestDate}</TableCell>
+//         <TableCell align="right">{row.Amount}</TableCell>
+//         <TableCell align="right">{row.Status}</TableCell>
+//         <TableCell align="right">{row.Result}</TableCell>
+//       </TableRow>
+//       <TableRow>
+//         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+//           <Collapse in={open} timeout="auto" unmountOnExit>
+//             <Box margin={1}>
+//               <Typography variant="h6" gutterBottom component="div">
+//                 More Information
+//               </Typography>
+//               <Table size="small" aria-label="purchases">
+//                 <TableHead>
+//                   <TableRow>
+//                     <TableCell>Time Slot</TableCell>
+//                     <TableCell>Contact Details</TableCell>
+//                     <TableCell align="right">For Any reviews</TableCell>
+//                   </TableRow>
+//                 </TableHead>
+//                 <TableBody>
+//                   {row.MoreInfo.map((moreinfo) => (
+//                     <TableRow key={moreinfo.TimeSlot}>
+//                       <TableCell component="th" scope="row">
+//                         {moreinfo.TimeSlot}
+//                       </TableCell>
+//                       <TableCell>{moreinfo.ContactDet}</TableCell>
+//                       <TableCell align="right">
+//                         <Button
+//                           color="primary"
+//                           variant="contained"
+                        
+//                           onClick={()=>handleReview(moreinfo.value)}
+//                         >
+//                           Post a review
+//                         </Button>
+//                       </TableCell>
+//                     </TableRow>
+//                   ))}
+//                 </TableBody>
+//               </Table>
+//             </Box>
+//           </Collapse>
+//         </TableCell>
+//       </TableRow>
+//     </React.Fragment>
+//   );
+// }
 Row.propTypes = {
   row: PropTypes.shape({
     calories: PropTypes.number.isRequired,
@@ -124,18 +210,32 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-export default function CollapsibleTable() {
+export default function CollapsibleTable({testInfo}) {
+  const [start, setStart] = React.useState(true);
+  // const [rows, setRows] = React.useState([]);
+  // const convertToRows = (x) => {
+  //   setStart(false);
+  //   let ans=[];
+  //   for(let i=0;i<x.length;i++)
+  //   {
+  //     ans.push(createData(x[i].CenterName,x[i].TestName,x[i].TestDate,x[i].AmountPaid,x[i].Status,x[i].Result,x[i].TimeSlot,x[i].ContactDet,x[i]));
+  //   }
+  //   setRows(ans);
+  // };
   return (
     <TableContainer component={Paper}>
+      {console.log(testInfo)}
+      {/*start && convertToRows(testInfo)*/}
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+            <TableCell>Center Name</TableCell>
+            <TableCell align="right">Test Name</TableCell>
+            <TableCell align="right">Date</TableCell>
+            <TableCell align="right">Amount Paid&nbsp;(₹)</TableCell>
+            <TableCell align="right">Status</TableCell>
+            <TableCell align="right">Result</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

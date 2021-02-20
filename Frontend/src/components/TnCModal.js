@@ -6,7 +6,7 @@ function TnCModal(props) {
       show={props.show} 
       onHide={props.onHide}
       backdrop="static"
-      size="lg"
+      size={props.size}
       centered
     >
       <Modal.Header closeButton>

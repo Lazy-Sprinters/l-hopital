@@ -14,6 +14,7 @@ export class ParticularCard extends React.Component {
     facilities: "0",
     ModalShow1:false,
     ModalShow2:false,
+    ModalShow3:false,
     disableSuccess:true,
     proceedToHome:false,
     client:""
@@ -36,6 +37,10 @@ export class ParticularCard extends React.Component {
     this.setState({disableSuccess:true})
     this.setState({ModalShow2:x})
   };
+  handleModal3 = (x) => {
+    this.setState({disableSuccess:true})
+    this.setState({ModalShow3:x})
+  };
   handleTime = (x) => {
     if (x.length > 0) this.setState({ selectedTime: x });
     else this.setState({ selectedTime: "0" });
@@ -49,6 +54,7 @@ export class ParticularCard extends React.Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+      this.handleModal3(true) ;
     });
   };
   render() {
@@ -58,6 +64,7 @@ export class ParticularCard extends React.Component {
       facilities,
       ModalShow1,
       ModalShow2,
+      ModalShow3,
       disableSuccess,
       proceedToHome,
 	client
@@ -70,6 +77,7 @@ export class ParticularCard extends React.Component {
     return (
       <>
       <TnCModal
+        size="lg"
         name="Terms & Conditions"
         head="Read The Terms And Conditions Carefully"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
@@ -84,18 +92,24 @@ export class ParticularCard extends React.Component {
         onAgree={() => this.success(values)}
       />
       <TnCModal
+        size="sm"
         name="Success"
         head="Your appointment has been booked successfully."
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-                     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-                     mollit anim id est laborum."
+                    ad minim veniam."
         show={ModalShow2}
         onHide={() => this.handleModal2(false)}
         onAgree={() => this.setState({proceedToHome:true})}
+      />
+      <TnCModal
+        size="sm"
+        name="Failed"
+        head="Your appointment booking failed due to an error."
+        text="Please try again."
+        show={ModalShow3}
+        onHide={() => this.handleModal3(false)}
+        onAgree={() => this.handleModal3(false)}
       />
         {facilityShow && this.show1(CentreValue,userInfo)}
         <div className="user-row">
