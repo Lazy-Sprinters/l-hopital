@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import {Box ,Button, Collapse , IconButton , Table , TableBody , TableCell , TableContainer , TableHead , TableRow , Typography , Paper} from '@material-ui/core';
 import { KeyboardArrowDown , KeyboardArrowUp } from '@material-ui/icons';
-import TnCModal from "./TnCModal";
+import TnCModal1 from "./TnCModal1";
 
 const useRowStyles = makeStyles({
   root: {
@@ -13,20 +13,6 @@ const useRowStyles = makeStyles({
   },
 });
 
-// function createData(name, calories, fat, carbs, protein, price) {
-//   return {
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//     price,
-//     history: [
-//       { date: '2020-01-05', customerId: '11091700', amount: 3 },
-//       { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-//     ],
-//   };
-// }
 function createData(CenterName, TestName, TestDate, Amount, Status, Result, TimeSlot,ContactDet,value) {
   return {
     CenterName, 
@@ -40,66 +26,6 @@ function createData(CenterName, TestName, TestDate, Amount, Status, Result, Time
     ],
   };
 }
-// function Row(props) {
-//   const { row } = props;
-//   const [open, setOpen] = React.useState(false);
-//   const classes = useRowStyles();
-
-//   return (
-//     <React.Fragment>
-//       <TableRow className={classes.root}>
-//         <TableCell>
-//           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-//             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-//           </IconButton>
-//         </TableCell>
-//         <TableCell component="th" scope="row">
-//           {row.name}
-//         </TableCell>
-//         <TableCell align="right">{row.calories}</TableCell>
-//         <TableCell align="right">{row.calories}</TableCell>
-//         <TableCell align="right">{row.fat}</TableCell>
-//         <TableCell align="right">{row.carbs}</TableCell>
-//         <TableCell align="right">{row.protein}</TableCell>
-//       </TableRow>
-//       <TableRow>
-//         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-//           <Collapse in={open} timeout="auto" unmountOnExit>
-//             <Box margin={1}>
-//               <Typography variant="h6" gutterBottom component="div">
-//                 History
-//               </Typography>
-//               <Table size="small" aria-label="purchases">
-//                 <TableHead>
-//                   <TableRow>
-//                     <TableCell>Date</TableCell>
-//                     <TableCell>Customer</TableCell>
-//                     <TableCell align="right">Amount</TableCell>
-//                     <TableCell align="right">Total price ($)</TableCell>
-//                   </TableRow>
-//                 </TableHead>
-//                 <TableBody>
-//                   {row.history.map((historyRow) => (
-//                     <TableRow key={historyRow.date}>
-//                       <TableCell component="th" scope="row">
-//                         {historyRow.date}
-//                       </TableCell>
-//                       <TableCell>{historyRow.customerId}</TableCell>
-//                       <TableCell align="right">{historyRow.amount}</TableCell>
-//                       <TableCell align="right">
-//                         {Math.round(historyRow.amount * row.price * 100) / 100}
-//                       </TableCell>
-//                     </TableRow>
-//                   ))}
-//                 </TableBody>
-//               </Table>
-//             </Box>
-//           </Collapse>
-//         </TableCell>
-//       </TableRow>
-//     </React.Fragment>
-//   );
-// }
 
 function Row(props) {
   const { row } = props;
@@ -113,18 +39,12 @@ function Row(props) {
   }
   return (
     <React.Fragment>
-    <TnCModal
-        size="lg"
-        name="Terms & Conditions"
-        head="Read The Terms And Conditions Carefully"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-                     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-                     mollit anim id est laborum."
-        show={modal}
+    <TnCModal1
+        id= {row.value._id}
+        size="sm"
+        name="Review Form"
+        head="Fill the form to give any suggestions related to the center."
+        show={true}
         onHide={() => setModal(false)}
         onAgree={() => setModal(false)}
       />
@@ -204,13 +124,6 @@ Row.propTypes = {
   }).isRequired,
 };
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-//   createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-//   createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-// ];
 
 export default function CollapsibleTable({testInfo}) {
   const [start1, setStart] = React.useState(true);
