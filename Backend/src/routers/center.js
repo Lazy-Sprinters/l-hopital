@@ -125,7 +125,8 @@ router.post('/center/match',async (req,res)=>{
 
 router.post('/review/new',async (req,res)=>{
       try{
-            const center=await Center.find({_id:req.body._id});
+            console.log(req.body);
+            const center=await Center.findOne({_id:req.body._id});
             center.Reviews.push({
                   text:req.body.review,
                   stars:req.body.rating
@@ -133,6 +134,7 @@ router.post('/review/new',async (req,res)=>{
             await center.save();
             res.status(200).send();
       }catch(err){
+            console.log(err);
             res.status(400).send();
       }
 })

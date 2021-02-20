@@ -1,29 +1,51 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import {Box ,Button, Collapse , IconButton , Table , TableBody , TableCell , TableContainer , TableHead , TableRow , Typography , Paper} from '@material-ui/core';
-import { KeyboardArrowDown , KeyboardArrowUp } from '@material-ui/icons';
+import React from "react";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import {
+  Box,
+  Button,
+  Collapse,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  Paper,
+} from "@material-ui/core";
+import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import TnCModal1 from "./TnCModal1";
 
 const useRowStyles = makeStyles({
   root: {
-    '& > *': {
-      borderBottom: 'unset',
+    "& > *": {
+      borderBottom: "unset",
     },
   },
 });
 
-function createData(CenterName, TestName, TestDate, Amount, Status, Result, TimeSlot,ContactDet,value) {
+function createData(
+  CenterName,
+  TestName,
+  TestDate,
+  Amount,
+  Status,
+  Result,
+  TimeSlot,
+  ContactDet,
+  Cenid
+) {
   return {
-    CenterName, 
+    CenterName,
     TestName,
-    TestDate, 
-    Amount, 
-    Status, 
+    TestDate,
+    Amount,
+    Status,
     Result,
-    MoreInfo: [
-      { TimeSlot: TimeSlot, ContactDet: ContactDet, value: value }
-    ],
+    Cenid,
+    MoreInfo: [{ TimeSlot: TimeSlot, ContactDet: ContactDet }],
   };
 }
 
@@ -31,16 +53,14 @@ function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const [modal, setModal] = React.useState(false);
-  const [reviewInfo, setReviewInfo] = React.useState("");
   const classes = useRowStyles();
-  const handleReview = (x) =>{
+  const handleReview = () => {
     setModal(true);
-    setReviewInfo(x);
-  }
+  };
   return (
     <React.Fragment>
-    <TnCModal1
-        id= {row.value}
+      <TnCModal1
+        id={row.Cenid}
         size="sm"
         name="Review Form"
         head="Fill the form to give any suggestions related to the center."
@@ -50,7 +70,11 @@ function Row(props) {
       />
       <TableRow className={classes.root}>
         <TableCell>
-          <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
@@ -89,8 +113,7 @@ function Row(props) {
                         <Button
                           color="primary"
                           variant="contained"
-                        
-                          onClick={()=>handleReview(moreinfo.value)}
+                          onClick={() => handleReview()}
                         >
                           Post a review
                         </Button>
@@ -116,7 +139,7 @@ Row.propTypes = {
         amount: PropTypes.number.isRequired,
         customerId: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
-      }),
+      })
     ).isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
@@ -124,24 +147,34 @@ Row.propTypes = {
   }).isRequired,
 };
 
-
-export default function CollapsibleTable({testInfo}) {
+export default function CollapsibleTable({ testInfo }) {
   const [start1, setStart] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const convertToRows = (x) => {
     console.log(x);
     setStart(false);
-    let ans=[];
-    for(let i=0;i<x.length;i++)
-    {
-      ans.push(createData(x[i].CenterName,x[i].TestName,x[i].TestDate,x[i].AmountPaid,x[i].Status,x[i].Result,x[i].TimeSlot,x[i].ContactDet,x[i]._id));
+    let ans = [];
+    console.log(x);
+    for (let i = 0; i < x.length; i++) {
+      console.log(x[i].Cenid);
+      ans.push(
+        createData(
+          x[i].CenterName,
+          x[i].TestName,
+          x[i].TestDate,
+          x[i].AmountPaid,
+          x[i].Status,
+          x[i].Result,
+          x[i].TimeSlot,
+          x[i].ContactDet,
+          x[i].Cenid
+        )
+      );
     }
     setRows(ans);
   };
   return (
     <TableContainer component={Paper}>
-   { console.log(start1)}
-
       {start1 && convertToRows(testInfo)}
       <Table aria-label="collapsible table">
         <TableHead>

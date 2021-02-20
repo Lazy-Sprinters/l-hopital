@@ -10,7 +10,7 @@ const router=new express.Router();
 router.post('/appointment/new',async(req,res)=>{
       try{
             const queryobj=req.body.CentreValue;
-            const existing=await Appointment.findOne({user_id:queryobj.Client._id,dateofappointment:queryobj.askeddate,facilityused:queryobj.service,Slotdetails:req.body.selectedTime,center_id:queryobj.cen._id});
+            const existing=await Appointment.findOne({user_id:queryobj.Client._id,dateofappointment:queryobj.askeddate,Slotdetails:req.body.selectedTime});
             if (existing==null)
             {
                   const newappointment=new Appointment({

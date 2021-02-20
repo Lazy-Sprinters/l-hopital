@@ -9,15 +9,14 @@ function TnCModal(props) {
   const [review, setReview] = React.useState("");
   const handlePost = (_id,rating,review) =>{
     const data = {_id,rating,review};
-    console.log(data)
-    // Axios.post("http://localhost:5000/user/signup1", data)
-    // .then((res) => {
-    //   // console.log("Hey this is your result", res);
-    //   props.onAgree()
-    // })
-    // .catch((err) => {
-    //   console.log("Axios", err);
-    // });
+    Axios.post("http://localhost:5000/review/new", data)
+    .then((res) => {
+      // console.log("Hey this is your result", res);
+      props.onAgree()
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
   };
   return (
     <Modal
@@ -40,9 +39,8 @@ function TnCModal(props) {
                   placeholder="Enter your Suggestions/Comment"
                   label="Review"
                   variant="outlined"
-                  onChange={(event, newValue) => {
-                            setReview(newValue);
-                          }}
+                  value={review}
+                  onChange={e => setReview(e.target.value)}
                   type="text"
                   fullWidth
           />
