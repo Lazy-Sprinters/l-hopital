@@ -40,11 +40,11 @@ function Row(props) {
   return (
     <React.Fragment>
     <TnCModal1
-        id= {row.value._id}
+        id= {row.value}
         size="sm"
         name="Review Form"
         head="Fill the form to give any suggestions related to the center."
-        show={true}
+        show={modal}
         onHide={() => setModal(false)}
         onAgree={() => setModal(false)}
       />
@@ -134,7 +134,7 @@ export default function CollapsibleTable({testInfo}) {
     let ans=[];
     for(let i=0;i<x.length;i++)
     {
-      ans.push(createData(x[i].CenterName,x[i].TestName,x[i].TestDate,x[i].AmountPaid,x[i].Status,x[i].Result,x[i].TimeSlot,x[i].ContactDet,x[i]));
+      ans.push(createData(x[i].CenterName,x[i].TestName,x[i].TestDate,x[i].AmountPaid,x[i].Status,x[i].Result,x[i].TimeSlot,x[i].ContactDet,x[i]._id));
     }
     setRows(ans);
   };

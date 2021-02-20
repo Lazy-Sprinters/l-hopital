@@ -9,14 +9,15 @@ function TnCModal(props) {
   const [review, setReview] = React.useState("");
   const handlePost = (_id,rating,review) =>{
     const data = {_id,rating,review};
-    Axios.post("http://localhost:5000/user/signup1", data)
-    .then((res) => {
-      // console.log("Hey this is your result", res);
-      props.onAgree()
-    })
-    .catch((err) => {
-      console.log("Axios", err);
-    });
+    console.log(data)
+    // Axios.post("http://localhost:5000/user/signup1", data)
+    // .then((res) => {
+    //   // console.log("Hey this is your result", res);
+    //   props.onAgree()
+    // })
+    // .catch((err) => {
+    //   console.log("Axios", err);
+    // });
   };
   return (
     <Modal

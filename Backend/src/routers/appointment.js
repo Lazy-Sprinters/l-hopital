@@ -84,7 +84,6 @@ router.post('/appointment/all',async(req,res)=>{
                         }
                         ret.push(obj1);
                   }
-                  console.log(ret);
                   res.status(200).send(ret);
             }
       }catch(err){
