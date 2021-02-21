@@ -32,10 +32,8 @@ class LoginNavbar extends Component {
       });
   };
   getTests = (data) =>{
-      console.log(data)
       Axios.post("http://localhost:5000/appointment/all",data)
       .then((res) => {
-        console.log(res)
           this.setState({testInfo:res.data});   
           this.setState({['succeed']:true});
 
@@ -88,7 +86,10 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
-                  to="/profile"
+                  to={{
+                      pathname: '/profile', 
+                      data: {userInfo}
+                     }}
                   className='nav-links'
                   onClick={() => this.closeMobileMenu()}
                 >

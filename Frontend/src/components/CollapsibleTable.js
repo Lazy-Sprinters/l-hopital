@@ -113,6 +113,7 @@ function Row(props) {
                         <Button
                           color="primary"
                           variant="contained"
+                          disabled={(row.Status=="Upcoming")}
                           onClick={() => handleReview()}
                         >
                           Post a review
@@ -151,12 +152,9 @@ export default function CollapsibleTable({ testInfo }) {
   const [start1, setStart] = React.useState(true);
   const [rows, setRows] = React.useState([]);
   const convertToRows = (x) => {
-    console.log(x);
     setStart(false);
     let ans = [];
-    console.log(x);
     for (let i = 0; i < x.length; i++) {
-      console.log(x[i].Cenid);
       ans.push(
         createData(
           x[i].CenterName,
