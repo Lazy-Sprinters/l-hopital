@@ -52,12 +52,12 @@ const UserSchema=mongoose.Schema({
       Status:{
             type:Boolean //true means activated ;;false means not activated
       },
-      // tokens:[{
-      //       token:{
-      //             type:String,
-      //             required:true
-      //       }
-      // }],
+      tokens:[{
+            token:{
+                  type:String,
+                  required:true
+            }
+      }],
       NearestLandmark:{
             type:String,
             required:true
@@ -95,10 +95,20 @@ const UserSchema=mongoose.Schema({
 //       delete userobj.RecentEmailOtps;
 //       return userobj;
 // }
+
+UserSchema.methods.generateauthtoken=async function(){
+      const user=this;
+      const token=jwt.sign({_id:user._id.toString()},'nodetoreact');
+      user.tokens=user.tokens.concat({token: token});
+      await user.save();
+      return token;
+}
+
 UserSchema.statics.findbycredentials=async (email,password)=>{
       const user=await User.findOne({Email:email});
       if (!user)
       {
+            console.log(user);
             throw new Error("Unable to login");
       }
       const isMatch=await bcrypt.compare(password,user.Password);

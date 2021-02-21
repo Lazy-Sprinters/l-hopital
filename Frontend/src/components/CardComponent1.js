@@ -45,19 +45,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CardComponent1({handleSlot,data,img,Name,Address,Cost,Distance,OpeningTime,ClosingTime,Rating,Tags,value}) {
+export default function CardComponent1({handleSlot,data,data1,img,Name,Address,Cost,Distance,OpeningTime,ClosingTime,Rating,Tags,value}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const Slot = (x) =>{
+  const Slot = (x,y) =>{
     console.log("Yahan  click ho gya");
-    handleSlot(x);
+    console.log(x);
+    console.log(y);
+    handleSlot(x,y);
   }
   return (
-    <Card className={classes.root}  onClick={() => Slot({data})}>
+    <Card className={classes.root}  onClick={() => Slot(data,data1)}>
       <CardHeader className={classes.head}
         subheader={Name}
       />

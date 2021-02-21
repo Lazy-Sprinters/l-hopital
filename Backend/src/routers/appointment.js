@@ -7,28 +7,6 @@ const express=require('express');
 const router=new express.Router();
 
 
-//Route-1 Registering a appointment
-router.post('/appointment/new',async(req,res)=>{
-      try{
-            const queryobj=req.body.CentreValue;
-            const existing=await Appointment.findOne({user_id:queryobj.Client._id,dateofappointment:queryobj.askeddate,Slotdetails:req.body.selectedTime});
-            if (existing==null){
-                  const newappointment=new Appointment(MainHelper.getformatappointment(req));
-                  let facility=await Facility.findOne({Price:queryobj.costing,FacilityName:queryobj.service,owner:queryobj.cen._id});
-                  facility=MainHelper.modifyslotdata(facility,queryobj,req);
-                  await facility.save();
-                  newappointment.save();
-                  res.status(200).send(newappointment);
-            }
-            else{
-                  res.status(400).send("Same Booking already exists!");
-            }
-      }catch(err){
-            console.log(err);
-            res.status(400).send(err);
-      }
-});
-
 //Route-2 Sending all appointments for a user
 router.post('/appointment/all',async(req,res)=>{
       try{

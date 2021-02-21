@@ -48,7 +48,7 @@ export class ParticularCard extends React.Component {
   success = (data) => {
     this.handleModal1(false);
     this.setState({disableSuccess:false})
-    Axios.post("http://localhost:5000/appointment/new", data)
+    Axios.post("http://localhost:5000/user/newappointment", data)
     .then((res) => {
       this.handleModal2(true) ;
     })
@@ -92,6 +92,8 @@ export class ParticularCard extends React.Component {
         onAgree={() => this.success(values)}
       />
       <TnCModal
+        btntext={true}
+        btnshow={true}
         size="sm"
         name="Success"
         head="Your appointment has been booked successfully."
@@ -103,6 +105,8 @@ export class ParticularCard extends React.Component {
         onAgree={() => this.setState({proceedToHome:true})}
       />
       <TnCModal
+        btntext={true}
+        btnshow={true}
         size="sm"
         name="Failed"
         head="Your appointment booking failed due to an error."

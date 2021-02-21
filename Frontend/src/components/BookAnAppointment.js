@@ -68,7 +68,7 @@ export class BookAnAppointment extends React.Component {
     this.setState({ ['isProceedFaulty']: false });
     console.log(data);
       // this.setState({recieved : true})    /* tochange */
-      Axios.post("http://localhost:5000/center/match",data)
+      Axios.post("http://localhost:5000/user/match",data)
       .then((res) => {
         console.log(res);
         this.handleSearch(res);

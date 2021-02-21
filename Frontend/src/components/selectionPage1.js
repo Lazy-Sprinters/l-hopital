@@ -8,7 +8,7 @@ export class selectionPage1 extends Component {
 	
 	render(){
 		const data =this.props.location.data;       /* tochange */
-		// console.log(data)
+		console.log(data)
   return (
     <>
 

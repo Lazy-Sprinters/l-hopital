@@ -15,7 +15,7 @@ export class LoginHome extends Component {
       <LoginNavbar
         userInfo={userInfo}
       />
-      {!userInfo.data.Status && <VerifyWarning userInfo={userInfo}/>}
+      {!userInfo.data.user.Status && <VerifyWarning userInfo={userInfo}/>}
       <BookAnAppointment userInfo={userInfo} />
       <Footer />
     </div>

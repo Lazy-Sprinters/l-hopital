@@ -601,19 +601,20 @@ export class ProfileView extends React.Component {
                         userInfo.data.City!=City ||
                         userInfo.data.Pincode!=Pincode ||
                         userInfo.data.State!=State ||
-                        userInfo.data.Country!=Country || (Password.length>7)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
+                        userInfo.data.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
                         (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
                         userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
                         userInfo.data.NearestLandmark==NearestLandmark &&
                         userInfo.data.City==City &&
                         userInfo.data.Pincode==Pincode &&
                         userInfo.data.State==State &&
-                        userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber)) 
+                        userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber && Password.length<8)) 
                     )
                   }
                     size="small"
                     fullWidth
                   />
+                  {}
                   <br />
               </div>
               <div style={{marginTop:'30px',marginLeft:'60px'}}>
@@ -627,14 +628,14 @@ export class ProfileView extends React.Component {
                       userInfo.data.City!=City ||
                       userInfo.data.Pincode!=Pincode ||
                       userInfo.data.State!=State ||
-                      userInfo.data.Country!=Country || (Password.length>7)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
+                      userInfo.data.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
                       (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
                        userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
                        userInfo.data.NearestLandmark==NearestLandmark &&
                        userInfo.data.City==City &&
                        userInfo.data.Pincode==Pincode &&
                        userInfo.data.State==State &&
-                       userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber)) 
+                       userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber && Password.length<8)) 
                    )
                  }
                   onClick={() => this.EditDetails(tempValues)}

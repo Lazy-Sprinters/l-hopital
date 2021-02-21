@@ -45,9 +45,9 @@ const MessageBody=(otp)=>{
 
 //Helper to verify the otps sent to the user and the ones entered by the user.
 const Verificationutil=(user,otpobj)=>{
-      const len1=user[0].RecentEmailOtps.length;
-      const len2=user[0].RecentMobileOtps.length;
-      const final=user[0].RecentEmailOtps[len1-1]==otpobj.body.otp1 && user[0].RecentMobileOtps[len2-1]==otpobj.body.otp2;
+      const len1=user.RecentEmailOtps.length;
+      const len2=user.RecentMobileOtps.length;
+      const final=user.RecentEmailOtps[len1-1]==otpobj.body.otp1 && user.RecentMobileOtps[len2-1]==otpobj.body.otp2;
       return final;          
 }
 

@@ -1,3 +1,6 @@
+const bcrypt=require('bcryptjs');
+
+
 const modifyslotdata=(facility,queryobj,req)=>{
       for(let i=0;i<facility.SlotAvailability.length;i++)
       {
@@ -72,4 +75,22 @@ const getallopenslots=(facility,date)=>{
       return ret;
 };
 
-module.exports={modifyslotdata,getformatappointment,getformatshowappointment,getallopenslots};
+const assignuserchanges=async (original,upd)=>{
+      original.IdType=upd.IdType;
+      original.IdentificationIdNumber=upd.IdentificationIdNumber;
+      original.Email=upd.Email;
+      original.NearestLandmark=upd.NearestLandmark;
+      original.City=upd.City;
+      original.Pincode=upd.Pincode;
+      original.State=upd.State;
+      original.Country=upd.Country;
+      original.PhoneNumber=upd.PhoneNumber;
+      if (upd.Password!='')
+      {
+            original.Password=upd.Password;
+      }
+      // console.log(original);
+      return original;
+};
+
+module.exports={modifyslotdata,getformatappointment,getformatshowappointment,getallopenslots,assignuserchanges};
