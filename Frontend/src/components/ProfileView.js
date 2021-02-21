@@ -21,8 +21,8 @@ export class ProfileView extends React.Component {
   state = {
     editProfile:false,
     x:true,
-    ct:30,
-    ct1:30,
+    ct:0,
+    ct1:0,
     complete:true,
     complete1:true,
     sendEmailOtp:false,
@@ -57,12 +57,8 @@ export class ProfileView extends React.Component {
     return text;
   };
 
-  handleCounter = () =>{
-    this.setState({ ['ct']: 30 });
-    this.setState({['complete']: false});
-  };
   start = () => {
-    this.setState({['ct']: 29});
+    this.setState({['ct']: 30});
     this.setState({['complete']: false});
     this.id = setInterval(this.initiate, 1000);
   };
@@ -79,12 +75,8 @@ export class ProfileView extends React.Component {
       }
     }
   };
-  handleCounter1 = () =>{
-    this.setState({ ['ct1']: 30 });
-    this.setState({['complete1']: false});
-  };
   start1 = () => {
-    this.setState({['ct1']: 29});
+    this.setState({['ct1']: 30});
     this.setState({['complete1']: false});
     this.id1 = setInterval(this.initiate1, 1000);
   };
