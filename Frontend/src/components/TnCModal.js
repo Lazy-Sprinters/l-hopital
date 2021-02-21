@@ -21,11 +21,11 @@ function TnCModal(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={props.onHide}>
-            Decline
-          </Button>
+        {!props.btnshow && <Button variant="danger" onClick={props.onHide}>
+                    Decline
+                  </Button>}
           <Button variant="success" onClick={props.onAgree}>
-            Agree
+            {!props.btntext ? "Agree" : "Continue"}
           </Button>
       </Modal.Footer>
     </Modal>

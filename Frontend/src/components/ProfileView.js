@@ -21,6 +21,10 @@ export class ProfileView extends React.Component {
   state = {
     editProfile:false,
     x:true,
+    ct:30,
+    ct1:30,
+    complete:true,
+    complete1:true,
     sendEmailOtp:false,
     sendPhoneOtp:false,
     verifiedEmailOtp:true,
@@ -42,12 +46,60 @@ export class ProfileView extends React.Component {
     testInfo1:"",
     succeed1:false,
     Password:"",
-    id:""
+    id:"",
+    userInfoPseudo:"",
+    modal:false,
+    proceed:false
   };
 
   getInitials = (x) =>{
     let text = x.slice(0,1).toUpperCase();
     return text;
+  };
+
+  handleCounter = () =>{
+    this.setState({ ['ct']: 30 });
+    this.setState({['complete']: false});
+  };
+  start = () => {
+    this.setState({['ct']: 29});
+    this.setState({['complete']: false});
+    this.id = setInterval(this.initiate, 1000);
+  };
+
+  initiate = () => {
+    if (this.state.ct !== 0) {
+      this.setState((prevState, prevProps) => ({
+        ct: prevState.ct - 1
+      }));
+      if (this.state.ct === 0) {
+        clearInterval(this.id);
+        this.setState({ complete: true });
+
+      }
+    }
+  };
+  handleCounter1 = () =>{
+    this.setState({ ['ct1']: 30 });
+    this.setState({['complete1']: false});
+  };
+  start1 = () => {
+    this.setState({['ct1']: 29});
+    this.setState({['complete1']: false});
+    this.id1 = setInterval(this.initiate1, 1000);
+  };
+
+  initiate1 = () => {
+    if (this.state.ct1 !== 0) {
+      this.setState((prevState, prevProps) => ({
+        ct: prevState.ct1 - 1
+      }));
+      if (this.state.ct1 === 0) {
+        clearInterval(this.id1);
+        this.setState({ complete1: true });
+
+      }
+    }
   };
 
    handleChange = input => e => {
@@ -140,9 +192,9 @@ export class ProfileView extends React.Component {
     //AXIOS
     Axios.post("http://localhost:5000/user/update",data)
       .then((res) => {
-        this.setState({editProfile:false})
-
-        this.setState({x:true})
+        this.setState({editProfile:false});
+        this.setState({userInfoPseudo:res});
+        this.setState({modal:true});
       })
       .catch((err) => {
         console.log("Axios", err);
@@ -160,6 +212,12 @@ export class ProfileView extends React.Component {
       });
 
   };
+  handlemodal = (x) => {
+    this.setState({modal:x})
+  };
+  handleproceed = () => {
+    this.setState({proceed :true})
+  }
   render() {
     const { 
       editProfile,
@@ -185,7 +243,12 @@ export class ProfileView extends React.Component {
       testInfo,
       succeed1,
       Password,
-      id
+      id,
+      userInfoPseudo,
+      modal,
+      proceed,
+      ct,ct1,
+      complete,complete1
     } = this.state;
     const { userInfo } = this.props; 
     const tempValues={
@@ -209,6 +272,17 @@ export class ProfileView extends React.Component {
     return (
       <>
       {x && this.copyToTemp(userInfo.data)}
+      <TnCModal
+        size="lg"
+        name="Success"
+        head="The details have been updated"
+        text="Click Ok to proceed to login page"
+        show={modal}
+        btntext={true}
+        btnshow={true}
+        onHide={() => this.handlemodal(false)}
+        onAgree={() => this.handleproceed()}
+      />
       <div className="row">
         <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.UserName)}</h1></Avatar>
         <div >
@@ -388,10 +462,11 @@ export class ProfileView extends React.Component {
                       <Button
                         variant="success"
                         size="sm"
-                        disabled={!editProfile && (Email==userInfo.data.Email)}
-                        onClick={() => this.handleOtp(userInfo.data._id,Email,0)}
+                        disabled={(!editProfile && (Email==userInfo.data.Email) ) || !complete}
+                        onClick={() => this.start(),() => this.handleOtp(userInfo.data._id,Email,0)}
                       >
-                      Send OTP
+                      {parseInt(Object.values({ct}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct})) + " sec )"}
+
                       </Button>
                     </div>
                     { sendEmailOtp && 
@@ -441,14 +516,15 @@ export class ProfileView extends React.Component {
                   </div>
                   { !(PhoneNumber==tempPhoneNumber) &&
                     <>
+
                     <div style={{marginLeft:'20px',marginTop:'10px'}}>        
                        <Button
                          variant="success"
                          size="sm"
-                         disabled={!editProfile}
-                         onClick={() => this.handleOtp(userInfo.data._id,PhoneNumber,1)}
+                         disabled={(!editProfile  && (PhoneNumber==userInfo.data.PhoneNumber) ) || !complete1}
+                         onClick={() => this.start1(),() => this.handleOtp(userInfo.data._id,PhoneNumber,1)}
                        >
-                       Send OTP
+                       {parseInt(Object.values({ct1}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct1})) + " sec )"}
                        </Button>
                     </div>   
                     { sendPhoneOtp &&
@@ -581,6 +657,14 @@ export class ProfileView extends React.Component {
                 pathname: '/test', 
                 data: values
               }} 
+            />
+          }
+          { proceed &&
+            <Redirect 
+              to={{
+                  pathname: "/loginHome", 
+                  data: {userInfo : userInfoPseudo}
+                 }} 
             />
           }
         </div>
