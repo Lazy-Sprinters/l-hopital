@@ -40,7 +40,9 @@ export class ProfileView extends React.Component {
     tempPhoneNumber:"",
     Validitypassword:"",
     testInfo1:"",
-    succeed1:false
+    succeed1:false,
+    Password:"",
+    id:""
   };
 
   getInitials = (x) =>{
@@ -70,43 +72,81 @@ export class ProfileView extends React.Component {
     this.setState({PhoneNumber:data.PhoneNumber});
     this.setState({tempEmail:data.Email});
     this.setState({tempPhoneNumber:data.PhoneNumber});
-  };
-  handleOtp = () =>{
-    
+    this.setState({Password:""});
+    this.setState({id:data._id});
   };
 
   handleOtp = (id,value,flag) =>{
     if(flag==0){
-      this.setState({sendEmailOtp:true});
-      this.setState({verifiedEmailOtp:false});
+      
       //AXIOS
+      const data={id,value,flag};
+      Axios.post("http://localhost:5000/user/sendotp",data)
+      .then((res) => {
+        this.setState({sendEmailOtp:true});
+        this.setState({verifiedEmailOtp:false});
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
     }
     else{
-      this.setState({sendPhoneOtp:true});
-      this.setState({verifiedPhoneOtp:false});
+     
       //AXIOS
+      const data={id,value,flag};
+      Axios.post("http://localhost:5000/user/sendotp",data)
+      .then((res) => {
+        this.setState({sendPhoneOtp:true});
+        this.setState({verifiedPhoneOtp:false});
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
     }
     
   };
   verifyOtp = (otp,flag,id,value) => {
     if(flag==0){
       //AXIOS
-      this.setState({verifiedEmailOtp:true});
-      this.setState({tempEmail:value});
-      this.setState({sendEmailOtp:false});
-      this.setState({otp1:""});
+      const data={id,otp,flag};
+      Axios.post("http://localhost:5000/user/verifyotponupd",data)
+      .then((res) => {
+        this.setState({verifiedEmailOtp:true});
+        this.setState({tempEmail:value});
+        this.setState({sendEmailOtp:false});
+        this.setState({otp1:""});
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
+      
     }
     else{
       //AXIOS
-      this.setState({verifiedPhoneOtp:true})
-      this.setState({tempPhoneNumber:value})
-      this.setState({sendPhoneOtp:false});
-      this.setState({otp2:""});
+      const data={id,otp,flag};
+      Axios.post("http://localhost:5000/user/verifyotponupd",data)
+      .then((res) => {
+        this.setState({verifiedPhoneOtp:true})
+        this.setState({tempPhoneNumber:value})
+        this.setState({sendPhoneOtp:false});
+        this.setState({otp2:""});
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
     }
   };
-  EditDetails = (id,password) =>{
-    const data={id,password}
+  EditDetails = (data) =>{
     //AXIOS
+    Axios.post("http://localhost:5000/user/update",data)
+      .then((res) => {
+        this.setState({editProfile:false})
+
+        this.setState({x:true})
+      })
+      .catch((err) => {
+        console.log("Axios", err);
+      });
   };
   getTests = (data) =>{
       Axios.post("http://localhost:5000/appointment/all",data)
@@ -143,7 +183,9 @@ export class ProfileView extends React.Component {
       tempPhoneNumber,
       Validitypassword,
       testInfo,
-      succeed1
+      succeed1,
+      Password,
+      id
     } = this.state;
     const { userInfo } = this.props; 
     const tempValues={
@@ -155,7 +197,10 @@ export class ProfileView extends React.Component {
       State,
       Country,
       Email,
-      PhoneNumber
+      PhoneNumber,
+      Password,
+      Validitypassword,
+      id
     }
     const values ={
       userInfo,
@@ -164,8 +209,6 @@ export class ProfileView extends React.Component {
     return (
       <>
       {x && this.copyToTemp(userInfo.data)}
-      {console.log(userInfo.data)}
-      {console.log(Email)}
       <div className="row">
         <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.UserName)}</h1></Avatar>
         <div >
@@ -438,6 +481,23 @@ export class ProfileView extends React.Component {
                     </>
                   }
                 </div>
+                {editProfile &&
+                  <div className="txtfld1">
+                    <TextField
+                      disabled={!editProfile}
+                      size="small"
+                      placeholder="Enter your New Password"
+                      label="New Password"
+                      variant="outlined"
+                      value={Password}
+                      onChange={this.handleChange('Password')}
+                      type="text" 
+                      margin="normal"
+                      fullWidth
+                      autoComplete='off'
+                    />
+                  </div>
+                }
           </div>
 
           <div>
@@ -450,39 +510,35 @@ export class ProfileView extends React.Component {
                 View Your Tests  
               </Button>
             </div>
-            { !editProfile || 
-                  !(
-                    userInfo.data.IdType==IdType &&
-                    userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
-                    userInfo.data.NearestLandmark==NearestLandmark &&
-                    userInfo.data.City==City &&
-                    userInfo.data.Pincode==Pincode &&
-                    userInfo.data.State==State &&
-                    userInfo.data.Country==Country &&
-                    !(Email==tempEmail && tempEmail!=userInfo.data.Email) &&
-                    !(PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber) 
-                  )
-                  &&
+            { editProfile   &&
             <>
               <div className="txtfld3">
                   <TextField
-                    placeholder="Enter your password" /*change as the password changes to old or nothing*/
-                    label="Enter your password to edit"
+                    placeholder={Password.length>0 ? "Enter your old password" :"Enter your password"} /*change as the password changes to old or nothing*/
+                    label={Password.length>0 ? "Enter your old password to edit" :"Enter your password to edit"}
                     variant="outlined"
                     onChange={this.handleChange('Validitypassword')}
                     type="password"
-                    margin="normal"
-                    disabled={!editProfile || 
-                    (
-                      userInfo.data.IdType==IdType &&
-                      userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
-                      userInfo.data.NearestLandmark==NearestLandmark &&
-                      userInfo.data.City==City &&
-                      userInfo.data.Pincode==Pincode &&
-                      userInfo.data.State==State &&
-                      userInfo.data.Country==Country &&
-                      (Email==tempEmail && tempEmail!=userInfo.data.Email) &&
-                      (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber) 
+                    margin="normal" 
+                    inputProps={{
+                      type:"password",
+                    autoComplete: 'new-password'
+                   }}
+                    disabled={!(editProfile &&
+                     ((((userInfo.data.IdType!=IdType ||
+                        userInfo.data.IdentificationIdNumber!=IdentificationIdNumber ||
+                        userInfo.data.NearestLandmark!=NearestLandmark ||
+                        userInfo.data.City!=City ||
+                        userInfo.data.Pincode!=Pincode ||
+                        userInfo.data.State!=State ||
+                        userInfo.data.Country!=Country || (Password.length>7)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
+                        (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
+                        userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
+                        userInfo.data.NearestLandmark==NearestLandmark &&
+                        userInfo.data.City==City &&
+                        userInfo.data.Pincode==Pincode &&
+                        userInfo.data.State==State &&
+                        userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber)) 
                     )
                   }
                     size="small"
@@ -494,20 +550,24 @@ export class ProfileView extends React.Component {
                 <Button
                   variant="info"
                   size="lg"
-                  disabled={!editProfile || Validitypassword.length<=7 ||
-                    (
-                      userInfo.data.IdType==IdType &&
-                      userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
-                      userInfo.data.NearestLandmark==NearestLandmark &&
-                      userInfo.data.City==City &&
-                      userInfo.data.Pincode==Pincode &&
-                      userInfo.data.State==State &&
-                      userInfo.data.Country==Country &&
-                      (!(Email==tempEmail && tempEmail!=userInfo.data.Email) ||
-                      !(PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber) )
-                    )
-                  }
-                  onClick={() => this.EditDetails(userInfo.data._id,Validitypassword)}
+                  disabled={Validitypassword.length<=7 || !(editProfile &&
+                    ((((userInfo.data.IdType!=IdType ||
+                      userInfo.data.IdentificationIdNumber!=IdentificationIdNumber ||
+                      userInfo.data.NearestLandmark!=NearestLandmark ||
+                      userInfo.data.City!=City ||
+                      userInfo.data.Pincode!=Pincode ||
+                      userInfo.data.State!=State ||
+                      userInfo.data.Country!=Country || (Password.length>7)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
+                      (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
+                       userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
+                       userInfo.data.NearestLandmark==NearestLandmark &&
+                       userInfo.data.City==City &&
+                       userInfo.data.Pincode==Pincode &&
+                       userInfo.data.State==State &&
+                       userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber)) 
+                   )
+                 }
+                  onClick={() => this.EditDetails(tempValues)}
                 >
                   Edit Details  
                 </Button>

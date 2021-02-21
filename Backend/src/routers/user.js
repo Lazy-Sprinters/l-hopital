@@ -121,4 +121,75 @@ router.post('/user/newotps',async (req,res)=>{
       }
 });
 
+router.post('/user/sendotp',async(req,res)=>{
+      try{
+            const user=await User.findOne({_id:req.body.id});
+            const otp=RegistrationUtil.GetOtp();
+            if (parseInt(req.body.flag)==0){     
+                  const emailbody=RegistrationUtil.EmailBody(req.body.value,otp);
+                  // let emailinfo=await transporter.sendMail(emailbody);
+                  user.RecentEmailOtps.push(otp);
+                  await user.save();
+                  res.status(200).send("Otp sent successfully");
+            }
+            else{
+                  const messagebody=RegistrationUtil.MessageBody(otp);
+                  // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
+                  user.RecentMobileOtps.push(otp);
+                  await user.save();
+                  res.status(200).send("Otp sent successfully");
+            }
+      }catch(err){
+            console.log(err);
+            res.send(400).send(err);
+      }
+})
+
+router.post('/user/verifyotponupd',async (req,res)=>{
+      try{
+            const user=await User.findOne({_id:req.body.id});
+            if (parseInt(req.body.flag)==0){
+                  if (user.RecentEmailOtps[user.RecentEmailOtps.length-1]==req.body.otp){
+                        res.status(200).send('Verified');
+                  }
+                  else{
+                        res.status(400).send('Invalid Otp');
+                  }
+            }
+            else{
+                  if (user.RecentMobileOtps[user.RecentMobileOtps.length-1]==req.body.otp){
+                        res.status(200).send('Verified');
+                  }
+                  else{
+                        res.status(400).send('Invalid Otp');
+                  }
+            }
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
+
+router.post('/user/update',async (req,res)=>{
+      console.log(req.body);
+      res.status(200).send();
+      // try{
+      //       /*IdType,
+      // IdentificationIdNumber,
+      // NearestLandmark,
+      // City,
+      // Pincode,
+      // State,
+      // Country,
+      // Email,
+      // PhoneNumber,
+      // Password,
+      // Validitypassword,
+      // idx*/
+      // }catch(err){
+      //       console.log(err);
+      //       res.status(400).send(err);
+      // }
+})
+
 module.exports =router;

@@ -19,7 +19,12 @@ const transporter=nodemailer.createTransport({
 
 //Setting up functionality for random-otp generation
 const GetOtp=()=>{
-      return Math.floor(Math.random()*1000000);
+      const val=Math.floor(Math.random()*1000000);
+      if (val.toString().length==5)
+      {
+            val*=10;
+      }
+      return val;
 }
 
 //Helper function to generate a email body
