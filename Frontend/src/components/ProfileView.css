@@ -1,0 +1,27 @@
+.txtfld1{
+	width:20vw;
+	margin-top: -2vh;
+	margin-left: 3vw;
+}
+.txtfld2{
+	width:50vw;
+	margin-top: -2vh;
+	margin-left: 2vw;
+}
+.txtfld3{
+	width:20vw;
+	margin-top: 20vh;
+	margin-left: 2vw;
+}
+.profile-details{
+	width: 70vw;
+	margin-top: 4vh;
+	margin-left: 1vw;
+}
+.row{
+	margin-left: 5vw;
+}
+input:disabled {
+    color: black;
+}
+	
