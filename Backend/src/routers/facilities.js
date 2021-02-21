@@ -13,8 +13,10 @@ router.post('/facility/new',async (req,res)=>{
                   s.add(element);
             });
             let allprovidedfacilities=Array.from(s);
-            // console.log(allprovidedfacilities);
-            allprovidedfacilities.forEach(async(element) => {
+            console.log(allprovidedfacilities.length);
+            for(let i=0;i<allprovidedfacilities.length;i++)
+            {
+                  const element=allprovidedfacilities[i];
                   const newFac=new Facility(element);
                   const AssociatedCenter=await Center.findOne({_id:element.owner});
                   AssociatedCenter.Alloptions.push(element.FacilityName);
@@ -22,7 +24,7 @@ router.post('/facility/new',async (req,res)=>{
                   const currdate=FacilityRegHelper.formatdate(new Date());
                   newFac.SlotAvailability=FacilityRegHelper.listofnextsevendays(element.Offdays,currdate,element.CapacityperSlot,AssociatedCenter.OpeningTime,AssociatedCenter.ClosingTime);
                   await newFac.save();
-            });
+            }
             res.status(201).send("Shayad ho gaya");
       }catch(err){
             res.status(400).send(err);
