@@ -92,7 +92,7 @@ export class ProfileView extends React.Component {
   initiate1 = () => {
     if (this.state.ct1 !== 0) {
       this.setState((prevState, prevProps) => ({
-        ct: prevState.ct1 - 1
+        ct1: prevState.ct1 - 1
       }));
       if (this.state.ct1 === 0) {
         clearInterval(this.id1);
@@ -132,6 +132,7 @@ export class ProfileView extends React.Component {
     if(flag==0){
       
       //AXIOS
+      this.start();
       const data={id,value,flag};
       Axios.post("http://localhost:5000/user/sendotp",data)
       .then((res) => {
@@ -145,6 +146,7 @@ export class ProfileView extends React.Component {
     else{
      
       //AXIOS
+      this.start1();
       const data={id,value,flag};
       Axios.post("http://localhost:5000/user/sendotp",data)
       .then((res) => {
@@ -463,7 +465,7 @@ export class ProfileView extends React.Component {
                         variant="success"
                         size="sm"
                         disabled={(!editProfile && (Email==userInfo.data.Email) ) || !complete}
-                        onClick={() => this.start(),() => this.handleOtp(userInfo.data._id,Email,0)}
+                        onClick={() => this.handleOtp(userInfo.data._id,Email,0)}
                       >
                       {parseInt(Object.values({ct}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct})) + " sec )"}
 
@@ -522,7 +524,7 @@ export class ProfileView extends React.Component {
                          variant="success"
                          size="sm"
                          disabled={(!editProfile  && (PhoneNumber==userInfo.data.PhoneNumber) ) || !complete1}
-                         onClick={() => this.start1(),() => this.handleOtp(userInfo.data._id,PhoneNumber,1)}
+                         onClick={() => this.handleOtp(userInfo.data._id,PhoneNumber,1)}
                        >
                        {parseInt(Object.values({ct1}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct1})) + " sec )"}
                        </Button>
