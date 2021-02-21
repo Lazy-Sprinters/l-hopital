@@ -44,17 +44,14 @@ router.post('/user/signup1',async (req,res)=>{
             //Case 2:Wrong address
             //Case 3:Re-registration
             const UserinQuestion=await User.findOne({Email:req.body.Email});
-            if (UserinQuestion==undefined)
-            {
+            if (UserinQuestion==undefined){
                   res.status(400).send("Email is invalid");
             }
-            else if (UserinQuestion.PositionCoordinates.length==0)
-            {
+            else if (UserinQuestion.PositionCoordinates.length==0){
                   await User.deleteOne({Email:req.body.Email});
                   res.status(400).send("Invalid Address");
             }
-            else
-            {
+            else{
                   res.status(400).send("User is already registered");
             }
       }
@@ -65,22 +62,18 @@ router.post('/user/signup2',async (req,res)=>{
       console.log(req.body);
       try{
             const user=await User.find({Email:req.body.email}) 
-            if (user.length===0)
-            {
+            if (user.length===0){
                   res.status(404).send();
             }
-            else
-            {
-                  if (RegistrationUtil.Verificationutil(user,req)==true)
-                  {
+            else{
+                  if (RegistrationUtil.Verificationutil(user,req)==true){
                         user[0].Status=true;
                         await user[0].RecentEmailOtps.pop();
                         await user[0].RecentMobileOtps.pop();
                         await user[0].save();
                         res.status(200).send(user[0]);
                   }
-                  else
-                  {
+                  else{
                         res.status(404).send(user[0]);
                   }
             }
@@ -105,8 +98,7 @@ router.post('/user/newotps',async (req,res)=>{
             console.log(req.body);
             const UserEmail=req.body.email;
             const user=await User.findOne({Email:UserEmail});
-            if (user!==undefined && user.Status==false)
-            {
+            if (user!==undefined && user.Status==false){
                   const otp1=RegistrationUtil.GetOtp();
                   const otp2=RegistrationUtil.GetOtp();
                   const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
@@ -118,12 +110,10 @@ router.post('/user/newotps',async (req,res)=>{
                   await user.save();
                   res.status(200).send();
             }
-            else if (user===undefined)
-            {
+            else if (user===undefined){
                   res.status(404).send("You are not registered!");
             }
-            else
-            {
+            else{
                   res.status(400).send("User is already verified");
             }
       }catch{

@@ -40,17 +40,14 @@ router.post('/center/signup1',async (req,res)=>{
       }catch(err){
             const CenterinQuestion=await Center.findOne({Email:req.body.Email});
             console.log(CenterinQuestion);
-            if (CenterinQuestion==undefined)
-            {
+            if (CenterinQuestion==undefined){
                   res.status(400).send("Email is invalid");
             }
-            else if (CenterinQuestion.PositionCoordinates.length==0)
-            {
+            else if (CenterinQuestion.PositionCoordinates.length==0){
                   await Center.deleteOne({Email:req.body.Email});
                   res.status(400).send("Invalid Address");
             }
-            else
-            {
+            else{
                   res.status(400).send("User is already registered");
             }
       }
@@ -62,29 +59,24 @@ router.post('/center/match',async (req,res)=>{
             const requiredFacility=req.body.test;
             const requiredDate=req.body.date;
             const user=req.body.userInfo.data;
-            if (user.Status==false)
-            {
+            if (user.Status==false){
                   res.status(403).send("User Not Verified");
             }
-            else
-            {
+            else{
                   const step1=await Facility.find({FacilityName:requiredFacility});
                   let ids=[];
-                  for(let i=0;i<step1.length;i++) {
+                  for(let i=0;i<step1.length;i++){
                         const element=step1[i];
                         // console.log(element);
                         const v1=element.SlotAvailability.find(e=> e.date==requiredDate);
                         // console.log(v1);
-                        if (v1!=undefined)
-                        {
+                        if (v1!=undefined){
                               let check=false;
-                              for(let j=0;j<v1.slotinfo.length;j++)
-                              {
+                              for(let j=0;j<v1.slotinfo.length;j++){
                                     let k=v1.slotinfo[j];
                                     check=check | (k.det2>0);     
                               }
-                              if (check!=false)
-                              {
+                              if (check!=false){
                                     const ob={
                                           own:element.owner,
                                           costing1:element.Price
