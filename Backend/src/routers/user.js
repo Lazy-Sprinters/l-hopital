@@ -3,6 +3,7 @@ const User=require('../models/user');
 const router=new express.Router();
 const Center=require('../models/center');
 const Facility=require('../models/facilities');
+const Appointment=require('../models/appointment');
 const Authmiddleware=require('../middleware/auth');
 const RegistrationUtil=require('../helpers/Registration-helper');
 const Vonage = require('@vonage/server-sdk');
@@ -65,7 +66,7 @@ router.post('/user/signup1',async (req,res)=>{
 router.post('/user/signup2',async (req,res)=>{
       // console.log(req.body);
       try{
-            const user=await User.findOne({Email:req.body.email}) 
+            const user=await User.findOne({Email:req.body.userInfo.data.user.Email}) 
             if (user==undefined){
                   res.status(404).send();
             }
@@ -103,7 +104,8 @@ router.post('/user/login',async (req,res)=>{
 router.post('/user/newotps',async (req,res)=>{
       try{
             // console.log(req.body);
-            const UserEmail=req.body.email;
+            // console.log(req.body.userInfo.data.user);
+            const UserEmail=req.body.userInfo.data.user.Email;
             const user=await User.findOne({Email:UserEmail});
             if (user!==undefined && user.Status==false){
                   const otp1=RegistrationUtil.GetOtp();
@@ -198,7 +200,7 @@ router.post('/user/allslots',async (req,res)=>{
             const fac=req.body.flag1.service;
             const date=req.body.flag1.askeddate;
             const facility=await Facility.findOne({owner:own,FacilityName:fac});
-            let ret=Mainhelper.getallopenslots(facility,date);
+            let ret=MainHelper.getallopenslots(facility,date);
             if (ret.length!=0){
                   const finalretvalue={
                         allslots:ret,
@@ -223,7 +225,7 @@ router.post('/user/allslots',async (req,res)=>{
 router.post('/user/newappointment',async(req,res)=>{
       try{
             const queryobj=req.body.CentreValue;
-            const existing=await Appointment.findOne({user_id:queryobj.Client._id,dateofappointment:queryobj.askeddate,Slotdetails:req.body.selectedTime});
+            const existing=await Appointment.findOne({user_id:req.body.userInfo.data.user._id,dateofappointment:queryobj.askeddate,Slotdetails:req.body.selectedTime[0]});
             if (existing==null){
                   const newappointment=new Appointment(MainHelper.getformatappointment(req));
                   let facility=await Facility.findOne({Price:queryobj.costing,FacilityName:queryobj.service,owner:queryobj.cen._id});

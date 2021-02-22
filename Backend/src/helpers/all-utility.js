@@ -10,7 +10,7 @@ const modifyslotdata=(facility,queryobj,req)=>{
                   for(let j=0;j<o1.slotinfo.length;j++)
                   {
                         const o2=o1.slotinfo;
-                        if (o2[j].det1==req.body.selectedTime)
+                        if (o2[j].det1==req.body.selectedTime[0])
                         {
                               facility.SlotAvailability[i].slotinfo[j].det2--;
                         }
@@ -23,7 +23,7 @@ const modifyslotdata=(facility,queryobj,req)=>{
 const getformatappointment=(req)=>{
       const queryobj=req.body.CentreValue;
       const ret={
-            user_id:queryobj.Client._id,
+            user_id:req.body.userInfo.data.user._id,
             center_id:queryobj.cen._id,
             dateofappointment:queryobj.askeddate,
             amount:queryobj.costing,

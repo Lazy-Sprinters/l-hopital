@@ -46,6 +46,7 @@ export class ParticularCard extends React.Component {
     else this.setState({ selectedTime: "0" });
   };
   success = (data) => {
+    console.log(data)
     this.handleModal1(false);
     this.setState({disableSuccess:false})
     Axios.post("http://localhost:5000/user/newappointment", data)
@@ -72,7 +73,8 @@ export class ParticularCard extends React.Component {
     const { CentreValue, userInfo, slots } = this.props; /* tochange */
     const values={
       CentreValue,
-      selectedTime
+      selectedTime,
+      userInfo
     }
     return (
       <>

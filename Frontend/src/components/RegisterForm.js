@@ -44,7 +44,8 @@ export class RegisterForm extends Component {
     isFaulty:false,
     indicate:false,
     radioControl:"0",
-    ModalShow:false
+    ModalShow:false,
+    userInfo1:""
   };
 
   handleLoad = () =>  {
@@ -58,7 +59,7 @@ export class RegisterForm extends Component {
     this.setState({ ['isRegistered']: true });
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
-
+    this.setState({userInfo1 : data});
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
     );
@@ -85,7 +86,7 @@ export class RegisterForm extends Component {
     Axios.post("http://localhost:5000/user/signup1", data)
     .then((res) => {
       // console.log("Hey this is your result", res);
-      res.status==201 ? this.handleRegister(data) : this.handleFaulty();
+      res.status==201 ? this.handleRegister(res) : this.handleFaulty();
 
     })
     .catch((err) => {
@@ -116,7 +117,8 @@ export class RegisterForm extends Component {
       isFaulty,
       indicate,
       radioControl,
-      ModalShow
+      ModalShow,
+      userInfo1
     } = this.state;
     const values = { 
       UserName,
@@ -134,7 +136,7 @@ export class RegisterForm extends Component {
       Country
     };
     const data = { 
-      Email,
+      userInfo1,
       check
     };
 

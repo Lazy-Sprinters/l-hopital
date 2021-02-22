@@ -14,7 +14,10 @@ export class Verify extends Component {
     <>
 
       {data.check==0 ? <Navbar /> : <LoginNavbar userInfo={data.userInfo} />}
-      <OtpVerifyOrSkip email={data.Email} check={data.check}/>
+      {data.check==0 
+        ? <OtpVerifyOrSkip userInfo={data.userInfo1} check={data.check}/>
+        : <OtpVerifyOrSkip userInfo={data.userInfo} check={data.check}/>
+      }
       <Footer />
     </>
   );
