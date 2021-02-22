@@ -63,7 +63,7 @@ router.post('/user/signup1',async (req,res)=>{
 });
 
 //Route-2:Permanent creation of a user in the database if OTP verification succeeds.(T completed)
-router.post('/user/signup2',async (req,res)=>{
+router.post('/user/signup2',Authmiddleware,async (req,res)=>{
       // console.log(req.body);
       try{
             const user=await User.findOne({Email:req.body.userInfo.data.user.Email}) 
@@ -101,7 +101,7 @@ router.post('/user/login',async (req,res)=>{
 });
 
 //Route-4:Sending OTP
-router.post('/user/newotps',async (req,res)=>{
+router.post('/user/newotps',Authmiddleware,async (req,res)=>{
       try{
             // console.log(req.body);
             // console.log(req.body.userInfo.data.user);
@@ -130,8 +130,9 @@ router.post('/user/newotps',async (req,res)=>{
       }
 });
 
-router.post('/user/match',async (req,res)=>{
-      console.log(req.body);
+// Route-5:Sending Matched center
+router.post('/user/match',Authmiddleware,async (req,res)=>{
+      // console.log(req.body);
       try{
             const requiredFacility=req.body.test;
             const requiredDate=req.body.date;
@@ -193,8 +194,9 @@ router.post('/user/match',async (req,res)=>{
       }
 }) 
 
-router.post('/user/allslots',async (req,res)=>{
-      console.log(req.body);
+// Route-6:Sending all available slots to the user
+router.post('/user/allslots',Authmiddleware,async (req,res)=>{
+      // console.log(req.body);
       try{
             const own=req.body.flag1.cen._id;
             const fac=req.body.flag1.service;
@@ -204,13 +206,13 @@ router.post('/user/allslots',async (req,res)=>{
             if (ret.length!=0){
                   const finalretvalue={
                         allslots:ret,
-                        center:req.body.cen,
+                        center:req.body.flag1.cen,
                         service:fac,
-                        dis:req.body.dis,
-                        costing:req.body.costing,
-                        concerneddate:req.body.askeddate,
+                        dis:req.body.flag1.dis,
+                        costing:req.body.flag1.costing,
+                        concerneddate:req.body.flag1.askeddate,
                   }
-                  console.log(finalretvalue);
+                  // console.log(finalretvalue);
                   res.status(200).send(finalretvalue);
             }
             else{
@@ -222,7 +224,8 @@ router.post('/user/allslots',async (req,res)=>{
       }
 })
 
-router.post('/user/newappointment',async(req,res)=>{
+//Route-7:Creating a new appointment
+router.post('/user/newappointment',Authmiddleware,async(req,res)=>{
       try{
             const queryobj=req.body.CentreValue;
             const existing=await Appointment.findOne({user_id:req.body.userInfo.data.user._id,dateofappointment:queryobj.askeddate,Slotdetails:req.body.selectedTime[0]});
@@ -243,7 +246,48 @@ router.post('/user/newappointment',async(req,res)=>{
       }
 });
 
-router.post('/user/sendotp',async(req,res)=>{
+//Route-8:Sending all appointments
+router.post('/user/allappointments',Authmiddleware,async(req,res)=>{
+      try{
+            // console.log(req.body);
+            const userinquestion=await User.find({_id:req.body.userInfo.data.user._id});
+            const allappointments=await Appointment.find({user_id:req.body.userInfo.data.user._id});
+            //it can be an array of objects
+            let ret=[];       
+            if (allappointments.length==0){
+                  res.status(404).send();
+            }
+            else{
+                  for(let i=0;i<allappointments.length;i++){
+                        const concernedcenter=await Center.findOne({_id:allappointments[i].center_id});
+                        ret.push(MainHelper.getformatshowappointment(concernedcenter,allappointments[i]));
+                  }
+                  res.status(200).send(ret);
+            }
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+});
+
+//Route-9:Sending all available facilities
+router.post('/user/getallfacilities',Authmiddleware,async(req,res)=>{
+      try{
+            let s=new Set();
+            const alldata=await Facility.find({});
+            alldata.forEach(element => {
+                  s.add(element.FacilityName);
+            });
+            const ret=Array.from(s);
+            res.status(200).send(ret);
+      }catch(err){
+            res.status(404).send();
+      }
+})
+
+//Route-10:Sending update otps
+router.post('/user/sendotp',Authmiddleware,async(req,res)=>{
+      // console.log(req.body);
       try{
             const user=await User.findOne({_id:req.body.id});
             const otp=RegistrationUtil.GetOtp();
@@ -267,7 +311,8 @@ router.post('/user/sendotp',async(req,res)=>{
       }
 })
 
-router.post('/user/verifyotponupd',async (req,res)=>{
+//Route-11:Verifying update otps
+router.post('/user/verifyotponupd',Authmiddleware,async (req,res)=>{
       try{
             const user=await User.findOne({_id:req.body.id});
             if (parseInt(req.body.flag)==0){
@@ -292,9 +337,10 @@ router.post('/user/verifyotponupd',async (req,res)=>{
       }
 })
 
-router.post('/user/update',async (req,res)=>{
+//Route-12:Update user finally
+router.post('/user/update',Authmiddleware,async (req,res)=>{
       try{
-            const reqobj=req.body;
+            const reqobj=req.body.data;
             let curruser=await User.findOne({_id:reqobj.id});
             const ismatch=await bcrypt.compare(reqobj.Validitypassword,curruser.Password);
             if (ismatch){
@@ -309,8 +355,9 @@ router.post('/user/update',async (req,res)=>{
                   await curruser.PositionCoordinates.push(coordinates[0]);
                   await curruser.PositionCoordinates.push(coordinates[1]);
                   await curruser.save();
-                  console.log(curruser);
-                  res.status(200).send(curruser);
+                  // console.log(curruser);
+                  const token=req.body.userInfo.data.token;
+                  res.status(200).send({user:curruser,token});
             }
             else{
                   res.status(400).send("Password Mismatch")

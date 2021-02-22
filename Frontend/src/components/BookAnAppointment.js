@@ -33,7 +33,8 @@ export class BookAnAppointment extends React.Component {
   }
   retrieveTests = (data) =>{
     this.setState({onOpen:false});
-    Axios.post("http://localhost:5000/facility/all",data)
+    const userInfo={userInfo:data}
+    Axios.post("http://localhost:5000/user/getallfacilities",userInfo)
     .then((res) => {
       this.handleBooking(res);
     })

@@ -2,6 +2,8 @@ const express=require('express');
 const router=new express.Router();
 const Facility=require('../models/facilities');
 const Center=require('../models/center');
+const User=require('../models/user');
+const Appointment=require('../models/appointment');
 const Mainhelper=require('../helpers/all-utility');
 const FacilityRegHelper=require('../helpers/center-registration-helper');
 
@@ -32,19 +34,7 @@ router.post('/facility/new',async (req,res)=>{
       }
 })
 
-router.post('/facility/all',async(req,res)=>{
-      try{
-            let s=new Set();
-            const alldata=await Facility.find({});
-            alldata.forEach(element => {
-                  s.add(element.FacilityName);
-            });
-            const ret=Array.from(s);
-            res.status(200).send(ret);
-      }catch(err){
-            res.status(404).send();
-      }
-})
+
 
 
 

@@ -86,15 +86,16 @@ const UserSchema=mongoose.Schema({
 
 //Adding below options will automatically hide all auth-related data for the user
 
-// UserSchema.methods.toJSON=function(){
-//       const user=this;
-//       const userobj=user.toObject();
+UserSchema.methods.toJSON=function(){
+      const user=this;
+      const userobj=user.toObject();
 
-//       // delete userobj.tokens;
-//       delete userobj.RecentMobileOtps;
-//       delete userobj.RecentEmailOtps;
-//       return userobj;
-// }
+      // delete userobj.Password
+      // delete userobj.tokens;
+      // delete userobj.RecentMobileOtps;
+      // delete userobj.RecentEmailOtps;
+      return userobj;
+}
 
 UserSchema.methods.generateauthtoken=async function(){
       const user=this;

@@ -32,7 +32,8 @@ class LoginNavbar extends Component {
       });
   };
   getTests = (data) =>{
-      Axios.post("http://localhost:5000/appointment/all",data)
+    const userInfo = {userInfo:data}
+      Axios.post("http://localhost:5000/user/allappointments",userInfo)
       .then((res) => {
           this.setState({testInfo:res.data});   
           this.setState({['succeed']:true});

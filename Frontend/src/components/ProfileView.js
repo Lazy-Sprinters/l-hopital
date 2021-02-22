@@ -120,12 +120,12 @@ export class ProfileView extends React.Component {
     this.setState({id:data._id});
   };
 
-  handleOtp = (id,value,flag) =>{
+  handleOtp = (userInfo,id,value,flag) =>{
     if(flag==0){
       
       //AXIOS
       this.start();
-      const data={id,value,flag};
+      const data={userInfo,id,value,flag};
       Axios.post("http://localhost:5000/user/sendotp",data)
       .then((res) => {
         this.setState({sendEmailOtp:true});
@@ -139,7 +139,7 @@ export class ProfileView extends React.Component {
      
       //AXIOS
       this.start1();
-      const data={id,value,flag};
+      const data={userInfo,id,value,flag};
       Axios.post("http://localhost:5000/user/sendotp",data)
       .then((res) => {
         this.setState({sendPhoneOtp:true});
@@ -151,10 +151,10 @@ export class ProfileView extends React.Component {
     }
     
   };
-  verifyOtp = (otp,flag,id,value) => {
+  verifyOtp = (userInfo,otp,flag,id,value) => {
     if(flag==0){
       //AXIOS
-      const data={id,otp,flag};
+      const data={userInfo,id,otp,flag};
       Axios.post("http://localhost:5000/user/verifyotponupd",data)
       .then((res) => {
         this.setState({verifiedEmailOtp:true});
@@ -169,7 +169,7 @@ export class ProfileView extends React.Component {
     }
     else{
       //AXIOS
-      const data={id,otp,flag};
+      const data={userInfo,id,otp,flag};
       Axios.post("http://localhost:5000/user/verifyotponupd",data)
       .then((res) => {
         this.setState({verifiedPhoneOtp:true})
@@ -182,9 +182,10 @@ export class ProfileView extends React.Component {
       });
     }
   };
-  EditDetails = (data) =>{
+  EditDetails = (userInfo,data) =>{
     //AXIOS
-    Axios.post("http://localhost:5000/user/update",data)
+    const ret={userInfo,data}
+    Axios.post("http://localhost:5000/user/update",ret)
       .then((res) => {
         this.setState({editProfile:false});
         this.setState({userInfoPseudo:res});
@@ -195,7 +196,8 @@ export class ProfileView extends React.Component {
       });
   };
   getTests = (data) =>{
-      Axios.post("http://localhost:5000/appointment/all",data)
+    const userInfo = {userInfo:data}
+      Axios.post("http://localhost:5000/user/allappointments",userInfo)
       .then((res) => {
           this.setState({testInfo:res.data});   
           this.setState({['succeed1']:true});
@@ -265,7 +267,7 @@ export class ProfileView extends React.Component {
     }
     return (
       <>
-      {x && this.copyToTemp(userInfo.data)}
+      {x && this.copyToTemp(userInfo.data.user)}
       <TnCModal
         size="lg"
         name="Success"
@@ -278,12 +280,12 @@ export class ProfileView extends React.Component {
         onAgree={() => this.handleproceed()}
       />
       <div className="row">
-        <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.UserName)}</h1></Avatar>
+        <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.user.UserName)}</h1></Avatar>
         <div >
-            <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap'}}><h1>{userInfo.data.UserName}</h1></Typography>
+            <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap'}}><h1>{userInfo.data.user.UserName}</h1></Typography>
           <div className="row">
-              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Age: {userInfo.data.Age}</h3></Typography>
-              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Gender: {userInfo.data.Gender}</h3></Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Age: {userInfo.data.user.Age}</h3></Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Gender: {userInfo.data.user.Gender}</h3></Typography>
           </div>
         </div> 
       </div>
@@ -456,8 +458,8 @@ export class ProfileView extends React.Component {
                       <Button
                         variant="success"
                         size="sm"
-                        disabled={(!editProfile && (Email==userInfo.data.Email) ) || !complete}
-                        onClick={() => this.handleOtp(userInfo.data._id,Email,0)}
+                        disabled={(!editProfile && (Email==userInfo.data.user.Email) ) || !complete}
+                        onClick={() => this.handleOtp(userInfo,userInfo.data.user._id,Email,0)}
                       >
                       {parseInt(Object.values({ct}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct})) + " sec )"}
 
@@ -483,7 +485,7 @@ export class ProfileView extends React.Component {
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp1.length<=5)}
-                            onClick={() => this.verifyOtp(otp1,0,userInfo.data._id,Email)}
+                            onClick={() => this.verifyOtp(userInfo,otp1,0,userInfo.data.user._id,Email)}
                           >
                           Verify OTP
                           </Button>
@@ -515,8 +517,8 @@ export class ProfileView extends React.Component {
                        <Button
                          variant="success"
                          size="sm"
-                         disabled={(!editProfile  && (PhoneNumber==userInfo.data.PhoneNumber) ) || !complete1}
-                         onClick={() => this.handleOtp(userInfo.data._id,PhoneNumber,1)}
+                         disabled={(!editProfile  && (PhoneNumber==userInfo.data.user.PhoneNumber) ) || !complete1}
+                         onClick={() => this.handleOtp(userInfo,userInfo.data.user._id,PhoneNumber,1)}
                        >
                        {parseInt(Object.values({ct1}))==0 ? "Send Otp" :"Send Otp ( "+ parseInt(Object.values({ct1})) + " sec )"}
                        </Button>
@@ -541,7 +543,7 @@ export class ProfileView extends React.Component {
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp2.length<=5)}
-                            onClick={() => this.verifyOtp(otp2,1,userInfo.data._id,PhoneNumber)}
+                            onClick={() => this.verifyOtp(userInfo,otp2,1,userInfo.data.user._id,PhoneNumber)}
                           >
                           Verify OTP
                           </Button>
@@ -595,20 +597,20 @@ export class ProfileView extends React.Component {
                     autoComplete: 'new-password'
                    }}
                     disabled={!(editProfile &&
-                     ((((userInfo.data.IdType!=IdType ||
-                        userInfo.data.IdentificationIdNumber!=IdentificationIdNumber ||
-                        userInfo.data.NearestLandmark!=NearestLandmark ||
-                        userInfo.data.City!=City ||
-                        userInfo.data.Pincode!=Pincode ||
-                        userInfo.data.State!=State ||
-                        userInfo.data.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
-                        (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
-                        userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
-                        userInfo.data.NearestLandmark==NearestLandmark &&
-                        userInfo.data.City==City &&
-                        userInfo.data.Pincode==Pincode &&
-                        userInfo.data.State==State &&
-                        userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber && Password.length<8)) 
+                     ((((userInfo.data.user.IdType!=IdType ||
+                        userInfo.data.user.IdentificationIdNumber!=IdentificationIdNumber ||
+                        userInfo.data.user.NearestLandmark!=NearestLandmark ||
+                        userInfo.data.user.City!=City ||
+                        userInfo.data.user.Pincode!=Pincode ||
+                        userInfo.data.user.State!=State ||
+                        userInfo.data.user.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.user.Email ||(Email==tempEmail && tempEmail!=userInfo.data.user.Email)) && (PhoneNumber==userInfo.data.user.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.user.PhoneNumber))) ||
+                        (Email==userInfo.data.user.Email ||(Email==tempEmail && tempEmail!=userInfo.data.user.Email)) && (PhoneNumber==userInfo.data.user.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.user.PhoneNumber))) && !(userInfo.data.user.IdType==IdType &&
+                        userInfo.data.user.IdentificationIdNumber==IdentificationIdNumber &&
+                        userInfo.data.user.NearestLandmark==NearestLandmark &&
+                        userInfo.data.user.City==City &&
+                        userInfo.data.user.Pincode==Pincode &&
+                        userInfo.data.user.State==State &&
+                        userInfo.data.user.Country==Country && userInfo.data.user.Email==Email && PhoneNumber==userInfo.data.user.PhoneNumber && Password.length<8)) 
                     )
                   }
                     size="small"
@@ -622,23 +624,23 @@ export class ProfileView extends React.Component {
                   variant="info"
                   size="lg"
                   disabled={Validitypassword.length<=7 || !(editProfile &&
-                    ((((userInfo.data.IdType!=IdType ||
-                      userInfo.data.IdentificationIdNumber!=IdentificationIdNumber ||
-                      userInfo.data.NearestLandmark!=NearestLandmark ||
-                      userInfo.data.City!=City ||
-                      userInfo.data.Pincode!=Pincode ||
-                      userInfo.data.State!=State ||
-                      userInfo.data.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) ||
-                      (Email==userInfo.data.Email ||(Email==tempEmail && tempEmail!=userInfo.data.Email)) && (PhoneNumber==userInfo.data.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.PhoneNumber))) && !(userInfo.data.IdType==IdType &&
-                       userInfo.data.IdentificationIdNumber==IdentificationIdNumber &&
-                       userInfo.data.NearestLandmark==NearestLandmark &&
-                       userInfo.data.City==City &&
-                       userInfo.data.Pincode==Pincode &&
-                       userInfo.data.State==State &&
-                       userInfo.data.Country==Country && userInfo.data.Email==Email && PhoneNumber==userInfo.data.PhoneNumber && Password.length<8)) 
+                    ((((userInfo.data.user.IdType!=IdType ||
+                      userInfo.data.user.IdentificationIdNumber!=IdentificationIdNumber ||
+                      userInfo.data.user.NearestLandmark!=NearestLandmark ||
+                      userInfo.data.user.City!=City ||
+                      userInfo.data.user.Pincode!=Pincode ||
+                      userInfo.data.user.State!=State ||
+                      userInfo.data.user.Country!=Country || (Password.length>=8)) && (Email==userInfo.data.user.Email ||(Email==tempEmail && tempEmail!=userInfo.data.user.Email)) && (PhoneNumber==userInfo.data.user.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.user.PhoneNumber))) ||
+                      (Email==userInfo.data.user.Email ||(Email==tempEmail && tempEmail!=userInfo.data.user.Email)) && (PhoneNumber==userInfo.data.user.PhoneNumber || (PhoneNumber==tempPhoneNumber && tempPhoneNumber!=userInfo.data.user.PhoneNumber))) && !(userInfo.data.user.IdType==IdType &&
+                       userInfo.data.user.IdentificationIdNumber==IdentificationIdNumber &&
+                       userInfo.data.user.NearestLandmark==NearestLandmark &&
+                       userInfo.data.user.City==City &&
+                       userInfo.data.user.Pincode==Pincode &&
+                       userInfo.data.user.State==State &&
+                       userInfo.data.user.Country==Country && userInfo.data.user.Email==Email && PhoneNumber==userInfo.data.user.PhoneNumber && Password.length<8)) 
                    )
                  }
-                  onClick={() => this.EditDetails(tempValues)}
+                  onClick={() => this.EditDetails(userInfo,tempValues)}
                 >
                   Edit Details  
                 </Button>
