@@ -3,21 +3,35 @@ import "../App.css";
 import LoginNavbar from "./LoginNavbar";
 import ProfileView from "./ProfileView";
 import Footer from "./Footer";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
-export class LoginHome extends Component {
+
+export class Profile extends Component {
 
   render() {
 
-    const {userInfo} = this.props.location.data;
+    // const {userInfo} = this.props.location.data;
     return(
     <div>
       <LoginNavbar
-        userInfo={userInfo}
+        userInfo={this.props.userInfo}
       />
-      <ProfileView userInfo={userInfo} />
+      <ProfileView userInfo={this.props.userInfo} />
     </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+  };
+};
 
-export default LoginHome;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Profile);

@@ -4,6 +4,8 @@ import { Link,Redirect } from 'react-router-dom';
 import './RegisterForm.css'
 import { TextField, LinearProgress,Select,MenuItem } from "@material-ui/core";
 import Axios from "axios";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 export class BookAnAppointment extends React.Component {
   state = {
@@ -21,7 +23,8 @@ export class BookAnAppointment extends React.Component {
     this.setState({['testList']:x.data});
   };
   handleSearch = (x) =>{
-    this.setState({centreList : x.data});
+    // this.setState({centreList : x.data});
+    this.props.onChangecentreList(x.data);
     this.setState({recieved : true});
   };
   handleProceedFaulty = () =>  {
@@ -64,11 +67,11 @@ export class BookAnAppointment extends React.Component {
   book() {
     this.setState({ show: true});
   }
-  proceed(data) {
+  proceed(test,date,userInfo) {
     this.setState({ show: false });
     this.setState({ ['isProceedFaulty']: false });
+    const data={test,date,userInfo}
     console.log(data);
-      // this.setState({recieved : true})    /* tochange */
       Axios.post("http://localhost:5000/user/match",data)
       .then((res) => {
         console.log(res);
@@ -98,7 +101,7 @@ export class BookAnAppointment extends React.Component {
     return date;
   }
   render() {
-    const { userInfo} = this.props;
+    // const { userInfo} = this.props;
 
     const{ 
       testList,
@@ -111,17 +114,17 @@ export class BookAnAppointment extends React.Component {
     } = this.state;
     
     const values = {
-      userInfo,
+      // userInfo,
       test,
       date
     };
     const data = {
-      userInfo,
+      // userInfo,
       centreList
     }
     return (
       <div>
-      {this.state.onOpen==true ? this.retrieveTests(userInfo) : null}
+      {this.state.onOpen==true ? this.retrieveTests(this.props.userInfo) : null}
         <div className="bkap-btn">
           <button 
             className="btn btn-success my-5"
@@ -156,7 +159,7 @@ export class BookAnAppointment extends React.Component {
           <button className="bkap-btn"
             className="btn btn-success my-5"
             type="button"
-            onClick={() => this.proceed(values)}
+            onClick={() => this.proceed(test,date,this.props.userInfo)}
             disabled={!this.state.show}
           >
             Proceed
@@ -164,14 +167,26 @@ export class BookAnAppointment extends React.Component {
         </div>
         <h2>{errmsg}</h2>
         {isProceedFaulty && <h2>No Test Centres Available for the desired test and date.Please select another date.</h2>}
-        {recieved && <Redirect to={{
+        {recieved && <Redirect push to={{
                       pathname: "/selectionPage1", 
-                      data: data
+                      // data: data
                      }} />}
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo
+  };
+};
 
-export default BookAnAppointment;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(BookAnAppointment);
  

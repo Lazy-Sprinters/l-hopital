@@ -9,6 +9,8 @@ import {
   LinearProgress
 } from "@material-ui/core";
 import "./OtpVerification.css";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 export class OtpVerification extends Component {
 
@@ -30,8 +32,9 @@ export class OtpVerification extends Component {
     //  this.sendOtp(x);
   };
    sendOtp = (x) =>{
-     console.log(x)
-  Axios.post("http://localhost:5000/user/newotps", x)
+    const data={userInfo:x};
+     console.log(data)
+  Axios.post("http://localhost:5000/user/newotps", data)
       .then((res) => {
         ;
 
@@ -72,7 +75,8 @@ export class OtpVerification extends Component {
     this.setState({ ['isVerified']: true });
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
-    this.setState({ ['x']: res });
+    // this.setState({ ['x']: res });
+    this.props.onChangeUserInfo(res);
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
     );
@@ -95,7 +99,8 @@ export class OtpVerification extends Component {
     this.setState({ [input]: e.target.value });
 
   };
-  verifyOtp = (data) =>{
+  verifyOtp = (otp1,otp2,userInfo) =>{
+    const data={userInfo,otp1,otp2}
     this.handleLoad();
     console.log(data)
     // this.handleVerification();                  
@@ -113,7 +118,7 @@ export class OtpVerification extends Component {
   
 
   render() {
-    const{userInfo,check}=this.props;
+    // const{userInfo,check}=this.props;
      const{ 
       otp1,
       otp2,
@@ -128,7 +133,7 @@ export class OtpVerification extends Component {
       x
     } = this.state;
     const data = { 
-      userInfo,
+      // userInfo,
       otp1,
       otp2
     };
@@ -136,7 +141,7 @@ export class OtpVerification extends Component {
     return (
        <div>
           <br/> <br/>
-          {counter==30 ? this.start({userInfo}) : null}
+          {counter==30 ? this.start(this.props.userInfo) : null}
           <div className="err-msg">
             <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
           </div>
@@ -178,14 +183,14 @@ export class OtpVerification extends Component {
               color="primary"
               variant="contained"
               disabled={!((data.otp1.length>=5 ) && (data.otp2.length>=5 ))}
-              onClick={() => this.verifyOtp(data)}
+              onClick={() => this.verifyOtp(otp1,otp2,this.props.userInfo)}
             >
               Verify
             </Button>
           </div>
           <br /> <br />
           <br /> <br />
-          {check==0 && 
+          {this.props.check==0 && 
             <div>
             {!(isVerified && isLoaded) && 
               <div className="btn2">
@@ -220,7 +225,7 @@ export class OtpVerification extends Component {
           {isVerified && isLoaded && <h1>You are verified</h1>}
           {!isVerified && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
           <br />
-          {check==0 && 
+          {this.props.check==0 && 
             <div>
             {isVerified && isLoaded && 
               <div className="btn2">
@@ -241,14 +246,14 @@ export class OtpVerification extends Component {
             }
             </div>
           }
-          {check==1 && 
+          {this.props.check==1 && 
             <div>
             {isVerified && isLoaded && <h1>You can now book appointments.</h1>}
             {indicate && 
               <Redirect 
                 to={{
                   pathname: "/loginHome", 
-                  data: {userInfo:x}
+                  // data: {userInfo:x}
                 }} 
               />}
             </div>
@@ -260,5 +265,18 @@ export class OtpVerification extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+    check:state.check
+  };
+};
 
-export default OtpVerification;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_STATE , check:check})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(OtpVerification);

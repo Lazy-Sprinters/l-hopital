@@ -20,6 +20,8 @@ import {
   Select
 } from "@material-ui/core";
 import './RegisterForm.css'
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 export class RegisterForm extends Component {
 
@@ -37,7 +39,6 @@ export class RegisterForm extends Component {
     Pincode:"0",
     State:"0",
     Country:"0",
-    check:0,
     isLoading:false,
     isLoaded:false,
     isRegistered:false,
@@ -59,7 +60,9 @@ export class RegisterForm extends Component {
     this.setState({ ['isRegistered']: true });
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
-    this.setState({userInfo1 : data});
+    // this.setState({userInfo1 : data});
+    this.props.onChangeUserInfo(data);
+    this.props.onChangeCheck(0);
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
     );
@@ -110,7 +113,6 @@ export class RegisterForm extends Component {
       Pincode,
       State,
       Country,
-      check,
       isLoading,
       isLoaded,
       isRegistered,
@@ -137,7 +139,6 @@ export class RegisterForm extends Component {
     };
     const data = { 
       userInfo1,
-      check
     };
 
     const  errors = validateInfo(values);
@@ -394,7 +395,7 @@ export class RegisterForm extends Component {
                 <br />
                 {indicate && <Redirect to={{
                       pathname: "/verify", 
-                      data: data
+                      // data: data
                      }} />}
                 </div>
                 <br />
@@ -411,5 +412,17 @@ export class RegisterForm extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo
+  };
+};
 
-export default RegisterForm;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(RegisterForm);

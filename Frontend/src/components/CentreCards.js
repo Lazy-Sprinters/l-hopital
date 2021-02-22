@@ -7,6 +7,8 @@ import {style1} from './CardData';
 import './CentreCards.css';
 import { TextField, LinearProgress,Select,MenuItem } from "@material-ui/core";
 import Axios from "axios";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 export class CentreCards extends React.Component {
   state = {
@@ -22,7 +24,8 @@ export class CentreCards extends React.Component {
   };
   handleSlot = (x,y) => {
     // console.log(x);
-    this.setState({CentreValue:x});
+    // this.setState({CentreValue:x});
+    this.props.onChangeCentreValue(x);
     const flag1=x;
     const flag2={data:y.data};
     // console.log(flag1,flag2);
@@ -38,7 +41,8 @@ export class CentreCards extends React.Component {
       }); 
   };
   handleClick = (x) => {
-    this.setState({slots:x.data});
+    // this.setState({slots:x.data});
+    this.props.onChangeslots(x.data)
     this.setState({selected:true});
   };
   show(centreList,userInfo){          /* tochange */
@@ -85,7 +89,7 @@ export class CentreCards extends React.Component {
       this.setState({origcode:code});
   };
   render() {
-    const { centreList,userInfo} = this.props;        /* tochange */
+    // const { centreList,userInfo} = this.props;        /* tochange */
 
     const{ 
       centre,
@@ -98,21 +102,34 @@ export class CentreCards extends React.Component {
     
     const values ={
       slots,
-      userInfo,
+      // userInfo,
       CentreValue
     };
     return (
       <div>
-        {initial && this.show(centreList,userInfo)}        {/* tochange */}
+        {initial && this.show(this.props.centreList,this.props.userInfo)}        {/* tochange */}
         {origcode}
-        {selected && <Redirect to={{
+        {selected && <Redirect push to={{
                       pathname: "/selectionPage2", 
-                      data: values           /* tochange */
+                      // data: values           /* tochange */
                      }} />}
       </div>
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+    centreList:state.centreList
+  };
+};
 
-export default CentreCards;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeslots: (slots) => dispatch({type:actionTypes.CHANGE_SLOTS , slots:slots}),
+    onChangeCentreValue: (CentreValue) => dispatch({type:actionTypes.CHANGE_CENTREVALUE , CentreValue:CentreValue})
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(CentreCards);
  

@@ -7,8 +7,9 @@ import LoginHome from "./LoginHome";
 import Axios from "axios";
 import "./Login.css";
 import { TextField, LinearProgress } from "@material-ui/core";
-
-export class Login extends Component {
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
+class Login extends Component {
   state = {
     step: 0,
     success: false,
@@ -48,7 +49,8 @@ export class Login extends Component {
     // this.handleLogin();  
     Axios.post("http://localhost:5000/user/login", data)
     .then((res) => {
-      this.handleLoginUser(res);
+      this.props.onChangeUserInfo(res);
+      // this.handleLoginUser(res);
       console.log(res);
       res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
     })
@@ -65,7 +67,6 @@ export class Login extends Component {
     }
   };
   render() {
-    const { loggedOut } = this.props.location.data==undefined ? false : true ;
 
     const {
       email,
@@ -137,22 +138,31 @@ export class Login extends Component {
                   </h2>
                 </div>
               )}
-              {loggedOut && (
-                <div className="err-msg">
-                  <h2>Logged Out</h2>
-                </div>
-              )}
               {!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}
             </div>
             </div>
-            {isLoggedIn && <Redirect to={{
+            {isLoggedIn && 
+            
+              <Redirect to={{
                       pathname: "/loginHome", 
-                      data: {userInfo}
-                     }} />}
+                      // data: {userInfo}
+                     }} />
+            }
             <Footer />
           </div>
         );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo
+  };
+};
 
-export default Login;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

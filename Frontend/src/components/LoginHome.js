@@ -4,23 +4,34 @@ import BookAnAppointment from "./BookAnAppointment";
 import VerifyWarning from "./VerifyWarning";
 import LoginNavbar from "./LoginNavbar";
 import Footer from "./Footer";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 export class LoginHome extends Component {
 
   render() {
-
-    const { userInfo } = this.props.location.data;
     return(
     <div>
       <LoginNavbar
-        userInfo={userInfo}
+        userInfo={this.props.userInfo}
       />
-      {!userInfo.data.user.Status && <VerifyWarning userInfo={userInfo}/>}
-      <BookAnAppointment userInfo={userInfo} />
+      {!this.props.userInfo.data.user.Status && <VerifyWarning userInfo={this.props.userInfo}/>}
+      <BookAnAppointment userInfo={this.props.userInfo} />
       <Footer />
     </div>
     );
   }
 }
 
-export default LoginHome;
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo
+  };
+};
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo})
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(LoginHome);

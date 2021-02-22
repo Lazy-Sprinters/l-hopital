@@ -5,6 +5,8 @@ import Axios from "axios";
 import {
   Button
 } from "@material-ui/core";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 class LoginNavbar extends Component {
   state = {
@@ -36,7 +38,8 @@ class LoginNavbar extends Component {
     const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/allappointments",userInfo)
       .then((res) => {
-          this.setState({testInfo:res.data});   
+          // this.setState({testInfo:res.data}); 
+          this.props.onChangeTestInfo(res.data);
           this.setState({['succeed']:true});
 
       })
@@ -46,7 +49,7 @@ class LoginNavbar extends Component {
 
   };
   render(){
-    const {userInfo} = this.props;
+    // const {userInfo} = this.props;
     const {
       click,
       loggedOut,
@@ -55,7 +58,7 @@ class LoginNavbar extends Component {
       succeed
     }=this.state;
     const values={
-      userInfo,
+      // userInfo,
       testInfo
     }
     return (
@@ -73,7 +76,7 @@ class LoginNavbar extends Component {
                 <Link
                   to={{
                       pathname: '/loginHome', 
-                      data: {userInfo}
+                      // data: {this.props.userInfo}
                      }}  className='nav-links' onClick={() => this.closeMobileMenu()}>
                   HOME
                 </Link>
@@ -81,7 +84,7 @@ class LoginNavbar extends Component {
               <li className='nav-item'>
                 <Link
                   className='nav-links'
-                  onClick={() => this.closeMobileMenu(),() => this.getTests(userInfo)}
+                  onClick={() => this.closeMobileMenu(),() => this.getTests(this.props.userInfo)}
                 >
                   TESTS 
                 </Link>
@@ -90,7 +93,7 @@ class LoginNavbar extends Component {
                 <Link
                   to={{
                       pathname: '/profile', 
-                      data: {userInfo}
+                      // data: {this.props.userInfo}
                      }}
                   className='nav-links'
                   onClick={() => this.closeMobileMenu()}
@@ -103,7 +106,7 @@ class LoginNavbar extends Component {
                   to="/login"
                   className='nav-links'
                   color="primary"
-                  onClick={() => this.closeMobileMenu(),() => this.LogOut(userInfo)}
+                  onClick={() => this.closeMobileMenu(),() => this.LogOut(this.props.userInfo)}
                 >
                   LOGOUT
                 </Link>
@@ -112,18 +115,18 @@ class LoginNavbar extends Component {
             </ul>
           </div>
           {loggedOut && 
-            <Redirect 
+            <Redirect push
               to={{
                 pathname: "/login", 
-                data: loggedOut
+                // data: loggedOut
               }} 
             />
           }
           {succeed && 
-            <Redirect 
+            <Redirect push
               to={{
                 pathname: '/test', 
-                data: values
+                // data: values
               }} 
             />
           }
@@ -131,5 +134,21 @@ class LoginNavbar extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+    check:state.check,
+    testInfo:state.testInfo
 
-export default LoginNavbar;
+  };
+};
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeTestInfo: (testInfo) => dispatch({type:actionTypes.CHANGE_TESTINFO , testInfo:testInfo}),
+    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_STATE , check:check})
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginNavbar);

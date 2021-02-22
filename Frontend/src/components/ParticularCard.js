@@ -6,6 +6,9 @@ import Ratings from "./StarRatingComponent";
 import EnhancedTable from "./EnhancedTable";
 import TnCModal from "./TnCModal";
 import { Button } from "react-bootstrap";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
+
 
 export class ParticularCard extends React.Component {
   state = {
@@ -45,7 +48,8 @@ export class ParticularCard extends React.Component {
     if (x.length > 0) this.setState({ selectedTime: x });
     else this.setState({ selectedTime: "0" });
   };
-  success = (data) => {
+  success = (userInfo,CentreValue,selectedTime) => {
+    const data={userInfo,CentreValue,selectedTime}
     console.log(data)
     this.handleModal1(false);
     this.setState({disableSuccess:false})
@@ -70,11 +74,11 @@ export class ParticularCard extends React.Component {
       proceedToHome,
 	client
     } = this.state;
-    const { CentreValue, userInfo, slots } = this.props; /* tochange */
+    // const { CentreValue, userInfo, slots } = this.props; /* tochange */
     const values={
-      CentreValue,
+      // CentreValue,
       selectedTime,
-      userInfo
+      // userInfo
     }
     return (
       <>
@@ -91,7 +95,7 @@ export class ParticularCard extends React.Component {
                      mollit anim id est laborum."
         show={ModalShow1}
         onHide={() => this.handleModal1(false)}
-        onAgree={() => this.success(values)}
+        onAgree={() => this.success(this.props.userInfo,this.props.CentreValue,selectedTime)}
       />
       <TnCModal
         btntext={true}
@@ -117,41 +121,41 @@ export class ParticularCard extends React.Component {
         onHide={() => this.handleModal3(false)}
         onAgree={() => this.handleModal3(false)}
       />
-        {facilityShow && this.show1(CentreValue,userInfo)}
+        {facilityShow && this.show1(this.props.CentreValue,this.props.userInfo)}
         <div className="user-row">
           <div className="user-col">
             <div className="UserPanel">
               <div className="user-avatar">
-                {<img src={CentreValue.cen.FrontImage} alt="profile" />}
+                {<img src={this.props.CentreValue.cen.FrontImage} alt="profile" />}
               </div>
 
               <div className="center-details">
                 <h4>
-                  <b>{CentreValue.cen.Name}</b>
+                  <b>{this.props.CentreValue.cen.Name}</b>
                 </h4>
               </div>
               <div className="center-details">
                 
                   <b>Address: </b>
-                  {CentreValue.cen.Address}
+                  {this.props.CentreValue.cen.Address}
                 
               </div>
               <div className="center-details">
                 
                   <b>PhoneNo: </b>
-                  {CentreValue.cen.PhoneNo}
+                  {this.props.CentreValue.cen.PhoneNo}
                 
               </div>
               <div className="center-details">
                 
                   <b>Email: </b>
-                  {CentreValue.cen.Email}
+                  {this.props.CentreValue.cen.Email}
                 
               </div>
               <div className="center-details">
                 Timings:
                 
-                  {CentreValue.cen.OpeningTime} - {CentreValue.cen.ClosingTime}
+                  {this.props.CentreValue.cen.OpeningTime} - {this.props.CentreValue.cen.ClosingTime}
                 
               </div>
               <div className="center-details">
@@ -159,7 +163,7 @@ export class ParticularCard extends React.Component {
               </div>
               <div className="center-details">
                 <h6>
-                  <Ratings rating={CentreValue.cen.AvgStars} />
+                  <Ratings rating={this.props.CentreValue.cen.AvgStars} />
                 </h6>
               </div>
               {/*<div className="center-details">
@@ -169,7 +173,7 @@ export class ParticularCard extends React.Component {
           </div>
           <div className="user-col">
             <div className="tble">
-              <EnhancedTable handleTime={this.handleTime} slots={slots} />
+              <EnhancedTable handleTime={this.handleTime} slots={this.props.slots} />
             </div>
             <div className="box">
               <div className="info-row">
@@ -192,7 +196,7 @@ export class ParticularCard extends React.Component {
                   </div>
 			<div className="time-row1">
                     Date Selected :{" "}
-                    {CentreValue.askeddate}
+                    {this.props.CentreValue.askeddate}
                   </div>
 
                   <div className="time-row">
@@ -210,21 +214,21 @@ export class ParticularCard extends React.Component {
 
                     <div className="details-col">
                       <div className="details-row">
-                        Test : {CentreValue.service}
+                        Test : {this.props.CentreValue.service}
                       </div>
                       <div className="details-row">
-                        Distance : {CentreValue.dis} Km
+                        Distance : {this.props.CentreValue.dis} Km
                       </div>
                       <div className="details-row">
-                        Cost : ₹{CentreValue.costing}
+                        Cost : ₹{this.props.CentreValue.costing}
                       </div>
                       <div className="details-row">
-                        Fine : ₹{CentreValue.costing}
+                        Fine : ₹{this.props.CentreValue.costing}
                       </div>
                       <div className="details-row">
                         Total : ₹
-                        {parseInt(CentreValue.costing) +
-                          parseInt(CentreValue.costing)}
+                        {parseInt(this.props.CentreValue.costing) +
+                          parseInt(this.props.CentreValue.costing)}
                       </div>
                     </div>
                   </div>
@@ -235,11 +239,25 @@ export class ParticularCard extends React.Component {
         </div>
         {proceedToHome && <Redirect to={{
                       pathname: "/loginHome", 
-                      data: {userInfo}
+                      // data: {userInfo}
                      }} />}
       </>
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+    slots:state.slots,
+    CentreValue:state.CentreValue  
+  };
+};
 
-export default ParticularCard;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeslots: (slots) => dispatch({type:actionTypes.CHANGE_SLOTS , slots:slots}),
+    onChangeCentreValue: (CentreValue) => dispatch({type:actionTypes.CHANGE_CENTREVALUE , CentreValue:CentreValue})
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(ParticularCard);

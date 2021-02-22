@@ -17,6 +17,9 @@ import {
 }
   from '@material-ui/core';
 import './ProfileView.css'
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
+
 export class ProfileView extends React.Component {
   state = {
     editProfile:false,
@@ -649,7 +652,7 @@ export class ProfileView extends React.Component {
             }
           </div>
           {succeed1 && 
-            <Redirect 
+            <Redirect push
               to={{
                 pathname: '/test', 
                 data: values
@@ -669,5 +672,16 @@ export class ProfileView extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return{
+    userInfo:state.userInfo,
+  };
+};
 
-export default ProfileView;
+const mapDispatchToProps = dispatch =>{
+  return{
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+  };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(ProfileView);

@@ -40,10 +40,10 @@ function Footer() {
         <div class='social-media-wrap'>
           <div class='footer-logo'>
             <Link to='/' className='social-logo'>
-               MEDICOS
+               MakeMyAppointment
             </Link>
           </div>
-          <small class='website-rights'>MEDICOS © 2020</small>
+          <small class='website-rights'>MakeMyAppointment © 2020</small>
           <div class='social-icons'>
             <ul> 
               <li>
