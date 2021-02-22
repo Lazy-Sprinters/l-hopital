@@ -21,14 +21,14 @@ export class CentreCards extends React.Component {
     this.setState({ [input]: e.target.value });
   };
   handleSlot = (x,y) => {
-    console.log(x);
+    // console.log(x);
     this.setState({CentreValue:x});
     const flag1=x;
     const flag2={data:y.data};
-    console.log(flag1,flag2);
+    // console.log(flag1,flag2);
     const ret={userInfo:flag2,flag1};
     console.log(ret);
-    Axios.post("http://localhost:5000/facility/slots",ret)
+    Axios.post("http://localhost:5000/user/allslots",ret)
       .then((res) => {
         this.handleClick(res);
       })

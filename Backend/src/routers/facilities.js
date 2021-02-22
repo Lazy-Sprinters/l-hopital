@@ -46,35 +46,6 @@ router.post('/facility/all',async(req,res)=>{
       }
 })
 
-router.post('/facility/slots',async (req,res)=>{
-      console.log(req.body);
-      try{
-            const own=req.body.cen._id;
-            const fac=req.body.service;
-            const date=req.body.askeddate;
-            const CurrentUser=req.body.Client;
-            const facility=await Facility.findOne({owner:own,FacilityName:fac});
-            let ret=Mainhelper.getallopenslots(facility,date);
-            if (ret.length!=0){
-                  const finalretvalue={
-                        allslots:ret,
-                        center:req.body.cen,
-                        service:fac,
-                        dis:req.body.dis,
-                        costing:req.body.costing,
-                        concerneddate:req.body.askeddate,
-                        user:CurrentUser
-                  }
-                  // console.log(finalretvalue);
-                  res.status(200).send(finalretvalue);
-            }
-            else{
-                  res.status(404).send("No empty slot found for the date");
-            }
-      }catch(err){
-            console.log(err);
-            res.status(404).send("No Open Slots found!");
-      }
-})
+
 
 module.exports=router;

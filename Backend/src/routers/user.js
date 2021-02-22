@@ -170,6 +170,8 @@ router.post('/user/match',async (req,res)=>{
                         const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
                         // const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk';
                         // const response=await axios.get(url);
+                        let uallopts=new Set(center.Alloptions);
+                        uallopts=Array.from(uallopts);
                         const retobj={
                               cen:center,
                               // dis:response.data.routes[0].sections[0].summary.length/1000,
@@ -177,7 +179,7 @@ router.post('/user/match',async (req,res)=>{
                               costing:i.costing1,
                               service:requiredFacility,
                               askeddate:requiredDate,
-                              tags:center.Alloptions,
+                              tags:uallopts,
                         };
                         ret.push(retobj);
                   }
@@ -188,6 +190,35 @@ router.post('/user/match',async (req,res)=>{
             res.status(404).send("No centers found");
       }
 }) 
+
+router.post('/user/allslots',async (req,res)=>{
+      console.log(req.body);
+      try{
+            const own=req.body.flag1.cen._id;
+            const fac=req.body.flag1.service;
+            const date=req.body.flag1.askeddate;
+            const facility=await Facility.findOne({owner:own,FacilityName:fac});
+            let ret=Mainhelper.getallopenslots(facility,date);
+            if (ret.length!=0){
+                  const finalretvalue={
+                        allslots:ret,
+                        center:req.body.cen,
+                        service:fac,
+                        dis:req.body.dis,
+                        costing:req.body.costing,
+                        concerneddate:req.body.askeddate,
+                  }
+                  console.log(finalretvalue);
+                  res.status(200).send(finalretvalue);
+            }
+            else{
+                  res.status(404).send("No empty slot found for the date");
+            }
+      }catch(err){
+            console.log(err);
+            res.status(404).send("No Open Slots found!");
+      }
+})
 
 router.post('/user/newappointment',async(req,res)=>{
       try{
