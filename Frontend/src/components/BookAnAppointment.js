@@ -62,7 +62,7 @@ export class BookAnAppointment extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.state = { show: false, onOpen:true , recieved:false ,isProceedFaulty:false };
+    this.state = { show: false, onOpen:true , recieved:false ,isProceedFaulty:false};
   }
   book() {
     this.setState({ show: true});
@@ -100,6 +100,7 @@ export class BookAnAppointment extends React.Component {
       date = date + (tempDate.getDate()+num);
     return date;
   }
+  
   render() {
     // const { userInfo} = this.props;
 

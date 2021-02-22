@@ -28,6 +28,7 @@ class LoginNavbar extends Component {
       const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/logout",userInfo)
       .then((res) => {
+        window.localStorage.clear();
         this.setState({['loggedOut']:true});
       })
       .catch((err) => {

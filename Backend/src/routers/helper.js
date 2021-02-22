@@ -5,6 +5,7 @@ const Center=require('../models/center');
 const User=require('../models/user');
 const Appointment=require('../models/appointment');
 const Mainhelper=require('../helpers/all-utility');
+const Authmiddleware=require('../middleware/auth');
 const FacilityRegHelper=require('../helpers/center-registration-helper');
 
 
@@ -32,6 +33,10 @@ router.post('/facility/new',async (req,res)=>{
       }catch(err){
             res.status(400).send(err);
       }
+})
+
+router.post('/helper/check',Authmiddleware,async(req,res)=>{
+      res.status(200).send();
 })
 
 

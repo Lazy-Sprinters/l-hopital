@@ -191,7 +191,8 @@ export class ProfileView extends React.Component {
     Axios.post("http://localhost:5000/user/update",ret)
       .then((res) => {
         this.setState({editProfile:false});
-        this.setState({userInfoPseudo:res});
+        // this.setState({userInfoPseudo:res});
+        this.props.onChangeUserInfo(res);
         this.setState({modal:true});
       })
       .catch((err) => {
@@ -663,7 +664,7 @@ export class ProfileView extends React.Component {
             <Redirect 
               to={{
                   pathname: "/loginHome", 
-                  data: {userInfo : userInfoPseudo}
+                  // data: {userInfo : userInfoPseudo}
                  }} 
             />
           }

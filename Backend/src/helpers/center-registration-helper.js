@@ -162,9 +162,26 @@ const listofnextsevendays=(blockeddays,date1,cap,starttime,endtime)=>{
       return ret;
 }
 
-// const finaldata=listofnextsevendays(["Tuesday","Thursday"],"2021-02-15",4,"11:00 AM","4:30 PM");
-// finaldata.forEach(element => {
-//       console.log(element);
-// });
+const alteredlist=(initiallist,blockeddays)=>{
+      let currdate=initiallist[initiallist.length-1].date;
+      let curr=new Date(currdate);
+      curr.setDate(curr.getDate()+1);
+      while (initiallist.length<7)
+      {
+            const currday=daysarr[curr.getDay()];
+            const found=blockeddays.find(element=>(element==currday));
+            if (found==undefined)
+            {
+                  const date2=formatdate(curr);
+                  const obj1={
+                        date:date2,
+                        slotinfo:initiallist[initiallist.length-1].slotinfo
+                  }
+                  initiallist.push(obj1);
+            }            
+            curr.setDate(curr.getDate()+1);
+      }
+      return initiallist;
+}
 
-module.exports={listofnextsevendays,formatdate};
+module.exports={listofnextsevendays,formatdate,alteredlist};
