@@ -49,7 +49,7 @@ export class Login extends Component {
     Axios.post("http://localhost:5000/user/login", data)
     .then((res) => {
       this.handleLoginUser(res);
-      // console.log(res);
+      console.log(res);
       res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
     })
     .catch((err) => {

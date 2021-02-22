@@ -90,10 +90,10 @@ UserSchema.methods.toJSON=function(){
       const user=this;
       const userobj=user.toObject();
 
-      // delete userobj.Password
-      // delete userobj.tokens;
-      // delete userobj.RecentMobileOtps;
-      // delete userobj.RecentEmailOtps;
+      delete userobj.Password
+      delete userobj.tokens;
+      delete userobj.RecentMobileOtps;
+      delete userobj.RecentEmailOtps;
       return userobj;
 }
 

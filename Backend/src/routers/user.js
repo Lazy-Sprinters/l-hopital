@@ -352,8 +352,8 @@ router.post('/user/update',Authmiddleware,async (req,res)=>{
                   // console.log(response.data);
                   const coordinates=Object.values(response.data.items[0].position);
                   curruser.PositionCoordinates.length=0;
-                  await curruser.PositionCoordinates.push(coordinates[0]);
-                  await curruser.PositionCoordinates.push(coordinates[1]);
+                  curruser.PositionCoordinates[0]=(coordinates[0]);
+                  curruser.PositionCoordinates[1]=(coordinates[1]);
                   await curruser.save();
                   // console.log(curruser);
                   const token=req.body.userInfo.data.token;
@@ -364,6 +364,21 @@ router.post('/user/update',Authmiddleware,async (req,res)=>{
             }
       }catch(err){
             //Mostly due to invalid address
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
+
+//Route-13:Logging a user out
+router.post('/user/logout',Authmiddleware,async (req,res)=>{
+      try{
+            // console.log(req.user);
+            req.user.tokens=[];
+            req.user.RecentEmailOtps=[];
+            req.user.RecentMobileOtps=[];
+            await req.user.save();
+            res.status(200).send();
+      }catch(err){
             console.log(err);
             res.status(400).send(err);
       }
