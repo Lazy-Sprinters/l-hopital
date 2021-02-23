@@ -73,7 +73,11 @@ const centerSchema=mongoose.Schema({
             type:String,
             required:true
       },
-      LicenceNum:{
+      FrontImageType:{
+            type:String,
+            required:true
+      },
+      LicenseNum:{
             type:String,
             required:true
       },

@@ -26,6 +26,8 @@ const transporter=nodemailer.createTransport({
 
 //Route-1: Saving a center :Part-1
 router.post('/center/signup1',async (req,res)=>{
+      console.log(req.body);
+      res.send();
       const center=new Center(req.body);
       try{
             await center.save();

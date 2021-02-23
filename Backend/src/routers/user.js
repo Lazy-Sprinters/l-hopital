@@ -168,7 +168,7 @@ router.post('/user/match',Authmiddleware,async (req,res)=>{
                   {
                         let i=ids[j];
                         //handle unverified centres
-                        const center=await Center.findOne({_id:i.own});
+                        const center=await Center.findOne({_id:i.own,Status:true});
                         const clientcoor=user.PositionCoordinates[0].toString()+','+user.PositionCoordinates[1].toString();
                         const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
                         // const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk';
@@ -275,9 +275,15 @@ router.post('/user/getallfacilities',Authmiddleware,async(req,res)=>{
       try{
             let s=new Set();
             const alldata=await Facility.find({});
-            alldata.forEach(element => {
-                  s.add(element.FacilityName);
-            });
+            for(let i=0;i<alldata.length;i++)
+            {
+                  // console.log(alldata[i].owner);
+                  const asscen=await Center.findOne({_id:alldata[i].owner,Status:true});
+                  if (asscen!=undefined)
+                  {
+                        s.add(alldata[i].FacilityName);
+                  }
+            }
             const ret=Array.from(s);
             res.status(200).send(ret);
       }catch(err){

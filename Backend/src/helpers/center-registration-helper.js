@@ -17,6 +17,13 @@ const formatdate=(curr)=>{
       return curr.getFullYear()+'-'+month+'-'+date;
 }
 
+// const formattimestring=(time)=>{
+//       if (time[0]==0)
+//       {
+//             const ret=time[1]+':'+time[2]+time[3]+' '+'AM';
+//       }
+// }
+
 const extracthr=(time)=>{
       if (time.length==7)
       {
@@ -41,12 +48,12 @@ const extracttz=(time)=>{
       return time[6]+time[7];
 }
 
-const formatmin=(min)=>{
-      if (min<10)
+const formathelp=(entity)=>{
+      if (entity<10)
       {
-            return "0"+min.toString();
+            return "0"+entity.toString();
       }
-      return min.toString();
+      return entity.toString();
 }     
 
 const helper=(starttime,endtime)=>{
@@ -57,77 +64,177 @@ const helper=(starttime,endtime)=>{
       let st=extracttz(starttime);
       let et=extracttz(endtime);
       let arr=[];
-      if (st==et)
-      {
-            while ((hs!=he) || (ms!=me))
-            {
-                  let tbp=hs.toString()+':'+formatmin(ms)+' '+st+" - ";
-                  if (ms==30)
-                  {
-                        ms=0;
-                        hs+=1;
+      console.log(hs,ms,he,me,st,et);
+      if (st=='AM' && et=='AM' && hs<=he){
+            if (st==et){
+                  while ((hs!=he) || (ms!=me)){
+                        let tbp=hs.toString()+':'+formathelp(ms)+' '+st+" - ";
+                        if (ms==30){
+                              ms=0;
+                              hs+=1;
+                        }
+                        else{
+                              ms+=30;
+                        }
+                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+st);
+                        arr.push(tbp);
                   }
-                  else
-                  {
-                        ms+=30;
-                  }
-                  tbp+=(hs.toString()+':'+formatmin(ms)+' '+st);
-                  arr.push(tbp);
             }
       }
-      else
-      {
-            while ((hs!=12) || (ms!=0))
-            {
-                  let tbp=hs.toString()+':'+formatmin(ms)+' '+st+" - ";
-                  if (ms==30)
-                  {
+      else if (st=='AM' && et=='AM' && hs>he){
+            while ((hs!=12) || (ms!=0)){
+                  let tbp=hs.toString()+':'+formathelp(ms)+' '+st+" - ";
+                  if (ms==30){
                         ms=0;
                         hs+=1;
                   }
-                  else
-                  {
+                  else{
                         ms+=30;
                   }
-                  if (hs==12)
-                  {
-                        tbp+=(hs.toString()+':'+formatmin(ms)+' '+et);      
+                  if (hs==12){
+                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+et);      
                   }
-                  else
-                  {
-                        tbp+=(hs.toString()+':'+formatmin(ms)+' '+st);
+                  else{
+                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+st);
                   }
                   arr.push(tbp);
             }
             he+=12;
-            while ((hs!=he) || (ms!=me))
-            {
+            while ((hs!=he) || (ms!=me)){
                   let ths1=hs;
-                  if (ths1!=12)
-                  {
+                  if (ths1!=12){
                         ths1-=12;
                   }
-                  let tbp=ths1.toString()+':'+formatmin(ms)+' '+et+"-";
-                  if (ms==30)
-                  {
+                  let tbp=ths1.toString()+':'+formathelp(ms)+' '+et+"-";
+                  if (ms==30){
                         ms=0;
                         hs+=1;
                   }
-                  else
-                  {
+                  else{
                         ms+=30;
                   }
                   let ths=hs;
-                  if (ths!=12)
-                  {
+                  if (ths!=12){
                         ths-=12;
                   }
-                  tbp+=((ths).toString()+':'+formatmin(ms)+' '+et);
+                  tbp+=((ths).toString()+':'+formathelp(ms)+' '+et);
+                  arr.push(tbp);
+            }
+      }
+      else if (st=='AM' && et=='PM'){
+            while ((hs!=12) || (ms!=0)){
+                  let tbp=formathelp(hs)+':'+formathelp(ms)+' '+st+" - ";
+                  if (ms==30){
+                        ms=0;
+                        hs+=1;
+                  }
+                  else{
+                        ms+=30;
+                  }
+                  if (hs==12){
+                        tbp+=(formathelp(hs)+':'+formathelp(ms)+' '+et);      
+                  }
+                  else{
+                        tbp+=(formathelp(hs)+':'+formathelp(ms)+' '+st);
+                  }
+                  arr.push(tbp);
+            }
+            if (hs!=he)
+                  he+=12;
+            while ((hs!=he) || (ms!=me)){
+                  let ths1=hs;
+                  if (ths1!=12){
+                        ths1-=12;
+                  }
+                  let tbp=formathelp(ths1)+':'+formathelp(ms)+' '+et+" - ";
+                  if (ms==30){
+                        ms=0;
+                        hs+=1;
+                  }
+                  else{
+                        ms+=30;
+                  }
+                  let ths=hs;
+                  if (ths!=12){
+                        ths-=12;
+                  }
+                  tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+et);
+                  arr.push(tbp);
+            }
+      }
+      else if (st=='PM' && et=='PM'){
+            if (hs!=12){
+                  hs+=12;
+            }
+            if (he!=12){
+                  he+=12;
+            }
+            while ((hs!=he) || (ms!=me)){
+                  let ths1=hs;
+                  if (ths1!=12){
+                        ths1-=12;
+                  }
+                  let tbp=formathelp(ths1)+':'+formathelp(ms)+' '+'PM'+" - ";
+                  if (ms==30){
+                        ms=0;
+                        hs+=1;
+                  }
+                  else{
+                        ms+=30;
+                  }
+                  let ths=hs;
+                  if (ths!=12){
+                        ths-=12;
+                  }
+                  if (ths==0)
+                        tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+'AM');
+                  else
+                        tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+'PM');
+                  arr.push(tbp);
+            }
+      }
+      else if (st=='PM' && et=='AM'){
+            he=24;
+            if (hs!=12)
+                  hs+=12;
+            while ((hs!=he) || (ms!=me)){
+                  let ths1=hs;
+                  if (ths1!=12){
+                        ths1-=12;
+                  }
+                  let tbp=formathelp(ths1)+':'+formathelp(ms)+' '+'PM'+" - ";
+                  if (ms==30){
+                        ms=0;
+                        hs+=1;
+                  }
+                  else{
+                        ms+=30;
+                  }
+                  let ths=hs;
+                  if (ths==24){
+                        ths=0;
+
+                  }
+                  else if (ths!=12){
+                        ths =12;
+                  }
+                  if (ths==0)
+                        tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+'AM');
+                  else
+                        tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+'PM');
                   arr.push(tbp);
             }
       }
       return arr;
 }
+
+// console.log(helper("11:00 AM","11:00 PM"));
+// console.log(helper("11:30 AM","12:30 PM"));
+// console.log(helper("11:30 PM","00:00 AM"));
+// console.log(helper("12:00 AM","01:00 PM"));
+// console.log(helper("00:30 AM","12:30 PM"));
+// console.log(helper("11:30 AM","12:00 PM"));
+// console.log(helper("10:30 AM","11:00 AM"));
 
 // starttime,endtime
 const listofnextsevendays=(blockeddays,date1,cap,starttime,endtime)=>{
@@ -183,5 +290,7 @@ const alteredlist=(initiallist,blockeddays)=>{
       }
       return initiallist;
 }
+
+
 
 module.exports={listofnextsevendays,formatdate,alteredlist};

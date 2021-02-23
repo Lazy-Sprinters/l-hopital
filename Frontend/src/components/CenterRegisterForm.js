@@ -26,6 +26,14 @@ import './RegisterForm.css'
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import Table from 'react-bootstrap/Table'
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+} from "@material-ui/pickers";
+import moment from "moment";
+import { format } from "date-fns";
 
 export class RegisterForm extends Component {
 
@@ -41,8 +49,8 @@ export class RegisterForm extends Component {
     Pincode:"",
     State:"",
     Country:"",
-    OpeningTime:"",
-    ClosingTime:"",
+    OpeningTime:"0",
+    ClosingTime:"0",
     FrontImage:"",
     FrontImageType:"",
     LicenseNum:"",
@@ -98,7 +106,11 @@ export class RegisterForm extends Component {
     this.setState({ ['isLoading']: false });
 
   };
-
+  handleTime = (x,date) => {
+    console.log(x)
+    console.log(date)
+    this.setState({ [x]: date });
+  };
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
   };
@@ -298,6 +310,7 @@ export class RegisterForm extends Component {
       case 0:
         return(
         <> 
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <div  className="form_input">
             <div className="terms"> 
               <br/> 
@@ -343,6 +356,7 @@ export class RegisterForm extends Component {
                     label="Phone Number"
                     value={PhoneNo}
                     variant="outlined"
+
                     onChange={this.handleChange('PhoneNo')}
                     type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
                     // helperText={(! errors.PhoneNo  && parseInt(values.PhoneNo)) ? "Not a valid Phone Number": '' }
@@ -382,35 +396,29 @@ export class RegisterForm extends Component {
                   <br />
                   </div>
                   <div className="txtfld">
-                  <TextField
-                    placeholder="Enter your Opening Time"
-                    label="Opening Time"
-                    value={OpeningTime}
-                    variant="outlined"
-                    inputProps={{
-                                        step: 1800,
-                                    }}
-                    onChange={this.handleChange('OpeningTime')}
-                    type="time"
-                    margin="normal"
-                    fullWidth
-                  />
+                  <KeyboardTimePicker
+                  format="HH:mm"
+                  margin="normal"
+                  value={OpeningTime}
+                  minutesStep="30"
+                  onChange={(date) =>
+                    this.handleTime('OpeningTime',format(date, "HH:mm"))
+                  }
+                />
                   <br />
                   </div>
                   <div className="txtfld">
-                  <TextField
-                    placeholder="Enter your Closing Time"
-                    label="Closing Time"
-                    value={ClosingTime}
-                    inputProps={{
-                                        step: 1800, 
-                                    }}
-                    variant="outlined"
-                    onChange={this.handleChange('ClosingTime')}
-                    type="time"
-                    margin="normal"
-                    fullWidth
-                  />
+                  <KeyboardTimePicker
+                  format="HH:mm"
+                  margin="normal"
+                  minutesStep="30"
+                  id="date-picker-inline"
+                  value={ClosingTime}
+                  onChange={(date) =>
+                    this.handleTime('ClosingTime',format(date, "HH:mm"))
+                  }
+                />
+                  
                   <br />
                   </div>
                   <div className="txtfld">
@@ -583,6 +591,7 @@ export class RegisterForm extends Component {
 
             </div>
           </div>
+        </MuiPickersUtilsProvider>
         </>
         );
       case 1:

@@ -12,18 +12,19 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from '@material-ui/pickers';
-import moment from 'moment'
+import moment from 'moment';
+import { format} from 'date-fns';
 export class BookAnAppointment extends React.Component {
   state = {
     testList:"0",
     test:"0",
-    date:new Date('2014-08-18T21:11:54'),
+    date:"0",
     centreList:"0",
     errmsg:""
 
   };
-  handleDate = (date,) =>{
-    console.log(moment(date).format("YYYY-MM-DD"))
+  handleDate = (date) =>{
+    // console.log(moment(date).format("YYYY-MM-DD"))
     this.setState({date:date})
   };
   handleChange = (input) => (e) => {
@@ -169,8 +170,8 @@ export class BookAnAppointment extends React.Component {
                                           variant="static"
                                           openTo="date"
                                           label="Date picker inline"
-                                          // value={date}
-                                          onChange={ () => this.handleDate()}
+                                          value={date}
+                                          onChange={ (date) => this.handleDate(format(date,'yyyy-MM-dd'))}
                                           KeyboardButtonProps={{
                                             'aria-label': 'change date',
                                           }}
