@@ -234,8 +234,8 @@ export class RegisterForm extends Component {
                   variant="outlined"
                   onChange={this.handleChange('PhoneNumber')}
                   type="number" inputProps={{ min:1000000000, max: 9999999999, step: 1}}
-                  helperText={(! errors.PhoneNumber  && parseInt(values.PhoneNumber)) ? "Not a valid Phone Number": '' }
-                  error={(! errors.PhoneNumber && parseInt(values.PhoneNumber))} 
+                  helperText={(! errors.PhoneNumber  && Boolean(parseInt(values.PhoneNumber))) ? "Not a valid Phone Number": '' }
+                  error={(! errors.PhoneNumber && Boolean(parseInt(values.PhoneNumber)))} 
                   margin="normal"
                   fullWidth
                 />
@@ -305,8 +305,8 @@ export class RegisterForm extends Component {
                   label="Password"
                   variant="outlined"
                   onChange={this.handleChange('Password')}
-                  helperText={(! errors.Password && parseInt(values.Password)) ? "The Password should be at least 8 characters long": '' }
-                  error={(! errors.Password && parseInt(values.Password))} 
+                  helperText={(! errors.Password && Boolean(parseInt(values.Password))) ? "The Password should be at least 8 characters long": '' }
+                  error={(! errors.Password && Boolean(parseInt(values.Password)))} 
                   type="password"
                   margin="normal"
                   fullWidth

@@ -20,7 +20,9 @@ export class BookAnAppointment extends React.Component {
     test:"0",
     date:"0",
     centreList:"0",
-    errmsg:""
+    errmsg:"",
+    show: false, onOpen:true , recieved:false ,isProceedFaulty:false,
+    onClose:false
 
   };
   handleDate = (date) =>{
@@ -33,6 +35,7 @@ export class BookAnAppointment extends React.Component {
   };
   handleBooking = (x) =>{
     this.setState({['testList']:x.data});
+    this.setState({onClose:true})
   };
   handleSearch = (x) =>{
     // this.setState({centreList : x.data});
@@ -62,8 +65,8 @@ export class BookAnAppointment extends React.Component {
   dropdownShow = (data) => {
     return(
       <div>
-      <Select onChange={this.handleChange('test')}>
-        {data!=undefined && data.map((value,i) => {
+      <Select defaultValue = "" onChange={this.handleChange('test')}>
+        {data.length>0 && data.map((value,i) => {
           return(
               <MenuItem value={value}>{value}</MenuItem >
             )
@@ -71,10 +74,6 @@ export class BookAnAppointment extends React.Component {
         </Select>
         </div>
       )
-  }
-  constructor(props) {
-    super(props);
-    this.state = { show: false, onOpen:true , recieved:false ,isProceedFaulty:false};
   }
   book() {
     this.setState({ show: true});
@@ -122,9 +121,8 @@ export class BookAnAppointment extends React.Component {
       test,
       date,
       centreList,
-      recieved,
-      isProceedFaulty,
-      errmsg
+      errmsg,
+      show, onOpen , recieved ,isProceedFaulty,onClose
     } = this.state;
     
     const values = {
@@ -138,9 +136,9 @@ export class BookAnAppointment extends React.Component {
     }
     return (
       <div>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
-      {this.state.onOpen==true ? this.retrieveTests(this.props.userInfo) : null}
+      {onOpen && this.retrieveTests(this.props.userInfo) }
+      {onClose && <>
         <div className="bkap-btn">
           <button 
             className="btn btn-success my-5"
@@ -150,7 +148,7 @@ export class BookAnAppointment extends React.Component {
             Book An Appointment
           </button>
         </div>
-        <Bounce top opposite when={this.state.show}>
+        <Bounce top opposite when={show}>
           <div className="form">
                   <div className="form-group">
                     <label htmlFor="username">Tests</label>
@@ -159,6 +157,8 @@ export class BookAnAppointment extends React.Component {
                   <br />
                   <div className="form-group">
                     <label htmlFor="password">Date</label>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
                     {<KeyboardDatePicker
                                           disableToolbar
                                           variant="inline"
@@ -176,15 +176,9 @@ export class BookAnAppointment extends React.Component {
                                             'aria-label': 'change date',
                                           }}
                                         />}
-                    {/*<TextField
-                                          onChange={this.handleChange("date")}
-                                          type="date"
-                                          placeholder="password"
-                                          inputProps={{
-                                            min: this.getTodayDate(1),
-                                            max: this.getTodayDate(7)
-                                          }}
-                                        />*/}
+        </MuiPickersUtilsProvider>
+
+
 
                   </div>
                 </div>
@@ -194,18 +188,18 @@ export class BookAnAppointment extends React.Component {
             className="btn btn-success my-5"
             type="button"
             onClick={() => this.proceed(test,date,this.props.userInfo)}
-            disabled={!this.state.show}
+            disabled={!show}
           >
             Proceed
           </button>
         </div>
         <h2>{errmsg}</h2>
+        </>}
         {isProceedFaulty && <h2>No Test Centres Available for the desired test and date.Please select another date.</h2>}
         {recieved && <Redirect push to={{
                       pathname: "/selectionPage1", 
                       // data: data
                      }} />}
-        </MuiPickersUtilsProvider>
 
       </div>
     );

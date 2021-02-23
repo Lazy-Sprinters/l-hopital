@@ -24,9 +24,6 @@ class Login extends Component {
   handleLoginChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
   };
-  handleLoginUser = (input) => {
-    this.setState({ ["userInfo"]: input });
-  };
 
   handleLoginLoad = () => {
     this.setState({ ["isLoadingL"]: true });
@@ -45,12 +42,9 @@ class Login extends Component {
   
   login = (data) => {
     this.handleLoginLoad();
-    // this.handleLogin();  
     Axios.post("http://localhost:5000/user/login", data)
     .then((res) => {
       this.props.onChangeUserInfo(res);
-      // this.handleLoginUser(res);
-      console.log(res);
       res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
     })
     .catch((err) => {
