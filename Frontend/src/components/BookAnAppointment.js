@@ -89,15 +89,16 @@ export class BookAnAppointment extends React.Component {
   }
   getTodayDate = (num) =>{
     var tempDate = new Date();
-    var date = tempDate.getFullYear() + '-' ;
-    if((tempDate.getMonth()+1 )< 10)
-      date = date + '0' + (tempDate.getMonth()+1) + '-' ;
+    var ans=new Date(tempDate.getTime()+(parseInt(num)*24*60*60*1000));
+    var date = ans.getFullYear() + '-' ;
+    if((ans.getMonth()+1 )< 10)
+      date = date + '0' + (ans.getMonth()+1) + '-' ;
     else
-      date = date + (tempDate.getMonth()+1) + '-' ;
-    if((tempDate.getDate()+num) < 10)
-      date = date + '0' + (tempDate.getDate()+num);
+      date = date + (ans.getMonth()) + '-' ;
+    if((ans.getDate()) < 10)
+      date = date + '0' + (ans.getDate());
     else
-      date = date + (tempDate.getDate()+num);
+      date = date + (ans.getDate());
     return date;
   }
   

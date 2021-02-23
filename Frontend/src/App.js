@@ -2,8 +2,10 @@ import React from 'react';
 import './App.css';
 import Home from './components/Home';
 import Register from './components/Register';
+import CenterRegister from './components/CenterRegister';
 import Verify from './components/Verify';
 import Login from './components/Login';
+import CenterLogin from './components/CenterLogin';
 import LoginHome from './components/LoginHome';
 import Tests from './components/Tests';
 import Profile from './components/Profile';
@@ -18,8 +20,10 @@ function App() {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/register' exact component={Register} />
+          <Route path='/centerRegister' exact component={CenterRegister} />
           <Route path='/verify' exact component={Verify} />
           <Route path='/login' exact component={Login} />
+          <Route path='/centerLogin' exact component={CenterLogin} />
           <Route path='/loginHome' exact component={LoginHome} />
           <Route path='/test' exact component={Tests} />
           <Route path='/profile' exact component={Profile} />

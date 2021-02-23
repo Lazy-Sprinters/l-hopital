@@ -11,7 +11,6 @@ import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 class Login extends Component {
   state = {
-    step: 0,
     success: false,
     email: "0",
     password: 0,
