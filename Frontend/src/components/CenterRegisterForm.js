@@ -4,6 +4,7 @@ import validateInfo from './error.js';
 import { Link,Redirect } from 'react-router-dom';
 import Axios from "axios";
 import TnCModal from "./TnCModal";
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import {
   TextField,
   Button,
@@ -30,26 +31,26 @@ export class RegisterForm extends Component {
 
   state = {
     step:0,
-    Name:"0",
-    PhoneNo:"0",
-    Email:"0",
-    Password:"0",
-    NearestLandmark:"0",
-    City:"0",
-    Pincode:"0",
-    State:"0",
-    Country:"0",
-    OpeningTime:"0",
-    ClosingTime:"0",
-    FrontImage:"0",
-    FrontImageType:"0",
-    LicenseNum:"0",
+    Name:"",
+    PhoneNo:"",
+    Email:"",
+    Password:"",
+    NearestLandmark:"",
+    City:"",
+    Pincode:"",
+    State:"",
+    Country:"",
+    OpeningTime:"",
+    ClosingTime:"",
+    FrontImage:"",
+    FrontImageType:"",
+    LicenseNum:"",
     isLoading:false,
     isLoaded:false,
     isRegistered:false,
     isFaulty:false,
     indicate:false,
-    radioControl:"0",
+    radioControl:"",
     ModalShow:false,
     centerInfo:"",
     Monday:false,
@@ -100,10 +101,20 @@ export class RegisterForm extends Component {
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
   };
+  handleDelete = (i1,facilities) =>{
+    const PseudoFacilities=[];
+    if(facilities.length>0){
+      facilities.map((value,i)=> (
+        i!=i1 ? PseudoFacilities.push(value) : null
+      ));
+    }
+    this.setState({facilities:PseudoFacilities});
+    this.handleShow(PseudoFacilities);
+  };
+
   handleAddAnother = (FacilityName,CapacityperSlot,Price,facilities) =>{
     const Facility = {FacilityName,CapacityperSlot,Price};
     const PseudoFacilities=[];
-    console.log(facilities.length)
     if(facilities.length>0){
       facilities.map(value => PseudoFacilities.push(value));
     }
@@ -112,6 +123,10 @@ export class RegisterForm extends Component {
     this.setState({CapacityperSlot:""})
     this.setState({Price:""})
     this.setState({facilities:PseudoFacilities});
+    this.handleShow(PseudoFacilities);
+  };
+
+  handleShow = (PseudoFacilities) =>{
     var code=[];
         code.push(<Table striped bordered hover variant="dark">
                   <thead>
@@ -120,6 +135,7 @@ export class RegisterForm extends Component {
                       <th>Facility Name</th>
                       <th>Capacity per Slot</th>
                       <th>Price</th>
+                      <th>Delete Option</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -129,6 +145,7 @@ export class RegisterForm extends Component {
                       <td>{value.FacilityName}</td>
                       <td>{value.CapacityperSlot}</td>
                       <td>{value.Price}</td>
+                      <td><DeleteOutlinedIcon onClick={()=>this.handleDelete(i,PseudoFacilities)}/></td>
                     </tr>
                     ))}
                   </tbody>
@@ -188,10 +205,10 @@ export class RegisterForm extends Component {
     console.log(e.target.checked)
     this.setState({ [x]:e.target.checked })
   };
-  dropdownShow = (data) => {
+  dropdownShow = (data,FacilityName) => {
     return(
       <>
-      <Select displayEmpty onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
+      <Select displayEmpty value={FacilityName} onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
         <MenuItem value="" disabled><em>None</em></MenuItem>
         {data!=undefined && data.map((value,i) => {
           return(
@@ -581,7 +598,7 @@ export class RegisterForm extends Component {
                 <div className="reg-col">
                   <div className="txtfld">
                     <label htmlFor="username">Facility Name</label>
-                    {this.dropdownShow(dropdown)}
+                    {this.dropdownShow(dropdown,FacilityName)}
                   </div>
                   
                   <div className="txtfld">
