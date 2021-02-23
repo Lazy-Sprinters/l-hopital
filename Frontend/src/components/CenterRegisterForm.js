@@ -63,7 +63,9 @@ export class RegisterForm extends Component {
     FacilityName:"",
     CapacityperSlot:"",
     Price:"",
-    facilityShow:""
+    facilityShow:"",
+    dropdown:["Diabetes","Thyroid","Thypoid","CT Scan","MRI","Thermal Scan","COVID-19"]
+
   };
 
   handleLoad = () =>  {
@@ -186,6 +188,20 @@ export class RegisterForm extends Component {
     console.log(e.target.checked)
     this.setState({ [x]:e.target.checked })
   };
+  dropdownShow = (data) => {
+    return(
+      <>
+      <Select displayEmpty onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
+        <MenuItem value="" disabled><em>None</em></MenuItem>
+        {data!=undefined && data.map((value,i) => {
+          return(
+              <MenuItem value={value}>{value}</MenuItem >
+            )
+        })}
+      </Select>
+      </>
+      )
+  }
   render() {
      const{ 
       step,
@@ -222,7 +238,8 @@ export class RegisterForm extends Component {
       FacilityName,
       CapacityperSlot,
       Price,
-      facilityShow
+      facilityShow,
+      dropdown
     } = this.state;
     const offdays ={
       Monday,
@@ -423,7 +440,6 @@ export class RegisterForm extends Component {
                   <div className="txtfld">
                   <TextField
                     placeholder="Upload the Image of the Center "
-                    value={FrontImage}
                     variant="outlined"
                     onChange={this.handleImage('FrontImage')}
                     type="file"
@@ -531,6 +547,21 @@ export class RegisterForm extends Component {
       case 1:
         return(
         <>
+          <TnCModal
+            size="lg"
+            name="Terms & Conditions"
+            head="Read The Terms And Conditions Carefully"
+            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                         in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
+                         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
+                         mollit anim id est laborum."
+            show={ModalShow}
+            onHide={() => this.handleModal(false)}
+            onAgree={() => this.register(values)}
+          />
           <div  className="form_input">
             <div className="terms"> 
               <br/> 
@@ -549,19 +580,10 @@ export class RegisterForm extends Component {
 
                 <div className="reg-col">
                   <div className="txtfld">
-                  <TextField
-                    placeholder="Enter the Facility Name"
-                    label="Facility Name"
-                    variant="outlined"
-                    value={FacilityName}
-                    onChange={this.handleChange('FacilityName')}
-                    type="text"
-                    fullWidth
-                  />
-                  <br />
-                  <br />
-
+                    <label htmlFor="username">Facility Name</label>
+                    {this.dropdownShow(dropdown)}
                   </div>
+                  
                   <div className="txtfld">
                   <TextField
                     placeholder="Enter the Capacity per Slot"
@@ -605,7 +627,7 @@ export class RegisterForm extends Component {
                         color="primary"
                         variant="contained"
                       
-                        onClick={() => console.log(values)}
+                        onClick={() => this.handleModal(true)}
                       >
                         Proceed
                       </Button>}
