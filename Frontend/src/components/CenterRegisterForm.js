@@ -32,6 +32,7 @@ export class RegisterForm extends Component {
   state = {
     step:0,
     Name:"",
+    Address:"",
     PhoneNo:"",
     Email:"",
     Password:"",
@@ -224,6 +225,7 @@ export class RegisterForm extends Component {
       step,
       Name,
       PhoneNo,
+      Address,
       Email,
       Password,
       NearestLandmark,
@@ -270,6 +272,7 @@ export class RegisterForm extends Component {
     const values = { 
       Name,
       PhoneNo,
+      Address,
       Email,
       Password,
       NearestLandmark,
@@ -320,7 +323,19 @@ export class RegisterForm extends Component {
                   />
                   <br />
                   <br />
-
+                  </div>
+                  <div className="txtfld">
+                  <TextField
+                    placeholder="Enter you Address"
+                    label="Address"
+                    value={Address}
+                    variant="outlined"
+                    onChange={this.handleChange('Address')}
+                    type="text"
+                    margin="normal"
+                    fullWidth
+                  />
+                  <br />
                   </div>
                   <div className="txtfld">
                   <TextField
@@ -338,6 +353,7 @@ export class RegisterForm extends Component {
                   <br />
                   <br />
                   </div>
+
                   <div className="txtfld">
                   <TextField
                     placeholder="Enter you Email address"
@@ -371,6 +387,9 @@ export class RegisterForm extends Component {
                     label="Opening Time"
                     value={OpeningTime}
                     variant="outlined"
+                    inputProps={{
+                                        step: 1800,
+                                    }}
                     onChange={this.handleChange('OpeningTime')}
                     type="time"
                     margin="normal"
@@ -383,6 +402,9 @@ export class RegisterForm extends Component {
                     placeholder="Enter your Closing Time"
                     label="Closing Time"
                     value={ClosingTime}
+                    inputProps={{
+                                        step: 1800, 
+                                    }}
                     variant="outlined"
                     onChange={this.handleChange('ClosingTime')}
                     type="time"
@@ -395,6 +417,7 @@ export class RegisterForm extends Component {
                   <TextField
                     placeholder="Enter you Nearest Landmark"
                     label="Nearest Landmark"
+                    value={NearestLandmark}
                     variant="outlined"
                     onChange={this.handleChange('NearestLandmark')}
                     type="text"
@@ -407,6 +430,7 @@ export class RegisterForm extends Component {
                   <TextField
                     placeholder="Enter you City"
                     label="City"
+                    value={City}
                     variant="outlined"
                     onChange={this.handleChange('City')}
                     type="text"

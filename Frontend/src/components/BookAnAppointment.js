@@ -6,17 +6,28 @@ import { TextField, LinearProgress,Select,MenuItem } from "@material-ui/core";
 import Axios from "axios";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
-
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from '@material-ui/pickers';
+import moment from 'moment'
 export class BookAnAppointment extends React.Component {
   state = {
     testList:"0",
     test:"0",
-    date:"0",
+    date:new Date('2014-08-18T21:11:54'),
     centreList:"0",
     errmsg:""
 
   };
+  handleDate = (date,) =>{
+    console.log(moment(date).format("YYYY-MM-DD"))
+    this.setState({date:date})
+  };
   handleChange = (input) => (e) => {
+    console.log(e.target.value)
     this.setState({ [input]: e.target.value });
   };
   handleBooking = (x) =>{
@@ -126,6 +137,8 @@ export class BookAnAppointment extends React.Component {
     }
     return (
       <div>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
       {this.state.onOpen==true ? this.retrieveTests(this.props.userInfo) : null}
         <div className="bkap-btn">
           <button 
@@ -145,15 +158,33 @@ export class BookAnAppointment extends React.Component {
                   <br />
                   <div className="form-group">
                     <label htmlFor="password">Date</label>
-                    <TextField
-                      onChange={this.handleChange("date")}
-                      type="date"
-                      placeholder="password"
-                      inputProps={{
-                        min: this.getTodayDate(1),
-                        max: this.getTodayDate(7)
-                      }}
-                    />
+                    {<KeyboardDatePicker
+                                          disableToolbar
+                                          variant="inline"
+                                          format="MM/dd/yyyy"
+                                          margin="normal"
+                                          id="date-picker-inline"
+                                          maxDate={this.getTodayDate(7)}
+                                          minDate= {this.getTodayDate(1)}
+                                          variant="static"
+                                          openTo="date"
+                                          label="Date picker inline"
+                                          // value={date}
+                                          onChange={ () => this.handleDate()}
+                                          KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                          }}
+                                        />}
+                    {/*<TextField
+                                          onChange={this.handleChange("date")}
+                                          type="date"
+                                          placeholder="password"
+                                          inputProps={{
+                                            min: this.getTodayDate(1),
+                                            max: this.getTodayDate(7)
+                                          }}
+                                        />*/}
+
                   </div>
                 </div>
         </Bounce>
@@ -173,6 +204,8 @@ export class BookAnAppointment extends React.Component {
                       pathname: "/selectionPage1", 
                       // data: data
                      }} />}
+        </MuiPickersUtilsProvider>
+
       </div>
     );
   }
