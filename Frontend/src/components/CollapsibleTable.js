@@ -132,19 +132,18 @@ function Row(props) {
 }
 Row.propTypes = {
   row: PropTypes.shape({
-    calories: PropTypes.number.isRequired,
-    carbs: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    history: PropTypes.arrayOf(
+    CenterName: PropTypes.string.isRequired,
+    TestName: PropTypes.string.isRequired,
+    TestDate: PropTypes.string.isRequired,
+    MoreInfo: PropTypes.arrayOf(
       PropTypes.shape({
-        amount: PropTypes.number.isRequired,
-        customerId: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
+        TimeSlot: PropTypes.string.isRequired,
+        ContactDet: PropTypes.string.isRequired,
       })
     ).isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    protein: PropTypes.number.isRequired,
+    Amount: PropTypes.number.isRequired,
+    Status: PropTypes.string.isRequired,
+    Result: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -188,7 +187,7 @@ export default function CollapsibleTable({ testInfo }) {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <Row key={row.CenterName} row={row} />
+            <Row key={row.Cenid} row={row} />
           ))}
         </TableBody>
       </Table>

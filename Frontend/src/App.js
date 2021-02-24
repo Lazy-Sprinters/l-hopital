@@ -18,17 +18,17 @@ function App() {
     <>
       <HashRouter basename='/'>
         <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/register' exact component={Register} />
-          <Route path='/centerRegister' exact component={CenterRegister} />
-          <Route path='/verify' exact component={Verify} />
-          <Route path='/login' exact component={Login} />
-          <Route path='/centerLogin' exact component={CenterLogin} />
-          <Route path='/loginHome' exact component={LoginHome} />
-          <Route path='/test' exact component={Tests} />
-          <Route path='/profile' exact component={Profile} />
-          <Route path='/selectionPage1' exact component={selectionPage1} />
-          <Route path='/selectionPage2' exact component={selectionPage2} />
+          <Route path='/' exact  render ={()=> < Home />} /> />
+          <Route path='/register' exact  render ={()=> < Register />} />
+          <Route path='/centerRegister' exact  render ={()=> < CenterRegister />} />
+          <Route path='/verify' exact  render ={()=> < Verify />} />
+          <Route path='/login' exact  render ={()=> < Login />} />
+          <Route path='/centerLogin' exact  render ={()=> < CenterLogin />} />
+          <Route path='/loginHome' exact  render ={()=> < LoginHome />} />
+          <Route path='/test' exact  render ={()=> < Tests />} />
+          <Route path='/profile' exact  render ={()=> < Profile />} />
+          <Route path='/selectionPage1' exact  render ={()=> < selectionPage1 />} />
+          <Route path='/selectionPage2' exact  render ={()=> < selectionPage2 />} />
         </Switch>
       </HashRouter>
     </>
