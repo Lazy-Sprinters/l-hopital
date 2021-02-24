@@ -207,7 +207,7 @@ export class ParticularCard extends React.Component {
                           variant="success"
                           onClick={() => this.handleModal1(true)}
                         >
-                          Success
+                          BOOK
                         </Button>
                       </div>
                     </div>

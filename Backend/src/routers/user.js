@@ -29,7 +29,7 @@ const transporter=nodemailer.createTransport({
 
 //Route-1:Temporary creation of a user in the database(T completed)
 router.post('/user/signup1',async (req,res)=>{
-      // console.log(req.body);
+      console.log(req.body);
       const user=new User(req.body);
       try{
             await user.save();

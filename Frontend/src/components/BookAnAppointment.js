@@ -4,6 +4,7 @@ import { Link,Redirect } from 'react-router-dom';
 import './RegisterForm.css'
 import { TextField, LinearProgress,Select,MenuItem } from "@material-ui/core";
 import Axios from "axios";
+import {Button} from 'react-bootstrap'
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import 'date-fns';
@@ -14,6 +15,7 @@ import {
 } from '@material-ui/pickers';
 import moment from 'moment';
 import { format} from 'date-fns';
+
 export class BookAnAppointment extends React.Component {
   state = {
     testList:"0",
@@ -44,11 +46,10 @@ export class BookAnAppointment extends React.Component {
   };
   handleProceedFaulty = () =>  {
     this.setState({ ['isProceedFaulty']: true });
-
   };
   handleVerfiyErr = (x) => {
     this.setState ({errmsg : x });
-  }
+  };
   retrieveTests = (data) =>{
     this.setState({onOpen:false});
     const userInfo={userInfo:data}
@@ -65,7 +66,8 @@ export class BookAnAppointment extends React.Component {
   dropdownShow = (data) => {
     return(
       <div>
-      <Select defaultValue = "" onChange={this.handleChange('test')}>
+      <Select displayEmpty required defaultValue = "" onChange={this.handleChange('test')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
+        <MenuItem value="" disabled><em>None</em></MenuItem>
         {data.length>0 && data.map((value,i) => {
           return(
               <MenuItem value={value}>{value}</MenuItem >
@@ -74,11 +76,12 @@ export class BookAnAppointment extends React.Component {
         </Select>
         </div>
       )
-  }
-  book() {
+  };
+
+  book = () =>{
     this.setState({ show: true});
-  }
-  proceed(test,date,userInfo) {
+  };
+  proceed = (test,date,userInfo) => {
     this.setState({ show: false });
     this.setState({ ['isProceedFaulty']: false });
     const data={test,date,userInfo}
@@ -97,7 +100,7 @@ export class BookAnAppointment extends React.Component {
           this.handleProceedFaulty();
         }
       }); 
-  }
+  };
   getTodayDate = (num) =>{
     var tempDate = new Date();
     var ans=new Date(tempDate.getTime()+(parseInt(num)*24*60*60*1000));
@@ -111,7 +114,7 @@ export class BookAnAppointment extends React.Component {
     else
       date = date + (ans.getDate());
     return date;
-  }
+  };
   
   render() {
     // const { userInfo} = this.props;
@@ -151,14 +154,12 @@ export class BookAnAppointment extends React.Component {
         <Bounce top opposite when={show}>
           <div className="form">
                   <div className="form-group">
-                    <label htmlFor="username">Tests</label>
+                    <label >Tests</label>
                     {this.dropdownShow(testList)}
                   </div>
-                  <br />
                   <div className="form-group">
-                    <label htmlFor="password">Date</label>
+                    <label >Date</label>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
                     {<KeyboardDatePicker
                                           disableToolbar
                                           variant="inline"
@@ -183,15 +184,14 @@ export class BookAnAppointment extends React.Component {
                   </div>
                 </div>
         </Bounce>
-        <div className="bkap-btn">
-          <button className="bkap-btn"
-            className="btn btn-success my-5"
-            type="button"
+        <div className={show ? "bkap-btn" :"bkap-btn2"}>
+          <Button 
+            variant="success"
             onClick={() => this.proceed(test,date,this.props.userInfo)}
             disabled={!show}
           >
             Proceed
-          </button>
+          </Button>
         </div>
         <h2>{errmsg}</h2>
         </>}

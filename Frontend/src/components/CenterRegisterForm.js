@@ -49,6 +49,8 @@ export class RegisterForm extends Component {
     Pincode:"",
     State:"",
     Country:"",
+    OpeningTime1:"0",
+    ClosingTime1:"0",
     OpeningTime:"0",
     ClosingTime:"0",
     FrontImage:"",
@@ -61,7 +63,6 @@ export class RegisterForm extends Component {
     indicate:false,
     radioControl:"",
     ModalShow:false,
-    centerInfo:"",
     Monday:false,
     Tuesday:false,
     Wednesday:false,
@@ -90,7 +91,7 @@ export class RegisterForm extends Component {
     this.setState({ ['isLoading']: false });
     this.setState({ ['isLoaded']: true });
     // this.setState({centerInfo : data});
-    this.props.onChangeUserInfo(data);
+    this.props.onChangeCenterInfo(data);
     this.props.onChangeCheck(0);
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
@@ -101,16 +102,19 @@ export class RegisterForm extends Component {
   handleModal = (x) => {
     this.setState({ModalShow:x})
   };
+
   handleFaulty = () =>  {
     this.setState({ ['isFaulty']: true });
     this.setState({ ['isLoading']: false });
 
   };
-  handleTime = (x,date) => {
+  handleTime = (x,date,x1,date1) => {
     console.log(x)
     console.log(date)
-    this.setState({ [x]: date });
+    this.setState({ [x1] : date1})
+    this.setState({ [x] : date });
   };
+
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
   };
@@ -131,39 +135,45 @@ export class RegisterForm extends Component {
     if(facilities.length>0){
       facilities.map(value => PseudoFacilities.push(value));
     }
-    PseudoFacilities.push(Facility);
-    this.setState({FacilityName:""})
-    this.setState({CapacityperSlot:""})
-    this.setState({Price:""})
-    this.setState({facilities:PseudoFacilities});
+    if(FacilityName!=="" && CapacityperSlot!=="" && facilities!=="")
+    {
+      PseudoFacilities.push(Facility);
+      this.setState({FacilityName:""})
+      this.setState({CapacityperSlot:""})
+      this.setState({Price:""})
+      this.setState({facilities:PseudoFacilities});
+    }
     this.handleShow(PseudoFacilities);
   };
 
   handleShow = (PseudoFacilities) =>{
     var code=[];
-        code.push(<Table striped bordered hover variant="dark">
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Facility Name</th>
-                      <th>Capacity per Slot</th>
-                      <th>Price</th>
-                      <th>Delete Option</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {PseudoFacilities.map((value,i) => (
-                    <tr>
-                      <td>{i+1}</td>
-                      <td>{value.FacilityName}</td>
-                      <td>{value.CapacityperSlot}</td>
-                      <td>{value.Price}</td>
-                      <td><DeleteOutlinedIcon onClick={()=>this.handleDelete(i,PseudoFacilities)}/></td>
-                    </tr>
-                    ))}
-                  </tbody>
-                </Table>
+    if(PseudoFacilities.length>0)
+    {
+      code.push(<Table striped bordered hover variant="dark">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Facility Name</th>
+                    <th>Capacity per Slot</th>
+                    <th>Price</th>
+                    <th>Delete Option</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {PseudoFacilities.map((value,i) => (
+                  <tr>
+                    <td>{i+1}</td>
+                    <td>{value.FacilityName}</td>
+                    <td>{value.CapacityperSlot}</td>
+                    <td>{value.Price}</td>
+                    <td><DeleteOutlinedIcon onClick={()=>this.handleDelete(i,PseudoFacilities)}/></td>
+                  </tr>
+                  ))}
+                </tbody>
+              </Table>
       )
+    }
         this.setState({facilityShow:code})
     };
 
@@ -188,9 +198,9 @@ export class RegisterForm extends Component {
     this.handleLoad();
     // this.handleRegister();
     console.log(data);
-    Axios.post("http://localhost:5000/user/signup1", data)
+    Axios.post("http://localhost:5000/center/signup1", data)
     .then((res) => {
-      // console.log("Hey this is your result", res);
+      // console.log( res);
       res.status==201 ? this.handleRegister(res) : this.handleFaulty();
 
     })
@@ -221,9 +231,9 @@ export class RegisterForm extends Component {
   dropdownShow = (data,FacilityName) => {
     return(
       <>
-      <Select displayEmpty value={FacilityName} onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
+      <Select required displayEmpty value={FacilityName} onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
         <MenuItem value="" disabled><em>None</em></MenuItem>
-        {data!=undefined && data.map((value,i) => {
+        {data.length>0 && data.map((value,i) => {
           return(
               <MenuItem value={value}>{value}</MenuItem >
             )
@@ -233,6 +243,7 @@ export class RegisterForm extends Component {
       )
   }
   render() {
+
      const{ 
       step,
       Name,
@@ -245,6 +256,8 @@ export class RegisterForm extends Component {
       Pincode,
       State,
       Country,
+      OpeningTime1,
+      ClosingTime1,
       OpeningTime,
       ClosingTime,
       FrontImage,
@@ -257,7 +270,6 @@ export class RegisterForm extends Component {
       indicate,
       radioControl,
       ModalShow,
-      centerInfo,
       Monday,
       Tuesday,
       Wednesday,
@@ -299,10 +311,6 @@ export class RegisterForm extends Component {
       LicenseNum,
       offdays,
       facilities
-    };
-    
-    const data = { 
-      centerInfo,
     };
 
     // const  errors = validateInfo(values);
@@ -399,10 +407,10 @@ export class RegisterForm extends Component {
                   <KeyboardTimePicker
                   format="HH:mm"
                   margin="normal"
-                  value={OpeningTime}
-                  minutesStep="30"
+                  value={OpeningTime1}
+                  minutesStep={30}
                   onChange={(date) =>
-                    this.handleTime('OpeningTime',format(date, "HH:mm"))
+                    this.handleTime('OpeningTime',format(date, "HH:mm"),'OpeningTime1',date)
                   }
                 />
                   <br />
@@ -411,11 +419,11 @@ export class RegisterForm extends Component {
                   <KeyboardTimePicker
                   format="HH:mm"
                   margin="normal"
-                  minutesStep="30"
+                  minutesStep={30}
                   id="date-picker-inline"
-                  value={ClosingTime}
+                  value={ClosingTime1}
                   onChange={(date) =>
-                    this.handleTime('ClosingTime',format(date, "HH:mm"))
+                    this.handleTime('ClosingTime',format(date, "HH:mm"),'ClosingTime1',date)
                   }
                 />
                   
@@ -644,6 +652,7 @@ export class RegisterForm extends Component {
                     type="number" 
                     margin="normal"
                     fullWidth
+                    required
                   />
                   <br />
                   <br />
@@ -655,9 +664,11 @@ export class RegisterForm extends Component {
                     variant="outlined"
                     value={Price}
                     onChange={this.handleChange('Price')}
-                    type="currency"
+                    type="number"
+                    inputProps={{min:"0.01" ,step:"0.01"}}
                     margin="normal"
                     fullWidth
+                    required
                   />
                   <br />
                   </div>
@@ -665,10 +676,9 @@ export class RegisterForm extends Component {
                   {!isLoading && !isLoaded && <Button
                         color="primary"
                         variant="contained"
-                      
                         onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities)}
                       >
-                        Add Another Facility
+                        Add
                       </Button>}
                   </div>
                   <br /><br /><br />
@@ -703,7 +713,6 @@ export class RegisterForm extends Component {
                   <br />
                   {indicate && <Redirect to={{
                         pathname: "/centerVerify", 
-                        // data: data
                        }} />}
                   </div>
                   <br />
@@ -724,14 +733,13 @@ export class RegisterForm extends Component {
 
 const mapStateToProps = state => {
   return{
-    userInfo:state.userInfo
+    centerInfo:state.centerInfo
   };
 };
 
 const mapDispatchToProps = dispatch =>{
   return{
-    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
-    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check})
+    onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };
 
