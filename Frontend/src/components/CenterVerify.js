@@ -9,7 +9,7 @@ import { Link,Redirect } from 'react-router-dom';
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 
-export class Verify extends Component {
+export class CenterVerify extends Component {
 	state= {
     auth:true,
     auth1:false,
@@ -63,4 +63,4 @@ const mapDispatchToProps = dispatch =>{
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Verify);
+export default connect(mapStateToProps,mapDispatchToProps)(CenterVerify);

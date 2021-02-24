@@ -17,12 +17,18 @@ const formatdate=(curr)=>{
       return curr.getFullYear()+'-'+month+'-'+date;
 }
 
-// const formattimestring=(time)=>{
-//       if (time[0]==0)
-//       {
-//             const ret=time[1]+':'+time[2]+time[3]+' '+'AM';
-//       }
-// }
+const formattimestring=(time)=>{
+      if(parseInt(time[0]+time[1])<12){
+            return time+' AM';
+      }
+      else{
+            let hr=parseInt(time[0]+time[1]);
+            if (hr!=12){
+                  hr-=12;
+            }
+            return ((hr.toString().length==1)?'0':'')+hr.toString()+':'+time[3]+time[4]+' PM';
+      }
+}
 
 const extracthr=(time)=>{
       if (time.length==7)
@@ -293,4 +299,4 @@ const alteredlist=(initiallist,blockeddays)=>{
 
 
 
-module.exports={listofnextsevendays,formatdate,alteredlist};
+module.exports={listofnextsevendays,formatdate,alteredlist,formattimestring};

@@ -199,7 +199,7 @@ export class RegisterForm extends Component {
     console.log(data);
     Axios.post("http://localhost:5000/center/signup1", data)
     .then((res) => {
-      // console.log( res);
+      console.log( res);
       res.status==201 ? this.handleRegister(res) : this.handleFaulty();
 
     })
@@ -209,12 +209,13 @@ export class RegisterForm extends Component {
     });
   };
   handleImage = input => e => {
-    // console.log(e.target.files[0]);
-    this.setState({ FrontImageType: e.target.files[0].type });
-    const reader=new FileReader();
-    reader.onload=this.handleBase64.bind(this);
-    reader.readAsBinaryString(e.target.files[0]);
-
+    if(e.target.files[0]!=undefined){
+    console.log(e.target.files[0]);
+      this.setState({ FrontImageType: e.target.files[0].type });
+      const reader=new FileReader();
+      reader.onload=this.handleBase64.bind(this);
+      reader.readAsBinaryString(e.target.files[0]);
+    }
   };
 
   handleBase64 = (e) =>{

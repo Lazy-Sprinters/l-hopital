@@ -84,14 +84,51 @@ const centerSchema=mongoose.Schema({
       PositionCoordinates:[Number],
       Reviews:[{
             text:{type:String},
-            stars:{type:Number}
+            stars:{type:Number,default:5}
+      }],
+      tokens:[{
+            token:{
+                  type:String,
+                  required:true
+            }
       }],
       AvgStars:{
             type:Number,
-            required:true
+            default:5,
       },
       Alloptions:[String]
 })
+
+centerSchema.methods.generateauthtoken=async function(){
+      const center=this;
+      const token=jwt.sign({_id:center._id.toString()},'nodetoreact');
+      center.tokens=center.tokens.concat({token: token});
+      await center.save();
+      return token;
+}
+
+centerSchema.statics.findbycredentials=async (email,password)=>{
+      const center=await Center.findOne({Email:email});
+      if (!user)
+      {
+            throw new Error("Unable to login");
+      }
+      const isMatch=await bcrypt.compare(password,center.Password);
+      if (!isMatch)
+      {
+            throw new Error('Unable to login');
+      }
+      return center;
+}
+
+
+centerSchema.pre('save',async function(next){
+      if (this.isModified('Password')){
+            const hash=await bcrypt.hash(this.Password,8);
+            this.Password=hash;
+      }
+      next();
+});
 
 const Center=mongoose.model('Center',centerSchema);
 
