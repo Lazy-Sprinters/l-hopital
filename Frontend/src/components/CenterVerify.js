@@ -17,8 +17,8 @@ export class CenterVerify extends Component {
   };
   authenticate = (data) =>{
     this.setState({auth:false});
-    const userInfo={userInfo:data}
-    // Axios.post("http://localhost:5000/helper/check",userInfo)
+    const centerInfo={centerInfo:data}
+    // Axios.post("http://localhost:5000/helper/check",centerInfo)
       // .then((res) => {
         this.setState({auth2:true});
       // })
@@ -35,14 +35,14 @@ export class CenterVerify extends Component {
     } = this.state;
   return (
     <>
-      {auth && this.authenticate(this.props.userInfo)}
+      {auth && this.authenticate(this.props.centerInfo)}
       {auth1 && <Redirect to={{
-        pathname: "/login", 
+        pathname: "/centerLogin", 
       }} />}
       {auth2 && 
         <>
         <Navbar />
-        <CenterOtpVerifyOrSkip userInfo={this.props.userInfo} check={this.props.check}/>
+        <CenterOtpVerifyOrSkip centerInfo={this.props.centerInfo}/>
         <Footer />
         </>}
     </>
@@ -51,15 +51,13 @@ export class CenterVerify extends Component {
 }
 const mapStateToProps = state => {
   return{
-    userInfo:state.userInfo,
-    check:state.check
+    centerInfo:state.centerInfo
   };
 };
 
 const mapDispatchToProps = dispatch =>{
   return{
-    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
-    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check})
+    onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };
 

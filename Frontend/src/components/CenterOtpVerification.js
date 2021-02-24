@@ -32,7 +32,7 @@ export class CenterOtpVerification extends Component {
     //  this.sendOtp(x);
   };
    sendOtp = (x) =>{
-    const data={userInfo:x};
+    const data={centerInfo:x};
      console.log(data)
   Axios.post("http://localhost:5000/user/newotps", data)
       .then((res) => {
@@ -101,8 +101,8 @@ export class CenterOtpVerification extends Component {
     this.setState({ [input]: e.target.value });
 
   };
-  verifyOtp = (otp1,otp2,userInfo) =>{
-    const data={userInfo,otp1,otp2}
+  verifyOtp = (otp1,otp2,centerInfo) =>{
+    const data={centerInfo,otp1,otp2}
     this.handleLoad();
     console.log(data)
     // this.handleVerification();                  
@@ -120,7 +120,7 @@ export class CenterOtpVerification extends Component {
   
 
   render() {
-    // const{userInfo,check}=this.props;
+    // const{centerInfo,check}=this.props;
      const{ 
       otp1,
       otp2,
@@ -135,7 +135,7 @@ export class CenterOtpVerification extends Component {
       x
     } = this.state;
     const data = { 
-      // userInfo,
+      // centerInfo,
       otp1,
       otp2
     };
@@ -143,7 +143,7 @@ export class CenterOtpVerification extends Component {
     return (
        <div>
           <br/> <br/>
-          {counter==30 ? this.start(this.props.userInfo) : null}
+          {counter==30 ? this.start(this.props.centerInfo) : null}
           <div className="err-msg">
             <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
           </div>
@@ -185,7 +185,7 @@ export class CenterOtpVerification extends Component {
               color="primary"
               variant="contained"
               disabled={!((data.otp1.length>=5 ) && (data.otp2.length>=5 ))}
-              onClick={() => this.verifyOtp(otp1,otp2,this.props.userInfo)}
+              onClick={() => this.verifyOtp(otp1,otp2,this.props.centerInfo)}
             >
               Verify
             </Button>
@@ -239,15 +239,13 @@ export class CenterOtpVerification extends Component {
 }
 const mapStateToProps = state => {
   return{
-    userInfo:state.userInfo,
-    check:state.check
+    centerInfo:state.centerInfo
   };
 };
 
 const mapDispatchToProps = dispatch =>{
   return{
-    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
-    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_STATE , check:check})
+    onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };
 

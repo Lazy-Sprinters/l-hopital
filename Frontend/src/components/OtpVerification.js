@@ -77,8 +77,8 @@ export class OtpVerification extends Component {
     this.setState({ ['isLoaded']: true });
     // this.setState({ ['x']: res });
     this.props.onChangeUserInfo(res);
-    // if(this.props.check==0)
-    //   window.localStorage.clear();
+    if(this.props.check==0)
+      window.localStorage.clear();
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
     );
