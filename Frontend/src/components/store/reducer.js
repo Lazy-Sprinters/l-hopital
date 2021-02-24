@@ -62,10 +62,10 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CENTERINFO:
 		{
-			// console.log("testInfo edited")
+			console.log("CenterInfo edited")
 			return{
 				...state,
-				testInfo:action.centerInfo
+				centerInfo:action.centerInfo
 			}
 		}
 	}

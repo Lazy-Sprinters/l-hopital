@@ -109,7 +109,7 @@ centerSchema.methods.generateauthtoken=async function(){
 
 centerSchema.statics.findbycredentials=async (email,password)=>{
       const center=await Center.findOne({Email:email});
-      if (!user)
+      if (!center)
       {
             throw new Error("Unable to login");
       }

@@ -30,12 +30,12 @@ class LoginNavbar extends Component {
       const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/logout",userInfo)
       .then((res) => {
-        onChangeCheck(null);
-        onChangeSlots(null);
-        onChangeTestInfo(null);
-        onChangeUserInfo(null);
-        onChangeCentreValue(null);
-        onChangeCenterList(null);
+        this.props.onChangeCheck(null);
+        this.props.onChangeSlots(null);
+        this.props.onChangeTestInfo(null);
+        this.props.onChangeUserInfo(null);
+        this.props.onChangeCentreValue(null);
+        this.props.onChangeCenterList(null);
         window.localStorage.clear();
         this.setState({['loggedOut']:true});
       })
@@ -150,7 +150,10 @@ const mapStateToProps = state => {
   return{
     userInfo:state.userInfo,
     check:state.check,
-    testInfo:state.testInfo
+    testInfo:state.testInfo,
+    // CentreValue:state.CentreValue,
+    // centreList:state.centreList,
+    // slots:state.slots
 
   };
 };
@@ -159,10 +162,10 @@ const mapDispatchToProps = dispatch =>{
   return{
     onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
     onChangeTestInfo: (testInfo) => dispatch({type:actionTypes.CHANGE_TESTINFO , testInfo:testInfo}),
-    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check})
-    onChangeCentreValue: (check) => dispatch({type:actionTypes.CHANGE_CENTREVALUE , CentreValue:CentreValue})
-    onChangeCenterList: (check) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList})
-    onChangeSlots: (check) => dispatch({type:actionTypes.CHANGE_SLOTS , slots:slots})
+    onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check}),
+    onChangeCentreValue: (CentreValue) => dispatch({type:actionTypes.CHANGE_CENTREVALUE , CentreValue:CentreValue}),
+    onChangeCenterList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
+    onChangeSlots: (slots) => dispatch({type:actionTypes.CHANGE_SLOTS , slots:slots})
   };
 };
 

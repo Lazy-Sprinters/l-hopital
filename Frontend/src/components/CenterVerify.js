@@ -18,14 +18,15 @@ export class CenterVerify extends Component {
   authenticate = (data) =>{
     this.setState({auth:false});
     const centerInfo={centerInfo:data}
-    // Axios.post("http://localhost:5000/helper/check",centerInfo)
-      // .then((res) => {
+    console.log(centerInfo);
+    Axios.post("http://localhost:5000/helper/check1",centerInfo)
+      .then((res) => {
         this.setState({auth2:true});
-      // })
-      // .catch((err) => {
-        // console.log("Invalid Route");
-        // this.setState({auth1:true});
-      // }); 
+      })
+      .catch((err) => {
+        console.log("Invalid Route");
+        this.setState({auth1:true});
+      }); 
   };
   render() {
     const{ 

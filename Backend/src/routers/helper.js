@@ -6,6 +6,7 @@ const User=require('../models/user');
 const Appointment=require('../models/appointment');
 const Mainhelper=require('../helpers/all-utility');
 const Authmiddleware=require('../middleware/auth');
+const Authmiddleware1=require('../middleware/auth1');
 const FacilityRegHelper=require('../helpers/center-registration-helper');
 
 
@@ -37,10 +38,10 @@ router.post('/facility/new',async (req,res)=>{
 
 router.post('/helper/check',Authmiddleware,async(req,res)=>{
       res.status(200).send();
+});
+
+router.post('/helper/check1',Authmiddleware1,async (req,res)=>{
+      res.status(200).send();
 })
-
-
-
-
 
 module.exports=router;

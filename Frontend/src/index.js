@@ -43,7 +43,8 @@ store.subscribe(() => {
   	testInfo:store.getState().testInfo,
   	centreList:store.getState().centreList,
   	slots:store.getState().slots,
-  	CentreValue:store.getState().CentreValue
+  	CentreValue:store.getState().CentreValue,
+  	centerInfo:store.getState().centerInfo,
   });
 });
 

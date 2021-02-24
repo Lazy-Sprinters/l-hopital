@@ -34,7 +34,7 @@ export class CenterOtpVerification extends Component {
    sendOtp = (x) =>{
     const data={centerInfo:x};
      console.log(data)
-  Axios.post("http://localhost:5000/user/newotps", data)
+  Axios.post("http://localhost:5000/center/newotps", data)
       .then((res) => {
         ;
 
@@ -106,9 +106,9 @@ export class CenterOtpVerification extends Component {
     this.handleLoad();
     console.log(data)
     // this.handleVerification();                  
-    Axios.post("http://localhost:5000/user/signup2", data)
+    Axios.post("http://localhost:5000/center/signup2", data)
     .then((res) => {
-      // console.log("Hey this is your result", res);
+      console.log("Hey this is your result", res);
       res.status==200 ? this.handleVerification(res) : this.handleFaulty();
 
     })
