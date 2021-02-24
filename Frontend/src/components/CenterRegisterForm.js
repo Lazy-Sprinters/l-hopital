@@ -92,7 +92,6 @@ export class RegisterForm extends Component {
     this.setState({ ['isLoaded']: true });
     // this.setState({centerInfo : data});
     this.props.onChangeCenterInfo(data);
-    this.props.onChangeCheck(0);
     setTimeout(
       () => this.setState({['indicate']:true}), 3000
     );
@@ -577,22 +576,7 @@ export class RegisterForm extends Component {
                   
                   <br/>
                   <br/>
-                  {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
-                  <br/>
-                  <div className="no-chng">
-                    {isLoading && <LinearProgress />}                
-                  {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page.</h1>}
-                  {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
-                  <br />
-                  {indicate && <Redirect to={{
-                        pathname: "/centerVerify", 
-                        // data: data
-                       }} />}
-                  </div>
-                  <br />
-                  <br />
-                  <br />
-                  <br />
+                  
                 </div>
 
               </div>

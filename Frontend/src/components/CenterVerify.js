@@ -18,14 +18,14 @@ export class Verify extends Component {
   authenticate = (data) =>{
     this.setState({auth:false});
     const userInfo={userInfo:data}
-    Axios.post("http://localhost:5000/helper/check",userInfo)
-      .then((res) => {
+    // Axios.post("http://localhost:5000/helper/check",userInfo)
+      // .then((res) => {
         this.setState({auth2:true});
-      })
-      .catch((err) => {
-        console.log("Invalid Route");
-        this.setState({auth1:true});
-      }); 
+      // })
+      // .catch((err) => {
+        // console.log("Invalid Route");
+        // this.setState({auth1:true});
+      // }); 
   };
   render() {
     const{ 
