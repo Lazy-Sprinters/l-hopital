@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Register from './components/Register';
 import CenterRegister from './components/CenterRegister';
 import Verify from './components/Verify';
+import CenterVerify from './components/CenterVerify';
 import Login from './components/Login';
 import CenterLogin from './components/CenterLogin';
 import LoginHome from './components/LoginHome';
@@ -22,6 +23,7 @@ function App() {
           <Route path='/register' exact  render ={()=> < Register />} />
           <Route path='/centerRegister' exact  render ={()=> < CenterRegister />} />
           <Route path='/verify' exact  render ={()=> < Verify />} />
+          <Route path='/centerVerify' exact  render ={()=> < CenterVerify />} />
           <Route path='/login' exact  render ={()=> < Login />} />
           <Route path='/centerLogin' exact  render ={()=> < CenterLogin />} />
           <Route path='/loginHome' exact  render ={()=> < LoginHome />} />
