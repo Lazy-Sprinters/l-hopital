@@ -286,10 +286,10 @@ export class ProfileView extends React.Component {
       <div className="row">
         <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.user.UserName)}</h1></Avatar>
         <div >
-            <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{userInfo.data.user.UserName}</Typography>
+            <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap'}}><h1>{userInfo.data.user.UserName}</h1></Typography>
           <div className="row">
-              <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Age: {userInfo.data.user.Age}</Typography>
-              <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Gender: {userInfo.data.user.Gender}</Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Age: {userInfo.data.user.Age}</h3></Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'40px'}}><h3>Gender: {userInfo.data.user.Gender}</h3></Typography>
           </div>
         </div> 
       </div>
@@ -502,7 +502,7 @@ export class ProfileView extends React.Component {
                 <div className="row">
                   <div className="txtfld1">
                   <TextField
-                    value={PhoneNumber}
+                    value={parseInt(PhoneNumber)}
                     disabled={!editProfile}
                     size="small"
                     placeholder="Enter your Phone Number"

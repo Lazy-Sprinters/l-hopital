@@ -24,9 +24,7 @@ class LoginNavbar extends Component {
     this.setState({ ['click']: false });
   };
 
-  LogOut = (e,data) =>{
-      e.preventDefault();
-      this.closeMobileMenu();
+  LogOut = (data) =>{
       const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/logout",userInfo)
       .then((res) => {
@@ -37,9 +35,7 @@ class LoginNavbar extends Component {
         console.log("Axios", err);
       });
   };
-  getTests = (e,data) =>{
-    e.preventDefault();
-    this.closeMobileMenu();
+  getTests = (data) =>{
     const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/allappointments",userInfo)
       .then((res) => {
@@ -88,9 +84,8 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
-                  to='/test'
                   className='nav-links'
-                  onClick={(e) => this.getTests(e,this.props.userInfo)}
+                  onClick={() => this.closeMobileMenu(),() => this.getTests(this.props.userInfo)}
                 >
                   TESTS 
                 </Link>
@@ -112,7 +107,7 @@ class LoginNavbar extends Component {
                   to="/login"
                   className='nav-links'
                   color="primary"
-                  onClick={(e) => this.LogOut(e,this.props.userInfo)}
+                  onClick={() => this.closeMobileMenu(),() => this.LogOut(this.props.userInfo)}
                 >
                   LOGOUT
                 </Link>

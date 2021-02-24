@@ -36,7 +36,7 @@ export class LoginHome extends Component {
     <div>
       {auth && this.authenticate(this.props.userInfo)}
       {auth1 && <Redirect to={{
-        pathname: "/login" 
+        pathname: "/login", 
       }} />}
       {auth2 && 
         <>

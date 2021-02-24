@@ -7,14 +7,14 @@ function Footer() {
   
   return (
     <div className='footer-container'>
-      <div className='footer-links'>
+      <div class='footer-links'>
         <div className='footer-link-wrapper'>
-          <div className='footer-link-items'>
+          <div class='footer-link-items'>
             <h2>About Us</h2>
             <h4>A unique-minded group with full of enthusiasm and thinking to change the world to a better one.</h4>
           </div>
 
-          <div className='footer-link-items'>
+          <div class='footer-link-items'>
             <h2>Social Media</h2>
             <Link to='/'>Instagram</Link>
             <Link to='/'>Linkedin</Link>
@@ -24,27 +24,27 @@ function Footer() {
           
         </div>
         <div className='footer-link-wrapper'>
-          <div className='footer-link-items'>
+          <div class='footer-link-items'>
             <h2>Developers</h2>
             <Link to='/'>Anuraj Agarwal</Link>
             <Link to='/'>Pavitra Goyal</Link>
             <Link to='/'>Samarthya Jha</Link>
           </div>
-            <div className='footer-link-items'>
+            <div class='footer-link-items'>
             <h2>Mail</h2>
             <h4><a href="mailto:anuraj.agarwal@vitstudent.ac.in">Click here to mail us.</a></h4>
           </div>
         </div>
       </div>
-      <section className='social-media'>
-        <div className='social-media-wrap'>
-          <div className='footer-logo'>
+      <section class='social-media'>
+        <div class='social-media-wrap'>
+          <div class='footer-logo'>
             <Link to='/' className='social-logo'>
                MakeMyAppointment
             </Link>
           </div>
-          <small className='website-rights'>MakeMyAppointment © 2020</small>
-          <div className='social-icons'>
+          <small class='website-rights'>MakeMyAppointment © 2020</small>
+          <div class='social-icons'>
             <ul> 
               <li>
                 <a href="#">
@@ -52,7 +52,7 @@ function Footer() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span className="fab fa-facebook"></span>
+                  <span class="fab fa-facebook"></span>
                 </a> 
               </li>
               <li>
@@ -61,7 +61,7 @@ function Footer() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span className="fab fa-twitter"></span>
+                  <span class="fab fa-twitter"></span>
                 </a> 
               </li>
               <li>
@@ -70,7 +70,7 @@ function Footer() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span className="fab fa-instagram"></span>
+                  <span class="fab fa-instagram"></span>
                 </a> 
               </li>
               <li>
@@ -79,7 +79,7 @@ function Footer() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span className="fab fa-github"></span>
+                  <span class="fab fa-github"></span>
                 </a> 
               </li>
               <li>
@@ -88,7 +88,7 @@ function Footer() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span className="fab fa-linkedin"></span>
+                  <span class="fab fa-linkedin"></span>
                 </a> 
               </li>
             </ul>  

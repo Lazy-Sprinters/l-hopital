@@ -20,7 +20,7 @@
 
 .navbar-logo {
   color: #fff;
-  justify-content: left;
+  justify-content: start;
   margin-top:-3vh;
   margin-left: 2vw;
   cursor: pointer;
