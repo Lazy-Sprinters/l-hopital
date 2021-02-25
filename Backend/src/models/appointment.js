@@ -30,6 +30,10 @@ const appointmentSchema=mongoose.Schema({
       ResultStatus:{
             type:Boolean,
             default:false
+      },
+      Attended:{
+            type:Boolean,
+            default:false
       }
 });
 

@@ -169,7 +169,8 @@ router.post('/center/login',async (req,res)=>{
                               posper:100,
                               negper:0,
                               comment:"Everything looks good as of now",
-                              avgstars:5
+                              avgstars:5,
+                              flag:1
                         };
                         res.status(200).send({center,token,reviews});
                   }
@@ -188,9 +189,10 @@ router.post('/center/login',async (req,res)=>{
                                     posp+=1;
                               }
                         }
-                        let comm="hello";
+                        let comm="hello",flag=1;
                         if (negp>=posp || parseInt(sum/center.Reviews.length)<=3){
-                              comm='Some Serious Steps are immediately needed'
+                              comm='Some Serious Steps are immediately needed',
+                              flag=1;
                         }else{
                               comm='Things are going fine'
                         }
@@ -227,8 +229,13 @@ router.post('/review/new',async (req,res)=>{
 })
 
 router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
-      /*
-      */
+      try{
+            const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
+
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
 })
 
 router.post('/center/logout',Authmiddleware,async (req,res)=>{

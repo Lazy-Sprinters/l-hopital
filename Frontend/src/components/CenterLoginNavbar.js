@@ -26,9 +26,9 @@ class CenterLoginNavbar extends Component {
       const centerInfo = {centerInfo:data}
       Axios.post("http://localhost:5000/center/logout",centerInfo)
       .then((res) => {
+        this.setState({['loggedOut']:true});
         this.props.onChangeCenterInfo(null);
         window.localStorage.clear();
-        this.setState({['loggedOut']:true});
       })
       .catch((err) => {
         console.log("Axios", err);

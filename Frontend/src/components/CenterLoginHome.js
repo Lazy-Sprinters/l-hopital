@@ -62,14 +62,18 @@ export class CenterLoginHome extends Component {
         <div class="quotes">
           <div class="card">
             <div class="box box1">
-              <p>The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself. </p>
+              <p>Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.</p>
+              <br/>
+              <p>Send the results which are ready today itself.</p>
               <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
             </div>
             <div class="bg"></div>
           </div>
           <div class="card">
             <div class="box box2">
-              <p>Your smile will give you a positive countenance that will make people feel comfortable around you. </p>
+              <p>Be not afraid of growing slowly, be afraid only of standing still. </p>
+              <br/>
+              <p>View appointments for the day and Plan your day!.</p>
             <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
             </div>
             <div class="bg"></div>
@@ -77,6 +81,8 @@ export class CenterLoginHome extends Component {
           <div class="card">
             <div class="box box3">
               <p>Before anything else, preparation is the key to success. </p>
+              <br/>
+              <p>View all your future booking and plan your days.</p>
             <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
             </div>
             <div class="bg"></div>

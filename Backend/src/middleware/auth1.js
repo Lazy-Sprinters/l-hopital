@@ -7,7 +7,7 @@ const auth=async (req,res,next)=>{
             const token=req.body.centerInfo.data.token;
             const decoded=jwt.verify(token,'nodetoreact');
             const user=await Center.findOne({_id:decoded._id,'tokens.token':token});
-            console.log(user.tokens.length);
+            // console.log(user.tokens.length);
             if (!user){
                   throw new Error('Error Occured');
             }
