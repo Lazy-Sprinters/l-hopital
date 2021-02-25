@@ -209,7 +209,6 @@ export class CenterOtpVerification extends Component {
           {isVerified && isLoaded && <h1>You are verified</h1>}
           {!isVerified && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
           <br />
-          {this.props.check==0 && 
             <div>
             {isVerified && isLoaded && 
               <div className="btn2">
@@ -229,7 +228,6 @@ export class CenterOtpVerification extends Component {
               </div>
             }
             </div>
-          }
           </div>
           <br />
           <br />

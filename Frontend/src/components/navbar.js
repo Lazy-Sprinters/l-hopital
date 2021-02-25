@@ -5,7 +5,7 @@ import {Navbar,Nav,NavDropdown} from 'react-bootstrap'
 function Navbar1() {
   return (
   <Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
-    <Navbar.Brand href="#home">MakeMyAppointment</Navbar.Brand>
+    <Navbar.Brand as={Link} to='/'>MakeMyAppointment</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse style={{backgroundColor: '#353A40', borderRadius:'10px', paddingLeft:'10px', margin:'0 -15px'}}id="responsive-navbar-nav">
       <Nav className="ml-auto" style={{marginRight:'30px'}}>

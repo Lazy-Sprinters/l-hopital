@@ -76,7 +76,7 @@ class LoginNavbar extends Component {
         <nav className='navbar'>
 
           <div className='navbar-container'>
-            <Link to='/login' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
+            <Link to='/loginHome' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
                 MakeMyAppointment
             </Link>
             <div className='menu-icon' onClick={() => this.handleClick(click)}>

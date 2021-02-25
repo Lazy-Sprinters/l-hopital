@@ -35,7 +35,7 @@ import {
 import moment from "moment";
 import { format } from "date-fns";
 
-export class RegisterForm extends Component {
+export class CenterRegisterForm extends Component {
 
   state = {
     step:0,
@@ -728,4 +728,4 @@ const mapDispatchToProps = dispatch =>{
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(RegisterForm);
+export default connect(mapStateToProps,mapDispatchToProps)(CenterRegisterForm);
