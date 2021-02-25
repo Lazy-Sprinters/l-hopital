@@ -91,7 +91,7 @@ function StickyHeadTable({appointments}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push("No Reviews Found","-");
+      ans.push("No appointments available","--","--","--","--","--");
       setRows(ans);
     }
     else{
@@ -144,7 +144,7 @@ function StickyHeadTable({appointments}) {
                 <TableRow hover role="checkbox" tabIndex={-1} key={row}>
                   {columns.map((column) => {
                     const value = row[column.id];
-                    if(column.id=="Sendresult"){
+                    if(column.id=="Sendresult" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
                         <Button variant="success" onClick={()=> window.location.assign("mailto:"+value)}>Send Result</Button>
