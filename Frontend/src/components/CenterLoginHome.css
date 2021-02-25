@@ -1,0 +1,49 @@
+.center-btn{
+	/*width:80vw;*/
+	/*background-color: red;*/
+	/*height: 100vh;*/
+	margin:20vh 2vw;
+}
+.act-btn1{
+	display: none;
+	height:0vh;
+	margin-left: -11vw;
+	margin-top:5vh;
+  transition: 10s linear;	
+  width:auto;
+  transition: margin-top 10s linear;
+}
+.act-btn2{
+	display: none;
+	height:0vh;
+	margin-left: -16vw;
+  width:16vw;
+	margin-top:5vh;
+  transition: margin-top 10s linear;
+}
+.act-btn3{
+	display: none;
+	height:0vh;
+	margin-left: -13vw;
+  width:auto;
+	margin-top:5vh;
+  transition: margin-top 10s linear;
+}
+.act-btn{
+	height:7vh;
+}
+.act-btn:hover + .act{
+	background-color:  gray;
+  display: block;
+  height:10vh;
+	margin-top:7vh;
+  transition: margin-top 10s linear;
+}
+/*.act-btn:hover + .act-btn2{
+  display: block;
+  height:20vh;
+}
+.act-btn:hover + .act-btn3{
+  display: block;
+  height:20vh;
+}*/

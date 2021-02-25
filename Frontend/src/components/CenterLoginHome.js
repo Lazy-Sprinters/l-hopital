@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import "../App.css";
 import CenterLoginNavbar from "./CenterLoginNavbar";
 import CenterReviews from "./CenterReviews";
+import ButtonsView from "./ButtonsView";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
@@ -42,6 +42,7 @@ export class CenterLoginHome extends Component {
         <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
+        <ButtonsView centerInfo={this.props.centerInfo}/>
         <CenterReviews centerInfo={this.props.centerInfo}/>
         <Footer />
       </>}
