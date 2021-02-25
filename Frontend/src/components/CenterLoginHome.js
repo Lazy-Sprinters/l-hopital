@@ -97,7 +97,7 @@ export class CenterLoginHome extends Component {
         <Redirect to='/centerSendResult'/>
         }
         {info && 
-          <Redirect to='/centerLogin'/>
+          <Redirect to='/centerAppOfDay'/>
         }
         {danger && 
           <Redirect to='/centerLogin'/>
