@@ -1,6 +1,6 @@
 const comp1=(d1,d2)=>{
-      const parts1 = d1.date.split('-');
-      const parts2 = d2.date.split('-');
+      const parts1 = d1.dateofappointment.split('-');
+      const parts2 = d2.dateofappointment.split('-');
       let latest = -1;
       if (parseInt(parts1[0]) > parseInt(parts2[0])) 
       {
@@ -23,20 +23,34 @@ const comp1=(d1,d2)=>{
       return latest;
 }
 
+const comparedatecurr=(d1)=>{
+      const date=new Date(d1);
+      const date2=new Date();
+      if (date2.getFullYear()>date.getFullYear()){
+            return 1;
+      }else if (date2.getFullYear()==date.getFullYear()){
+            if (date2.getMonth()>date.getMonth()){
+                  return 1;
+            }
+            else if (date2.getMonth()==date.getMonth()){
+                  if (date2.getDate()>date.getDate()){
+                        return 1;
+                  }
+            }
+      }
+      return 0;
+}
+
 const arrange=(data)=>{
-      //data is a array of appointments
       let data1=[];
       for(let i=0;i<data.length;i++)
       {
-            if (new Date().getTime()>new Date(data[i].dateofappointment)){
+            if (comparedatecurr(data[i].dateofappointment)==1){
                   data1.push(data[i]);
             }
-            else if (new Date().getTime()==new Date(data[i].dateofappointment)){
-
-            }
       }
+      data1.sort(comp1);
+      return data1;
 }
 
-console.log(new Date().getHours());
-
-module.exports={arrange}
+module.exports={arrange,comparedatecurr}
