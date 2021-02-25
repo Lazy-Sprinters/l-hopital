@@ -229,7 +229,7 @@ router.post('/review/new',async (req,res)=>{
       }
 })
 
-router.post('/center/prevapp',async(req,res)=>{
+router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
       try{
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id,Attended:true});
             const filtered=AppointmentHelper.arrange(appointments);
@@ -237,14 +237,15 @@ router.post('/center/prevapp',async(req,res)=>{
             for(let i=0;i<filtered.length;i++){
                   const currentuser=await User.findOne({_id:filtered[i].user_id});
                   ret.push({
-                        Name:currentuser.Name,
+                        Name:currentuser.UserName,
                         Test:filtered[i].facilityused,
                         Date:filtered[i].dateofappointment,
                         Slot:filtered[i].Slotdetails,
-                        PhoneNo:currentuser.PhoneNo,
+                        PhoneNo:currentuser.PhoneNumber,
                         Email:currentuser.Email
                   });
             }
+            // console.log(ret);
             res.status(200).send(ret);
       }catch(err){
             console.log(err);

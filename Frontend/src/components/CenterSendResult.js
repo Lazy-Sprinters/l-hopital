@@ -22,30 +22,30 @@ from '@material-ui/core';
 
 const columns = [
   { id: 'Name', label: 'Name', minWidth: 170 },
-  { id: 'Test', label: '', minWidth: 100 },
+  { id: 'Test', label: 'Test Name', minWidth: 100 },
   {
     id: 'date',
     label: 'Date',
     minWidth: 170,
-    align: 'right',
+    align: 'center',
   },
   {
     id: 'Slot',
     label: 'Slot Timings',
     minWidth: 170,
-    align: 'right',
+    align: 'center',
   },
   {
     id: 'PhoneNo',
     label: 'Contact Details',
     minWidth: 170,
-    align: 'right',
+    align: 'center',
   },
   {
     id: 'Sendresult',
     label: 'Send Result',
     minWidth: 170,
-    align: 'right',
+    align: 'center',
   },
 ];
 
@@ -95,6 +95,7 @@ function StickyHeadTable({appointments}) {
       setRows(ans);
     }
     else{
+      console.log(x);
       for (let i = 0; i < x.length; i++) {
         ans.push(
           createData(
@@ -186,14 +187,14 @@ export class CenterSendResult extends Component {
   handleSendResult = (data) =>{
     this.setState({initiate:false});
     const centerInfo={centerInfo:data};
-    // Axios.post("http://localhost:5000/user/prevapp", data)
-    // .then((res) => {
-      // this.setState({appointments:res.data})
+    Axios.post("http://localhost:5000/center/prevapp", centerInfo)
+    .then((res) => {
+      this.setState({appointments:res.data})
       this.setState({display:true});
-    // })
-    // .catch((err) => {
-      // console.log("Axios", err);
-    // });
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
   }
   render() {
     const{ 
