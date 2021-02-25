@@ -74,7 +74,7 @@ const helper=(starttime,endtime)=>{
       if (st=='AM' && et=='AM' && hs<=he){
             if (st==et){
                   while ((hs!=he) || (ms!=me)){
-                        let tbp=hs.toString()+':'+formathelp(ms)+' '+st+" - ";
+                        let tbp=formathelp(hs)+':'+formathelp(ms)+' '+st+" - ";
                         if (ms==30){
                               ms=0;
                               hs+=1;
@@ -82,14 +82,14 @@ const helper=(starttime,endtime)=>{
                         else{
                               ms+=30;
                         }
-                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+st);
+                        tbp+=(formathelp(hs)+':'+formathelp(ms)+' '+st);
                         arr.push(tbp);
                   }
             }
       }
       else if (st=='AM' && et=='AM' && hs>he){
             while ((hs!=12) || (ms!=0)){
-                  let tbp=hs.toString()+':'+formathelp(ms)+' '+st+" - ";
+                  let tbp=formathelp(hs)+':'+formathelp(ms)+' '+st+" - ";
                   if (ms==30){
                         ms=0;
                         hs+=1;
@@ -98,10 +98,10 @@ const helper=(starttime,endtime)=>{
                         ms+=30;
                   }
                   if (hs==12){
-                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+et);      
+                        tbp+=(formathelp(hs)+':'+formathelp(ms)+' '+et);      
                   }
                   else{
-                        tbp+=(hs.toString()+':'+formathelp(ms)+' '+st);
+                        tbp+=(formathelp(hs)+':'+formathelp(ms)+' '+st);
                   }
                   arr.push(tbp);
             }
@@ -111,7 +111,7 @@ const helper=(starttime,endtime)=>{
                   if (ths1!=12){
                         ths1-=12;
                   }
-                  let tbp=ths1.toString()+':'+formathelp(ms)+' '+et+"-";
+                  let tbp=formathelp(ths1)+':'+formathelp(ms)+' '+et+"-";
                   if (ms==30){
                         ms=0;
                         hs+=1;
@@ -123,7 +123,7 @@ const helper=(starttime,endtime)=>{
                   if (ths!=12){
                         ths-=12;
                   }
-                  tbp+=((ths).toString()+':'+formathelp(ms)+' '+et);
+                  tbp+=(formathelp(ths)+':'+formathelp(ms)+' '+et);
                   arr.push(tbp);
             }
       }

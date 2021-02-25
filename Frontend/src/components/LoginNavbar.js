@@ -30,6 +30,7 @@ class LoginNavbar extends Component {
       const userInfo = {userInfo:data}
       Axios.post("http://localhost:5000/user/logout",userInfo)
       .then((res) => {
+        this.setState({['loggedOut']:true});
         this.props.onChangeCheck(null);
         this.props.onChangeSlots(null);
         this.props.onChangeTestInfo(null);
@@ -37,7 +38,6 @@ class LoginNavbar extends Component {
         this.props.onChangeCentreValue(null);
         this.props.onChangeCenterList(null);
         window.localStorage.clear();
-        this.setState({['loggedOut']:true});
       })
       .catch((err) => {
         console.log("Axios", err);

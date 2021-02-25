@@ -155,8 +155,52 @@ router.post('/center/newotps',Authmiddleware,async (req,res)=>{
 router.post('/center/login',async (req,res)=>{
       try{
             const center=await Center.findbycredentials(req.body.email,req.body.password);
-            const token=await center.generateauthtoken();
-            res.status(200).send({center,token});
+            if (center.Status==false){
+                  res.status(400).send();
+            }
+            else{
+                  const token=await center.generateauthtoken();
+                  if (center.Reviews.length==0){
+                        const reviews={
+                              arr:[],
+                              posper:100,
+                              negper:0,
+                              comment:"Everything looks good as of now",
+                              avgstars:5
+                        };
+                        res.status(200).send({center,token,reviews});
+                  }
+                  else{
+                        let sum=0;
+                        let posp=0,negp=0;
+                        for(let i=0;i<center.Reviews.length;i++){
+                              const data1={
+                                    review:center.Reviews[i].text
+                              };
+                              sum+=center.Reviews[i].stars;
+                              const response=await axios.post('http://a14388310e51.ngrok.io',data1);
+                              if (response.data=='negative'){
+                                    negp+=1;
+                              }else{
+                                    posp+=1;
+                              }
+                        }
+                        let comm="hello";
+                        if (negp>=posp || parseInt(sum/center.Reviews.length)<=3){
+                              comm='Some Serious Steps are immediately needed'
+                        }else{
+                              comm='Things are going fine'
+                        }
+                        const reviews={
+                              arr:center.Reviews,
+                              posper:parseFloat((posp/(posp+negp))*100),
+                              negper:parseFloat((negp/(posp+negp))*100),
+                              comment:comm,
+                              avgstars:parseFloat(sum/center.Reviews.length)
+                        }
+                        res.status(200).send({center,token,reviews});      
+                  }
+            }
       }catch(err){
             console.log(err);
             res.status(404).send("Center not registered");
@@ -176,6 +220,24 @@ router.post('/review/new',async (req,res)=>{
       }catch(err){
             console.log(err);
             res.status(400).send();
+      }
+})
+
+router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
+      /*
+      */
+})
+
+router.post('/center/logout',Authmiddleware,async (req,res)=>{
+      try{
+            req.center.tokens=[];
+            req.center.RecentEmailOtps=[];
+            req.center.RecentMobileOtps=[];
+            await req.center.save();
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
       }
 })
 

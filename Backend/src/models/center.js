@@ -99,6 +99,17 @@ const centerSchema=mongoose.Schema({
       Alloptions:[String]
 })
 
+centerSchema.methods.toJSON=function(){
+      const center=this;
+      const cenobj=center.toObject();
+
+      delete cenobj.Password
+      delete cenobj.tokens;
+      delete cenobj.RecentMobileOtps;
+      delete cenobj.RecentEmailOtps;
+      return cenobj;
+}
+
 centerSchema.methods.generateauthtoken=async function(){
       const center=this;
       const token=jwt.sign({_id:center._id.toString()},'nodetoreact');

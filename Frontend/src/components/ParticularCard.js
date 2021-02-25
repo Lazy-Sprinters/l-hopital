@@ -126,7 +126,7 @@ export class ParticularCard extends React.Component {
           <div className="user-col">
             <div className="UserPanel">
               <div className="user-avatar">
-                {<img src={this.props.CentreValue.cen.FrontImage} alt="profile" />}
+                {<img src={"data:image/jpg;base64,"+this.props.CentreValue.cen.FrontImage.toString()} alt="profile" />}
               </div>
 
               <div className="center-details">
