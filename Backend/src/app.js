@@ -2,6 +2,7 @@ const express=require('express');
 const cors=require('cors');
 const cron=require('node-cron');
 const updhelepr=require('./helpers/center-registration-helper');
+const appointmentHelper=require('./helpers/Appointment-helper');
 const Facility=require('./models/facilities');
  
 require('./db/mongoose');
@@ -39,7 +40,7 @@ const task=cron.schedule('0 0 * * *',async ()=>{
             let nsa=[];
             for(let j=0;j<subject.length;j++)
             {
-                  if (new Date(subject[j].date).getTime()>new Date().getTime())
+                  if (appointmentHelper.comparedatecurr(d1)==0)
                   {
                         nsa.push(subject[j]);
                   }

@@ -6,6 +6,7 @@ const Facility=require('../models/facilities');
 const router=new express.Router();
 const RegistrationUtil=require('../helpers/center-registration-helper');
 const RegistrationUtil1=require('../helpers/Registration-helper');
+const AppointmentHelper=require('../helpers/Appointment-helper');
 const Vonage = require('@vonage/server-sdk');
 const nodemailer=require('nodemailer');
 const axios = require('axios').default;
@@ -228,10 +229,23 @@ router.post('/review/new',async (req,res)=>{
       }
 })
 
-router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
+router.post('/center/prevapp',async(req,res)=>{
       try{
-            const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
-
+            const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id,Attended:true});
+            const filtered=AppointmentHelper.arrange(appointments);
+            let ret=[];
+            for(let i=0;i<filtered.length;i++){
+                  const currentuser=await User.findOne({_id:filtered[i].user_id});
+                  ret.push({
+                        Name:currentuser.Name,
+                        Test:filtered[i].facilityused,
+                        Date:filtered[i].dateofappointment,
+                        Slot:filtered[i].Slotdetails,
+                        PhoneNo:currentuser.PhoneNo,
+                        Email:currentuser.Email
+                  });
+            }
+            res.status(200).send(ret);
       }catch(err){
             console.log(err);
             res.status(400).send(err);
