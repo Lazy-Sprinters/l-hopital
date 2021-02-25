@@ -136,7 +136,7 @@ class Login extends Component {
             </div>
             {isLoggedIn && 
             
-              <Redirect to={{
+              <Redirect push to={{
                       pathname: "/loginHome", 
                       // data: {userInfo}
                      }} />

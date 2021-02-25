@@ -135,7 +135,7 @@ class CenterLogin extends Component {
             </div>
             {isLoggedIn && 
             
-              <Redirect to={{
+              <Redirect push to={{
                       pathname: "/centerLoginHome", 
                       // data: {centerInfo}
                      }} />

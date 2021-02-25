@@ -11,6 +11,7 @@ import CenterProfile from './components/CenterProfile';
 import CenterFacilties from './components/CenterFacilties';
 import LoginHome from './components/LoginHome';
 import CenterLoginHome from './components/CenterLoginHome';
+import CenterSendResult from './components/CenterSendResult';
 import Tests from './components/Tests';
 import Profile from './components/Profile';
 import selectionPage1 from './components/selectionPage1';
@@ -32,6 +33,7 @@ function App() {
           <Route path='/centerProfile' exact component={CenterProfile} />
           <Route path='/centerFacilties' exact component={CenterFacilties} />
           <Route path='/centerLoginHome' exact component={CenterLoginHome} />
+          <Route path='/centerSendResult' exact component={CenterSendResult} />
           <Route path='/loginHome' exact component={LoginHome} />
           <Route path='/test' exact component={Tests} />
           <Route path='/profile' exact component={Profile} />

@@ -1,23 +1,25 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell, 
+  TableContainer,
+  TableHead,
+  TablePagination, 
+  TableRow 
+}
+from '@material-ui/core';
 
 const columns = [
-  { id: 'Review', label: 'Name', minWidth: 170 },
-  { id: 'stars', label: 'ISO\u00a0Code', minWidth: 100 },
+  { id: 'Review', label: 'Review', minWidth: 170 },
+  { id: 'stars', label: 'Stars', minWidth: 100 },
 ];
 
 function createData(Review, stars) {
   return { Review, stars};
 }
-
 
 const useStyles = makeStyles({
   root: {
@@ -37,7 +39,6 @@ export default function StickyHeadTable({arr}) {
   const convertToRows = (x) => {
     setStart(false);
     let ans = [];
-    console.log(x)
     if(x.length==0){
       ans.push("No Reviews Found","-");
       setRows(ans);
@@ -66,9 +67,21 @@ export default function StickyHeadTable({arr}) {
   return (
     <Paper className={classes.root}>
       {start1 && convertToRows(arr)}
-      {console.log(rows)}
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
               return (

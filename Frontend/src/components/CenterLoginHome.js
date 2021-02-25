@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import CenterLoginNavbar from "./CenterLoginNavbar";
 import CenterReviews from "./CenterReviews";
-import ButtonsView from "./ButtonsView";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
@@ -59,33 +58,33 @@ export class CenterLoginHome extends Component {
           centerInfo={this.props.centerInfo}
         />
         <div className="Button-Body">
-        <div class="quotes">
-          <div class="card">
-            <div class="box box1">
+        <div className="quotes">
+          <div className="card">
+            <div className="box box1">
               <p>Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.</p>
               <br/>
               <p>Send the results which are ready today itself.</p>
               <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
             </div>
-            <div class="bg"></div>
+            <div className="bg"></div>
           </div>
-          <div class="card">
-            <div class="box box2">
+          <div className="card">
+            <div className="box box2">
               <p>Be not afraid of growing slowly, be afraid only of standing still. </p>
               <br/>
               <p>View appointments for the day and Plan your day!.</p>
             <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
             </div>
-            <div class="bg"></div>
+            <div className="bg"></div>
           </div>
-          <div class="card">
-            <div class="box box3">
+          <div className="card">
+            <div className="box box3">
               <p>Before anything else, preparation is the key to success. </p>
               <br/>
               <p>View all your future booking and plan your days.</p>
             <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
             </div>
-            <div class="bg"></div>
+            <div className="bg"></div>
           </div>
         </div>
         </div>
@@ -94,7 +93,17 @@ export class CenterLoginHome extends Component {
           <CenterReviews centerInfo={this.props.centerInfo}/>
         </div>
         <Footer />
-      </>}
+        {success && 
+        <Redirect to='/centerSendResult'/>
+        }
+        {info && 
+          <Redirect to='/centerLogin'/>
+        }
+        {danger && 
+          <Redirect to='/centerLogin'/>
+        }
+      </>
+    }
     </div>
     );
   }
