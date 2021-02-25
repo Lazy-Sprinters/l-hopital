@@ -53,4 +53,16 @@ const arrange=(data)=>{
       return data1;
 }
 
-module.exports={arrange,comparedatecurr}
+const arrange1=(data)=>{
+      let data1=[];
+      for(let i=0;i<data.length;i++)
+      {
+            if (new Date().getDate()==new Date(data[i].dateofappointment).getDate() && new Date().getMonth()==new Date(data[i].dateofappointment).getMonth() && new Date().getFullYear()==new Date(data[i].dateofappointment).getFullYear()){
+                  data1.push(data[i]);
+            }
+      }
+      data1.sort(comp1);
+      return data1;
+}
+
+module.exports={arrange,comparedatecurr,arrange1}

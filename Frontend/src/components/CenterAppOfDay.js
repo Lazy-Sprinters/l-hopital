@@ -134,7 +134,8 @@ function StickyHeadTable({appointments,ModalShow}) {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                if(column.id!="appid" && column.id!="userid" && column.id!="flag"){
+                <>
+                {(column.id!="appid" && column.id!="userid" && column.id!="flag") &&
                   <TableCell
                     key={column.id}
                     align={column.align}
@@ -143,6 +144,7 @@ function StickyHeadTable({appointments,ModalShow}) {
                     {column.label}
                   </TableCell>
                 }
+                </>
               ))}
             </TableRow>
           </TableHead>
@@ -197,14 +199,14 @@ export class CenterAppOfDay extends Component {
   handleSendResult = (data) =>{
     this.setState({initiate:false});
     const centerInfo={centerInfo:data};
-    // Axios.post("http://localhost:5000/center/dayapp", centerInfo)
-    // .then((res) => {
-      // this.setState({appointments:res.data})
+    Axios.post("http://localhost:5000/center/presapp", centerInfo)
+    .then((res) => {
+      this.setState({appointments:res.data})
       this.setState({display:true});
-    // })
-    // .catch((err) => {
-      // console.log("Axios", err);
-    // });
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
   }
   ModalShow = (userid,appid,x) => {
     this.setState({userid:userid})
@@ -238,7 +240,7 @@ export class CenterAppOfDay extends Component {
         show={modal}
         userid={userid}
         appid={appid}
-        centerInfo={centerInfo}
+        centerInfo={this.props.centerInfo}
         onHide={() => this.ModalShow(false)}
         onAgree={() => this.ModalShow(false)}
       />

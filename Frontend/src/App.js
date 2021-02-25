@@ -12,7 +12,7 @@ import CenterFacilties from './components/CenterFacilties';
 import LoginHome from './components/LoginHome';
 import CenterLoginHome from './components/CenterLoginHome';
 import CenterSendResult from './components/CenterSendResult';
-import CenterAppOfDay from './components/CenterApOfDay';
+import CenterAppOfDay from './components/CenterAppOfDay';
 import Tests from './components/Tests';
 import Profile from './components/Profile';
 import selectionPage1 from './components/selectionPage1';

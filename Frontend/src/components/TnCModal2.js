@@ -7,17 +7,20 @@ import {Typography,Box,TextField} from '@material-ui/core';
 function TnCModal(props) {
   const [otp, setOtp] = React.useState("");
   const [idnum, setIdnum] = React.useState("");
+  const [errmsg, setErrmsg] = React.useState("");
   const handlePost = (userid,appid,centerInfo,otp,idnum) =>{
 
     const data = {userid,appid,centerInfo,otp,idnum};
+    // console.log(data);
     Axios.post("http://localhost:5000/center/userverify", data)
     .then((res) => {
+  
       props.onAgree()
       window.location.reload();
     })
     .catch((err) => {
       if(err.response.status==400){
-          this.handleVerfiyErr(err.response.data);
+          setErrmsg(err.response.data);
       }
     });
   };
@@ -39,19 +42,19 @@ function TnCModal(props) {
         <p>
           {props.text}
           <TextField
-                  placeholder="Enter your Suggestions/Comment"
-                  label="Review"
+                  placeholder="Enter Otp"
+                  label="Otp"
                   variant="outlined"
                   value={otp}
-                  onChange={e => setReview(e.target.value)}
+                  onChange={e => setOtp(e.target.value)}
                   type="text"
                   fullWidth
           />
           <br />
           <br />
           <TextField
-                  placeholder="Enter your Suggestions/Comment"
-                  label="Review"
+                  placeholder="ID NUMBER"
+                  label="Id Number"
                   variant="outlined"
                   value={idnum}
                   onChange={e => setIdnum(e.target.value)}
@@ -64,7 +67,7 @@ function TnCModal(props) {
         <Button variant="danger" onClick={props.onHide}>
             Cancel
           </Button>
-          <Button variant="success" onClick={() => handlePost(props.userid,props.appid,centerInfo,otp,idnum)}>
+          <Button variant="success" onClick={() => handlePost(props.userid,props.appid,props.centerInfo,otp,idnum)}>
             Verify
           </Button>
           <br/>

@@ -253,6 +253,55 @@ router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
       }
 })
 
+router.post('/center/presapp',Authmiddleware,async(req,res)=>{
+      try{
+            const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
+            const filtered=AppointmentHelper.arrange1(appointments);
+            let ret=[];
+            for(let i=0;i<filtered.length;i++){
+                  const currentuser=await User.findOne({_id:filtered[i].user_id});
+                  ret.push({
+                        Name:currentuser.UserName,
+                        Test:filtered[i].facilityused,
+                        Date:filtered[i].dateofappointment,
+                        Slot:filtered[i].Slotdetails,
+                        PhoneNo:currentuser.PhoneNumber,
+                        Email:currentuser.Email,
+                        userid:currentuser._id,
+                        appid:filtered[i]._id,
+                        flag:((filtered[i].Attended==false)?1:0)
+                  });
+            }
+            // console.log(ret);
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
+
+router.post('/center/userverify',Authmiddleware,async (req,res)=>{
+      try{
+            const user=await User.findOne({_id:req.body.userid});
+            // console.log(user.RecentMobileOtps[user.RecentMobileOtps.length-1]);
+            // console.log(req.body.otp);
+            if (user.RecentMobileOtps[user.RecentMobileOtps.length-1]==req.body.otp && user.IdentificationIdNumber==req.body.idnum){
+                  await user.RecentMobileOtps.pop();
+                  const appoint=await Appointment.findOne({_id:req.body.appid});
+                  appoint.Attended=true;
+                  await user.save();
+                  await appoint.save();
+                  res.status(200).send();
+            }
+            else{
+                  res.status(400).send("Data is invalid");
+            }
+      }catch(err){
+            console.log(err);
+            res.status(400).send("Data is invalid");
+      }
+})
+
 router.post('/center/logout',Authmiddleware,async (req,res)=>{
       try{
             req.center.tokens=[];
