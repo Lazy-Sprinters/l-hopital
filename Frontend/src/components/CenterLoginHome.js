@@ -7,13 +7,26 @@ import Footer from "./Footer";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import Axios from "axios";
+import "./CenterLoginHome.css";
+import {Button} from 'react-bootstrap';
 
 export class CenterLoginHome extends Component {
   state= {
     auth:true,
     auth1:false,
     auth2:false,
+     success:false,
+    info:false,
+    danger:false,
   };
+  handleButtonClick = (x) =>{
+    switch(x){
+      case "success": this.setState({success:true});break;
+      case "info": this.setState({info:true});break;
+      case "danger": this.setState({danger:true});break;
+
+    }
+  }
   authenticate = (data) =>{
     this.setState({auth:false});
     const centerInfo={centerInfo:data}
@@ -29,7 +42,10 @@ export class CenterLoginHome extends Component {
     const{ 
       auth,
       auth1,
-      auth2
+      auth2,
+      success,
+      info,
+      danger
     } = this.state;
     return(
     <div>
@@ -42,8 +58,35 @@ export class CenterLoginHome extends Component {
         <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
-        <ButtonsView centerInfo={this.props.centerInfo}/>
-        <CenterReviews centerInfo={this.props.centerInfo}/>
+        <div className="Button-Body">
+        <div class="quotes">
+          <div class="card">
+            <div class="box box1">
+              <p>The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself. </p>
+              <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
+            </div>
+            <div class="bg"></div>
+          </div>
+          <div class="card">
+            <div class="box box2">
+              <p>Your smile will give you a positive countenance that will make people feel comfortable around you. </p>
+            <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
+            </div>
+            <div class="bg"></div>
+          </div>
+          <div class="card">
+            <div class="box box3">
+              <p>Before anything else, preparation is the key to success. </p>
+            <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
+            </div>
+            <div class="bg"></div>
+          </div>
+        </div>
+        </div>
+        {/*<ButtonsView centerInfo={this.props.centerInfo}/>*/}
+        <div>
+          <CenterReviews centerInfo={this.props.centerInfo}/>
+        </div>
         <Footer />
       </>}
     </div>

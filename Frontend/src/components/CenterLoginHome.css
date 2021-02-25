@@ -1,49 +1,127 @@
-.center-btn{
-	/*width:80vw;*/
-	/*background-color: red;*/
-	/*height: 100vh;*/
-	margin:20vh 2vw;
+.reviews{
+	height:30vh;
+	width:50vw;
+	margin-bottom:20vh;
+	margin-left:5vw;
 }
-.act-btn1{
-	display: none;
-	height:0vh;
-	margin-left: -11vw;
-	margin-top:5vh;
-  transition: 10s linear;	
-  width:auto;
-  transition: margin-top 10s linear;
+.Button-Body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vh;
+  margin-top:5vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.act-btn2{
-	display: none;
-	height:0vh;
-	margin-left: -16vw;
-  width:16vw;
-	margin-top:5vh;
-  transition: margin-top 10s linear;
+.card{
+  height:30vh;
+
 }
-.act-btn3{
-	display: none;
-	height:0vh;
-	margin-left: -13vw;
-  width:auto;
-	margin-top:5vh;
-  transition: margin-top 10s linear;
+.quotes {
+  width: 80vw;
+  min-height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 2;
 }
-.act-btn{
-	height:7vh;
+
+.quotes .box {
+  position: relative;
+  width: 25vw;
+  height: 50vh;
+  min-height: 320px;
+  background: #f2f2f2;
+  overflow: hidden;
+  transition: all 0.5s ease-in;
+  z-index: 2;
+  box-sizing: border-box;
+  padding: 30px;
+  box-shadow: -10px 25px 50px rgba(0, 0, 0, 0.3);
 }
-.act-btn:hover + .act{
-	background-color:  gray;
-  display: block;
-  height:10vh;
-	margin-top:7vh;
-  transition: margin-top 10s linear;
+
+.quotes .box::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  width: 100%;
+  height: 100%;
+  font-size: 120px;
+  opacity: 0.2;
+  background: transparent;
+  pointer-events: none;
 }
-/*.act-btn:hover + .act-btn2{
-  display: block;
-  height:20vh;
+
+.quotes .box::after {
+  content: '\201D';
+  position: absolute;
+  bottom: -10%;
+  right: 5%;
+  font-size: 120px;
+  opacity: 0.2;
+  background: transparent;
+  filter: invert(1);
+  pointer-events: none;
 }
-.act-btn:hover + .act-btn3{
-  display: block;
-  height:20vh;
-}*/
+
+.quotes .box p {
+  margin: 0;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+.quotes .box h2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  bottom: 10%;
+  right: 10%;
+  font-size: 1.5rem;
+}
+
+.quotes .box:hover {
+  color: #f2f2f2;
+  box-shadow: 20px 50px 100px rgba(0, 0, 0, 0.5);
+}
+
+.quotes .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.5s ease-in;
+  pointer-events: none;
+  width: 100%;
+  height: 200%;
+  overflow: hidden;
+}
+
+.quotes .box.box1:hover,
+.quotes .box.box1:hover~.bg {
+  opacity: 1;
+  background: #7FFF00;
+background: linear-gradient(135deg, #13547a  15%,#80d0c7 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2a9e5', endColorstr='#2b94e5',GradientType=1 );
+}
+
+.quotes .box.box2:hover,
+.quotes .box.box2:hover~.bg {
+  opacity: 1;
+  background: #632c65;
+background: linear-gradient(135deg, #09203f 15%,#537895 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#632c65', endColorstr='#56a5e2',GradientType=1 );
+}
+
+.quotes .box.box3:hover,
+.quotes .box.box3:hover~.bg {
+  opacity: 1;
+  background: #4b384c;
+background: linear-gradient(135deg, #ff758c   15%,#ff7eb3 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4b384c', endColorstr='#da5de2',GradientType=1 );
+}

@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import "./CenterLoginHome.css";
-import CenterLoginNavbar from "./CenterLoginNavbar";
-import CenterReviews from "./CenterReviews";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions';
 import {connect} from 'react-redux';
 import Axios from "axios";
 import {Button} from 'react-bootstrap';
 
-export class CenterLoginHome extends Component {
+export class ButtonsView extends Component {
   state= {
     success:false,
     info:false,
@@ -31,26 +29,48 @@ export class CenterLoginHome extends Component {
     } = this.state;
 
     return(
-      <>
-
-    <div className="center-btn row">
-      {console.log(this.props.centerInfo)}
-      <>
-      <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
-      <div className="act-btn1 act"> HEY HERE IS SOME INFO
+      <div className="Button-Body">
+      <div class="quotes">
+        <div class="card">
+          <div class="box box1">
+            <p>The first step toward success is taken when you refuse to be a captive of the environment in which you first find yourself. </p>
+            <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
+          </div>
+          <div class="bg"></div>
+        </div>
+        <div class="card">
+          <div class="box box2">
+            <p>Your smile will give you a positive countenance that will make people feel comfortable around you. </p>
+          <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
+          </div>
+          <div class="bg"></div>
+        </div>
+        <div class="card">
+          <div class="box box3">
+            <p>Before anything else, preparation is the key to success. </p>
+          <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
+          </div>
+          <div class="bg"></div>
+        </div>
       </div>
-      </>
-      <>
-      <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
-      <div className="act-btn2 act"> HEY HERE IS SOME INFO
-      </div>
-      </>
-      <>
-      <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
-      <div className="act-btn3 act"> HEY HERE IS SOME INFO
-      </div>
-      </>
-    </div>
+    {/*<div className="center-btn row">
+          {console.log(this.props.centerInfo)}
+          <>
+          <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
+          <div className="act-btn1 act"> HEY HERE IS SOME INFO
+          </div>
+          </>
+          <>
+          <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
+          <div className="act-btn2 act"> HEY HERE IS SOME INFO
+          </div>
+          </>
+          <>
+          <Button style={{marginLeft:'14vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
+          <div className="act-btn3 act"> HEY HERE IS SOME INFO
+          </div>
+          </>
+        </div>*/}
     {success && 
       <Redirect to='/centerLogin'/>
     }
@@ -60,7 +80,7 @@ export class CenterLoginHome extends Component {
     {danger && 
       <Redirect to='/centerLogin'/>
     }
-    </>
+    </div>
     );
   }
 }
@@ -77,4 +97,4 @@ const mapDispatchToProps = dispatch =>{
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(CenterLoginHome);
+export default connect(mapStateToProps,mapDispatchToProps)(ButtonsView);

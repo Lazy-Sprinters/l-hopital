@@ -162,7 +162,10 @@ router.post('/center/login',async (req,res)=>{
                   const token=await center.generateauthtoken();
                   if (center.Reviews.length==0){
                         const reviews={
-                              arr:[],
+                              arr:[{
+                                    text:"Good boi",
+                                    stars:5
+                              }],
                               posper:100,
                               negper:0,
                               comment:"Everything looks good as of now",

@@ -1,14 +1,11 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import "../App.css";
-import CenterLoginNavbar from "./CenterLoginNavbar";
-import CenterReviews from "./CenterReviews";
-import Footer from "./Footer";
+import "./CenterLoginHome.css";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import Axios from "axios";
-
-export class CenterLoginHome extends Component {
+import StickyHeadTable from './StickyHeadTable'
+export class CenterReviews extends Component {
   state= {
   };
   render() {
@@ -16,7 +13,16 @@ export class CenterLoginHome extends Component {
     } = this.state;
     return(
     <div>
-      
+    <div className="row">
+      <div className="reviews">
+      <h1>Your Reviews</h1>
+        <StickyHeadTable arr={this.props.centerInfo.data.reviews.arr}/>
+      </div>
+      {console.log(this.props.centerInfo.data.reviews.arr)}
+      <div className="positive"></div>
+      <div className="negative"></div>
+    </div>
+    <br/>
     </div>
     );
   }
@@ -34,4 +40,4 @@ const mapDispatchToProps = dispatch =>{
   };
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(CenterLoginHome);
+export default connect(mapStateToProps,mapDispatchToProps)(CenterReviews);
