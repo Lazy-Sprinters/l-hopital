@@ -79,6 +79,10 @@ export class BookAnAppointment extends React.Component {
   };
 
   book = (show) =>{
+    window.scrollTo({
+        top: 420,
+        behavior: 'smooth',
+    });
     this.setState({isProceedFaulty:false})
     this.setState({ show: !show});
   };
@@ -143,7 +147,7 @@ export class BookAnAppointment extends React.Component {
 
       {onOpen && this.retrieveTests(this.props.userInfo) }
       {onClose && <>
-        <div style={{margin:'5vh 40vw',width:'30vw'}}><img style={{width:'100%',height:'100%'}}src="/images/BookAnAppointment2.png" /></div>
+        <div style={{margin:'5vh 43vw',width:'15vw'}} ><img style={{width:'100%',height:'100%'}}src="/images/BookAnAppointment1.png" /></div>
         <h1 style={{color:'#605047' , marginTop:'40px'}}>Book an Appointment with just the click of a button</h1>
         <div className="bkap-btn">
           <button 
@@ -192,7 +196,7 @@ export class BookAnAppointment extends React.Component {
           <Button 
             variant="success"
             onClick={() => this.proceed(test,date,this.props.userInfo)}
-            style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque"}}
+            style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque",marginBottom:"5vh"}}
             disabled={!show}
           >
             Proceed
