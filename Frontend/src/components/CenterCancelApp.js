@@ -19,11 +19,11 @@ import {
   TableRow 
 }
 from '@material-ui/core';
-import TnCModal2 from "./TnCModal2";
+import TnCModal3 from "./TnCModal3";
 
 const columns = [
-  { id: 'Name', label: 'Name', minWidth: 170 },
-  { id: 'Test', label: 'Test Name', minWidth: 100 },
+  { id: 'Name', label: 'Name', minWidth: 170 ,align: 'center',},
+  { id: 'Test', label: 'Test Name', minWidth: 100 ,align: 'center',},
   {
     id: 'date',
     label: 'Date',
@@ -38,38 +38,32 @@ const columns = [
   },
   {
     id: 'PhoneNo',
-    label: 'Contact Details',
+    label: 'Phone Number',
     minWidth: 170,
     align: 'center',
   },
   {
-    id: 'Verify',
-    label: 'Verify',
+    id: 'Email',
+    label: 'Email ID',
     minWidth: 170,
     align: 'center',
   },
   {
-    id: 'userid',
-    label: 'userid',
+    id: 'Cancel',
+    label: 'Cancel',
     minWidth: 170,
     align: 'center',
   },
   {
-    id: 'appid',
-    label: 'appid',
-    minWidth: 170,
-    align: 'center',
-  },
-  {
-    id: 'flag',
-    label: 'flag',
+    id: 'appInfo',
+    label: 'appInfo',
     minWidth: 170,
     align: 'center',
   },
 ];
 
-function createData(Name, Test, date, Slot,PhoneNo,Verify,userid,appid,flag) {
-  return {Name, Test, date, Slot,PhoneNo,Verify,userid,appid,flag};
+function createData(Name, Test, date, Slot,PhoneNo,Email,Cancel,appInfo) {
+  return {Name, Test, date, Slot,PhoneNo,Email,Cancel,appInfo};
 }
 
 const useStyles = makeStyles({
@@ -92,7 +86,7 @@ function StickyHeadTable({appointments,ModalShow}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push(createData("No appointments available","--","--","--","--","--"));
+      ans.push(createData("No appointments available","--","--","--","--","--","--"));
       setRows(ans);
     }
     else{
@@ -106,9 +100,8 @@ function StickyHeadTable({appointments,ModalShow}) {
             x[i].Slot,
             x[i].PhoneNo,
             x[i].Email,
-            x[i].userid,
-            x[i].appid,
-            x[i].flag
+            0,
+            x[i],
           )
         );
       }
@@ -123,8 +116,8 @@ function StickyHeadTable({appointments,ModalShow}) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const handleModal = (userid,appid) =>{
-    ModalShow(userid,appid,true);
+  const handleModal = (appInfo) =>{
+    ModalShow(appInfo,true);
   }
   return (
     <Paper className={classes.root}>
@@ -135,7 +128,7 @@ function StickyHeadTable({appointments,ModalShow}) {
             <TableRow>
               {columns.map((column) => (
                 <>
-                {(column.id!="appid" && column.id!="userid" && column.id!="flag") &&
+                {(column.id!="appInfo" ) &&
                   <TableCell
                     key={column.id}
                     align={column.align}
@@ -154,14 +147,14 @@ function StickyHeadTable({appointments,ModalShow}) {
                 <TableRow hover role="checkbox" tabIndex={-1} key={row}>
                   {columns.map((column) => {
                     const value = row[column.id];
-                    if(column.id=="Verify" && row[column.id]!="--"){
+                    if(column.id=="Cancel" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="success" onClick={() => handleModal(row['userid'],row['appid'])} disabled={row['flag']==0}>{row['flag'] ? "Verify" : "Verified"}</Button>
+                        <Button variant="danger" onClick={() => handleModal(row['appInfo'])} >"Cancel" }</Button>
                       </TableCell>
                         );
                     }
-                    else if(column.id!="appid" && column.id!="userid" && column.id!="flag")
+                    else if(column.id!="appInfo")
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
@@ -192,14 +185,13 @@ export class CenterAppOfDay extends Component {
     initiate:true,
     display:false,
     appointments:[],
-    userid:"",
     appis:"",
     modal:false
   };
-  handleAppOfDay = (data) =>{
+  handleCancelApp = (data) =>{
     this.setState({initiate:false});
     const centerInfo={centerInfo:data};
-    Axios.post("http://localhost:5000/center/presapp", centerInfo)
+    Axios.post("http://localhost:5000/center/futapp", centerInfo)
     .then((res) => {
       this.setState({appointments:res.data})
       this.setState({display:true});
@@ -208,9 +200,8 @@ export class CenterAppOfDay extends Component {
       console.log("Axios", err);
     });
   }
-  ModalShow = (userid,appid,x) => {
-    this.setState({userid:userid})
-    this.setState({appid:appid})
+  ModalShow = (appInfo,x) => {
+    this.setState({appInfo:appInfo})
     this.setState({modal:x})
   };
   render() {
@@ -218,25 +209,23 @@ export class CenterAppOfDay extends Component {
       initiate,
       display,
       appointments,
-      userid,
-      appid,
+      appInfo,
       modal
     } = this.state;
     const values={
     }
     return(
       <div>
-      <TnCModal2
+      <TnCModal3
         size="lg"
-        name="Verification of the patient"
-        head="Verify the patient by entering identification number and phone OTP"
+        name="Cancel The Appointment"
+        head="State an appropriate reason for cancelling the appointment"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
                     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
                     ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat."
+                    aliquip ex ea commodo consequat. "
         show={modal}
-        userid={userid}
-        appid={appid}
+        appInfo={appInfo}
         centerInfo={this.props.centerInfo}
         onHide={() => this.ModalShow(false)}
         onAgree={() => this.ModalShow(false)}
@@ -244,7 +233,7 @@ export class CenterAppOfDay extends Component {
       <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
-      {initiate && this.handleAppOfDay(this.props.centerInfo)}
+      {initiate && this.handleCancelApp(this.props.centerInfo)}
       {display && 
         <StickyHeadTable appointments={appointments} ModalShow={this.ModalShow}/>
       }

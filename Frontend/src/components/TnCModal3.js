@@ -4,17 +4,15 @@ import {Button,Modal} from 'react-bootstrap';
 import Rating from '@material-ui/lab/Rating';
 import {Typography,Box,TextField} from '@material-ui/core';
 
-function TnCModal2(props) {
-  const [otp, setOtp] = React.useState("");
-  const [idnum, setIdnum] = React.useState("");
+function TnCModal3(props) {
+  const [reason, setReason] = React.useState("");
   const [errmsg, setErrmsg] = React.useState("");
-  const handlePost = (userid,appid,centerInfo,otp,idnum) =>{
+  const handlePost = (appInfo,centerInfo,reason) =>{
 
-    const data = {userid,appid,centerInfo,otp,idnum};
-    // console.log(data);
-    Axios.post("http://localhost:5000/center/userverify", data)
+    const data = {appInfo,centerInfo,reason};
+    console.log(data);
+    Axios.post("http://localhost:5000/center/sendcancelmail", data)
     .then((res) => {
-  
       props.onAgree()
       window.location.reload();
     })
@@ -42,22 +40,11 @@ function TnCModal2(props) {
         <p>
           {props.text}
           <TextField
-                  placeholder="Enter Otp"
-                  label="Otp"
+                  placeholder="Enter Reason"
+                  label="Reason"
                   variant="outlined"
-                  value={otp}
-                  onChange={e => setOtp(e.target.value)}
-                  type="text"
-                  fullWidth
-          />
-          <br />
-          <br />
-          <TextField
-                  placeholder="ID NUMBER"
-                  label="Id Number"
-                  variant="outlined"
-                  value={idnum}
-                  onChange={e => setIdnum(e.target.value)}
+                  value={reason}
+                  onChange={e => setReason(e.target.value)}
                   type="text"
                   fullWidth
           />
@@ -65,10 +52,10 @@ function TnCModal2(props) {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={props.onHide}>
-            Cancel
+            Cancel the process
           </Button>
-          <Button variant="success" onClick={() => handlePost(props.userid,props.appid,props.centerInfo,otp,idnum)}>
-            Verify
+          <Button variant="success" onClick={() => handlePost(props.appInfo,props.centerInfo,reason)}>
+            Confirm the cancellation
           </Button>
           <br/>
           <h2>{errmsg}</h2>
@@ -76,4 +63,4 @@ function TnCModal2(props) {
     </Modal>
   );
 }
-export default TnCModal2;
+export default TnCModal3;

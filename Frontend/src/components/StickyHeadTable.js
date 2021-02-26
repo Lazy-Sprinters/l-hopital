@@ -11,10 +11,11 @@ import {
   TableRow 
 }
 from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 
 const columns = [
-  { id: 'Review', label: 'Review', minWidth: 170 },
-  { id: 'stars', label: 'Stars', minWidth: 100 },
+  { id: 'Review', label: 'Review', minWidth: 170 ,align:'center'},
+  { id: 'stars', label: 'Rating', minWidth: 100, align:'center'},
 ];
 
 function createData(Review, stars) {
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   container: {
-    maxHeight: 300,
+    maxHeight: 200,
   },
 });
 
@@ -88,6 +89,17 @@ export default function StickyHeadTable({arr}) {
                 <TableRow hover role="checkbox" tabIndex={-1} key={row}>
                   {columns.map((column) => {
                     const value = row[column.id];
+                    if(column.id=="stars" && row[column.id]!="-"){
+                      return(
+                        <TableCell key={column.id} align={column.align}>
+                        <Rating
+                          value={row[column.id]}
+                          readOnly 
+                        />
+                      </TableCell>
+                        );
+                    }
+                    else
                     return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
