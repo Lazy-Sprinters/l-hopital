@@ -223,12 +223,12 @@ export class ParticularCard extends React.Component {
                         Cost : ₹{this.props.CentreValue.costing}
                       </div>
                       <div className="details-row">
-                        Fine : ₹{this.props.CentreValue.costing}
+                        Fine : ₹{this.props.CentreValue.fine}
                       </div>
                       <div className="details-row">
                         Total : ₹
                         {parseInt(this.props.CentreValue.costing) +
-                          parseInt(this.props.CentreValue.costing)}
+                          parseInt(this.props.CentreValue.fine)}
                       </div>
                     </div>
                   </div>
