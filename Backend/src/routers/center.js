@@ -44,10 +44,10 @@ router.post('/center/signup1',async (req,res)=>{
                   await center.save();
                   center.Status=false;
                   const ProvidedAddress=center.NearestLandmark+' '+center.City+' '+center.Pincode+' '+center.State+' '+center.Country;
-                  // const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
-                  // const coordinates=Object.values(response.data.items[0].position);
-                  // await center.PositionCoordinates.push(coordinates[0]);
-                  // await center.PositionCoordinates.push(coordinates[1]);
+                  const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+                  const coordinates=Object.values(response.data.items[0].position);
+                  await center.PositionCoordinates.push(coordinates[0]);
+                  await center.PositionCoordinates.push(coordinates[1]);
                   const token=await center.generateauthtoken();
                   await center.save();
                   const offd=Object.entries(req.body.offdays);
