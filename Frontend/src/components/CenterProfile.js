@@ -14,23 +14,32 @@ export class CenterProfile extends Component {
     auth:true,
     auth1:false,
     auth2:false,
+    facilitiesList:""
   };
   authenticate = (data) =>{
     this.setState({auth:false});
     const centerInfo={centerInfo:data}
     Axios.post("http://localhost:5000/helper/check1",centerInfo)      .then((res) => {
-        this.setState({auth2:true});
+      ;
       })
       .catch((err) => {
         console.log("Invalid Route");
         this.setState({auth1:true});
+      }); 
+      Axios.post("http://localhost:5000/center/profile",centerInfo) .then((res) =>{
+        this.setState({facilitiesList:res.data});
+        this.setState({auth2:true});
+      })
+      .catch((err) => {
+        console.log(err);
       }); 
   };
   render() {
     const{ 
       auth,
       auth1,
-      auth2
+      auth2,
+      facilitiesList
     } = this.state;
     return(
     <div>
@@ -43,7 +52,7 @@ export class CenterProfile extends Component {
       <CenterLoginNavbar
         centerInfo={this.props.centerInfo}
       />
-      <CenterProfileView centerInfo={this.props.centerInfo} />
+      <CenterProfileView centerInfo={this.props.centerInfo} facilitiesList={facilitiesList}/>
       </>}
     </div>
     );

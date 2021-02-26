@@ -10,7 +10,7 @@ const AppointmentHelper=require('../helpers/Appointment-helper');
 const Vonage = require('@vonage/server-sdk');
 const nodemailer=require('nodemailer');
 const axios = require('axios').default;
-const { response } = require('express');
+const bcrypt=require('bcryptjs');
 const Authmiddleware=require('../middleware/auth1');
 
 //Setting up functionality for message-based authentication
@@ -102,6 +102,7 @@ router.post('/center/signup1',async (req,res)=>{
       }
 })
 
+//Route-2
 router.post('/center/signup2',Authmiddleware,async (req,res)=>{
       // console.log(req.body);
       try{
@@ -129,6 +130,7 @@ router.post('/center/signup2',Authmiddleware,async (req,res)=>{
       }
 });
 
+//Route-3
 router.post('/center/newotps',Authmiddleware,async (req,res)=>{
       try{
             // console.log(req.body);
@@ -153,6 +155,7 @@ router.post('/center/newotps',Authmiddleware,async (req,res)=>{
       }
 })
 
+//Route-4
 router.post('/center/login',async (req,res)=>{
       try{
             const center=await Center.findbycredentials(req.body.email,req.body.password);
@@ -169,6 +172,7 @@ router.post('/center/login',async (req,res)=>{
       }
 });
 
+//Route-5
 router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
       try{
             const center=await Center.findOne({_id:req.body.centerInfo.data.center._id});
@@ -178,11 +182,11 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
                               text:"Good boi",
                               stars:5
                         }],
-                        posper:50,
-                        negper:50,
+                        posper:100,
+                        negper:0,
                         comment:"Everything looks not good as of now",
                         avgstars:5,
-                        flag:0
+                        flag:1
                   };
                   res.status(200).send(reviews);
             }
@@ -222,6 +226,7 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
       }
 })
 
+//Route-6
 router.post('/review/new',async (req,res)=>{
       try{
             console.log(req.body);
@@ -238,6 +243,7 @@ router.post('/review/new',async (req,res)=>{
       }
 })
 
+//Route-7
 router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
       try{
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id,Attended:true});
@@ -262,6 +268,7 @@ router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
       }
 })
 
+//Route-8
 router.post('/center/presapp',Authmiddleware,async(req,res)=>{
       try{
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
@@ -290,6 +297,7 @@ router.post('/center/presapp',Authmiddleware,async(req,res)=>{
       }
 })
 
+//Route-9
 router.post('/center/futapp',Authmiddleware,async (req,res)=>{
       try{  
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
@@ -314,6 +322,7 @@ router.post('/center/futapp',Authmiddleware,async (req,res)=>{
       }
 })
 
+//Route-10
 router.post('/center/sendcancelmail',Authmiddleware,async (req,res)=>{
       try{
             const mailbody=AppointmentHelper.EmailBody(req.body.appInfo.Email,req.body.appInfo.Name,req.body.reason,req.body.centerInfo.data.center.Name,req.body.appInfo.Slot,req.body.appInfo.date,req.body.appInfo.Test);
@@ -326,6 +335,7 @@ router.post('/center/sendcancelmail',Authmiddleware,async (req,res)=>{
       }
 })
 
+//Route-11
 router.post('/center/userverify',Authmiddleware,async (req,res)=>{
       try{
             const user=await User.findOne({_id:req.body.userid});
@@ -348,6 +358,7 @@ router.post('/center/userverify',Authmiddleware,async (req,res)=>{
       }
 })
 
+//Route-12
 router.post('/center/logout',Authmiddleware,async (req,res)=>{
       try{
             req.center.tokens=[];
@@ -356,6 +367,71 @@ router.post('/center/logout',Authmiddleware,async (req,res)=>{
             await req.center.save();
             res.status(200).send();
       }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
+
+//Route-13
+router.post('/center/sendotp',Authmiddleware,async(req,res)=>{
+      // console.log(req.body);
+      try{
+            const center=await Center.findOne({_id:req.body.id});
+            const otp=RegistrationUtil1.GetOtp();
+            if (parseInt(req.body.flag)==0){     
+                  const emailbody=RegistrationUtil1.EmailBody(req.body.value,otp);
+                  // let emailinfo=await transporter.sendMail(emailbody);
+                  center.RecentEmailOtps.push(otp);
+                  await center.save();
+                  res.status(200).send("Otp sent successfully");
+            }
+            else{
+                  const messagebody=RegistrationUtil.MessageBody(otp);
+                  // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
+                  center.RecentMobileOtps.push(otp);
+                  await center.save();
+                  res.status(200).send("Otp sent successfully");
+            }
+      }catch(err){
+            console.log(err);
+            res.send(400).send(err);
+      }
+})
+
+//Route-14
+router.post('/center/verifyotponupd',Authmiddleware,async (req,res)=>{
+      try{
+            const center=await Center.findOne({_id:req.body.id});
+            if (parseInt(req.body.flag)==0){
+                  if (center.RecentEmailOtps[center.RecentEmailOtps.length-1]==req.body.otp){
+                        res.status(200).send('Verified');
+                  }
+                  else{
+                        res.status(400).send('Invalid Otp');
+                  }
+            }
+            else{
+                  if (center.RecentMobileOtps[center.RecentMobileOtps.length-1]==req.body.otp){
+                        res.status(200).send('Verified');
+                  }
+                  else{
+                        res.status(400).send('Invalid Otp');
+                  }
+            }
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
+
+//Route-15
+router.post('/center/profile',Authmiddleware,async(req,res)=>{
+      try{
+            const facilities=await Facility.find({owner:req.center._id});
+            // console.log
+            res.status(200).send(facilities);
+      }catch(err){
+            //Mostly due to invalid address
             console.log(err);
             res.status(400).send(err);
       }

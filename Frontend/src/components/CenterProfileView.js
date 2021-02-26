@@ -60,7 +60,8 @@ export class CenterProfileView extends React.Component {
     FacilityName:"",
     CapacityperSlot:"",
     Price:"",
-    dropdown:["Diabetes","Thyroid","Thypoid","CT Scan","MRI","Thermal Scan","COVID-19"]
+    dropdown:["Diabetes","Thyroid","Thypoid","CT Scan","MRI","Thermal Scan","COVID-19"],
+    len:0
   };
   start = () => {
     this.setState({['ct']: 30});
@@ -108,7 +109,7 @@ export class CenterProfileView extends React.Component {
     this.setState({x:true});
   };
 
-  copyToTemp = (data) => {
+  copyToTemp = (data,x) => {
     this.setState({x:false})
     this.setState({Address:data.Address});
     this.setState({LicenseNum:data.LicenseNum});
@@ -123,7 +124,11 @@ export class CenterProfileView extends React.Component {
     this.setState({tempPhoneNo:data.PhoneNo});
     this.setState({Password:""});
     this.setState({id:data._id});
-    // this.setState({facilities:data.alloptions});
+    this.setState({facilities:x});
+    this.setState({len:x.length});
+    console.log(2,x,x.length)
+    this.handleShow(x,x.length);
+
   };
 
   handleOtp = (centerInfo,id,value,flag) =>{
@@ -202,19 +207,6 @@ export class CenterProfileView extends React.Component {
         console.log("Axios", err);
       });
   };
-  getTests = (data) =>{
-    const centerInfo = {centerInfo:data}
-      Axios.post("http://localhost:5000/center/allappointments",centerInfo)
-      .then((res) => {
-          this.setState({testInfo:res.data});   
-          this.setState({['succeed1']:true});
-
-      })
-      .catch((err) => {
-        console.log("Axios", err);
-      });
-
-  };
   handlemodal = (x) => {
     this.setState({modal:x})
   };
@@ -224,7 +216,7 @@ export class CenterProfileView extends React.Component {
   handleChange1 = input => e => {
     this.setState({ [input]: e.target.value });
   };
-  handleDelete = (i1,facilities) =>{
+  handleDelete = (i1,facilities,len) =>{
     const PseudoFacilities=[];
     if(facilities.length>0){
       facilities.map((value,i)=> (
@@ -232,10 +224,10 @@ export class CenterProfileView extends React.Component {
       ));
     }
     this.setState({facilities:PseudoFacilities});
-    this.handleShow(PseudoFacilities);
+    this.handleShow(PseudoFacilities,len);
   };
 
-  handleAddAnother = (FacilityName,CapacityperSlot,Price,facilities) =>{
+  handleAddAnother = (FacilityName,CapacityperSlot,Price,facilities,len) =>{
     const Facility = {FacilityName,CapacityperSlot,Price};
     const PseudoFacilities=[];
     if(facilities.length>0){
@@ -247,13 +239,15 @@ export class CenterProfileView extends React.Component {
       this.setState({FacilityName:""})
       this.setState({CapacityperSlot:""})
       this.setState({Price:""})
-      this.setState({facilities:PseudoFacilities});
+      this.setState({facilities:PseudoFacilities})
     }
-    this.handleShow(PseudoFacilities);
+    this.handleShow(PseudoFacilities,len);
   };
 
-  handleShow = (PseudoFacilities) =>{
+  handleShow = (PseudoFacilities,len) =>{
     var code=[];
+    console.log('hey');
+    console.log(1,PseudoFacilities);
     if(PseudoFacilities.length>0)
     {
       code.push(<Table responsive="lg" size="sm" striped bordered hover variant="dark">
@@ -273,7 +267,7 @@ export class CenterProfileView extends React.Component {
                     <td>{value.FacilityName}</td>
                     <td>{value.CapacityperSlot}</td>
                     <td>{value.Price}</td>
-                    <td><DeleteOutlinedIcon onClick={()=>this.handleDelete(i,PseudoFacilities)}/></td>
+                    <td>{i>=len && <DeleteOutlinedIcon onClick={()=>this.handleDelete(i,PseudoFacilities,len)}/>}</td>
                   </tr>
                   ))}
                 </tbody>
@@ -322,6 +316,7 @@ export class CenterProfileView extends React.Component {
       succeed1,
       Password,
       id,
+      len,
       centerInfoPseudo,
       modal,
       proceed,
@@ -336,7 +331,7 @@ export class CenterProfileView extends React.Component {
       dropdown
 
     } = this.state;
-    const { centerInfo } = this.props; 
+    const { centerInfo,facilitiesList } = this.props; 
     const tempValues={
       Address,
       LicenseNum,
@@ -358,7 +353,9 @@ export class CenterProfileView extends React.Component {
     }
     return (
       <>
-      {x && this.copyToTemp(centerInfo.data.center)}
+      {console.log(facilitiesList)}
+      {x && this.copyToTemp(centerInfo.data.center,facilitiesList)}
+      
       <TnCModal
         size="lg"
         name="Success"
@@ -644,7 +641,7 @@ export class CenterProfileView extends React.Component {
           </div>
 
           <div>
-            <div style={{marginTop:'-6\vh',width:'30vw',padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
+            <div style={{marginTop:'-6vh',width:'25vw',padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
               <h4>{!editProfile ? "Facilites" : "Edit Facilities"} </h4>
                 {facilityShow}
                 {editProfile &&
@@ -686,7 +683,7 @@ export class CenterProfileView extends React.Component {
                   <div>
                   <Button
                         variant="success"
-                        onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities)}
+                        onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities,len)}
                       >
                         Add
                       </Button>
@@ -696,7 +693,7 @@ export class CenterProfileView extends React.Component {
             </div>
             { editProfile   &&
             <>
-              <div className="txtfld3">
+              <div className="txtfld5">
                   <TextField
                     placeholder={Password.length>0 ? "Enter your old password" :"Enter your password"} /*change as the password changes to old or nothing*/
                     label={Password.length>0 ? "Enter your old password to edit" :"Enter your password to edit"}

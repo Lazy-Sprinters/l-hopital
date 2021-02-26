@@ -6,6 +6,7 @@ const Facility=require('../models/facilities');
 const Appointment=require('../models/appointment');
 const Authmiddleware=require('../middleware/auth');
 const RegistrationUtil=require('../helpers/Registration-helper');
+const Apphelper=require('../helpers/Appointment-helper');
 const Vonage = require('@vonage/server-sdk');
 const nodemailer=require('nodemailer');
 const MainHelper=require('../helpers/all-utility');
@@ -203,6 +204,8 @@ router.post('/user/allslots',Authmiddleware,async (req,res)=>{
             const date=req.body.flag1.askeddate;
             const facility=await Facility.findOne({owner:own,FacilityName:fac});
             let ret=MainHelper.getallopenslots(facility,date);
+            const allappointments=await Appointment.find({userid:req.user._id,Attended:false});
+            let fineapp=Apphelper.arrange(allappointments);
             if (ret.length!=0){
                   const finalretvalue={
                         allslots:ret,
@@ -211,6 +214,7 @@ router.post('/user/allslots',Authmiddleware,async (req,res)=>{
                         dis:req.body.flag1.dis,
                         costing:req.body.flag1.costing,
                         concerneddate:req.body.flag1.askeddate,
+                        fine:fineapp.length*100
                   }
                   // console.log(finalretvalue);
                   res.status(200).send(finalretvalue);
@@ -362,7 +366,7 @@ router.post('/user/update',Authmiddleware,async (req,res)=>{
                   curruser.PositionCoordinates[1]=(coordinates[1]);
                   await curruser.save();
                   // console.log(curruser);
-                  const token=req.body.userInfo.data.token;
+                  const token=req.token;
                   res.status(200).send({user:curruser,token});
             }
             else{
