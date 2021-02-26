@@ -175,8 +175,8 @@ export class RegisterForm extends Component {
               <div className="reg-col">
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter Your User Name"
-                  label="User Name"
+                  placeholder="Enter Your Name"
+                  label="Name"
                   variant="outlined"
                   onChange={this.handleChange('UserName')}
                   type="text"
@@ -256,12 +256,6 @@ export class RegisterForm extends Component {
                       value="Aadhaar Number"
                       control={<Radio color="primary" />}
                       label="Aadhaar Number"
-                      labelPlacement="start"
-                    />
-                    <FormControlLabel
-                      value="PAN Card"
-                      control={<Radio color="primary" />}
-                      label="PAN Card"
                       labelPlacement="start"
                     />
                     <FormControlLabel

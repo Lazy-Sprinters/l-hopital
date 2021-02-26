@@ -331,13 +331,6 @@ export class ProfileView extends React.Component {
                       disabled={!editProfile}
                     />
                     <FormControlLabel
-                      value="PAN Card"
-                      control={<Radio color="primary" />}
-                      label="PAN Card"
-                      labelPlacement="start"
-                      disabled={!editProfile}
-                    />
-                    <FormControlLabel
                       value="Passport"
                       control={<Radio color="primary" />}
                       label="Passport"
