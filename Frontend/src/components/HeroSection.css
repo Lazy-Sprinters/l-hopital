@@ -17,15 +17,16 @@
   object-fit: contain;
 }
 
-.hero-container > h1 {
-  color: #fff;
-  font-size: 5vw;
-  margin-top: -100px;
+.hero-container > h2 {
+  color: #fcf5dd;
+  font-size: 5.5vw;
+  margin-top: -170px;
+  margin-bottom: 100px;
 }
 
 .hero-container > p {
   margin-top: 8px;
-  color: #fff;
+  color: #fcf5dd;
   font-size: 32px;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;

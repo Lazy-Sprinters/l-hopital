@@ -78,8 +78,9 @@ export class BookAnAppointment extends React.Component {
       )
   };
 
-  book = () =>{
-    this.setState({ show: true});
+  book = (show) =>{
+    this.setState({isProceedFaulty:false})
+    this.setState({ show: !show});
   };
   proceed = (test,date,userInfo) => {
     this.setState({ show: false });
@@ -142,22 +143,25 @@ export class BookAnAppointment extends React.Component {
 
       {onOpen && this.retrieveTests(this.props.userInfo) }
       {onClose && <>
+        <div style={{margin:'5vh 40vw',width:'30vw'}}><img style={{width:'100%',height:'100%'}}src="/images/BookAnAppointment2.png" /></div>
+        <h1 style={{color:'#605047' , marginTop:'40px'}}>Book an Appointment with just the click of a button</h1>
         <div className="bkap-btn">
           <button 
             className="btn btn-success my-5"
             type="button"
-            onClick={() => this.book()}
+            style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque"}}
+            onClick={() => this.book(show)}
           >
-            Book An Appointment
+            Book
           </button>
         </div>
-        <Bounce top opposite when={show}>
-          <div className="form">
-                  <div className="form-group">
+          <Bounce top  when={show}>
+          <div className="row" style={{marginLeft:'25vw'}}>
+                  <div className="form-group" style={{marginTop:'10vh'}}>
                     <label >Tests</label>
                     {this.dropdownShow(testList)}
                   </div>
-                  <div className="form-group">
+                  <div className="form-group" style={{marginLeft:'20vw'}}>
                     <label >Date</label>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     {<KeyboardDatePicker
@@ -184,18 +188,20 @@ export class BookAnAppointment extends React.Component {
                   </div>
                 </div>
         </Bounce>
-        <div className={show ? "bkap-btn" :"bkap-btn2"}>
+        {show && <div className={show ? "bkap-btn" :"bkap-btn2"}>
           <Button 
             variant="success"
             onClick={() => this.proceed(test,date,this.props.userInfo)}
+            style={{boxShadow:'0px 0px 14px 0.3px bisque' , backgroundColor:'white',color:'black',border:"5px solid bisque"}}
             disabled={!show}
           >
             Proceed
           </Button>
         </div>
-        <h2>{errmsg}</h2>
+      }
+        <div style={{color:"red",fontSize:'20px',marginLeft:'22vw'}}>{errmsg}</div>
         </>}
-        {isProceedFaulty && <h2>No Test Centres Available for the desired test and date.Please select another date.</h2>}
+        {isProceedFaulty && <h2 style={{color:"red",fontSize:'20px',marginLeft:'22vw'}}>*No Test Centres Available for the desired test and date.Please select another date.</h2>}
         {recieved && <Redirect push to={{
                       pathname: "/selectionPage1", 
                       // data: data

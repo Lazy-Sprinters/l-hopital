@@ -77,7 +77,7 @@ class LoginNavbar extends Component {
 
           <div className='navbar-container'>
             <Link to='/loginHome' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
-                MakeMyAppointment
+                <b style={{fontSize:"40px"}}>M</b>ake  <b style={{fontSize:"40px"}}>M</b>y  <b style={{fontSize:"40px"}}>A</b>ppointment
             </Link>
             <div className='menu-icon' onClick={() => this.handleClick(click)}>
               <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -87,7 +87,6 @@ class LoginNavbar extends Component {
                 <Link
                   to={{
                       pathname: '/loginHome', 
-                      // data: {this.props.userInfo}
                      }}  className='nav-links' onClick={() => this.closeMobileMenu()}>
                   HOME
                 </Link>

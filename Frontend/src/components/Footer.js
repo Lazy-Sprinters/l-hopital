@@ -16,10 +16,8 @@ function Footer() {
 
           <div className='footer-link-items'>
             <h2>Social Media</h2>
-            <Link to='/'>Instagram</Link>
+            <Link to='/'>Github</Link>
             <Link to='/'>Linkedin</Link>
-            <Link to='/'>Youtube</Link>
-            <Link to='/'>Twitter</Link>
           </div>
           
         </div>
@@ -39,40 +37,13 @@ function Footer() {
       <section className='social-media'>
         <div className='social-media-wrap'>
           <div className='footer-logo'>
-            <Link to='/' className='social-logo'>
-               MakeMyAppointment
+            <Link to='/' className='social-logo' style={{textDecoration:'none'}}>
+               <b>M</b>ake<b>M</b>y<b>A</b>ppointment
             </Link>
           </div>
-          <small className='website-rights'>MakeMyAppointment © 2020</small>
+          <small className='website-rights'>MakeMyAppointment © 2021</small>
           <div className='social-icons'>
             <ul> 
-              <li>
-                <a href="#">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span className="fab fa-facebook"></span>
-                </a> 
-              </li>
-              <li>
-                <a href="#">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span className="fab fa-twitter"></span>
-                </a> 
-              </li>
-              <li>
-                <a href="#">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span className="fab fa-instagram"></span>
-                </a> 
-              </li>
               <li>
                 <a href="#">
                   <span></span>
@@ -91,6 +62,7 @@ function Footer() {
                   <span className="fab fa-linkedin"></span>
                 </a> 
               </li>
+             
             </ul>  
           </div>
         </div>

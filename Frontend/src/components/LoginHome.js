@@ -33,7 +33,7 @@ export class LoginHome extends Component {
       auth2
     } = this.state;
     return(
-    <div>
+    <div  className="form_input">
       {auth && this.authenticate(this.props.userInfo)}
       {auth1 && <Redirect to={{
         pathname: "/login" 

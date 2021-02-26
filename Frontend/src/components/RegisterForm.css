@@ -41,14 +41,16 @@
   align-content: stretch;
 }
 .reg-img{
-  margin-right: -40vw;
-  margin-left: 3vw;
-  margin-top: 3vh;
+		height:33vw;
+		width:40vw;
+		margin-left:3vw;
 }
+
 .reg-col img{
   display: cover;
   border-radius: 20%;
-  
+  height: 100%;
+  width:100%;
 }
 .reg-col {
   flex: 1;

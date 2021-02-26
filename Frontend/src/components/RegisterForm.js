@@ -208,19 +208,19 @@ export class RegisterForm extends Component {
                       value="Male"
                       control={<Radio color="primary" />}
                       label="Male"
-                      labelPlacement="start"
+                      labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Female"
                       control={<Radio color="primary" />}
                       label="Female"
-                      labelPlacement="start"
+                      labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Other"
                       control={<Radio color="primary" />}
                       label="Other"
-                      labelPlacement="start"
+                      labelPlacement="end"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -244,25 +244,25 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="drpdwn">
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Id Type</FormLabel>
+                  <FormLabel component="legend">ID Type</FormLabel>
                   <RadioGroup row defaultValue="" onChange={this.handleChange('IdType')}>
                     <FormControlLabel
                       value="Voter Id"
                       control={<Radio color="primary" />}
-                      label="Voter Id"
-                      labelPlacement="start"
+                      label="Voter ID"
+                      labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Aadhaar Number"
                       control={<Radio color="primary" />}
                       label="Aadhaar Number"
-                      labelPlacement="start"
+                      labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Passport"
                       control={<Radio color="primary" />}
                       label="Passport"
-                      labelPlacement="start"
+                      labelPlacement="end"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -271,8 +271,8 @@ export class RegisterForm extends Component {
                 <br />
                 </div><div className="txtfld">
                 <TextField
-                  placeholder="Enter you Identification Id Number"
-                  label="Identification Id Number"
+                  placeholder="Enter you Identification Number"
+                  label="Identification Number"
                   variant="outlined"
                   onChange={this.handleChange('IdentificationIdNumber')}
                   type="text"
@@ -283,8 +283,8 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter you Email address"
-                  label="Email address"
+                  placeholder="Enter you Email Address"
+                  label="Email Address"
                   variant="outlined"
                   onChange={this.handleChange('Email')}
                   type="text"
@@ -366,12 +366,14 @@ export class RegisterForm extends Component {
                   fullWidth
                 />
                 <br />
+                <br />
+                <br />
                 </div>
                 <div className="btn1">
                   {!isLoading && !isLoaded && <Button
-                      color="primary"
+                      // color="primary"
                       variant="contained"
-                    
+                      style={{backgroundColor:'a5a89f'}}
                       onClick={!errors.final ? ()=> this.handleFaulty() : () => this.handleModal(true)  }
                     >
                       Register
@@ -380,10 +382,11 @@ export class RegisterForm extends Component {
                 
                 <br/>
                 <br/>
-                {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
+
                 <br/>
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
+                {isFaulty && <div style={{color:"red",fontSize:'20px',marginLeft:'40vw'}}>* Please fill in your details properly.</div>}
                 {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page.</h1>}
                 {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
                 <br />

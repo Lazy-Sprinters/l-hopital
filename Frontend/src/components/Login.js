@@ -9,6 +9,7 @@ import "./Login.css";
 import { TextField, LinearProgress } from "@material-ui/core";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
+import {Button} from 'react-bootstrap'
 class Login extends Component {
   state = {
     success: false,
@@ -78,7 +79,7 @@ class Login extends Component {
         return (
           <div>
             <Navbar />
-            <div className="Login-bg" style={{backgroundImage: "url(" + "/images/Login6-min.jpg"+")"}}>
+            <div className="Login-bg" style={{background: 'linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)'}}>
             <div className="base-container">
               <div className="header">Login</div>
               <div className="content">
@@ -111,9 +112,10 @@ class Login extends Component {
               {!isFaultyL && <br />}{!isFaultyL && <br />}
               <div className="footer">
                 {isLoadingL && <LinearProgress />}
-                <button
+                <Button
                   type="submit"
                   className="btn"
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
                   onClick={
                     !(values.password!==0  && values.email!=="0")
                       ? () => this.handleLoginFaulty()
@@ -121,7 +123,7 @@ class Login extends Component {
                   }
                 >
                   Login
-                </button>
+                </Button>
                 {isLoadingL && <LinearProgress />}
               </div>
               {isFaultyL && (
