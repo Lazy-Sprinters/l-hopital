@@ -290,14 +290,41 @@ router.post('/center/presapp',Authmiddleware,async(req,res)=>{
       }
 })
 
-// router.post('/center/futapp',Authmiddleware,async (req,res)=>{
-//       try{
+router.post('/center/futapp',Authmiddleware,async (req,res)=>{
+      try{  
+            const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
+            const filtered=AppointmentHelper.arrange2(appointments);
+            let ret=[];
+            for(let i=0;i<filtered.length;i++){
+                  const currentuser=await User.findOne({_id:filtered[i].user_id});
+                  ret.push({
+                        Name:currentuser.UserName,
+                        Test:filtered[i].facilityused,
+                        date:filtered[i].dateofappointment,
+                        Slot:filtered[i].Slotdetails,
+                        PhoneNo:currentuser.PhoneNumber,
+                        Email:currentuser.Email,
+                        appid:filtered[i]._id,
+                  });
+            }
+            res.status(200).send(ret);
+      }catch(err){
+            console.log(err);
+            res.status(400).send(err);
+      }
+})
 
-//       }catch(err){
-//             console.log(err);
-//             res.status(400).send(err);
-//       }
-// })
+router.post('/center/sendcancelmail',Authmiddleware,async (req,res)=>{
+      try{
+            const mailbody=AppointmentHelper.EmailBody(req.body.appInfo.Email,req.body.appInfo.Name,req.body.reason,req.body.centerInfo.data.center.Name,req.body.appInfo.Slot,req.body.appInfo.date,req.body.appInfo.Test);
+            let emailinfo=await transporter.sendMail(mailbody);
+            await Appointment.deleteOne({_id:req.body.appInfo.appid});
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send('Some error occured,Please try again later!');
+      }
+})
 
 router.post('/center/userverify',Authmiddleware,async (req,res)=>{
       try{

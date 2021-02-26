@@ -84,8 +84,22 @@ const arrange1=(data)=>{
 const arrange2=(data)=>{
       let data1=[];
       for(let i=0;i<data.length;i++){
-
+            if (comparedatecurr1(data[i].dateofappointment)==0){
+                  data1.push(data[i]);
+            }
       }
+      data1.sort(comp1);
+      return data1;
 }
 
-module.exports={arrange,comparedatecurr,arrange1,comparedatecurr1};
+const EmailBody=(emailid,name,mess,centerName,time,date,test)=>{
+      const message={
+            from:'r20324pavitra@dpsrkp.net',
+            to:emailid.toString(),
+            subject:'Your Appointment is cancelled!',
+            text:'Hi '+(name.toString())+'\nWe are extremely sorry that your appointment with '+(centerName.toString())+' dated '+date.toString()+' '+time.toString()+' for '+test.toString()+' is cancelled due to some unavoidable problem.'+'\nThis is the message given by the testcenter: '+mess.toString()+'\nWith Regards\nMMA'
+      };
+      return message;
+}
+
+module.exports={arrange,comparedatecurr,arrange1,comparedatecurr1,arrange2,EmailBody};

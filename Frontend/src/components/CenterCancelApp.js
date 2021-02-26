@@ -96,7 +96,7 @@ function StickyHeadTable({appointments,ModalShow}) {
           createData(
             x[i].Name,
             x[i].Test,
-            x[i].Date,
+            x[i].date,
             x[i].Slot,
             x[i].PhoneNo,
             x[i].Email,
@@ -150,7 +150,7 @@ function StickyHeadTable({appointments,ModalShow}) {
                     if(column.id=="Cancel" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="danger" onClick={() => handleModal(row['appInfo'])} >"Cancel" }</Button>
+                        <Button variant="danger" onClick={() => handleModal(row['appInfo'])} >Cancel</Button>
                       </TableCell>
                         );
                     }
