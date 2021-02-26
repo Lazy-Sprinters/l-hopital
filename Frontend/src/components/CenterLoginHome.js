@@ -17,6 +17,7 @@ export class CenterLoginHome extends Component {
      success:false,
     info:false,
     danger:false,
+    reviews:""
   };
   handleButtonClick = (x) =>{
     switch(x){
@@ -29,12 +30,20 @@ export class CenterLoginHome extends Component {
   authenticate = (data) =>{
     this.setState({auth:false});
     const centerInfo={centerInfo:data}
-    Axios.post("http://localhost:5000/helper/check1",centerInfo)      .then((res) => {
+    Axios.post("http://localhost:5000/helper/check1",centerInfo)      
+    .then((res) => {
         this.setState({auth2:true});
       })
       .catch((err) => {
         console.log("Invalid Route");
         this.setState({auth1:true});
+      }); 
+    Axios.post("http://localhost:5000/helper/check1",centerInfo)      
+    .then((res) => {
+        this.setState({reviews:res.data});
+      })
+      .catch((err) => {
+        console.log("Axios", err);
       }); 
   };
   render() {
@@ -44,7 +53,8 @@ export class CenterLoginHome extends Component {
       auth2,
       success,
       info,
-      danger
+      danger,
+      reviews
     } = this.state;
     return(
     <div>
@@ -88,9 +98,8 @@ export class CenterLoginHome extends Component {
           </div>
         </div>
         </div>
-        {/*<ButtonsView centerInfo={this.props.centerInfo}/>*/}
         <div>
-          <CenterReviews centerInfo={this.props.centerInfo}/>
+          <CenterReviews reviews={reviews}/>
         </div>
         <Footer />
         {success && 

@@ -19,22 +19,23 @@ export class CenterReviews extends Component {
     const{ 
       val
     } = this.state;
+    const{reviews}=this.props;
     return(
     <div>
     <div className="row">
       <div className="reviews">
       <h1>Your Reviews</h1>
-        <StickyHeadTable arr={this.props.centerInfo.data.reviews.arr}/>
+        <StickyHeadTable arr={reviews.arr}/>
       </div>
       <div style={{marginLeft:'10vw', marginTop:'10vh'}}>
-      {this.props.centerInfo.data.reviews.flag==0 
+      {reviews.flag==0 
         ?
-          <Alert severity="error">{this.props.centerInfo.data.reviews.comment}</Alert>
+          <Alert severity="error">{reviews.comment}</Alert>
         :
-          <Alert severity="success">{this.props.centerInfo.data.reviews.comment}</Alert>
+          <Alert severity="success">{reviews.comment}</Alert>
       }
-      <Progress value={this.props.centerInfo.data.reviews.posper}/>
-      
+      <Progress value={reviews.posper}/>
+
       </div>
     </div>
 
