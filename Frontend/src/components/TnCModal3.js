@@ -24,7 +24,8 @@ function TnCModal3(props) {
   };
   return (
     <Modal
-      show={props.show} 
+    style={{backgroundColor:"linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)"}}
+    show={props.show} 
       onHide={props.onHide}
       backdrop="static"
       dialogClassName="modal-60w"
@@ -51,10 +52,10 @@ function TnCModal3(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={props.onHide}>
+        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="danger" onClick={props.onHide}>
             Cancel the process
           </Button>
-          <Button variant="success" onClick={() => handlePost(props.appInfo,props.centerInfo,reason)}>
+          <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => handlePost(props.appInfo,props.centerInfo,reason)}>
             Confirm the cancellation
           </Button>
           <br/>

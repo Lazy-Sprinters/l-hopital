@@ -81,7 +81,7 @@ export class ParticularCard extends React.Component {
       // userInfo
     }
     return (
-      <div className="p-body">
+      <div >
       <TnCModal
         size="lg"
         name="Terms & Conditions"
@@ -126,7 +126,7 @@ export class ParticularCard extends React.Component {
           <div className="user-col">
             <div className="UserPanel">
               <div className="user-avatar">
-                {<img src={"data:image/jpg;base64,"+this.props.CentreValue.cen.FrontImage.toString()} alt="profile" />}
+                {<img style={{borderRadius:"5px"}} src={"data:image/jpg;base64,"+this.props.CentreValue.cen.FrontImage.toString()} alt="profile" />}
               </div>
 
               <div className="center-details">
@@ -205,7 +205,7 @@ export class ParticularCard extends React.Component {
                       <div className="proceed-btn">
                         <Button
                           disabled={disableSuccess && (selectedTime == "0" || selectedTime == [])}
-                          style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
+                          style={{border:'5px solid bisque',backgroundColor:'white',color:'black',marginLeft:'10vw',marginBottom:"-32vh"}}
                           onClick={() => this.handleModal1(true)}
                         >
                           BOOK

@@ -12,7 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TablePagination, 
+  TablePagination,
   Typography,
   Paper,
 } from "@material-ui/core";
@@ -82,14 +82,14 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.CenterName}
         </TableCell>
-        <TableCell align="right">{row.TestName}</TableCell>
-        <TableCell align="right">{row.TestDate}</TableCell>
-        <TableCell align="right">{row.Amount}</TableCell>
-        <TableCell align="right">{row.Status}</TableCell>
-        <TableCell align="right">{row.Result}</TableCell>
+        <TableCell align="center">{row.TestName}</TableCell>
+        <TableCell align="center">{row.TestDate}</TableCell>
+        <TableCell align="center">{row.Amount}</TableCell>
+        <TableCell align="center">{row.Status}</TableCell>
+        <TableCell align="center">{row.Result}</TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{  marginBottom: -10, marginTop: -10,paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
               <Typography variant="h6" gutterBottom component="div">
@@ -100,7 +100,7 @@ function Row(props) {
                   <TableRow>
                     <TableCell>Time Slot</TableCell>
                     <TableCell>Contact Details</TableCell>
-                    <TableCell align="right">For Any reviews</TableCell>
+                    <TableCell align="center">For Any reviews</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -110,11 +110,16 @@ function Row(props) {
                         {moreinfo.TimeSlot}
                       </TableCell>
                       <TableCell>{moreinfo.ContactDet}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align="center">
                         <Button
+                          style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                           color="primary"
                           variant="contained"
-                          disabled={(row.Status=="Upcoming")}
+                          disabled={row.Status == "Upcoming"}
                           onClick={() => handleReview()}
                         >
                           Post a review
@@ -183,28 +188,28 @@ export default function CollapsibleTable({ testInfo }) {
   };
   return (
     <Paper>
-    <TableContainer component={Paper}>
-      {start1 && convertToRows(testInfo)}
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>Center Name</TableCell>
-            <TableCell align="right">Test Name</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Amount Paid&nbsp;(₹)</TableCell>
-            <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Result</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.Cenid} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-    <TablePagination
+      <TableContainer component={Paper}>
+        {start1 && convertToRows(testInfo)}
+        <Table aria-label="collapsible table">
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell>Center Name</TableCell>
+              <TableCell align="center">Test Name</TableCell>
+              <TableCell align="center">Date</TableCell>
+              <TableCell align="center">Amount Paid&nbsp;(₹)</TableCell>
+              <TableCell align="center">Status</TableCell>
+              <TableCell align="center">Result</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <Row key={row.Cenid} row={row} />
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
         rowsPerPageOptions={[5, 10, 20]}
         component="div"
         count={rows.length}
@@ -213,6 +218,6 @@ export default function CollapsibleTable({ testInfo }) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-      </Paper>
+    </Paper>
   );
 }

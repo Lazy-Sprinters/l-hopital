@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import '../App.css';
+import './ParticularCard.css';
 import LoginNavbar from "./LoginNavbar";
 import Footer from './Footer';
 import ParticularCard from './ParticularCard';
@@ -33,7 +33,7 @@ export class selectionPage1 extends Component {
       auth2
     } = this.state;
   return (
-    <>
+    <div className="p-body">
       {auth && this.authenticate(this.props.userInfo)}
       {auth1 && <Redirect to={{
         pathname: "/login", 
@@ -48,8 +48,9 @@ export class selectionPage1 extends Component {
                   slots={this.props.slots}             
                   CentreValue={this.props.CentreValue}             
             /> 
+            <Footer/>
       </>}
-    </>
+    </div>
   );
 }
 }
