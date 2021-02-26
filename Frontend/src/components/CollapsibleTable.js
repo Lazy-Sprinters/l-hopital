@@ -12,6 +12,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TablePagination, 
   Typography,
   Paper,
 } from "@material-ui/core";
@@ -149,7 +150,17 @@ Row.propTypes = {
 
 export default function CollapsibleTable({ testInfo }) {
   const [start1, setStart] = React.useState(true);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
   const convertToRows = (x) => {
     setStart(false);
     let ans = [];
@@ -171,6 +182,7 @@ export default function CollapsibleTable({ testInfo }) {
     setRows(ans);
   };
   return (
+    <Paper>
     <TableContainer component={Paper}>
       {start1 && convertToRows(testInfo)}
       <Table aria-label="collapsible table">
@@ -192,5 +204,15 @@ export default function CollapsibleTable({ testInfo }) {
         </TableBody>
       </Table>
     </TableContainer>
+    <TablePagination
+        rowsPerPageOptions={[5, 10, 20]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onChangePage={handleChangePage}
+        onChangeRowsPerPage={handleChangeRowsPerPage}
+      />
+      </Paper>
   );
 }

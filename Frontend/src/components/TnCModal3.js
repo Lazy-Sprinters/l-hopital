@@ -13,7 +13,7 @@ function TnCModal3(props) {
     console.log(data);
     Axios.post("http://localhost:5000/center/sendcancelmail", data)
     .then((res) => {
-      props.onAgree()
+      props.onAgree();
       window.location.reload();
     })
     .catch((err) => {

@@ -10,7 +10,7 @@ function Navbar1() {
     <Navbar.Collapse style={{backgroundColor: '#353A40', borderRadius:'10px', paddingLeft:'10px', margin:'0 -15px'}}id="responsive-navbar-nav">
       <Nav className="ml-auto" style={{marginRight:'30px'}}>
         <Nav.Link style={{marginRight:'50px'}} as={Link} to='/' >Home</Nav.Link>
-        <NavDropdown style={{marginRight:'80px'}} title="Register" id="collasible-nav-dropdown">
+        <NavDropdown style={{marginRight:'50px'}} title="Register" id="collasible-nav-dropdown">
           <NavDropdown.Item as={Link} to='/register' >User</NavDropdown.Item>
           <NavDropdown.Item as={Link} to='/centerRegister' >Test Center</NavDropdown.Item>
         </NavDropdown>
