@@ -161,57 +161,66 @@ router.post('/center/login',async (req,res)=>{
             }
             else{
                   const token=await center.generateauthtoken();
-                  if (center.Reviews.length==0){
-                        const reviews={
-                              arr:[{
-                                    text:"Good boi",
-                                    stars:5
-                              }],
-                              posper:100,
-                              negper:0,
-                              comment:"Everything looks good as of now",
-                              avgstars:5,
-                              flag:1
-                        };
-                        res.status(200).send({center,token,reviews});
-                  }
-                  else{
-                        let sum=0;
-                        let posp=0,negp=0;
-                        for(let i=0;i<center.Reviews.length;i++){
-                              const data1={
-                                    review:center.Reviews[i].text
-                              };
-                              sum+=center.Reviews[i].stars;
-                              const response=await axios.post('http://a14388310e51.ngrok.io',data1);
-                              if (response.data=='negative'){
-                                    negp+=1;
-                              }else{
-                                    posp+=1;
-                              }
-                        }
-                        let comm="hello",flag=1;
-                        if (negp>=posp || parseInt(sum/center.Reviews.length)<=3){
-                              comm='Some Serious Steps are immediately needed',
-                              flag=1;
-                        }else{
-                              comm='Things are going fine'
-                        }
-                        const reviews={
-                              arr:center.Reviews,
-                              posper:parseFloat((posp/(posp+negp))*100),
-                              negper:parseFloat((negp/(posp+negp))*100),
-                              comment:comm,
-                              avgstars:parseFloat(sum/center.Reviews.length)
-                        }
-                        res.status(200).send({center,token,reviews});      
-                  }
+                  res.status(200).send({center,token});
             }
       }catch(err){
             console.log(err);
             res.status(404).send("Center not registered");
       }
 });
+
+router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
+      try{
+            const center=await Center.findOne({_id:req.body.centerInfo.data.center._id});
+            if (center.Reviews.length==0){
+                  const reviews={
+                        arr:[{
+                              text:"Good boi",
+                              stars:5
+                        }],
+                        posper:50,
+                        negper:50,
+                        comment:"Everything looks not good as of now",
+                        avgstars:5,
+                        flag:0
+                  };
+                  res.status(200).send(reviews);
+            }
+            else{
+                  let sum=0;
+                  let posp=0,negp=0;
+                  for(let i=0;i<center.Reviews.length;i++){
+                        const data1={
+                              review:center.Reviews[i].text
+                        };
+                        sum+=center.Reviews[i].stars;
+                        const response=await axios.post('http://f7c9e5c63ef0.ngrok.io',data1);
+                        if (response.data=='negative'){
+                              negp+=1;
+                        }else{
+                              posp+=1;
+                        }
+                  }
+                  let comm="hello",flag=1;
+                  if (negp>=posp || parseInt(sum/center.Reviews.length)<=3){
+                        comm='Some Serious Steps are immediately needed',
+                        flag=1;
+                  }else{
+                        comm='Things are going fine'
+                  }
+                  const reviews={
+                        arr:center.Reviews,
+                        posper:parseFloat((posp/(posp+negp))*100),
+                        negper:parseFloat((negp/(posp+negp))*100),
+                        comment:comm,
+                        avgstars:parseFloat(sum/center.Reviews.length)
+                  }
+                  res.status(200).send(reviews);      
+            }
+      }catch{
+
+      }
+})
 
 router.post('/review/new',async (req,res)=>{
       try{
@@ -256,7 +265,9 @@ router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
 router.post('/center/presapp',Authmiddleware,async(req,res)=>{
       try{
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
+            // console.log(appointments);
             const filtered=AppointmentHelper.arrange1(appointments);
+            // console.log(filtered);
             let ret=[];
             for(let i=0;i<filtered.length;i++){
                   const currentuser=await User.findOne({_id:filtered[i].user_id});
@@ -272,13 +283,21 @@ router.post('/center/presapp',Authmiddleware,async(req,res)=>{
                         flag:((filtered[i].Attended==false)?1:0)
                   });
             }
-            // console.log(ret);
             res.status(200).send(ret);
       }catch(err){
             console.log(err);
             res.status(400).send(err);
       }
 })
+
+// router.post('/center/futapp',Authmiddleware,async (req,res)=>{
+//       try{
+
+//       }catch(err){
+//             console.log(err);
+//             res.status(400).send(err);
+//       }
+// })
 
 router.post('/center/userverify',Authmiddleware,async (req,res)=>{
       try{

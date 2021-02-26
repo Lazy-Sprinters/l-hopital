@@ -34,14 +34,12 @@ app.listen(port,()=>{
 
 const task=cron.schedule('0 0 * * *',async ()=>{
       const AllFacilities=await Facility.find({});
-      for(let i=0;i<AllFacilities.length;i++)
-      {
+      for(let i=0;i<AllFacilities.length;i++){
             let subject=AllFacilities[i].SlotAvailability;
             let nsa=[];
-            for(let j=0;j<subject.length;j++)
-            {
-                  if (appointmentHelper.comparedatecurr(d1)==0)
-                  {
+            for(let j=0;j<subject.length;j++){
+                  const d1=subject[j].date;
+                  if (appointmentHelper.comparedatecurr1(d1)==0){
                         nsa.push(subject[j]);
                   }
             }

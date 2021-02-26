@@ -32,15 +32,16 @@ export class CenterLoginHome extends Component {
     const centerInfo={centerInfo:data}
     Axios.post("http://localhost:5000/helper/check1",centerInfo)      
     .then((res) => {
-        this.setState({auth2:true});
+      ;
       })
       .catch((err) => {
         console.log("Invalid Route");
         this.setState({auth1:true});
       }); 
-    Axios.post("http://localhost:5000/helper/check1",centerInfo)      
+    Axios.post("http://localhost:5000/center/reviewdet",centerInfo)      
     .then((res) => {
         this.setState({reviews:res.data});
+        this.setState({auth2:true});
       })
       .catch((err) => {
         console.log("Axios", err);

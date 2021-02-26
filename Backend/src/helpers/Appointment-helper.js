@@ -41,10 +41,27 @@ const comparedatecurr=(d1)=>{
       return 0;
 }
 
+const comparedatecurr1=(d1)=>{
+      const date=new Date(d1);
+      const date2=new Date();
+      if (date2.getFullYear()>date.getFullYear()){
+            return 1;
+      }else if (date2.getFullYear()==date.getFullYear()){
+            if (date2.getMonth()>date.getMonth()){
+                  return 1;
+            }
+            else if (date2.getMonth()==date.getMonth()){
+                  if (date2.getDate()>=date.getDate()){
+                        return 1;
+                  }
+            }
+      }
+      return 0;
+}
+
 const arrange=(data)=>{
       let data1=[];
-      for(let i=0;i<data.length;i++)
-      {
+      for(let i=0;i<data.length;i++){
             if (comparedatecurr(data[i].dateofappointment)==1){
                   data1.push(data[i]);
             }
@@ -55,8 +72,7 @@ const arrange=(data)=>{
 
 const arrange1=(data)=>{
       let data1=[];
-      for(let i=0;i<data.length;i++)
-      {
+      for(let i=0;i<data.length;i++){
             if (new Date().getDate()==new Date(data[i].dateofappointment).getDate() && new Date().getMonth()==new Date(data[i].dateofappointment).getMonth() && new Date().getFullYear()==new Date(data[i].dateofappointment).getFullYear()){
                   data1.push(data[i]);
             }
@@ -65,4 +81,11 @@ const arrange1=(data)=>{
       return data1;
 }
 
-module.exports={arrange,comparedatecurr,arrange1}
+const arrange2=(data)=>{
+      let data1=[];
+      for(let i=0;i<data.length;i++){
+
+      }
+}
+
+module.exports={arrange,comparedatecurr,arrange1,comparedatecurr1};

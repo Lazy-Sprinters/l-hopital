@@ -38,9 +38,9 @@ export default function StickyHeadTable({arr}) {
   const [start1, setStart] = React.useState(true);
   const convertToRows = (x) => {
     setStart(false);
-    let ans = [];
+    let ans = []; 
     if(x.length==0){
-      ans.push("No Reviews Found","-");
+      ans.push(createData("No Reviews Found","-"));
       setRows(ans);
     }
     else{
