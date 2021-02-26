@@ -67,7 +67,7 @@ class CenterLoginNavbar extends Component {
             <Nav className="ml-auto" style={{marginRight:'30px'}}>
               <Nav.Link style={{marginRight:'50px'}} as={Link} to='/centerLoginHome' onClick={() => this.handleIconClick('Home')} >{homeClicked ? <Home style={{fontSize:'40px'}} /> : <HomeOutlined style={{fontSize:'40px'}} />}</Nav.Link>
               <NavDropdown style={{marginRight:'80px'}} onClick={() => this.handleIconClick('Profile')} title={userClicked ? <AccountBox style={{fontSize:'40px'}} /> : <AccountCircle style={{fontSize:'40px'}} />} id="collasible-nav-dropdown">
-                <NavDropdown.Item as={Link} to='/centerProfile' >Veiw Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/centerProfile' >View Profile</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/centerFacilities' >View Facilties</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link style={{marginRight:'50px'}} as={Link} to='/login' onClick={(e) => this.LogOut(e,this.props.centerInfo)}>{logOutClicked ? <ExitToApp style={{fontSize:'40px'}} /> : <ExitToAppOutlined style={{fontSize:'40px'}} />}</Nav.Link>

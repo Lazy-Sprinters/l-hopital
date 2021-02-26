@@ -84,7 +84,7 @@ const useStyles = makeStyles({
 function StickyHeadTable({appointments,ModalShow}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([]);
   const [start1, setStart] = React.useState(true);
   const convertToRows = (x) => {
@@ -92,7 +92,7 @@ function StickyHeadTable({appointments,ModalShow}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push("No appointments available","--","--","--","--","--");
+      ans.push(createData("No appointments available","--","--","--","--","--"));
       setRows(ans);
     }
     else{
@@ -157,7 +157,7 @@ function StickyHeadTable({appointments,ModalShow}) {
                     if(column.id=="Verify" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="success" onClick={() => handleModal(row['userid'],row['appid'])} disabled={row['flag']==0}>Verify</Button>
+                        <Button variant="success" onClick={() => handleModal(row['userid'],row['appid'])} disabled={row['flag']==0}>{row['flag'] ? "Verify" : "Verified"}</Button>
                       </TableCell>
                         );
                     }

@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import Axios from "axios";
 import StickyHeadTable from './StickyHeadTable'
 import MuiAlert from '@material-ui/lab/Alert';
+import Progress from './Progress';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -32,6 +33,8 @@ export class CenterReviews extends Component {
         :
           <Alert severity="success">{this.props.centerInfo.data.reviews.comment}</Alert>
       }
+      <Progress value={this.props.centerInfo.data.reviews.posper}/>
+      
       </div>
     </div>
 
