@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
-import "../App.css";
+import "./Test.css";
 import LoginNavbar from "./LoginNavbar";
 import TestView from "./TestView";
 import Footer from "./Footer";
@@ -32,7 +32,7 @@ export class Tests extends Component {
       auth2
     } = this.state;
     return(
-    <div>
+    <div className="tbody">
       {auth && this.authenticate(this.props.userInfo)}
       {auth1 && <Redirect to={{
         pathname: "/login", 

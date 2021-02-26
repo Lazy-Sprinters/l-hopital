@@ -1,16 +1,17 @@
 .tags {
-  background: #fff;
+  background: transparent;
+  color:#fff;
   padding: 1px;
   overflow: hidden;
+  margin-left: -8.5vw
 }
 
 .tag {
   color: #fff;
   font-weight: bold;
-  background: #3498db;
   float: left;
   padding: 0px 5px;
-  border-radius: 7px;
   margin: 5px;
+  border: 2px solid black;
 }
 

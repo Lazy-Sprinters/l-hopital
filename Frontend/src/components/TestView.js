@@ -1,5 +1,5 @@
 import React from "react";
-import "./ParticularCard.css";
+import "./Test.css";
 import Axios from "axios";
 import Ratings from "./StarRatingComponent";
 import CollapsibleTable from "./CollapsibleTable";
@@ -14,9 +14,9 @@ export class TestView extends React.Component {
     // const {userInfo,testInfo} =this.props;
 
     return (
-      <>
+      <div>
       <CollapsibleTable testInfo={this.props.testInfo}/>
-      </>
+      </div>
     );
   }
 }

@@ -9,15 +9,18 @@ import {Card , CardHeader , CardMedia , CardContent , CardActions , Collapse , A
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    backgroundColor:"#a5a89f",
     maxWidth: '29.33%',
     boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
     margin:'2% 2%',
   },
   media: {
+    color:"white",
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
   expand: {
+    color:"white",
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
@@ -25,23 +28,22 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   right: {
+    color:"white",
     textAlign:'right',
     marginRight:'20px',
-    marginTop:'-5%',
+    marginTop:'-5',
     fontSize:'100%'
   },
   left: {
-    marginLeft:'20px',
+    color:"white",
     fontSize:'100%'
   },
   head:{
-    fontStyle:'Bold'
+    color:"white",
+    margin:'10px 10px'
   },
   expandOpen: {
     transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
   },
 }));
 
@@ -60,14 +62,12 @@ export default function CardComponent1({handleSlot,data,data1,img,Name,Address,C
   }
   return (
     <Card className={classes.root}  onClick={() => Slot(data,data1)}>
-      <CardHeader className={classes.head}
-        subheader={Name}
-      />
-        <Typography variant="body2" color="textPrimary" component="p"className={classes.left}>
-         {Distance}km
-      </Typography>
+       <Typography variant="body1" color="textPrimary" component="p"className={classes.head}>
+         {Name}
+         </Typography>
+        
       <Typography variant="body2" color="textPrimary" component="p"className={classes.right}>
-         ₹{Cost}
+         <b>Estimated Cost: </b> ₹{Cost}
       </Typography>
       <CardMedia
         className={classes.media}
@@ -75,10 +75,13 @@ export default function CardComponent1({handleSlot,data,data1,img,Name,Address,C
         title={Name}
       />
       <CardContent>
-        <Typography  color="textPrimary" component="p">
+      <Typography variant="body2" color="textPrimary" component="p"className={classes.left}>
+         <b>Approximate Distance: </b>{Distance}km
+      </Typography>
+        <Typography  style={{color:"white"}} component="p">
           <b>Address: </b>{Address}
         </Typography>
-        <Typography  color="textPrimary" component="p">
+        <Typography  style={{color:"white"}} component="p">
           <b>Open Hours: </b>{OpeningTime} - {ClosingTime}
         </Typography>
         <TagsComponent tags={Tags}/>

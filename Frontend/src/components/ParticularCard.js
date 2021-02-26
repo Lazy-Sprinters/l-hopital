@@ -81,7 +81,7 @@ export class ParticularCard extends React.Component {
       // userInfo
     }
     return (
-      <>
+      <div className="p-body">
       <TnCModal
         size="lg"
         name="Terms & Conditions"
@@ -176,43 +176,12 @@ export class ParticularCard extends React.Component {
               <EnhancedTable handleTime={this.handleTime} slots={this.props.slots} />
             </div>
             <div className="box">
-              <div className="info-row">
-                <div className="info-col">
-                  <div style={{ backgroundColor: "#EE4B2B" }}>
-                    Negative Reviews Count: {}
-                  </div>
-                  <div style={{ backgroundColor: "green" }}>
-                    Positive Reviews Count: {}
-                  </div>
-                  <div className="cmp-gif-wrapper">
-                    <img src="/images/completion.gif" className="cmp-gif" />
-                  </div>
-                </div>
-
-                <div className="info-time-col">
-                  <div className="time-row1">
-                    Time Slot Selected :{" "}
-                    {selectedTime == "0" ? "None" : selectedTime}
-                  </div>
-			<div className="time-row1">
-                    Date Selected :{" "}
-                    {this.props.CentreValue.askeddate}
-                  </div>
-
-                  <div className="time-row">
-                    <div className="details-col">
-                      <div className="proceed-btn">
-                        <Button
-                          disabled={disableSuccess && (selectedTime == "0" || selectedTime == [])}
-                          variant="success"
-                          onClick={() => this.handleModal1(true)}
-                        >
-                          BOOK
-                        </Button>
+              <div className="row">
+                  <div className="details-col">
+                      <div className="details-row">
+                         Date Selected :{" "}
+                        {this.props.CentreValue.askeddate}
                       </div>
-                    </div>
-
-                    <div className="details-col">
                       <div className="details-row">
                         Test : {this.props.CentreValue.service}
                       </div>
@@ -223,16 +192,28 @@ export class ParticularCard extends React.Component {
                         Cost : ₹{this.props.CentreValue.costing}
                       </div>
                       <div className="details-row">
-                        Fine : ₹{this.props.CentreValue.fine}
+                        Fine : ₹{this.props.CentreValue.fine==null ? 0 :this.props.CentreValue.fine=="" }
                       </div>
                       <div className="details-row">
                         Total : ₹
-                        {parseInt(this.props.CentreValue.costing) +
-                          parseInt(this.props.CentreValue.fine)}
+                        {parseFloat(this.props.CentreValue.costing) +
+                          parseFloat(this.props.CentreValue.fine==null ? 0 :this.props.CentreValue.fine=="" )}
+                      </div>
+                  </div>
+
+                    <div className="details-col">
+                      <div className="proceed-btn">
+                        <Button
+                          disabled={disableSuccess && (selectedTime == "0" || selectedTime == [])}
+                          style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
+                          onClick={() => this.handleModal1(true)}
+                        >
+                          BOOK
+                        </Button>
                       </div>
                     </div>
-                  </div>
-                </div>
+
+                    
               </div>
             </div>
           </div>
@@ -241,7 +222,7 @@ export class ParticularCard extends React.Component {
                       pathname: "/loginHome", 
                       // data: {userInfo}
                      }} />}
-      </>
+      </div>
     );
   }
 }

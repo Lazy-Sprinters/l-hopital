@@ -3,19 +3,18 @@ import './TagsComponent.css';
 
 export class TagsComponent extends React.Component {
   state={
-    tags: this.props.tags, 
+    tags: this.props.tags
   };
 
   render() {
-
     return (
       <div className="form">
         <div className="tags">
         What Else It Offers:
-          <ul>
+          <ul style={{listStyle: "none"}}>
             {this.props.tags.map((tag, i) => (
               <li key={tag + i} className="tag">
-                {tag}
+                {tag} 
               </li>
             ))}
           </ul>

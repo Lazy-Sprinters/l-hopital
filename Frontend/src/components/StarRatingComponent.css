@@ -15,7 +15,7 @@
   vertical-align: middle;
   line-height: 1;
   font-size:3vw;
-  color: #ABABAB;
+  color: white;
   transition: color 0.2s ease-out;
 }
 .star-rating__star:hover {
