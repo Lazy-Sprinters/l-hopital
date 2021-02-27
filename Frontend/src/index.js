@@ -14,7 +14,7 @@ const loadState = () => {
     }
     return JSON.parse(serializedState);
   } catch (e) {
-    console.log("Stroage errors");
+    console.log("Others");
     return undefined;
   }
 };
@@ -24,7 +24,7 @@ const saveState = (state) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (e) {
-    console.log("Stroage errors");
+    console.log("Storage errors");
   }
 };
 

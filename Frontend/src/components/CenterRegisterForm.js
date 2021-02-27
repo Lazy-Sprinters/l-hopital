@@ -496,10 +496,10 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="txtfld">
                   <TextField
-                    placeholder="Upload the Image of the Center "
+                    placeholder="Enter the Google Drive Link for the image"
                     variant="outlined"
                     onChange={this.handleImage('FrontImage')}
-                    type="file"
+                    type="text"
                     fullWidth
                   />
                   </div>

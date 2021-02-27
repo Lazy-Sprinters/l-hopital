@@ -73,7 +73,7 @@ export class CentreCards extends React.Component {
             data={value}
             data1={userInfo}
             Tags={value.tags}
-            img={"data:image/jpg;base64," + value.cen.FrontImage.toString()}
+            img={value.cen.FrontImage}
             Name={value.cen.Name}
             Address={value.cen.Address}
             Cost={value.costing}
@@ -86,7 +86,7 @@ export class CentreCards extends React.Component {
             data={value1}
             data1={userInfo}
             Tags={value1.tags}
-            img={"data:image/jpg;base64," + value1.cen.FrontImage.toString()}
+            img={value1.cen.FrontImage}
             Name={value1.cen.Name}
             Address={value1.cen.Address}
             Cost={value1.costing}
@@ -99,7 +99,7 @@ export class CentreCards extends React.Component {
             data={value2}
             data1={userInfo}
             Tags={value2.tags}
-            img={"data:image/jpg;base64," + value2.cen.FrontImage.toString()}
+            img={value2.cen.FrontImage}
             Name={value2.cen.Name}
             Address={value2.cen.Address}
             Cost={value2.costing}
@@ -120,7 +120,7 @@ export class CentreCards extends React.Component {
             data={value}
             data1={userInfo}
             Tags={value.tags}
-            img={"data:image/jpg;base64," + value.cen.FrontImage.toString()}
+            img={value.cen.FrontImage}
             Name={value.cen.Name}
             Address={value.cen.Address}
             Cost={value.costing}
@@ -141,7 +141,7 @@ export class CentreCards extends React.Component {
             data={value}
             data1={userInfo}
             Tags={value.tags}
-            img={"data:image/jpg;base64," + value.cen.FrontImage.toString()}
+            img={value.cen.FrontImage}
             Name={value.cen.Name}
             Address={value.cen.Address}
             Cost={value.costing}
@@ -154,7 +154,7 @@ export class CentreCards extends React.Component {
             data={value1}
             data1={userInfo}
             Tags={value1.tags}
-            img={"data:image/jpg;base64," + value1.cen.FrontImage.toString()}
+            img={value1.cen.FrontImage}
             Name={value1.cen.Name}
             Address={value1.cen.Address}
             Cost={value1.costing}
