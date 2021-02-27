@@ -77,7 +77,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StickyHeadTable({appointments,handleModal}) {
+function StickyHeadTable({appointments,handleModal,centerInfo}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -119,9 +119,9 @@ function StickyHeadTable({appointments,handleModal}) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const handleClickBtn = (appInfo) =>{
+  const handleClickBtn = (value,appInfo) =>{
     window.location.assign("mailto:"+value);
-    const data={this.props.centerInfo,appInfo}
+    const data={centerInfo,appInfo}
     Axios.post("http://localhost:5000/center/sendres", data)
     .then((res) => {
       window.location.reload();
@@ -148,6 +148,7 @@ function StickyHeadTable({appointments,handleModal}) {
                     {column.label}
                   </TableCell>
                 }
+                </>
               ))}
             </TableRow>
           </TableHead>
@@ -160,9 +161,12 @@ function StickyHeadTable({appointments,handleModal}) {
                     if(column.id=="Sendresult" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={()=> handleClickBtn(row['appInfo'])}>{flag==1 ? "Send Result" : "Resend Result"}</Button>
+                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={()=> handleClickBtn(value,row['appInfo'])}>{row["flag"]==1 ? "Send Result" : "Resend Result"}</Button>
                       </TableCell>
                         );
+                    }
+                    if(column.id=="appInfo" || column.id=="flag"){
+                      ;
                     }
                     else
                     return (
@@ -246,7 +250,7 @@ export class CenterSendResult extends Component {
         />
       {initiate && this.handleSendResult(this.props.centerInfo)}
       {display && 
-        <StickyHeadTable handleModal={this.handleModal} appointments={appointments}/>
+        <StickyHeadTable centerInfo={this.props.centerInfo} handleModal={this.handleModal} appointments={appointments}/>
       }
        <Footer />
        {proceed &&
