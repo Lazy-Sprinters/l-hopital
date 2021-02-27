@@ -136,7 +136,7 @@ function StickyHeadTable({appointments,ModalShow,handleModal1}) {
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
-                    {column.label}
+                   <b> {column.label}</b>
                   </TableCell>
                 }
                 </>

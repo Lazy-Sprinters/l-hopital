@@ -567,7 +567,11 @@ export class CenterRegisterForm extends Component {
                   <br/>
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button
-                        style={{backgroundColor:'a5a89f'}}
+                         style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                         variant="contained"
                       
                         onClick={() => this.nextStep()}
@@ -662,9 +666,12 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="btn2">
                   {!isLoading && !isLoaded && <Button
-                      style={{backgroundColor:'a5a89f'}}
+                       style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
 
-                        color="primary"
                         variant="contained"
                         onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities)}
                       >
@@ -674,9 +681,12 @@ export class CenterRegisterForm extends Component {
                   <br /><br /><br />
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button
-                      style={{backgroundColor:'a5a89f'}}
+                       style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
 
-                        color="primary"
                         variant="contained"
                       
                         onClick={() => this.handleModal(true)}
@@ -686,9 +696,12 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="btn2">
                     {!isLoading && !isLoaded && <Button
-                      style={{backgroundColor:'a5a89f'}}
+                       style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
 
-                        color="primary"
                         variant="contained"
                       
                         onClick={ () => this.prevStep()}

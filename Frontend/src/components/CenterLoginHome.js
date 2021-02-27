@@ -61,10 +61,10 @@ export class CenterLoginHome extends Component {
     <div>
       {auth && this.authenticate(this.props.centerInfo)}
       {auth1 && <Redirect to={{
-        pathname: "/login" 
+        pathname: "/centerLogin" 
       }} />}
       {auth2 && 
-        <>
+        <div className="cbody">
         <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
@@ -72,30 +72,36 @@ export class CenterLoginHome extends Component {
         <div className="quotes">
           <div className="card">
             <div className="box box1">
-              <p>Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.</p>
-              <br/>
-              <p>Send the results which are ready today itself.</p>
-              <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
+              <p>Send the results to the patients which are ready today itself.</p>
+              <Button  style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("success") } >Send Results</Button>
             </div>
-            <div className="bg"></div>
+            
           </div>
           <div className="card">
             <div className="box box2">
-              <p>Be not afraid of growing slowly, be afraid only of standing still. </p>
-              <br/>
               <p>View appointments for the day and Plan your day!.</p>
-            <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
+            <Button  style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("info") } >Appointments for the day</Button>
             </div>
-            <div className="bg"></div>
+            
           </div>
           <div className="card">
             <div className="box box3">
-              <p>Before anything else, preparation is the key to success. </p>
-              <br/>
               <p>View all your future booking and plan your days.</p>
-            <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
+            <Button  style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("danger") } >Cancel Apointments</Button>
             </div>
-            <div className="bg"></div>
+            
           </div>
         </div>
         </div>
@@ -112,7 +118,7 @@ export class CenterLoginHome extends Component {
         {danger && 
           <Redirect to='/centerCancelApp'/>
         }
-      </>
+      </div>
     }
     </div>
     );

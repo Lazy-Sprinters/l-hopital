@@ -22,8 +22,8 @@ import {
 from '@material-ui/core';
 
 const columns = [
-  { id: 'Name', label: 'Name', minWidth: 170 },
-  { id: 'Test', label: 'Service', minWidth: 100 },
+  { id: 'Name', label: 'Name', minWidth: 170 ,align: 'center'},
+  { id: 'Test', label: 'Service', minWidth: 100 ,align: 'center' },
   {
     id: 'date',
     label: 'Date',
@@ -145,7 +145,7 @@ function StickyHeadTable({appointments,handleModal,centerInfo}) {
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
-                    {column.label}
+                    <b>{column.label}</b>
                   </TableCell>
                 }
                 </>

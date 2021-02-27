@@ -78,7 +78,7 @@ export default function StickyHeadTable({arr}) {
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <b>{column.label}</b>
                 </TableCell>
               ))}
             </TableRow>

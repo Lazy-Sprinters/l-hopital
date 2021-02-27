@@ -80,7 +80,7 @@ class Login extends Component {
           <div>
             <Navbar />
             <div className="Login-bg" style={{background: 'linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)'}}>
-            <div className="base-container">
+            <div className="base-container" style={{marginTop:"3vh"}}>
               <div className="header">Login</div>
               <div className="content">
                 <div className="image">
@@ -129,7 +129,7 @@ class Login extends Component {
               {isFaultyL && (
                 <div style={{color:"red"}} className="err-msg">
                   <h5>
-                    *All fields are not filled or there is an error in your input
+                    *Please fill in your details correctly
                   </h5>
                 </div>
               )}

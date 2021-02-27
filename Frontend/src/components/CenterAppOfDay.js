@@ -23,8 +23,8 @@ from '@material-ui/core';
 import TnCModal2 from "./TnCModal2";
 
 const columns = [
-  { id: 'Name', label: 'Name', minWidth: 170 },
-  { id: 'Test', label: 'Test Name', minWidth: 100 },
+  { id: 'Name', label: 'Name', minWidth: 170 , align: 'center'},
+  { id: 'Test', label: 'Test Name', minWidth: 100 ,align: 'center' },
   {
     id: 'date',
     label: 'Date',
@@ -143,7 +143,7 @@ function StickyHeadTable({appointments,ModalShow,handleModal1}) {
                     align={column.align}
                     style={{ minWidth: column.minWidth }}
                   >
-                    {column.label}
+                    <b>{column.label}</b>
                   </TableCell>
                 }
                 </>

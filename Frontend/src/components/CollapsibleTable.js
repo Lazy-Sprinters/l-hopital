@@ -70,6 +70,14 @@ function Row(props) {
         onAgree={() => setModal(false)}
       />
       <TableRow className={classes.root}>
+        <TableCell align="center" component="th" scope="row">
+          {row.CenterName}
+        </TableCell>
+        <TableCell align="center">{row.TestName}</TableCell>
+        <TableCell align="center">{row.TestDate}</TableCell>
+        <TableCell align="center">{row.Amount}</TableCell>
+        <TableCell align="center">{row.Status}</TableCell>
+        <TableCell align="center">{row.Result}</TableCell>
         <TableCell>
           <IconButton
             aria-label="expand row"
@@ -79,14 +87,6 @@ function Row(props) {
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.CenterName}
-        </TableCell>
-        <TableCell align="center">{row.TestName}</TableCell>
-        <TableCell align="center">{row.TestDate}</TableCell>
-        <TableCell align="center">{row.Amount}</TableCell>
-        <TableCell align="center">{row.Status}</TableCell>
-        <TableCell align="center">{row.Result}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{  marginBottom: -10, marginTop: -10,paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
@@ -98,18 +98,18 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Time Slot</TableCell>
-                    <TableCell>Contact Details</TableCell>
-                    <TableCell align="center">For Any reviews</TableCell>
+                    <TableCell align="center"><b>Time Slot</b></TableCell>
+                    <TableCell align="center"><b>Contact Details</b></TableCell>
+                    <TableCell align="center"><b>For Reviews</b></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {row.MoreInfo.map((moreinfo) => (
                     <TableRow key={moreinfo.TimeSlot}>
-                      <TableCell component="th" scope="row">
+                      <TableCell align="center" component="th" scope="row">
                         {moreinfo.TimeSlot}
                       </TableCell>
-                      <TableCell>{moreinfo.ContactDet}</TableCell>
+                      <TableCell align="center">{moreinfo.ContactDet}</TableCell>
                       {(moreinfo.ContactDet!="--") &&
                       <TableCell align="center">
                         <Button
@@ -206,13 +206,13 @@ export default function CollapsibleTable({ testInfo }) {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
+              <TableCell align="center"><b>Center Name</b></TableCell>
+              <TableCell align="center"><b>Test Name</b></TableCell>
+              <TableCell align="center"><b>Date</b></TableCell>
+              <TableCell align="center"><b>Amount Paid&nbsp;(₹)</b></TableCell>
+              <TableCell align="center"><b>Status</b></TableCell>
+              <TableCell align="center"><b>Result</b></TableCell>
               <TableCell />
-              <TableCell>Center Name</TableCell>
-              <TableCell align="center">Test Name</TableCell>
-              <TableCell align="center">Date</TableCell>
-              <TableCell align="center">Amount Paid&nbsp;(₹)</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Result</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

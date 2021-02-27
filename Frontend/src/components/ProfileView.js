@@ -270,7 +270,7 @@ export class ProfileView extends React.Component {
       testInfo
     }
     return (
-      <>
+      <div className="pvbody">
       {x && this.copyToTemp(userInfo.data.user)}
       <TnCModal
         size="lg"
@@ -283,10 +283,10 @@ export class ProfileView extends React.Component {
         onHide={() => this.handlemodal(false)}
         onAgree={() => this.handleproceed()}
       />
-      <div className="row">
-        <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.user.UserName)}</h1></Avatar>
-        <div >
-            <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{userInfo.data.user.UserName}</Typography>
+      <div style={{marginLeft:"5vw"}} className="row">
+        <Avatar style={{width:'80px',height:'80px',backgroundColor:'#a5a89f' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.user.UserName)}</h1></Avatar>
+        <div  className="col" >
+            <Typography style={{width:'80px',height:'80px', marginLeft:'25px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>Anuraj Agarwal{/*userInfo.data.user.UserName*/}</Typography>
           <div className="row">
               <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Age: {userInfo.data.user.Age}</Typography>
               <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Gender: {userInfo.data.user.Gender}</Typography>
@@ -295,14 +295,16 @@ export class ProfileView extends React.Component {
       </div>
         <FormControlLabel
           style={{
+
             position: 'absolute',
             right: '20px',
-            top: '55px',
+            top: '70px',
           }}
           control={
             <Switch
               checked={editProfile}
               onChange={this.handleEdit('editProfile')}
+              style={{color:"#a5a89f"}}
               color="primary"
             />
           }
@@ -318,23 +320,23 @@ export class ProfileView extends React.Component {
                   <RadioGroup row value={IdType} onChange={this.handleChange('IdType')}>
                     <FormControlLabel
                       value="Voter Id"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Voter Id"
-                      labelPlacement="start"
+                      labelPlacement="end"
                       disabled={!editProfile}
                     />
                     <FormControlLabel
                       value="Aadhaar Number"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Aadhaar Number"
-                      labelPlacement="start"
+                      labelPlacement="end"
                       disabled={!editProfile}
                     />
                     <FormControlLabel
                       value="Passport"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Passport"
-                      labelPlacement="start"
+                      labelPlacement="end"
                       disabled={!editProfile}
                     />
                   </RadioGroup>
@@ -356,7 +358,6 @@ export class ProfileView extends React.Component {
                 />
                 <br />
                 </div>
-                <div className="row">
 
                   <div className="txtfld1">
                   <TextField
@@ -433,9 +434,8 @@ export class ProfileView extends React.Component {
                   />
                   <br />
                   </div>
-                </div>
                 <div className="row">
-                  <div className="txtfld1">
+                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
                   <TextField
                     value={Email}
                     disabled={!editProfile}
@@ -451,8 +451,13 @@ export class ProfileView extends React.Component {
                   </div>
                   { !(Email==tempEmail) &&
                     <>
-                    <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                    <div style={{marginLeft:'20px',marginTop:'25px'}}>
                       <Button
+                       style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                         variant="success"
                         size="sm"
                         disabled={(!editProfile && (Email==userInfo.data.user.Email) ) || !complete}
@@ -464,7 +469,7 @@ export class ProfileView extends React.Component {
                     </div>
                     { sendEmailOtp && 
                       <>
-                        <div className="txtfld1">
+                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
                         <TextField
                           disabled={!editProfile}
                           size="small"
@@ -477,8 +482,13 @@ export class ProfileView extends React.Component {
                           fullWidth
                         />
                         </div>
-                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                        <div style={{marginLeft:'20px',marginTop:'25px'}}>
                           <Button
+                           style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp1.length<=5)}
@@ -493,7 +503,7 @@ export class ProfileView extends React.Component {
                   }
                   </div>
                 <div className="row">
-                  <div className="txtfld1">
+                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
                   <TextField
                     value={PhoneNumber}
                     disabled={!editProfile}
@@ -510,8 +520,13 @@ export class ProfileView extends React.Component {
                   { !(PhoneNumber==tempPhoneNumber) &&
                     <>
 
-                    <div style={{marginLeft:'20px',marginTop:'10px'}}>        
+                    <div style={{marginLeft:'20px',marginTop:'25px'}}>        
                        <Button
+                        style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                          variant="success"
                          size="sm"
                          disabled={(!editProfile  && (PhoneNumber==userInfo.data.user.PhoneNumber) ) || !complete1}
@@ -522,7 +537,7 @@ export class ProfileView extends React.Component {
                     </div>   
                     { sendPhoneOtp &&
                       <>
-                        <div className="txtfld1">
+                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
                           <TextField
                             disabled={!editProfile}
                             size="small"
@@ -535,8 +550,13 @@ export class ProfileView extends React.Component {
                             fullWidth
                           />
                         </div>
-                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                        <div style={{marginLeft:'10px',marginTop:'25px'}}>
                           <Button
+                           style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp2.length<=5)}
@@ -570,8 +590,14 @@ export class ProfileView extends React.Component {
           </div>
 
           <div>
-            <div style={{marginTop:'30px',marginLeft:'60px'}}>
+            <div style={{marginTop:'30px',marginLeft:'-60px'}}>
               <Button
+               style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
+
                 variant="warning"
                 size="lg"
                 onClick={() => this.getTests(userInfo)}
@@ -618,6 +644,11 @@ export class ProfileView extends React.Component {
               </div>
               <div style={{marginTop:'30px',marginLeft:'60px'}}>
                 <Button
+                 style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                   variant="info"
                   size="lg"
                   disabled={Validitypassword.length<=7 || !(editProfile &&
@@ -655,7 +686,7 @@ export class ProfileView extends React.Component {
           }
           
         </div>
-      </>
+      </div>
     );
   }
 }

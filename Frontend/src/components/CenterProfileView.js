@@ -250,14 +250,14 @@ export class CenterProfileView extends React.Component {
     console.log(1,PseudoFacilities);
     if(PseudoFacilities.length>0)
     {
-      code.push(<Table responsive="lg" size="sm" striped bordered hover variant="dark">
+      code.push(<Table responsive="lg" size="sm" striped bordered hover >
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Facility Name</th>
-                    <th>Capacity per Slot</th>
+                    <th>Facility</th>
+                    <th>Capacity</th>
                     <th>Price</th>
-                    <th>Delete Option</th>
+                    <th>Delete</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -385,6 +385,7 @@ export class CenterProfileView extends React.Component {
           }}
           control={
             <Switch
+              style={{color:"#a5a89f"}}
               checked={editProfile}
               onChange={this.handleEdit('editProfile')}
               color="primary"
@@ -524,6 +525,11 @@ export class CenterProfileView extends React.Component {
                     <>
                     <div style={{marginLeft:'20px',marginTop:'10px'}}>
                       <Button
+                        style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                         variant="success"
                         size="sm"
                         disabled={(!editProfile && (Email==centerInfo.data.center.Email) ) || !complete}
@@ -550,6 +556,11 @@ export class CenterProfileView extends React.Component {
                         </div>
                         <div style={{marginLeft:'20px',marginTop:'10px'}}>
                           <Button
+                            style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp1.length<=5)}
@@ -583,6 +594,11 @@ export class CenterProfileView extends React.Component {
 
                     <div style={{marginLeft:'20px',marginTop:'10px'}}>        
                        <Button
+                       style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                          variant="success"
                          size="sm"
                          disabled={(!editProfile  && (PhoneNo==centerInfo.data.center.PhoneNo) ) || !complete1}
@@ -608,6 +624,11 @@ export class CenterProfileView extends React.Component {
                         </div>
                         <div style={{marginLeft:'20px',marginTop:'10px'}}>
                           <Button
+                          style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                             variant="success"
                             size="sm"
                             disabled={!editProfile || (otp2.length<=5)}
@@ -642,7 +663,7 @@ export class CenterProfileView extends React.Component {
 
           <div>
             <div style={{marginTop:'-6vh',width:'25vw',padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
-              <h4>{!editProfile ? "Facilites" : "Edit Facilities"} </h4>
+              <h4>{!editProfile ? " Facilites" : " Edit Facilities"} </h4>
                 {facilityShow}
                 {editProfile &&
                   <>
@@ -682,6 +703,11 @@ export class CenterProfileView extends React.Component {
                   </div>
                   <div>
                   <Button
+                    style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                         variant="success"
                         onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities,len)}
                       >
@@ -730,6 +756,11 @@ export class CenterProfileView extends React.Component {
               </div>
               <div style={{marginTop:'30px',marginLeft:'60px'}}>
                 <Button
+                style={{
+                            border: "5px solid bisque",
+                            backgroundColor: "white",
+                            color: "black",
+                          }}
                   variant="info"
                   size="lg"
                   disabled={Validitypassword.length<=7 || !(editProfile &&
