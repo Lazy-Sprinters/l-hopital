@@ -717,7 +717,7 @@ export class CenterProfileView extends React.Component {
             </div>
             { editProfile   &&
             <>
-              <div className="txtfld5">
+              <div className="txtfld5" >
                   <TextField
                     placeholder={Password.length>0 ? "Enter your old password" :"Enter your password"} /*change as the password changes to old or nothing*/
                     label={Password.length>0 ? "Enter your old password to edit" :"Enter your password to edit"}
