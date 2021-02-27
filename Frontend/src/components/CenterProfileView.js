@@ -660,7 +660,7 @@ export class CenterProfileView extends React.Component {
           </div>
 
           <div>
-            <div style={{marginTop:'-6vh',width:'25vw',padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
+            <div style={{marginTop:'-6vh',width:'25vw',marginLeft:"-5vw",padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
               <h4>{!editProfile ? " Facilites" : " Edit Facilities"} </h4>
                 {facilityShow}
                 {editProfile &&
