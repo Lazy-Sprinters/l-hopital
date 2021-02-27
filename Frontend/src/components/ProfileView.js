@@ -286,7 +286,7 @@ export class ProfileView extends React.Component {
       <div style={{marginLeft:"5vw"}} className="row">
         <Avatar style={{width:'80px',height:'80px',backgroundColor:'#a5a89f' , marginLeft:'40px', marginTop:'20px'}}><h1>{this.getInitials(userInfo.data.user.UserName)}</h1></Avatar>
         <div  className="col" >
-            <Typography style={{width:'80px',height:'80px', marginLeft:'25px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>Anuraj Agarwal{/*userInfo.data.user.UserName*/}</Typography>
+            <Typography style={{width:'80px',height:'80px', marginLeft:'25px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{userInfo.data.user.UserName}</Typography>
           <div className="row">
               <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Age: {userInfo.data.user.Age}</Typography>
               <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Gender: {userInfo.data.user.Gender}</Typography>

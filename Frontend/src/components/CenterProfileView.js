@@ -352,7 +352,7 @@ export class CenterProfileView extends React.Component {
       testInfo
     }
     return (
-      <>
+      <div className="pvbody">
       {console.log(facilitiesList)}
       {x && this.copyToTemp(centerInfo.data.center,facilitiesList)}
       
@@ -367,8 +367,8 @@ export class CenterProfileView extends React.Component {
         onHide={() => this.handlemodal(false)}
         onAgree={() => this.handleproceed()}
       />
-      <div className="row">
-        <Avatar style={{width:'80px',height:'80px',backgroundColor:'orange' , marginLeft:'40px', marginTop:'20px'}} src={centerInfo.data.center.FrontImage} />
+      <div style={{marginLeft:"5vw"}} className="row">
+        <Avatar style={{width:'80px',height:'80px',backgroundColor:'#a5a89f' , marginLeft:'40px', marginTop:'20px'}} src={centerInfo.data.center.FrontImage} />
         <div >
             <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{centerInfo.data.center.Name}</Typography>
           <div className="row">
@@ -381,7 +381,7 @@ export class CenterProfileView extends React.Component {
           style={{
             position: 'absolute',
             right: '20px',
-            top: '55px',
+            top: '70px',
           }}
           control={
             <Switch
@@ -428,7 +428,6 @@ export class CenterProfileView extends React.Component {
                   />
                   <br />
                   </div>
-                <div className="row">
 
                   <div className="txtfld1">
                   <TextField
@@ -505,9 +504,8 @@ export class CenterProfileView extends React.Component {
                   />
                   <br />
                   </div>
-                </div>
                 <div className="row">
-                  <div className="txtfld1">
+                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
                   <TextField
                     value={Email}
                     disabled={!editProfile}
@@ -523,7 +521,7 @@ export class CenterProfileView extends React.Component {
                   </div>
                   { !(Email==tempEmail) &&
                     <>
-                    <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                    <div style={{marginLeft:'10px',marginTop:'25px'}}>
                       <Button
                         style={{
                             border: "5px solid bisque",
@@ -541,7 +539,7 @@ export class CenterProfileView extends React.Component {
                     </div>
                     { sendEmailOtp && 
                       <>
-                        <div className="txtfld1">
+                        <div style={{marginLeft:'10px',marginTop:'10px'}}>
                         <TextField
                           disabled={!editProfile}
                           size="small"
@@ -554,7 +552,7 @@ export class CenterProfileView extends React.Component {
                           fullWidth
                         />
                         </div>
-                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                        <div style={{marginLeft:'10px',marginTop:'25px'}}>
                           <Button
                             style={{
                             border: "5px solid bisque",
@@ -575,7 +573,7 @@ export class CenterProfileView extends React.Component {
                   }
                   </div>
                 <div className="row">
-                  <div className="txtfld1">
+                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
                   <TextField
                     value={PhoneNo}
                     disabled={!editProfile}
@@ -592,7 +590,7 @@ export class CenterProfileView extends React.Component {
                   { !(PhoneNo==tempPhoneNo) &&
                     <>
 
-                    <div style={{marginLeft:'20px',marginTop:'10px'}}>        
+                    <div style={{marginLeft:'10px',marginTop:'25px'}}>        
                        <Button
                        style={{
                             border: "5px solid bisque",
@@ -609,7 +607,7 @@ export class CenterProfileView extends React.Component {
                     </div>   
                     { sendPhoneOtp &&
                       <>
-                        <div className="txtfld1">
+                        <div style={{marginLeft:'10px',marginTop:'10px'}}>
                           <TextField
                             disabled={!editProfile}
                             size="small"
@@ -622,7 +620,7 @@ export class CenterProfileView extends React.Component {
                             fullWidth
                           />
                         </div>
-                        <div style={{marginLeft:'20px',marginTop:'10px'}}>
+                        <div style={{marginLeft:'10px',marginTop:'25px'}}>
                           <Button
                           style={{
                             border: "5px solid bisque",
@@ -798,7 +796,7 @@ export class CenterProfileView extends React.Component {
           }
           
         </div>
-      </>
+      </div>
     );
   }
 }
