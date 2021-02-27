@@ -382,7 +382,7 @@ router.post('/user/update',Authmiddleware,async (req,res)=>{
       }
 })
 
-//Route-14:Logging a user out
+//Route-13:Logging a user out
 router.post('/user/logout',Authmiddleware,async (req,res)=>{
       try{
             // console.log(req.user);
