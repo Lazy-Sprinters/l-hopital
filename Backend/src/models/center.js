@@ -78,7 +78,6 @@ const centerSchema=mongoose.Schema({
       },
       FrontImageType:{
             type:String,
-            required:true
       },
       LicenseNum:{
             type:String,
