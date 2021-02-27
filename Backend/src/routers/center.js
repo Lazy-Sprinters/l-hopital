@@ -455,4 +455,10 @@ router.post('/center/sendres',Authmiddleware,async(req,res)=>{
             res.status(400).send();
       }
 })
+
+router.post('/center/update',Authmiddleware,async (req,res)=>{
+      console.log(req.body);
+      res.status(200).send();
+})
+
 module.exports=router;
