@@ -141,12 +141,13 @@ export class OtpVerification extends Component {
     };
 
     return (
-       <div>
+       <div style={{background:" linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%) "}}>
           <br/> <br/>
           {counter==30 ? this.start(this.props.userInfo) : null}
           <div className="err-msg">
-            <h2>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h2>
+            <h4>Check your registered email id and phone number for the One-Time Passwords. Verification is needed for booking appointments for the site. You can either verify it now or skip to perform the verification later.</h4>
           </div>
+          <br/>
           <div className="txtfld1">
             <TextField
               placeholder="Enter the Email OTP"
@@ -172,6 +173,7 @@ export class OtpVerification extends Component {
           </div>
           <div className="otp1btn">
             <Button
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
               color="primary"
               variant="contained"
               disabled={!complete}
@@ -182,6 +184,7 @@ export class OtpVerification extends Component {
           </div>
           <div className="otp2btn">
             <Button
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
               color="primary"
               variant="contained"
               disabled={!((data.otp1.length>=5 ) && (data.otp2.length>=5 ))}
@@ -198,6 +201,7 @@ export class OtpVerification extends Component {
               <div className="btn2">
                <Link to='/login' style={{textDecoration:'none'}}>
                  <Button
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
                    color="primary"
                    variant="contained"
                  >
@@ -216,7 +220,7 @@ export class OtpVerification extends Component {
             <br />
             <br />
             <div className="err-msg">
-            <h2>There is an error in sending the OTP to the desired email or phone number.You must have reloaed the page ,please login to verify your account.</h2>
+            <div style={{color:"red",fontSize:'20px',marginTop:"-1vh",marginLeft:'10vw',marginRight:'10vw',textAlign:"center"}}>*There is an error in sending the OTP to the desired email or phone number.You must have reloaed the page ,please login to verify your account.</div>
             </div>
             <br />
             </div>
@@ -224,8 +228,8 @@ export class OtpVerification extends Component {
           <br/>
           <div className="no-chng">
             {isLoading && <LinearProgress />}                
-          {isVerified && isLoaded && <h1>You are verified</h1>}
-          {!isVerified && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
+          {isVerified && isLoaded && <div style={{color:"#605047",fontSize:'20px',marginTop:"20px",marginLeft:'35vw'}}>You are verified</div>}
+          {!isVerified && isLoaded && <div style={{color:"red",fontSize:'20px',marginTop:"20px",marginLeft:'35vw'}}>* The information provided is invalid. Please try again.</div>}
           <br />
           {this.props.check==0 && 
             <div>
@@ -238,6 +242,7 @@ export class OtpVerification extends Component {
                  style={{textDecoration:'none'}}
                 >
                   <Button
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
                     color="primary"
                     variant="contained"
                   >
@@ -250,7 +255,7 @@ export class OtpVerification extends Component {
           }
           {this.props.check==1 && 
             <div>
-            {isVerified && isLoaded && <h1>You can now book appointments.</h1>}
+            {isVerified && isLoaded && <h4>You can now book appointments.</h4>}
             {indicate && 
               <Redirect 
                 to={{

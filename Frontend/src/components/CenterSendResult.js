@@ -7,6 +7,7 @@ import * as actionTypes from './store/actions';
 import {connect} from 'react-redux';
 import Axios from "axios";
 import {Button} from 'react-bootstrap';
+import TnCModal from "./TnCModal";
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
@@ -47,10 +48,22 @@ const columns = [
     minWidth: 170,
     align: 'center',
   },
+  {
+    id: 'appInfo',
+    label: 'appInfo',
+    minWidth: 170,
+    align: 'center',
+  },
+  {
+    id: 'flag',
+    label: 'flag',
+    minWidth: 170,
+    align: 'center',
+  },
 ];
 
-function createData(Name, Test, date, Slot,PhoneNo,Sendresult) {
-  return {Name, Test, date, Slot,PhoneNo,Sendresult};
+function createData(Name, Test, date, Slot,PhoneNo,Sendresult,appInfo,flag) {
+  return {Name, Test, date, Slot,PhoneNo,Sendresult,appInfo,flag};
 }
 
 
@@ -64,7 +77,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StickyHeadTable({appointments}) {
+function StickyHeadTable({appointments,handleModal}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -75,8 +88,9 @@ function StickyHeadTable({appointments}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push(createData("No appointments available","--","--","--","--","--"));
-      setRows(ans);
+      handleModal(true);
+      // ans.push(createData("No appointments available","--","--","--","--","--"));
+      // setRows(ans);
     }
     else{
       console.log(x);
@@ -89,7 +103,8 @@ function StickyHeadTable({appointments}) {
             x[i].Slot,
             x[i].PhoneNo,
             x[i].Email,
-
+            x[i],
+            x[i].flag
           )
         );
       }
@@ -104,7 +119,17 @@ function StickyHeadTable({appointments}) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  const handleClickBtn = (appInfo) =>{
+    window.location.assign("mailto:"+value);
+    const data={this.props.centerInfo,appInfo}
+    Axios.post("http://localhost:5000/center/sendres", data)
+    .then((res) => {
+      window.location.reload();
+    })
+    .catch((err) => {
+      console.log("Axios", err);
+    });
+  };
   return (
     <Paper className={classes.root}>
       {start1 && convertToRows(appointments)}
@@ -113,13 +138,16 @@ function StickyHeadTable({appointments}) {
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
+                 <>
+                {(column.id!="appInfo" && column.id!="flag") &&
+                  <TableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </TableCell>
+                }
               ))}
             </TableRow>
           </TableHead>
@@ -132,7 +160,7 @@ function StickyHeadTable({appointments}) {
                     if(column.id=="Sendresult" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="success" onClick={()=> window.location.assign("mailto:"+value)}>Send Result</Button>
+                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={()=> handleClickBtn(row['appInfo'])}>{flag==1 ? "Send Result" : "Resend Result"}</Button>
                       </TableCell>
                         );
                     }
@@ -166,7 +194,9 @@ export class CenterSendResult extends Component {
   state= {
     initiate:true,
     display:false,
-    appointments:[]
+    appointments:[],
+    ModalShow:false,
+    proceed:false
   };
   handleSendResult = (data) =>{
     this.setState({initiate:false});
@@ -178,25 +208,56 @@ export class CenterSendResult extends Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+      this.setState({ModalShow:true});
     });
-  }
+  };
+  handleModal = (x) =>{
+    this.setState({ModalShow:x});
+  };
+  proceedToHome = (x) =>{
+    this.setState({proceed:true});
+    this.setState({ModalShow:x});
+  };
   render() {
     const{ 
       initiate,
       display,
-      appointments
+      appointments,
+      ModalShow,
+      proceed
     } = this.state;
 
     return(
       <div>
+      <TnCModal
+        btnshow={true}
+        btntext={true}
+        size="lg"
+        name="No Appointments Scheduled"
+        head="Please Try Again Later"
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        show={ModalShow}
+        onHide={() => this.handleModal(false)}
+        onAgree={() => this.proceedToHome(false)}
+      />
       <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
       {initiate && this.handleSendResult(this.props.centerInfo)}
       {display && 
-        <StickyHeadTable appointments={appointments}/>
+        <StickyHeadTable handleModal={this.handleModal} appointments={appointments}/>
       }
        <Footer />
+       {proceed &&
+            <Redirect 
+              to={{
+                pathname: '/centerLoginHome', 
+                // data: values
+              }} 
+            />
+
+          }
       </div>
     );
   }

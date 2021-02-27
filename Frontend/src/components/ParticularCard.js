@@ -13,24 +13,12 @@ import {connect} from 'react-redux'
 export class ParticularCard extends React.Component {
   state = {
     selectedTime: "0",
-    facilityShow: true,
-    facilities: "0",
     ModalShow1:false,
     ModalShow2:false,
     ModalShow3:false,
     disableSuccess:true,
     proceedToHome:false,
     client:""
-  };
-  show1 = (x,userInfo) => {
-    this.setState({ facilityShow: false });
-    this.setState({client:userInfo})
-    let ans = [];
-    console.log(x);
-    for (let i = 0; i < x.tags.length; i++) {
-      ans.push(x.tags[i], <br />);
-    }
-    this.setState({ facilities: ans });
   };
   handleModal1 = (x) => {
     this.setState({disableSuccess:true})
@@ -65,8 +53,6 @@ export class ParticularCard extends React.Component {
   render() {
     const { 
       selectedTime,
-      facilityShow,
-      facilities,
       ModalShow1,
       ModalShow2,
       ModalShow3,
@@ -121,7 +107,6 @@ export class ParticularCard extends React.Component {
         onHide={() => this.handleModal3(false)}
         onAgree={() => this.handleModal3(false)}
       />
-        {facilityShow && this.show1(this.props.CentreValue,this.props.userInfo)}
         <div className="user-row">
           <div className="user-col">
             <div className="UserPanel">
@@ -166,9 +151,7 @@ export class ParticularCard extends React.Component {
                   <Ratings rating={this.props.CentreValue.cen.AvgStars} />
                 </h6>
               </div>
-              {/*<div className="center-details">
-                      Facilities: {facilities}
-    </div>*/}
+              
             </div>
           </div>
           <div className="user-col">

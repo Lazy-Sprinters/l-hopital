@@ -5,6 +5,7 @@ import "./CenterLoginHome.css";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions';
 import {connect} from 'react-redux';
+import TnCModal from "./TnCModal";
 import Axios from "axios";
 import {Button} from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
@@ -75,7 +76,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StickyHeadTable({appointments,ModalShow}) {
+function StickyHeadTable({appointments,ModalShow,handleModal1}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -86,8 +87,9 @@ function StickyHeadTable({appointments,ModalShow}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push(createData("No appointments available","--","--","--","--","--","--"));
-      setRows(ans);
+      handleModal1(true);
+      // ans.push(createData("No appointments available","--","--","--","--","--","--"));
+      // setRows(ans);
     }
     else{
       console.log(x);
@@ -150,7 +152,7 @@ function StickyHeadTable({appointments,ModalShow}) {
                     if(column.id=="Cancel" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="danger" onClick={() => handleModal(row['appInfo'])} >Cancel</Button>
+                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="danger" onClick={() => handleModal(row['appInfo'])} >Cancel</Button>
                       </TableCell>
                         );
                     }
@@ -186,7 +188,9 @@ export class CenterAppOfDay extends Component {
     display:false,
     appointments:[],
     appis:"",
-    modal:false
+    modal:false,
+    ModalShow1:false,
+    proceed:false
   };
   handleCancelApp = (data) =>{
     this.setState({initiate:false});
@@ -198,11 +202,19 @@ export class CenterAppOfDay extends Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+    this.setState({ModalShow1:true});
     });
   }
   ModalShow = (appInfo,x) => {
     this.setState({appInfo:appInfo})
     this.setState({modal:x})
+  };
+  handleModal = (x) =>{
+    this.setState({ModalShow1:x});
+  };
+  proceedToHome = (x) =>{
+    this.setState({proceed:true});
+    this.setState({ModalShow1:x});
   };
   render() {
     const{ 
@@ -210,12 +222,26 @@ export class CenterAppOfDay extends Component {
       display,
       appointments,
       appInfo,
-      modal
+      modal,
+      ModalShow1,
+      proceed
     } = this.state;
     const values={
     }
     return(
       <div>
+      <TnCModal
+        btnshow={true}
+        btntext={true}
+        size="lg"
+        name="No Appointments Scheduled"
+        head="Please Try Again Later"
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        show={ModalShow1}
+        onHide={() => this.handleModal(false)}
+        onAgree={() => this.proceedToHome(false)}
+      />
       <TnCModal3
         size="lg"
         name="Cancel The Appointment"
@@ -235,9 +261,18 @@ export class CenterAppOfDay extends Component {
         />
       {initiate && this.handleCancelApp(this.props.centerInfo)}
       {display && 
-        <StickyHeadTable appointments={appointments} ModalShow={this.ModalShow}/>
+        <StickyHeadTable handleModal1={this.handleModal} appointments={appointments} ModalShow={this.ModalShow}/>
       }
        <Footer />
+        {proceed &&
+            <Redirect 
+              to={{
+                pathname: '/centerLoginHome', 
+                // data: values
+              }} 
+            />
+
+          }
       </div>
     );
   }

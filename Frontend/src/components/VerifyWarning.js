@@ -29,7 +29,7 @@ export class VerifyWarning extends Component {
     return(
     <div>
     {check && this.handleCheck()}
-    <div className="verify row" >
+    <div  style={{border:'5px solid bisque'}} className="verify row" >
     <h5>The account is not verified. The user will not be able to book any appointments.To verify click here.</h5>
     
                 <Link 

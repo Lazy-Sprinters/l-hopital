@@ -206,19 +206,19 @@ export class RegisterForm extends Component {
                   <RadioGroup row defaultValue="" onChange={this.handleChange('Gender')}>
                     <FormControlLabel
                       value="Male"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Male"
                       labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Female"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Female"
                       labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Other"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Other"
                       labelPlacement="end"
                     />
@@ -248,19 +248,19 @@ export class RegisterForm extends Component {
                   <RadioGroup row defaultValue="" onChange={this.handleChange('IdType')}>
                     <FormControlLabel
                       value="Voter Id"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Voter ID"
                       labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Aadhaar Number"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Aadhaar Number"
                       labelPlacement="end"
                     />
                     <FormControlLabel
                       value="Passport"
-                      control={<Radio color="primary" />}
+                      control={<Radio style={{color:"#a5a89f"}} />}
                       label="Passport"
                       labelPlacement="end"
                     />
@@ -321,8 +321,8 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter you City"
-                  label="City"
+                  placeholder="Enter you City / Area / Province"
+                  label="City / Area / Province"
                   variant="outlined"
                   onChange={this.handleChange('City')}
                   type="text"
@@ -345,8 +345,8 @@ export class RegisterForm extends Component {
                 </div>
                 <div className="txtfld">
                 <TextField
-                  placeholder="Enter you State"
-                  label="State"
+                  placeholder="Enter you State / Union Territory"
+                  label="State / Union Territory"
                   variant="outlined"
                   onChange={this.handleChange('State')}
                   type="text"
@@ -387,8 +387,8 @@ export class RegisterForm extends Component {
                 <div className="no-chng">
                   {isLoading && <LinearProgress />}                
                 {isFaulty && <div style={{color:"red",fontSize:'20px',marginLeft:'40vw'}}>* Please fill in your details properly.</div>}
-                {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page.</h1>}
-                {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
+                {isRegistered && isLoaded && <div  style={{fontSize:'20px',marginLeft:'30vw',marginRight:"30vw",textAlign:"center"}}>You have Registered Successfully.Redirecting to Verification page.</div>}
+                {!isRegistered && isLoaded && <div style={{color:"red",fontSize:'20px',marginLeft:'30vw',marginRight:"30vw",textAlign:"center"}}>The information provided is invalid. Please try again.</div>}
                 <br />
                 {indicate && <Redirect to={{
                       pathname: "/verify", 

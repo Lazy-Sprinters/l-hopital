@@ -4,6 +4,7 @@ import CenterLoginNavbar from "./CenterLoginNavbar";
 import "./CenterLoginHome.css";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions';
+import TnCModal from "./TnCModal";
 import {connect} from 'react-redux';
 import Axios from "axios";
 import {Button} from 'react-bootstrap';
@@ -81,7 +82,7 @@ const useStyles = makeStyles({
   },
 });
 
-function StickyHeadTable({appointments,ModalShow}) {
+function StickyHeadTable({appointments,ModalShow,handleModal1}) {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -92,8 +93,9 @@ function StickyHeadTable({appointments,ModalShow}) {
     let ans = [];
     console.log(x)
     if(x.length==0){
-      ans.push(createData("No appointments available","--","--","--","--","--"));
-      setRows(ans);
+      handleModal1(true);
+      // ans.push(createData("No appointments available","--","--","--","--","--"));
+      // setRows(ans);
     }
     else{
       console.log(x);
@@ -157,7 +159,7 @@ function StickyHeadTable({appointments,ModalShow}) {
                     if(column.id=="Verify" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button variant="success" onClick={() => handleModal(row['userid'],row['appid'])} disabled={row['flag']==0}>{row['flag'] ? "Verify" : "Verified"}</Button>
+                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={() => handleModal(row['userid'],row['appid'])} disabled={row['flag']==0}>{row['flag'] ? "Verify" : "Verified"}</Button>
                       </TableCell>
                         );
                     }
@@ -194,7 +196,9 @@ export class CenterAppOfDay extends Component {
     appointments:[],
     userid:"",
     appis:"",
-    modal:false
+    modal:false,
+    ModalShow1:false,
+    proceed:false,
   };
   handleAppOfDay = (data) =>{
     this.setState({initiate:false});
@@ -206,12 +210,20 @@ export class CenterAppOfDay extends Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+    this.setState({ModalShow1:true});
     });
   }
   ModalShow = (userid,appid,x) => {
     this.setState({userid:userid})
     this.setState({appid:appid})
     this.setState({modal:x})
+  };
+  handleModal = (x) =>{
+    this.setState({ModalShow1:x});
+  };
+  proceedToHome = (x) =>{
+    this.setState({proceed:true});
+    this.setState({ModalShow1:x});
   };
   render() {
     const{ 
@@ -220,12 +232,26 @@ export class CenterAppOfDay extends Component {
       appointments,
       userid,
       appid,
-      modal
+      modal,
+      ModalShow1,
+      proceed
     } = this.state;
     const values={
     }
     return(
       <div>
+      <TnCModal
+        btnshow={true}
+        btntext={true}
+        size="lg"
+        name="No Appointments Scheduled"
+        head="Please Try Again Later"
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        show={ModalShow1}
+        onHide={() => this.handleModal(false)}
+        onAgree={() => this.proceedToHome(false)}
+      />
       <TnCModal2
         size="lg"
         name="Verification of the patient"
@@ -246,9 +272,18 @@ export class CenterAppOfDay extends Component {
         />
       {initiate && this.handleAppOfDay(this.props.centerInfo)}
       {display && 
-        <StickyHeadTable appointments={appointments} ModalShow={this.ModalShow}/>
+        <StickyHeadTable handleModal1={this.handleModal} appointments={appointments} ModalShow={this.ModalShow}/>
       }
        <Footer />
+       {proceed &&
+            <Redirect 
+              to={{
+                pathname: '/centerLoginHome', 
+                // data: values
+              }} 
+            />
+
+          }
       </div>
     );
   }

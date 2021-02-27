@@ -111,11 +111,11 @@ class Login extends Component {
               <br />
               {!isFaultyL && <br />}{!isFaultyL && <br />}
               <div className="footer">
-                {isLoadingL && <LinearProgress />}
+                {isLoadingL && <LinearProgress style={{backgroundColor:"#a5a89f"}}/>}
                 <Button
                   type="submit"
                   className="btn"
-                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
+                  style={{border:'5px solid bisque',boxShadow: "-1px 2px 5px #a5a89f",backgroundColor:'white',color:'black'}}
                   onClick={
                     !(values.password!==0  && values.email!=="0")
                       ? () => this.handleLoginFaulty()
@@ -124,13 +124,13 @@ class Login extends Component {
                 >
                   Login
                 </Button>
-                {isLoadingL && <LinearProgress />}
+                {isLoadingL && <LinearProgress style={{backgroundColor:"#a5a89f"}}/>}
               </div>
               {isFaultyL && (
-                <div className="err-msg">
-                  <h2>
-                    All fields are not filled or there is an error in your input
-                  </h2>
+                <div style={{color:"red"}} className="err-msg">
+                  <h5>
+                    *All fields are not filled or there is an error in your input
+                  </h5>
                 </div>
               )}
               {!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}

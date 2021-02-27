@@ -30,11 +30,11 @@ export class CenterReviews extends Component {
       <div style={{marginLeft:'10vw', marginTop:'10vh'}}>
       {reviews.flag==0 
         ?
-          <Alert severity="error">{reviews.comment}</Alert>
+          <Alert style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}} severity="error">{reviews.comment}</Alert>
         :
-          <Alert severity="success">{reviews.comment}</Alert>
+          <Alert style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  severity="success">{reviews.comment}</Alert>
       }
-      <Progress value={reviews.posper}/>
+      <Progress style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  value={reviews.posper}/>
 
       </div>
     </div>

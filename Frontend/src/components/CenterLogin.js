@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import Axios from "axios";
 import "./Login.css";
 import { TextField, LinearProgress } from "@material-ui/core";
+import {Button} from 'react-bootstrap'
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 class CenterLogin extends Component {
@@ -77,9 +78,9 @@ class CenterLogin extends Component {
         return (
           <div>
             <Navbar />
-            <div className="Login-bg" style={{backgroundImage: "url(" + "/images/Login6-min.jpg"+")"}}>
+            <div className="Login-bg" style={{background: 'linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)'}}>
             <div className="base-container">
-              <div className="header">Login</div>
+              <div className="header">Center Login</div>
               <div className="content">
                 <div className="image">
                   <img src="images/login.svg" />
@@ -110,8 +111,9 @@ class CenterLogin extends Component {
               {!isFaultyL && <br />}{!isFaultyL && <br />}
               <div className="footer">
                 {isLoadingL && <LinearProgress />}
-                <button
+                <Button
                   type="submit"
+                  style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}}
                   className="btn"
                   onClick={
                     !(values.password!==0  && values.email!=="0")
@@ -120,11 +122,11 @@ class CenterLogin extends Component {
                   }
                 >
                   Login
-                </button>
+                </Button>
                 {isLoadingL && <LinearProgress />}
               </div>
               {isFaultyL && (
-                <div className="err-msg">
+                <div style={{color:"red"}} className="err-msg">
                   <h2>
                     All fields are not filled or there is an error in your input
                   </h2>

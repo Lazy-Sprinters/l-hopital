@@ -110,6 +110,7 @@ function Row(props) {
                         {moreinfo.TimeSlot}
                       </TableCell>
                       <TableCell>{moreinfo.ContactDet}</TableCell>
+                      {(moreinfo.ContactDet!="--") &&
                       <TableCell align="center">
                         <Button
                           style={{
@@ -125,6 +126,7 @@ function Row(props) {
                           Post a review
                         </Button>
                       </TableCell>
+                    }
                     </TableRow>
                   ))}
                 </TableBody>
@@ -169,6 +171,17 @@ export default function CollapsibleTable({ testInfo }) {
   const convertToRows = (x) => {
     setStart(false);
     let ans = [];
+    if (x.length==0){
+      ans.push(createData( "NO APPOINTMENTS BOOKED YET",
+          "--",
+          "--",
+          "--",
+          "--",
+          "--",
+          "--",
+          "--",
+          "--"))
+    }
     for (let i = 0; i < x.length; i++) {
       ans.push(
         createData(

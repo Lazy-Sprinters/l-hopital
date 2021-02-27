@@ -60,14 +60,14 @@ class CenterLoginNavbar extends Component {
     }
     return (
       <>
-        <Navbar sticky="top" collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar style={{backgroundColor:'#a5a89f' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
           <Navbar.Brand as={Link} to='/centerLoginHome'>MakeMyAppointment</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse style={{backgroundColor: '#353A40', borderRadius:'10px', paddingLeft:'10px', margin:'0 -15px'}}id="responsive-navbar-nav">
+          <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto" style={{marginRight:'30px'}}>
-              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/centerLoginHome' onClick={() => this.handleIconClick('Home')} >{homeClicked ? <Home style={{fontSize:'40px'}} /> : <HomeOutlined style={{fontSize:'40px'}} />}</Nav.Link>
-              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/centerProfile' onClick={() => this.handleIconClick('Profile')} >{userClicked ? <AccountBox style={{fontSize:'40px'}} /> : <AccountCircle style={{fontSize:'40px'}} />}</Nav.Link>
-              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/login' onClick={(e) => this.LogOut(e,this.props.centerInfo)}>{logOutClicked ? <ExitToApp style={{fontSize:'40px'}} /> : <ExitToAppOutlined style={{fontSize:'40px'}} />}</Nav.Link>
+              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/centerLoginHome' onClick={() => this.handleIconClick('Home')} active >{homeClicked ? <Home style={{fontSize:'40px'}} /> : <HomeOutlined style={{fontSize:'40px'}} />}</Nav.Link>
+              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/centerProfile' onClick={() => this.handleIconClick('Profile')} active >{userClicked ? <AccountBox style={{fontSize:'40px'}} /> : <AccountCircle style={{fontSize:'40px'}} />}</Nav.Link>
+              <Nav.Link style={{marginRight:'50px'}} as={Link} to='/login' onClick={(e) => this.LogOut(e,this.props.centerInfo)} active >{logOutClicked ? <ExitToApp style={{fontSize:'40px'}} /> : <ExitToAppOutlined style={{fontSize:'40px'}} />}</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Navbar>

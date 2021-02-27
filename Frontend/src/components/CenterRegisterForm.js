@@ -444,8 +444,8 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="txtfld">
                   <TextField
-                    placeholder="Enter you City"
-                    label="City"
+                    placeholder="Enter you City / Area / Province"
+                    label="City / Area / Province"
                     value={City}
                     variant="outlined"
                     onChange={this.handleChange('City')}
@@ -470,8 +470,8 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="txtfld">
                   <TextField
-                    placeholder="Enter you State"
-                    label="State"
+                    placeholder="Enter you State / Union Territory"
+                    label="State / Union Territory"
                     value={State}
                     variant="outlined"
                     onChange={this.handleChange('State')}
@@ -522,51 +522,52 @@ export class CenterRegisterForm extends Component {
                   <FormGroup aria-label="position" row>
                     <FormControlLabel
                       value="Monday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Monday')} checked={Monday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Monday')} checked={Monday}/>}
                       label="Monday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Tuesday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Tuesday')} checked={Tuesday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Tuesday')} checked={Tuesday}/>}
                       label="Tuesday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Wednesday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Wednesday')} checked={Wednesday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Wednesday')} checked={Wednesday}/>}
                       label="Wednesday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Thursday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Thursday')} checked={Thursday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Thursday')} checked={Thursday}/>}
                       label="Thursday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Friday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Friday')} checked={Friday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Friday')} checked={Friday}/>}
                       label="Friday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Saturday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Saturday')} checked={Saturday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Saturday')} checked={Saturday}/>}
                       label="Saturday"
                       labelPlacement="bottom"
                     />
                     <FormControlLabel
                       value="Sunday"
-                      control={<Checkbox color="primary" onChange={this.handleOffdays('Sunday')} checked={Sunday}/>}
+                      control={<Checkbox style={{color:"#a5a89f"}} onChange={this.handleOffdays('Sunday')} checked={Sunday}/>}
                       label="Sunday"
                       labelPlacement="bottom"
                     />
                   </FormGroup>
                   </div>
+                  <br/>
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button
-                        color="primary"
+                        style={{backgroundColor:'a5a89f'}}
                         variant="contained"
                       
                         onClick={() => this.nextStep()}
@@ -575,6 +576,8 @@ export class CenterRegisterForm extends Component {
                       </Button>}
                   </div>
                   
+                  <br/>
+                  <br/>
                   <br/>
                   <br/>
                   
@@ -659,6 +662,8 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="btn2">
                   {!isLoading && !isLoaded && <Button
+                      style={{backgroundColor:'a5a89f'}}
+
                         color="primary"
                         variant="contained"
                         onClick={() => this.handleAddAnother(FacilityName,CapacityperSlot,Price,facilities)}
@@ -669,6 +674,8 @@ export class CenterRegisterForm extends Component {
                   <br /><br /><br />
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button
+                      style={{backgroundColor:'a5a89f'}}
+
                         color="primary"
                         variant="contained"
                       
@@ -679,6 +686,8 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <div className="btn2">
                     {!isLoading && !isLoaded && <Button
+                      style={{backgroundColor:'a5a89f'}}
+
                         color="primary"
                         variant="contained"
                       
@@ -689,13 +698,13 @@ export class CenterRegisterForm extends Component {
                   </div>
                   <br/>
                   <br/>
-                  {isFaulty && <h2>All fields are not filled or there is an error in your input</h2>}
                   <br/>
                   <div className="no-chng">
                     {isLoading && <LinearProgress />}                
-                  {isRegistered && isLoaded && <h1>You have Registered Successfully.Redirecting to Verification page.</h1>}
-                  {!isRegistered && isLoaded && <h1>The information provided is invalid. Please try again.</h1>}
-                  <br />
+                  {isFaulty && <div style={{color:"red",fontSize:'20px',marginLeft:'40vw'}}>* Please fill in your details properly.</div>}
+                {isRegistered && isLoaded && <div  style={{fontSize:'20px',marginLeft:'30vw',marginRight:"30vw",textAlign:"center"}}>You have Registered Successfully.Redirecting to Verification page.</div>}
+                {!isRegistered && isLoaded && <div style={{color:"red",fontSize:'20px',marginLeft:'30vw',marginRight:"30vw",textAlign:"center"}}>The information provided is invalid. Please try again.</div>}
+                <br />
                   {indicate && <Redirect to={{
                         pathname: "/centerVerify", 
                        }} />}

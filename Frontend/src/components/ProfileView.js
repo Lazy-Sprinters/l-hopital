@@ -378,8 +378,8 @@ export class ProfileView extends React.Component {
                     value={City}
                     disabled={!editProfile}
                     size="small"
-                    placeholder="Enter you City"
-                    label="City"
+                    placeholder="Enter you City / Area / Province"
+                    label="City / Area / Province"
                     variant="outlined"
                     onChange={this.handleChange('City')}
                     type="text"
@@ -408,8 +408,8 @@ export class ProfileView extends React.Component {
                     value={State}
                     disabled={!editProfile}
                     size="small"
-                    placeholder="Enter you State"
-                    label="State"
+                    placeholder="Enter you State / Union Territory"
+                    label="State / Union Territory"
                     variant="outlined"
                     onChange={this.handleChange('State')}
                     type="text"

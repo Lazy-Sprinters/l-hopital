@@ -75,7 +75,7 @@ export class CenterLoginHome extends Component {
               <p>Don’t put off for tomorrow what you can do today because if you enjoy it today, you can do it again tomorrow.</p>
               <br/>
               <p>Send the results which are ready today itself.</p>
-              <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
+              <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("success") } variant="success">Send Results</Button>
             </div>
             <div className="bg"></div>
           </div>
@@ -84,7 +84,7 @@ export class CenterLoginHome extends Component {
               <p>Be not afraid of growing slowly, be afraid only of standing still. </p>
               <br/>
               <p>View appointments for the day and Plan your day!.</p>
-            <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
+            <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("info") } variant="info">Appointments for the day</Button>
             </div>
             <div className="bg"></div>
           </div>
@@ -93,7 +93,7 @@ export class CenterLoginHome extends Component {
               <p>Before anything else, preparation is the key to success. </p>
               <br/>
               <p>View all your future booking and plan your days.</p>
-            <Button style={{marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
+            <Button style={{border:"2px solid  bisque" , boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}  className="act-btn" onClick={ () => this.handleButtonClick("danger") } variant="danger">Cancel Apointments</Button>
             </div>
             <div className="bg"></div>
           </div>

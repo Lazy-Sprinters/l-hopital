@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Link,Redirect } from 'react-router-dom';
 import './LoginNavbar.css';
+import TnCModal from "./TnCModal";
 import Axios from "axios";
 import {
   Button
@@ -14,7 +15,9 @@ class LoginNavbar extends Component {
     loggedOut:false,
     GotTests:false,
     testInfo:"0",
-    succeed:false
+    succeed:false,
+    ModalShow:false,
+    proceed:false
   };
   handleClick = (value) => {
     value==true ? this.setState({ ['click']: false }) : this.setState({ ['click']: true });
@@ -50,8 +53,19 @@ class LoginNavbar extends Component {
       })
       .catch((err) => {
         console.log("Axios", err);
+        this.handleModal(true);
+        // this.props.onChangeTestInfo([]);
+        // this.setState({['succeed']:true});
+
       });
 
+  };
+  proceedToHome = (x) =>{
+    this.setState({proceed:true})
+    this.setState({ModalShow:x})
+  };
+  handleModal = (x) =>{
+    this.setState({ModalShow:x})
   };
   render(){
     // const {userInfo} = this.props;
@@ -60,17 +74,32 @@ class LoginNavbar extends Component {
       loggedOut,
       testInfo,
       GotTests,
-      succeed
+      succeed,ModalShow,
+      proceed
     }=this.state;
     const values={
       // userInfo,
       testInfo
     }
     return (
+      <>
+       <TnCModal
+        btnshow={true}
+        btntext={true}
+        size="lg"
+        name="No Appointments Booked Yet"
+        head="Please book appointments to view them "
+        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
+                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        show={ModalShow}
+        onHide={() => this.handleModal(false)}
+        onAgree={() => this.proceedToHome(false)}
+      />
         <nav className='navbar'>
 
           <div className='navbar-container'>
-            <Link to='/loginHome' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
+            <Link
+              style={{textDecoration:"none"}} to='/loginHome' className='navbar-logo' onClick={() => this.closeMobileMenu()}>
                 <b style={{fontSize:"40px"}}>M</b>ake  <b style={{fontSize:"40px"}}>M</b>y  <b style={{fontSize:"40px"}}>A</b>ppointment
             </Link>
             <div className='menu-icon' onClick={() => this.handleClick(click)}>
@@ -79,6 +108,7 @@ class LoginNavbar extends Component {
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
                 <Link
+                  style={{textDecoration:"none"}}
                   to={{
                       pathname: '/loginHome', 
                      }}  className='nav-links' onClick={() => this.closeMobileMenu()}>
@@ -87,6 +117,7 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
+                  style={{textDecoration:"none"}}
                   to='/test'
                   className='nav-links'
                   onClick={(e) => this.getTests(e,this.props.userInfo)}
@@ -96,6 +127,7 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
+                  style={{textDecoration:"none"}}
                   to={{
                       pathname: '/profile', 
                       // data: {this.props.userInfo}
@@ -108,6 +140,7 @@ class LoginNavbar extends Component {
               </li>
               <li className='nav-item'>
                 <Link
+                  style={{textDecoration:"none"}}
                   to="/login"
                   className='nav-links'
                   color="primary"
@@ -135,7 +168,17 @@ class LoginNavbar extends Component {
               }} 
             />
           }
+          {proceed &&
+            <Redirect 
+              to={{
+                pathname: '/loginHome', 
+                // data: values
+              }} 
+            />
+
+          }
         </nav>
+        </>
     );
   }
 }
