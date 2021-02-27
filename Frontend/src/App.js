@@ -14,7 +14,7 @@ import LoginHome from './components/LoginHome';
 // import CenterAppOfDay from './components/CenterAppOfDay';
 // import CenterCancelApp from './components/CenterCancelApp';
 import Tests from './components/Tests';
-// import Profile from './components/Profile';
+import Profile from './components/Profile';
 import selectionPage1 from './components/selectionPage1';
 import selectionPage2 from './components/selectionPage2';
 import { BrowserRouter as Router, Switch, Route, HashRouter } from 'react-router-dom';
@@ -38,8 +38,8 @@ function App() {
           <Route path='/centerCancelApp' exact component={CenterCancelApp} />
 */}          <Route path='/loginHome' exact component={LoginHome} />
           <Route path='/test' exact component={Tests} />
-{/*          <Route path='/profile' exact component={Profile} />
-*/}          <Route path='/selectionPage1' exact component={selectionPage1} />
+          <Route path='/profile' exact component={Profile} />
+          <Route path='/selectionPage1' exact component={selectionPage1} />
           <Route path='/selectionPage2' exact component={selectionPage2} /></Switch>
       </HashRouter>
     </>

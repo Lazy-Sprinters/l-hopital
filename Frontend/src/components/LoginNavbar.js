@@ -103,7 +103,7 @@ class LoginNavbar extends Component {
               <Nav className="ml-auto" style={{marginRight:'30px'}} >
                 <Nav.Link style={{marginRight:'50px' , textDecoration:"none"}} as={Link} to='/loginHome' active>HOME</Nav.Link>
                 <Nav.Link style={{marginRight:'50px' , textDecoration:"none"}} as={Link} onClick={(e) => this.getTests(e,this.props.userInfo)} to='/test' active>TESTS</Nav.Link>
-                <Nav.Link style={{marginRight:'50px' , textDecoration:"none"}} as={Link} to='/loginHome' active>PROFILE</Nav.Link>
+                <Nav.Link style={{marginRight:'50px' , textDecoration:"none"}} as={Link} to='/profile' active>PROFILE</Nav.Link>
                 <Nav.Link style={{marginRight:'50px' , textDecoration:"none"}} as={Link} onClick={(e) => this.LogOut(e,this.props.userInfo)} to='/login' active>LOGOUT</Nav.Link>
               </Nav>
             </Navbar.Collapse>
