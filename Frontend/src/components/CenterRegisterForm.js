@@ -626,11 +626,11 @@ export class CenterRegisterForm extends Component {
 
                 <div className="reg-col">
                   <div className="txtfld">
-                    <label htmlFor="username">Facility Name</label>
+                    <label style={{marginTop:"5vh",marginBottom:"-2vh",marginLeft:"2vw"}}>Facility Name</label>
                     {this.dropdownShow(dropdown,FacilityName)}
                   </div>
                   
-                  <div className="textfld" style={{}}>
+                  <div className="txtfld" style={{width:"20vw",marginLeft:"46.5vw"}}>
                   <TextField
                     placeholder="Enter the Capacity per Slot"
                     label="Capacity per Slot"
@@ -643,7 +643,7 @@ export class CenterRegisterForm extends Component {
                     required
                   />
                   </div>
-                  <div className="textfld" style={{}}>
+                  <div className="txtfld" style={{width:"20vw",marginLeft:"46.5vw"}}>
                   <TextField
                     placeholder="Enter the Price"
                     label="Price"
@@ -657,13 +657,14 @@ export class CenterRegisterForm extends Component {
                     required
                   />
                   </div>
-              
+                  <br />
                   <div className="btn2">
                   {!isLoading && !isLoaded && <Button
                        style={{
                             border: "5px solid bisque",
                             backgroundColor: "white",
                             color: "black",
+                            marginLeft:"10vw"
                           }}
 
                         variant="contained"
@@ -673,9 +674,9 @@ export class CenterRegisterForm extends Component {
                       </Button>}
                   </div>
                   <br /><br />
-                {facilityShow}
-                <br /><br /><br />
-                  <br /><br /><br />
+                  <br /><br />
+                <div className="txtfld">{facilityShow}</div>
+                <br /><br />
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button
                        style={{
