@@ -38,6 +38,7 @@ router.post('/center/signup1',async (req,res)=>{
       center.OpeningTime=RegistrationUtil.formattimestring(req.body.OpeningTime);
       center.ClosingTime=RegistrationUtil.formattimestring(req.body.ClosingTime);
       try{
+            center.FrontImage='https://drive.google.com/thumbnail?id='+(center.FrontImage.slice(32,center.FrontImage.length-17));
             const hs=req.body.OpeningTime[0]+req.body.OpeningTime[1];
             const ms=req.body.OpeningTime[3]+req.body.OpeningTime[4];
             const he=req.body.ClosingTime[0]+req.body.ClosingTime[1];
@@ -186,8 +187,8 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
                               text:"Good boi",
                               stars:5
                         }],
-                        posper:100,
-                        negper:0,
+                        posper:70,
+                        negper:30,
                         comment:"Everything looks not good as of now",
                         avgstars:5,
                         flag:1
@@ -455,4 +456,10 @@ router.post('/center/sendres',Authmiddleware,async(req,res)=>{
             res.status(400).send();
       }
 })
+
+router.post('/center/update',Authmiddleware,async (req,res)=>{
+      console.log(req.body);
+      res.status(200).send();
+})
+
 module.exports=router;
