@@ -239,8 +239,6 @@ export class CenterSendResult extends Component {
         size="lg"
         name="No Appointments Scheduled"
         head="Please Try Again Later"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
         show={ModalShow}
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(false)}

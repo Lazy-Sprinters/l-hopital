@@ -77,7 +77,7 @@ export class CenterLoginHome extends Component {
                             border: "5px solid bisque",
                             backgroundColor: "white",
                             color: "black",
-                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("success") } >Send Results</Button>
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'15vw',marginTop:"4vh"}}   onClick={ () => this.handleButtonClick("success") } >Send</Button>
             </div>
             
           </div>
@@ -88,7 +88,7 @@ export class CenterLoginHome extends Component {
                             border: "5px solid bisque",
                             backgroundColor: "white",
                             color: "black",
-                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("info") } >Appointments for the day</Button>
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'15vw',marginTop:"4vh"}}   onClick={ () => this.handleButtonClick("info") } >View</Button>
             </div>
             
           </div>
@@ -99,7 +99,7 @@ export class CenterLoginHome extends Component {
                             border: "5px solid bisque",
                             backgroundColor: "white",
                             color: "black",
-                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'10vw'}}   onClick={ () => this.handleButtonClick("danger") } >Cancel Apointments</Button>
+                           boxShadow: "-2px 7px 10px #a5a89f" ,marginLeft:'15vw',marginTop:"4vh"}}   onClick={ () => this.handleButtonClick("danger") } >Cancel</Button>
             </div>
             
           </div>

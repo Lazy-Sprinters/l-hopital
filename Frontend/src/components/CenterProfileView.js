@@ -372,8 +372,8 @@ export class CenterProfileView extends React.Component {
         <div >
             <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{centerInfo.data.center.Name}</Typography>
           <div className="row">
-              <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Opening Time: {centerInfo.data.center.OpeningTime}</Typography>
-              <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'25px'}}>Closing Time: {centerInfo.data.center.ClosingTime}</Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'50px',fontSize:'20px'}}>Opening Time: {centerInfo.data.center.OpeningTime}</Typography>
+              <Typography style={{marginTop:'-30px',marginLeft:'40px',fontSize:'20px'}}>Closing Time: {centerInfo.data.center.ClosingTime}</Typography>
           </div>
         </div> 
       </div>
@@ -398,7 +398,7 @@ export class CenterProfileView extends React.Component {
           <div className="profile-details"> 
                 
               
-                <div className="txtfld2">
+                <div className="txtfld1">
                 <TextField
                   disabled={!editProfile}
                   value={LicenseNum}
@@ -505,7 +505,7 @@ export class CenterProfileView extends React.Component {
                   <br />
                   </div>
                 <div className="row">
-                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
+                  <div className="txtfld1" style={{marginLeft:"11vw"}}>
                   <TextField
                     value={Email}
                     disabled={!editProfile}
@@ -573,7 +573,7 @@ export class CenterProfileView extends React.Component {
                   }
                   </div>
                 <div className="row">
-                  <div className="txtfld1" style={{marginLeft:"10.5vw"}}>
+                  <div className="txtfld1" style={{marginLeft:"11vw"}}>
                   <TextField
                     value={PhoneNo}
                     disabled={!editProfile}

@@ -149,7 +149,7 @@ export class CenterRegisterForm extends Component {
     var code=[];
     if(PseudoFacilities.length>0)
     {
-      code.push(<Table striped bordered hover variant="dark">
+      code.push(<Table striped bordered hover >
                 <thead>
                   <tr>
                     <th>#</th>
@@ -230,7 +230,7 @@ export class CenterRegisterForm extends Component {
   };
   dropdownShow = (data,FacilityName) => {
     return(
-      <>
+      <div style={{marginBottom:"-2vh"}}>
       <Select required displayEmpty value={FacilityName} onChange={this.handleChange('FacilityName')} style={{margin:'20px',minWidth:'120px'}} variant="outlined">
         <MenuItem value="" disabled><em>None</em></MenuItem>
         {data.length>0 && data.map((value,i) => {
@@ -239,7 +239,7 @@ export class CenterRegisterForm extends Component {
             )
         })}
       </Select>
-      </>
+      </div>
       )
   }
   render() {
@@ -616,11 +616,7 @@ export class CenterRegisterForm extends Component {
             <div className="terms"> 
               <br/> 
               <h1>Add Facility</h1>
-              <br />
-              <br />
-              <br /><br />
-                {facilityShow}
-                <br /><br /><br />
+              
               <div className="reg-row">
                 <div className="reg-col">
                   <div className="reg-img">
@@ -634,7 +630,7 @@ export class CenterRegisterForm extends Component {
                     {this.dropdownShow(dropdown,FacilityName)}
                   </div>
                   
-                  <div className="txtfld">
+                  <div className="textfld" style={{}}>
                   <TextField
                     placeholder="Enter the Capacity per Slot"
                     label="Capacity per Slot"
@@ -646,10 +642,8 @@ export class CenterRegisterForm extends Component {
                     fullWidth
                     required
                   />
-                  <br />
-                  <br />
                   </div>
-                  <div className="txtfld">
+                  <div className="textfld" style={{}}>
                   <TextField
                     placeholder="Enter the Price"
                     label="Price"
@@ -662,8 +656,8 @@ export class CenterRegisterForm extends Component {
                     fullWidth
                     required
                   />
-                  <br />
                   </div>
+              
                   <div className="btn2">
                   {!isLoading && !isLoaded && <Button
                        style={{
@@ -678,6 +672,9 @@ export class CenterRegisterForm extends Component {
                         Add
                       </Button>}
                   </div>
+                  <br /><br />
+                {facilityShow}
+                <br /><br /><br />
                   <br /><br /><br />
                   <div className="btn1">
                     {!isLoading && !isLoaded && <Button

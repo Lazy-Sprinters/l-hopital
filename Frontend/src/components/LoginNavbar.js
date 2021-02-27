@@ -90,8 +90,6 @@ class LoginNavbar extends Component {
         size="lg"
         name="No Appointments Booked Yet"
         head="Please book appointments to view them "
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
         show={ModalShow}
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(false)}

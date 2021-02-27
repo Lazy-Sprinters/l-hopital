@@ -236,8 +236,6 @@ export class CenterAppOfDay extends Component {
         size="lg"
         name="No Appointments Scheduled"
         head="Please Try Again Later"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. "
         show={ModalShow1}
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(false)}
@@ -246,10 +244,6 @@ export class CenterAppOfDay extends Component {
         size="lg"
         name="Cancel The Appointment"
         head="State an appropriate reason for cancelling the appointment"
-        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                    ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                    aliquip ex ea commodo consequat. "
         show={modal}
         appInfo={appInfo}
         centerInfo={this.props.centerInfo}

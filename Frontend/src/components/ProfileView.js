@@ -316,12 +316,12 @@ export class ProfileView extends React.Component {
                 
                 <div className="txtfld2">
                 <FormControl component="fieldset">
-                  <FormLabel component="legend">Id Type</FormLabel>
+                  <FormLabel component="legend">ID Type</FormLabel>
                   <RadioGroup row value={IdType} onChange={this.handleChange('IdType')}>
                     <FormControlLabel
-                      value="Voter Id"
+                      value="Voter ID"
                       control={<Radio style={{color:"#a5a89f"}} />}
-                      label="Voter Id"
+                      label="Voter ID"
                       labelPlacement="end"
                       disabled={!editProfile}
                     />
@@ -343,7 +343,7 @@ export class ProfileView extends React.Component {
                 </FormControl>
                 <br />
                 </div>
-                <div className="txtfld2">
+                <div className="txtfld1">
                 <TextField
                   disabled={!editProfile}
                   value={IdentificationIdNumber}

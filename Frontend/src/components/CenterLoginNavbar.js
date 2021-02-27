@@ -61,7 +61,7 @@ class CenterLoginNavbar extends Component {
     return (
       <>
         <Navbar style={{backgroundColor:'#a5a89f' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
-          <Navbar.Brand as={Link} to='/centerLoginHome'>MakeMyAppointment</Navbar.Brand>
+          <Navbar.Brand as={Link} to='/centerLoginHome'><b style={{fontSize:"30px"}}>M</b>ake <b style={{fontSize:"30px"}}>M</b>y <b style={{fontSize:"30px"}}>A</b>ppointment</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto" style={{marginRight:'30px'}}>
