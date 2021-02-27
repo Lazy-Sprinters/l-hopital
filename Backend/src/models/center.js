@@ -2,6 +2,9 @@ const validator=require('validator');
 const mongoose=require('mongoose');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
+const path=require('path');
+
+require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
 const centerSchema=mongoose.Schema({
       Name:{
@@ -112,7 +115,7 @@ centerSchema.methods.toJSON=function(){
 
 centerSchema.methods.generateauthtoken=async function(){
       const center=this;
-      const token=jwt.sign({_id:center._id.toString()},'nodetoreact');
+      const token=jwt.sign({_id:center._id.toString()},process.env.AUTHSRT);
       center.tokens=center.tokens.concat({token: token});
       await center.save();
       return token;

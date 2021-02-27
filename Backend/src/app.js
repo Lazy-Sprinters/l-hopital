@@ -1,11 +1,14 @@
 const express=require('express');
 const cors=require('cors');
 const cron=require('node-cron');
+const path=require('path');
 const updhelepr=require('./helpers/center-registration-helper');
 const appointmentHelper=require('./helpers/Appointment-helper');
 const Facility=require('./models/facilities');
  
 require('./db/mongoose');
+require('dotenv').config({path:path.resolve(__dirname, '../.env') });
+
 const userRouter=require('./routers/user');
 const centerRouter=require('./routers/center');
 const helperRouter=require('./routers/helper');
@@ -51,4 +54,24 @@ const task=cron.schedule('0 0 * * *',async ()=>{
       scheduled:false,
       timezone:'Asia/Kolkata'
 });
+
+// const task=cron.schedule('0 0 * * *',async ()=>{
+//       const AllFacilities=await Facility.find({});
+//       for(let i=0;i<AllFacilities.length;i++){
+//             let subject=AllFacilities[i].SlotAvailability;
+//             let nsa=[];
+//             for(let j=0;j<subject.length;j++){
+//                   const d1=subject[j].date;
+//                   if (appointmentHelper.comparedatecurr1(d1)==0){
+//                         nsa.push(subject[j]);
+//                   }
+//             }
+//             nsa=updhelepr.alteredlist(nsa,AllFacilities[i].Offdays);
+//             AllFacilities[i].SlotAvailability=nsa;
+//             await AllFacilities[i].save();
+//       }
+// },{
+//       scheduled:false,
+//       timezone:'Asia/Kolkata'
+// });
 task.start();

@@ -23,7 +23,7 @@ from '@material-ui/core';
 
 const columns = [
   { id: 'Name', label: 'Name', minWidth: 170 },
-  { id: 'Test', label: 'Test Name', minWidth: 100 },
+  { id: 'Test', label: 'Service', minWidth: 100 },
   {
     id: 'date',
     label: 'Date',
@@ -32,19 +32,19 @@ const columns = [
   },
   {
     id: 'Slot',
-    label: 'Slot Timings',
+    label: 'Slot Details',
     minWidth: 170,
     align: 'center',
   },
   {
     id: 'PhoneNo',
-    label: 'Contact Details',
+    label: 'Contact',
     minWidth: 170,
     align: 'center',
   },
   {
     id: 'Sendresult',
-    label: 'Send Result',
+    label: 'Result',
     minWidth: 170,
     align: 'center',
   },
@@ -161,7 +161,7 @@ function StickyHeadTable({appointments,handleModal,centerInfo}) {
                     if(column.id=="Sendresult" && row[column.id]!="--"){
                       return(
                         <TableCell key={column.id} align={column.align}>
-                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={()=> handleClickBtn(value,row['appInfo'])}>{row["flag"]==1 ? "Send Result" : "Resend Result"}</Button>
+                        <Button style={{border:'5px solid bisque',backgroundColor:'white',color:'black'}} variant="success" onClick={()=> handleClickBtn(value,row['appInfo'])}>{row["flag"]==1 ? "Send " : "Resend"}</Button>
                       </TableCell>
                         );
                     }

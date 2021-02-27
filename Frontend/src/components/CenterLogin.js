@@ -127,9 +127,9 @@ class CenterLogin extends Component {
               </div>
               {isFaultyL && (
                 <div style={{color:"red"}} className="err-msg">
-                  <h2>
-                    All fields are not filled or there is an error in your input
-                  </h2>
+                  <h5>
+                    *All fields are not filled or there is an error in your input
+                  </h5>
                 </div>
               )}
               {!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}{!isFaultyL && <br />}

@@ -298,5 +298,4 @@ const alteredlist=(initiallist,blockeddays)=>{
 }
 
 
-
 module.exports={listofnextsevendays,formatdate,alteredlist,formattimestring};

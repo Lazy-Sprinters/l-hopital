@@ -12,19 +12,22 @@ const nodemailer=require('nodemailer');
 const axios = require('axios').default;
 const bcrypt=require('bcryptjs');
 const Authmiddleware=require('../middleware/auth1');
+const path=require('path');
+
+require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
 //Setting up functionality for message-based authentication
 const vonage = new Vonage({
-      apiKey: 'b054c65b',
-      apiSecret: 'gur6FHnIalka5e7d'
+      apiKey: process.env.VKEY,
+      apiSecret: process.env.SECRET
 });
 
 //Setting up functionality for email-based authentication
 const transporter=nodemailer.createTransport({
-      service: 'gmail',
+      service: process.env.SECRET,
       auth:{
-            user:'r20324pavitra@dpsrkp.net',
-            pass:'PASSWORD'
+            user:process.env.TEST_MAIL,
+            pass:process.env.TEST_PASS
       }
 });
 
@@ -44,7 +47,7 @@ router.post('/center/signup1',async (req,res)=>{
                   await center.save();
                   center.Status=false;
                   const ProvidedAddress=center.NearestLandmark+' '+center.City+' '+center.Pincode+' '+center.State+' '+center.Country;
-                  const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+                  const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey='+process.env.API_KEY);
                   const coordinates=Object.values(response.data.items[0].position);
                   await center.PositionCoordinates.push(coordinates[0]);
                   await center.PositionCoordinates.push(coordinates[1]);
@@ -93,6 +96,7 @@ router.post('/center/signup1',async (req,res)=>{
                   res.status(400).send("Email is invalid");
             }
             else if (CenterinQuestion.PositionCoordinates.length==0){
+                  await Center.deleteOne({Email:req.body.Email});
                   res.status(400).send("User is already registered");
             }
             else if(CenterinQuestion!=undefined){
@@ -257,7 +261,10 @@ router.post('/center/prevapp',Authmiddleware,async(req,res)=>{
                         Date:filtered[i].dateofappointment,
                         Slot:filtered[i].Slotdetails,
                         PhoneNo:currentuser.PhoneNumber,
-                        Email:currentuser.Email
+                        Email:currentuser.Email,
+                        appid:filtered[i]._id,
+                        userid:currentuser._id,
+                        flag:((filtered[i].ResultStatus==false)?1:0)
                   });
             }
             // console.log(ret);
@@ -290,6 +297,7 @@ router.post('/center/presapp',Authmiddleware,async(req,res)=>{
                         flag:((filtered[i].Attended==false)?1:0)
                   });
             }
+            // console.log(ret);
             res.status(200).send(ret);
       }catch(err){
             console.log(err);
@@ -315,6 +323,7 @@ router.post('/center/futapp',Authmiddleware,async (req,res)=>{
                         appid:filtered[i]._id,
                   });
             }
+            // console.log(ret);
             res.status(200).send(ret);
       }catch(err){
             console.log(err);
@@ -437,4 +446,13 @@ router.post('/center/profile',Authmiddleware,async(req,res)=>{
       }
 })
 
+router.post('/center/sendres',Authmiddleware,async(req,res)=>{
+      try{
+            const appointment=await Appointment.findOneAndUpdate({_id:req.body.appInfo.appid},{ResultStatus:true});
+            res.status(200).send();
+      }catch(err){
+            console.log(err);
+            res.status(400).send();
+      }
+})
 module.exports=router;

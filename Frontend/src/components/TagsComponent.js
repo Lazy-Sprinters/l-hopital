@@ -10,7 +10,6 @@ export class TagsComponent extends React.Component {
     return (
       <div className="form">
         <div className="tags">
-        What Else It Offers:
           <ul style={{listStyle: "none"}}>
             {this.props.tags.map((tag, i) => (
               <li key={tag + i} className="tag">

@@ -61,6 +61,7 @@ const comparedatecurr1=(d1)=>{
 
 const arrange=(data)=>{
       let data1=[];
+      // console.log(comparedatecurr(data[0].dateofappointment));
       for(let i=0;i<data.length;i++){
             if (comparedatecurr(data[i].dateofappointment)==1){
                   data1.push(data[i]);

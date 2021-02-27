@@ -1,21 +1,6 @@
-const Vonage = require('@vonage/server-sdk');
-const nodemailer=require('nodemailer');
-const axios = require('axios').default;
+const path=require('path');
 
-//Setting up functionality for message-based authentication
-const vonage = new Vonage({
-      apiKey: 'b054c65b',
-      apiSecret: 'gur6FHnIalka5e7d'
-});
-
-//Setting up functionality for email-based authentication
-const transporter=nodemailer.createTransport({
-      service: 'gmail',
-      auth:{
-            user:'r20324pavitra@dpsrkp.net',
-            pass:'PASSWORD'
-      }
-});
+require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
 //Setting up functionality for random-otp generation
 const GetOtp=()=>{
@@ -30,7 +15,7 @@ const GetOtp=()=>{
 //Helper function to generate a email body
 const EmailBody=(emailid,otp)=>{
       const message={
-            from:'r20324pavitra@dpsrkp.net',
+            from:process.env.TEST_MAIL,
             to:emailid.toString(),
             subject:'Thanks for registering.Here is your verification OTP!',
             text:'Your verification OTP is '+otp.toString()+'\nThe OTP should be used within 30 min otherwise all your data will be erased from the database and you will be obliged to redo the registration process.'

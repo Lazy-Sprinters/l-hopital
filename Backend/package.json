@@ -27,9 +27,11 @@
     "node-cron": "^2.0.3",
     "node-schedule": "^2.0.0",
     "nodemailer": "^6.4.17",
+    "path": "^0.12.7",
     "validator": "^13.5.2"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.7"
   }
 }

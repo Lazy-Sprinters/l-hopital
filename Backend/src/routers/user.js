@@ -12,19 +12,22 @@ const nodemailer=require('nodemailer');
 const MainHelper=require('../helpers/all-utility');
 const axios = require('axios').default;
 const bcrypt=require('bcryptjs');
+const path=require('path');
+
+require('dotenv').config({path:path.resolve(__dirname, '../../.env') });
 
 //Setting up functionality for message-based authentication
 const vonage = new Vonage({
-      apiKey: 'b054c65b',
-      apiSecret: 'gur6FHnIalka5e7d'
+      apiKey: process.env.VKEY,
+      apiSecret: process.env.SECRET
 });
 
 //Setting up functionality for email-based authentication
 const transporter=nodemailer.createTransport({
-      service: 'gmail',
+      service: process.env.SECRET,
       auth:{
-            user:'r20324pavitra@dpsrkp.net',
-            pass:'PASSWORD'
+            user:process.env.TEST_MAIL,
+            pass:process.env.TEST_PASS
       }
 });
 
@@ -36,7 +39,7 @@ router.post('/user/signup1',async (req,res)=>{
             await user.save();
             user.Status=false;
             const ProvidedAddress=user.NearestLandmark+' '+user.City+' '+user.Pincode+' '+user.State+' '+user.Country;
-            const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+            const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey='+process.env.API_KEY);
             const token=await user.generateauthtoken();
             const coordinates=Object.values(response.data.items[0].position);
             await user.PositionCoordinates.push(coordinates[0]);
@@ -115,8 +118,8 @@ router.post('/user/newotps',Authmiddleware,async (req,res)=>{
                   const messagebody=RegistrationUtil.MessageBody(otp2);
                   // let emailinfo=await transporter.sendMail(emailbody);
                   // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
-                  user.RecentEmailOtps.push(otp1);
-                  user.RecentMobileOtps.push(otp2);
+                  await user.RecentEmailOtps.push(otp1);
+                  await user.RecentMobileOtps.push(otp2);
                   await user.save();
                   res.status(200).send();
             }
@@ -172,7 +175,7 @@ router.post('/user/match',Authmiddleware,async (req,res)=>{
                         const center=await Center.findOne({_id:i.own,Status:true});
                         const clientcoor=user.PositionCoordinates[0].toString()+','+user.PositionCoordinates[1].toString();
                         const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
-                        const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk';
+                        const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey='+process.env.API_KEY;
                         const response=await axios.get(url);
                         let uallopts=new Set(center.Alloptions);
                         uallopts=Array.from(uallopts);
@@ -379,7 +382,7 @@ router.post('/user/update',Authmiddleware,async (req,res)=>{
       }
 })
 
-//Route-13:Logging a user out
+//Route-14:Logging a user out
 router.post('/user/logout',Authmiddleware,async (req,res)=>{
       try{
             // console.log(req.user);
