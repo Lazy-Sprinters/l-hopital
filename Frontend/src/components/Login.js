@@ -77,7 +77,7 @@ class Login extends Component {
     };
 
         return (
-          <div>
+          <div className="lbody">
             <Navbar />
             <div className="Login-bg" style={{background: 'linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)'}}>
             <div className="base-container" style={{marginTop:"3vh"}}>
