@@ -75,7 +75,7 @@ export class CenterRegisterForm extends Component {
     CapacityperSlot:"",
     Price:"",
     facilityShow:"",
-    dropdown:["Diabetes","Thyroid","Thypoid","CT Scan","MRI","Thermal Scan","COVID-19"]
+    dropdown:["MRI","COVID-19","Diabetes","Thyroid","Typhoid","CT Scan","Thermal Scan","Blood Test","Urine Test"],
 
   };
 

@@ -60,7 +60,7 @@ export class CenterProfileView extends React.Component {
     FacilityName:"",
     CapacityperSlot:"",
     Price:"",
-    dropdown:["Diabetes","Thyroid","Thypoid","CT Scan","MRI","Thermal Scan","COVID-19"],
+    dropdown:["MRI","COVID-19","Diabetes","Thyroid","Typhoid","CT Scan","Thermal Scan","Blood Test","Urine Test"],
     len:0
   };
   start = () => {
@@ -211,6 +211,7 @@ export class CenterProfileView extends React.Component {
     this.setState({modal:x})
   };
   handleproceed = () => {
+        this.setState({modal:false});
       window.location.reload();
   };
   handleChange1 = input => e => {
@@ -660,9 +661,9 @@ export class CenterProfileView extends React.Component {
           </div>
 
           <div>
-            <div style={{marginTop:'-6vh',width:'25vw',marginLeft:"-5vw",padding:'7px 20px' ,  boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)'}}>
+            <div style={{marginTop:'-6vh',width:'25vw',marginLeft:"-5vw",padding:'7px 20px' , border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}>
               <h4>{!editProfile ? " Facilites" : " Edit Facilities"} </h4>
-                {facilityShow}
+                <div >{facilityShow}</div>
                 {editProfile &&
                   <>
                   <div className="txtfld4">
@@ -736,14 +737,14 @@ export class CenterProfileView extends React.Component {
                         centerInfo.data.center.City!=City ||
                         centerInfo.data.center.Pincode!=Pincode ||
                         centerInfo.data.center.State!=State ||
-                        centerInfo.data.center.Country!=Country || (Password.length>=8)) && (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) ||
+                        centerInfo.data.center.Country!=Country || facilitiesList!=facilities || (Password.length>=8)) && (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) ||
                         (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) && !(centerInfo.data.center.Address==Address &&
                         centerInfo.data.center.LicenseNum==LicenseNum &&
                         centerInfo.data.center.NearestLandmark==NearestLandmark &&
                         centerInfo.data.center.City==City &&
                         centerInfo.data.center.Pincode==Pincode &&
                         centerInfo.data.center.State==State &&
-                        centerInfo.data.center.Country==Country && centerInfo.data.center.Email==Email && PhoneNo==centerInfo.data.center.PhoneNo && Password.length<8)) 
+                        centerInfo.data.center.Country==Country && facilitiesList==facilities && centerInfo.data.center.Email==Email && PhoneNo==centerInfo.data.center.PhoneNo && Password.length<8)) 
                     )
                   }
                     size="small"
@@ -762,21 +763,21 @@ export class CenterProfileView extends React.Component {
                   variant="info"
                   size="lg"
                   disabled={Validitypassword.length<=7 || !(editProfile &&
-                    ((((centerInfo.data.center.Address!=Address ||
-                      centerInfo.data.center.LicenseNum!=LicenseNum ||
-                      centerInfo.data.center.NearestLandmark!=NearestLandmark ||
-                      centerInfo.data.center.City!=City ||
-                      centerInfo.data.center.Pincode!=Pincode ||
-                      centerInfo.data.center.State!=State ||
-                      centerInfo.data.center.Country!=Country || (Password.length>=8)) && (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) ||
-                      (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) && !(centerInfo.data.center.Address==Address &&
-                       centerInfo.data.center.LicenseNum==LicenseNum &&
-                       centerInfo.data.center.NearestLandmark==NearestLandmark &&
-                       centerInfo.data.center.City==City &&
-                       centerInfo.data.center.Pincode==Pincode &&
-                       centerInfo.data.center.State==State &&
-                       centerInfo.data.center.Country==Country && centerInfo.data.center.Email==Email && PhoneNo==centerInfo.data.center.PhoneNo && Password.length<8)) 
-                   )
+                     ((((centerInfo.data.center.Address!=Address ||
+                        centerInfo.data.center.LicenseNum!=LicenseNum ||
+                        centerInfo.data.center.NearestLandmark!=NearestLandmark ||
+                        centerInfo.data.center.City!=City ||
+                        centerInfo.data.center.Pincode!=Pincode ||
+                        centerInfo.data.center.State!=State ||
+                        centerInfo.data.center.Country!=Country || facilitiesList!=facilities || (Password.length>=8)) && (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) ||
+                        (Email==centerInfo.data.center.Email ||(Email==tempEmail && tempEmail!=centerInfo.data.center.Email)) && (PhoneNo==centerInfo.data.center.PhoneNo || (PhoneNo==tempPhoneNo && tempPhoneNo!=centerInfo.data.center.PhoneNo))) && !(centerInfo.data.center.Address==Address &&
+                        centerInfo.data.center.LicenseNum==LicenseNum &&
+                        centerInfo.data.center.NearestLandmark==NearestLandmark &&
+                        centerInfo.data.center.City==City &&
+                        centerInfo.data.center.Pincode==Pincode &&
+                        centerInfo.data.center.State==State &&
+                        centerInfo.data.center.Country==Country && facilitiesList==facilities && centerInfo.data.center.Email==Email && PhoneNo==centerInfo.data.center.PhoneNo && Password.length<8)) 
+                    )
                  }
                   onClick={() => this.EditDetails(centerInfo,tempValues)}
                 >
