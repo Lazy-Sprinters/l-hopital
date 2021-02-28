@@ -28,8 +28,7 @@ const facilitySchema=mongoose.Schema({
       Offdays:[String],//will be derived from the center data
       owner:{
             type:mongoose.Schema.Types.ObjectId,
-            required:true,
-            ref:'Center',
+            required:true
       }
 })
 

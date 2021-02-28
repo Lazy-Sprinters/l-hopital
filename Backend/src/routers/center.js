@@ -185,11 +185,11 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
             if (center.Reviews.length==0){
                   const reviews={
                         arr:[{
-                              text:"Good boi",
+                              text:"Good Facilities",
                               stars:5
                         }],
-                        posper:70,
-                        negper:30,
+                        posper:100,
+                        negper:20,
                         comment:"Everything looks not good as of now",
                         avgstars:5,
                         flag:1
@@ -469,12 +469,12 @@ router.post('/center/update',Authmiddleware,async (req,res)=>{
                   // console.log(currcenter);
                   const ProvidedAddress=currcenter.NearestLandmark+' '+currcenter.City+' '+currcenter.Pincode+' '+currcenter.State+' '+currcenter.Country;
                   // console.log(ProvidedAddress);
-                  const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
-                  // console.log(response.data);
-                  const coordinates=Object.values(response.data.items[0].position);
-                  currcenter.PositionCoordinates.length=0;
-                  currcenter.PositionCoordinates[0]=(coordinates[0]);
-                  currcenter.PositionCoordinates[1]=(coordinates[1]);
+                  // const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+                  // // console.log(response.data);
+                  // const coordinates=Object.values(response.data.items[0].position);
+                  // currcenter.PositionCoordinates.length=0;
+                  // currcenter.PositionCoordinates[0]=(coordinates[0]);
+                  // currcenter.PositionCoordinates[1]=(coordinates[1]);
                   await currcenter.save();
                   // console.log(currcenter);
                   const token=req.token;
@@ -484,16 +484,17 @@ router.post('/center/update',Authmiddleware,async (req,res)=>{
 
                         if (f==undefined){
                               const newFac=new Facility({
-                                    FacilityName:facilities[i].FacilityName,
-                                    CapacityperSlot:facilities[i].CapacityperSlot,
-                                    Price:facilities[i].Price,
+                                    FacilityName:reqobj.facilities[i].FacilityName,
+                                    CapacityperSlot:reqobj.facilities[i].CapacityperSlot,
+                                    Price:reqobj.facilities[i].Price,
                                     Offdays:f1.Offdays,
                                     owner:reqobj._id
                               });
-                              center.Alloptions.push(facilities[i].FacilityName);
-                              await center.save();
+                              currcenter.Alloptions.push(reqobj.facilities[i].FacilityName);
+                              await currcenter.save();
                               const currdate=RegistrationUtil.formatdate(new Date());
-                              newFac.SlotAvailability=RegistrationUtil.listofnextsevendays(Offdays,currdate,facilities[i].CapacityperSlot,center.OpeningTime,center.ClosingTime);
+                              newFac.SlotAvailability=RegistrationUtil.listofnextsevendays(f1.Offdays,currdate,reqobj.facilities[i].CapacityperSlot,currcenter.OpeningTime,currcenter.ClosingTime);
+                              console.log(newFac);
                               await newFac.save(); 
                         }
                   }

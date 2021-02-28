@@ -265,7 +265,6 @@ router.post('/user/allappointments',Authmiddleware,async(req,res)=>{
                   res.status(404).send();
             }
             else{
-                  allappointments.sort(Apphelper.comp1());
                   for(let i=0;i<allappointments.length;i++){
                         const concernedcenter=await Center.findOne({_id:allappointments[i].center_id});
                         ret.push(MainHelper.getformatshowappointment(concernedcenter,allappointments[i]));
