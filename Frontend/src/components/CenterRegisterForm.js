@@ -601,13 +601,8 @@ export class CenterRegisterForm extends Component {
             size="lg"
             name="Terms & Conditions"
             head="Read The Terms And Conditions Carefully"
-            text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
-                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim 
-                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-                        aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                         in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
-                         sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-                         mollit anim id est laborum."
+            text="The protal is not responsible for any mishaps in the test centre.If you cancel an appointment of the user
+            that can in further run decrease your positive credibility decreasing the capacity per slot of the test centre slot."
             show={ModalShow}
             onHide={() => this.handleModal(false)}
             onAgree={() => this.register(values)}
