@@ -6,6 +6,7 @@ const Facility=require('../models/facilities');
 const router=new express.Router();
 const RegistrationUtil=require('../helpers/center-registration-helper');
 const RegistrationUtil1=require('../helpers/Registration-helper');
+const MainHelper=require('../helpers/all-utility');
 const AppointmentHelper=require('../helpers/Appointment-helper');
 const Vonage = require('@vonage/server-sdk');
 const nodemailer=require('nodemailer');
@@ -234,8 +235,9 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
 //Route-6
 router.post('/review/new',async (req,res)=>{
       try{
-            console.log(req.body);
+            // console.log(req.body);
             const center=await Center.findOne({_id:req.body._id});
+            // console.log(center);
             center.Reviews.push({
                   text:req.body.review,
                   stars:req.body.rating
@@ -458,8 +460,53 @@ router.post('/center/sendres',Authmiddleware,async(req,res)=>{
 })
 
 router.post('/center/update',Authmiddleware,async (req,res)=>{
-      console.log(req.body);
-      res.status(200).send();
+      try{
+            const reqobj=req.body.data;
+            let currcenter=await Center.findOne({_id:reqobj.id});
+            const ismatch=await bcrypt.compare(reqobj.Validitypassword,currcenter.Password);
+            if (ismatch){
+                  currcenter=await MainHelper.assignuserchanges1(currcenter,reqobj);
+                  // console.log(currcenter);
+                  const ProvidedAddress=currcenter.NearestLandmark+' '+currcenter.City+' '+currcenter.Pincode+' '+currcenter.State+' '+currcenter.Country;
+                  // console.log(ProvidedAddress);
+                  const response=await axios.get('https://geocode.search.hereapi.com/v1/geocode?q='+ProvidedAddress+'&apiKey=tbeKC9DJdnRIZ1p5x496OgpIUj2vbL5CWADs8czW5Rk');
+                  // console.log(response.data);
+                  const coordinates=Object.values(response.data.items[0].position);
+                  currcenter.PositionCoordinates.length=0;
+                  currcenter.PositionCoordinates[0]=(coordinates[0]);
+                  currcenter.PositionCoordinates[1]=(coordinates[1]);
+                  await currcenter.save();
+                  // console.log(currcenter);
+                  const token=req.token;
+                  const f1=await Facility.findOne({owner:reqobj.id});
+                  for(let i=0;i<reqobj.facilities.length;i++){
+                        const f=await Facility.findOne({owner:reqobj.id,FacilityName:reqobj.facilities[i].FacilityName});
+
+                        if (f==undefined){
+                              const newFac=new Facility({
+                                    FacilityName:facilities[i].FacilityName,
+                                    CapacityperSlot:facilities[i].CapacityperSlot,
+                                    Price:facilities[i].Price,
+                                    Offdays:f1.Offdays,
+                                    owner:reqobj._id
+                              });
+                              center.Alloptions.push(facilities[i].FacilityName);
+                              await center.save();
+                              const currdate=RegistrationUtil.formatdate(new Date());
+                              newFac.SlotAvailability=RegistrationUtil.listofnextsevendays(Offdays,currdate,facilities[i].CapacityperSlot,center.OpeningTime,center.ClosingTime);
+                              await newFac.save(); 
+                        }
+                  }
+                  res.status(200).send({user:currcenter,token});
+            }
+            else{
+                  res.status(400).send("Password Mismatch")
+            }
+      }catch(err){
+            //Mostly due to invalid address
+            console.log(err);
+            res.status(400).send(err);
+      }
 })
 
 module.exports=router;

@@ -93,4 +93,19 @@ const assignuserchanges=async (original,upd)=>{
       return original;
 };
 
-module.exports={modifyslotdata,getformatappointment,getformatshowappointment,getallopenslots,assignuserchanges};
+const assignuserchanges1=async (original,upd)=>{
+      original.Email=upd.Email;
+      original.NearestLandmark=upd.NearestLandmark;
+      original.City=upd.City;
+      original.Pincode=upd.Pincode;
+      original.State=upd.State;
+      original.Country=upd.Country;
+      original.PhoneNumber=upd.PhoneNumber;
+      if (upd.Password!='')
+      {
+            original.Password=upd.Password;
+      }
+      return original;
+};
+
+module.exports={modifyslotdata,getformatappointment,getformatshowappointment,getallopenslots,assignuserchanges,assignuserchanges1};
