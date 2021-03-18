@@ -15,7 +15,7 @@ const reducer = (state = initialState,action) =>{
 	switch (action.type) {
 		case actionTypes.CHANGE_STATE:
 		{
-			console.log("userInfo edited")
+			// console.log("userInfo edited")
 			return{
 				...state,
 				userInfo:action.userInfo
@@ -23,7 +23,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CHECK:
 		{
-			console.log("check edited")
+			// console.log("check edited")
 			return{
 				...state,
 				check:action.check
@@ -31,7 +31,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CENTRELIST:
 		{
-			console.log("centreList edited")
+			// console.log("centreList edited")
 			return{
 				...state,
 				centreList:action.centreList
@@ -39,7 +39,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CENTREVALUE:
 		{
-			console.log("CentreValue edited")
+			// console.log("CentreValue edited")
 			return{
 				...state,
 				CentreValue:action.CentreValue
@@ -47,7 +47,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_SLOTS:
 		{
-			console.log("slots edited")
+			// console.log("slots edited")
 			return{
 				...state,
 				slots:action.slots
@@ -55,7 +55,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_TESTINFO:
 		{
-			console.log("testInfo edited")
+			// console.log("testInfo edited")
 			return{
 				...state,
 				testInfo:action.testInfo
@@ -63,7 +63,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CENTERINFO:
 		{
-			console.log("CenterInfo edited")
+			// console.log("CenterInfo edited")
 			return{
 				...state,
 				centerInfo:action.centerInfo
@@ -71,7 +71,7 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_BOOKINFO:
 		{
-			console.log("BookInfo edited")
+			// console.log("BookInfo edited")
 			return{
 				...state,
 				bookInfo:action.bookInfo

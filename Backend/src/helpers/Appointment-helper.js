@@ -84,11 +84,13 @@ const arrange1=(data)=>{
 
 const arrange2=(data)=>{
       let data1=[];
+      // console.log(data);
       for(let i=0;i<data.length;i++){
             if (comparedatecurr1(data[i].dateofappointment)==0){
                   data1.push(data[i]);
             }
       }
+      // console.log(data1);
       data1.sort(comp1);
       return data1;
 }

@@ -48,21 +48,22 @@ export class CentreCards extends React.Component {
   };
   show( userInfo) {
     /* tochange */
+    this.setState({ initial: false });
     const test=this.props.bookInfo.test;
     const date=this.props.bookInfo.date;
     const data={test,date,userInfo};
+    // let centreList;
     Axios.post("http://localhost:5000/user/match",data)
       .then((res) => {
         console.log(res);
         // this.handleSearch(res);
-        this.setState({centreList:res.data});
+        this.show2(res.data,userInfo);
       })
       .catch((err) => {
           console.log("Axios", err.message);
       }); 
-    console.log(userInfo);
-    this.setState({ initial: false });
-    const centreList=this.state.centreList;
+  }
+    show2(centreList,userInfo){
     let len = centreList.length;
     let i;
     const code: JSX.Element[] = [];
@@ -77,6 +78,7 @@ export class CentreCards extends React.Component {
     //   Rating='3'
     //   Tags={['Some', 'Random', 'text','Some', 'Random', 'text','Some']}/>);
     for (i = 0; i < len - 2; i += 3) {
+      console.log(i)
       let value = centreList[i];
       let value1 = centreList[i + 1];
       let value2 = centreList[i + 2];

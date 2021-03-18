@@ -136,7 +136,7 @@ router.post('/user/newotps',Authmiddleware,async (req,res)=>{
 
 // Route-5:Sending Matched center
 router.post('/user/match',Authmiddleware,async (req,res)=>{
-      // console.log(req.body.userInfo.data);
+      // console.log(req.body);
       try{
             const requiredFacility=req.body.test;
             const requiredDate=req.body.date;

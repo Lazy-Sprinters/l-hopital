@@ -310,8 +310,10 @@ router.post('/center/presapp',Authmiddleware,async(req,res)=>{
 //Route-9
 router.post('/center/futapp',Authmiddleware,async (req,res)=>{
       try{  
+            // console.log(req.body.centerInfo.data.center._id);
             const appointments=await Appointment.find({center_id:req.body.centerInfo.data.center._id});
             const filtered=AppointmentHelper.arrange2(appointments);
+            // console.log(filtered);
             let ret=[];
             for(let i=0;i<filtered.length;i++){
                   const currentuser=await User.findOne({_id:filtered[i].user_id});
