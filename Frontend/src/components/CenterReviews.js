@@ -7,7 +7,7 @@ import Axios from "axios";
 import StickyHeadTable from './StickyHeadTable'
 import MuiAlert from '@material-ui/lab/Alert';
 import Progress from './Progress';
-
+import FullOption from './FullOption';
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -27,21 +27,47 @@ export class CenterReviews extends Component {
       <h1>Your Reviews</h1>
         <StickyHeadTable arr={reviews.arr}/>
       </div>
-      <div style={{marginLeft:'10vw', marginTop:'10vh'}}>
+      <div style={{marginLeft:'10vw', marginTop:'0vh'}}>
       {reviews.flag==0 
         ?
           <Alert style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}} severity="error">{reviews.comment}</Alert>
         :
           <Alert style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  severity="success">{reviews.comment}</Alert>
       }
-      <Progress style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  value={reviews.posper}/>
-
+      {/*<Progress style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  value={reviews.posper}/>
+*/}
+      {/*<PieChart
+        data={[
+          { label: 'Positive Feedback', value: reviews.posper, color: 'green' },
+          { label: 'Negative Feedback', value: reviews.negper, color: 'red' },
+        ]}
+      />*/}
+      {/*<PieChart
+        style={{ marginTop:'1vw' , height: '15vw' }}
+        data={[
+          { label: 'Positive Feedback',value: 60, color: 'green' },
+          { label: 'Negative Feedback', value: 40, color: 'red' },
+        ]}
+        radius={PieChart.defaultProps.radius - shiftSize}
+        segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
+        label={({ dataEntry }) => dataEntry.label}
+        labelStyle={(index) => ({
+          fontSize: '5px',
+          fontStyle: 'bold',
+          fontFamily: 'sans-serif',
+      })}
+      />*/}
+      <FullOption 
+        data={[
+          { label: 'Positive Feedback',value: 60, color: 'green' },
+          { label: 'Negative Feedback', value: 40, color: 'red' },
+        ]} />
       </div>
     </div>
 
     <br/>
     </div>
-    );
+    )
   }
 }
 

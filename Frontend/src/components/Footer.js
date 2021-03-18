@@ -38,10 +38,10 @@ function Footer() {
         <div className='social-media-wrap'>
           <div className='footer-logo'>
             <Link to='/' className='social-logo' style={{textDecoration:'none'}}>
-               <b>M</b>ake<b>M</b>y<b>A</b>ppointment
+             <b style={{fontSize:"30px"}}>l'hopital</b>
             </Link>
           </div>
-          <small className='website-rights'>MakeMyAppointment © 2021</small>
+          <small className='website-rights'>l'hopital © 2021</small>
           <div className='social-icons'>
             <ul> 
               <li>
