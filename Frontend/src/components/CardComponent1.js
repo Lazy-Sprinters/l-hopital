@@ -71,7 +71,7 @@ export default function CardComponent1({handleSlot,data,data1,img,Name,Address,C
       </Typography>
       <CardMedia
         className={classes.media}
-        image={img}
+        image={"data:image/jpg;base64,"+img.toString()}
         title={Name}
       />
       <CardContent>

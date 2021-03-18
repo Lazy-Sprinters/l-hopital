@@ -369,7 +369,7 @@ export class CenterProfileView extends React.Component {
         onAgree={() => this.handleproceed()}
       />
       <div style={{marginLeft:"5vw"}} className="row">
-        <Avatar style={{width:'80px',height:'80px',backgroundColor:'#a5a89f' , marginLeft:'40px', marginTop:'20px'}} src={centerInfo.data.center.FrontImage} />
+        <Avatar style={{width:'80px',height:'80px',backgroundColor:'#a5a89f' , marginLeft:'40px', marginTop:'20px'}} src={"data:image/jpg;base64,"+centerInfo.data.center.FrontImage.toString()} />
         <div >
             <Typography style={{width:'80px',height:'80px', marginLeft:'40px', marginTop:'20px',whiteSpace:'nowrap',fontSize:'40px'}}>{centerInfo.data.center.Name}</Typography>
           <div className="row">

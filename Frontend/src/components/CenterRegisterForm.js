@@ -499,7 +499,7 @@ export class CenterRegisterForm extends Component {
                     placeholder="Enter the Google Drive Link for the image"
                     variant="outlined"
                     onChange={this.handleImage('FrontImage')}
-                    type="text"
+                    type="file"
                     fullWidth
                   />
                   </div>
