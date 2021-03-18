@@ -189,7 +189,7 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
                               stars:5
                         }],
                         posper:100,
-                        negper:20,
+                        negper:0,
                         comment:"Everything looks not good as of now",
                         avgstars:5,
                         flag:1
@@ -204,7 +204,7 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
                               review:center.Reviews[i].text
                         };
                         sum+=center.Reviews[i].stars;
-                        const response=await axios.post('http://f7c9e5c63ef0.ngrok.io',data1);
+                        const response=await axios.post('http://3fc9e962ed17.ngrok.io',data1);
                         if (response.data=='negative'){
                               negp+=1;
                         }else{
@@ -398,7 +398,7 @@ router.post('/center/sendotp',Authmiddleware,async(req,res)=>{
                   res.status(200).send("Otp sent successfully");
             }
             else{
-                  const messagebody=RegistrationUtil.MessageBody(otp);
+                  const messagebody=RegistrationUtil1.MessageBody(otp);
                   // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
                   center.RecentMobileOtps.push(otp);
                   await center.save();

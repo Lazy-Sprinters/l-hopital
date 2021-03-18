@@ -114,8 +114,8 @@ router.post('/user/newotps',Authmiddleware,async (req,res)=>{
             if (user!==undefined && user.Status==false){
                   const otp1=RegistrationUtil.GetOtp();
                   const otp2=RegistrationUtil.GetOtp();
-                  const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
-                  const messagebody=RegistrationUtil.MessageBody(otp2);
+                  // const emailbody=RegistrationUtil.EmailBody(user.Email,otp1);
+                  // const messagebody=RegistrationUtil.MessageBody(otp2);
                   // let emailinfo=await transporter.sendMail(emailbody);
                   // let messageinfo=await vonage.message.sendSms('Team',"91"+user.PhoneNumber,messagebody);
                   await user.RecentEmailOtps.push(otp1);
@@ -320,7 +320,7 @@ router.post('/user/sendotp',Authmiddleware,async(req,res)=>{
             }
       }catch(err){
             console.log(err);
-            res.send(400).send(err);
+            res.status(400).send(err);
       }
 })
 
