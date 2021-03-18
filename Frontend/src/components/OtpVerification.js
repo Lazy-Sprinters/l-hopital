@@ -141,7 +141,7 @@ export class OtpVerification extends Component {
     };
 
     return (
-       <div style={{background:" linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%) "}}>
+       <div style={{backgroundColor:"#fd6a02"}}>
           <br/> <br/>
           {counter==30 ? this.start(this.props.userInfo) : null}
           <div className="err-msg">

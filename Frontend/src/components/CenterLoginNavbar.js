@@ -60,7 +60,7 @@ class CenterLoginNavbar extends Component {
     }
     return (
       <>
-        <Navbar style={{backgroundColor:'#a5a89f' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
+        <Navbar style={{backgroundColor:'#fd6a02' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
           <Navbar.Brand as={Link} to='/centerLoginHome'><b style={{fontSize:"30px"}}>l'hopital</b></Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">

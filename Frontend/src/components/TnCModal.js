@@ -4,7 +4,7 @@ import './Modal.css';
 function TnCModal(props) {
   return (
     <Modal
-      style={{backgroundColor:"linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%)"}}
+      style={{backgroundColor:"#fcf8f7"}}
       show={props.show} 
       onHide={props.onHide}
       backdrop="static"

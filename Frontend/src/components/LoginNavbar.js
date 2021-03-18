@@ -94,7 +94,7 @@ class LoginNavbar extends Component {
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(false)}
       />
-          <Navbar style={{backgroundColor:'#a5a89f' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
+          <Navbar style={{backgroundColor:'#fd6a02' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
             <Navbar.Brand as={Link} to='/loginHome'><b style={{fontSize:"30px"}}>l'hopital</b></Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
             <Navbar.Collapse style={{marginTop:'1vh'}} id="responsive-navbar-nav">
