@@ -96,6 +96,7 @@ export class CentreCards extends React.Component {
             Distance={value.dis}
             OpeningTime={value.cen.OpeningTime}
             ClosingTime={value.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
           <CardComponent1
             handleSlot={this.handleSlot}
@@ -109,6 +110,7 @@ export class CentreCards extends React.Component {
             Distance={value1.dis}
             OpeningTime={value1.cen.OpeningTime}
             ClosingTime={value1.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
           <CardComponent1
             handleSlot={this.handleSlot}
@@ -122,6 +124,7 @@ export class CentreCards extends React.Component {
             Distance={value2.dis}
             OpeningTime={value2.cen.OpeningTime}
             ClosingTime={value2.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
         </div>
       );
@@ -143,6 +146,7 @@ export class CentreCards extends React.Component {
             Distance={value.dis}
             OpeningTime={value.cen.OpeningTime}
             ClosingTime={value.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
         </div>
       );
@@ -164,6 +168,7 @@ export class CentreCards extends React.Component {
             Distance={value.dis}
             OpeningTime={value.cen.OpeningTime}
             ClosingTime={value.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
           <CardComponent1
             handleSlot={this.handleSlot}
@@ -177,6 +182,7 @@ export class CentreCards extends React.Component {
             Distance={value1.dis}
             OpeningTime={value1.cen.OpeningTime}
             ClosingTime={value1.cen.ClosingTime}
+            Rating={value.cen.AvgStars}
           />
         </div>
       );

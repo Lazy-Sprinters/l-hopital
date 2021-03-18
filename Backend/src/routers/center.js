@@ -187,8 +187,8 @@ router.post('/center/reviewdet',Authmiddleware,async (req,res)=>{
                               text:"Good Facilities",
                               stars:5
                         }],
-                        posper:100,
-                        negper:0,
+                        posper:75,
+                        negper:25,
                         comment:"Everything looks not good as of now",
                         avgstars:5,
                         flag:1

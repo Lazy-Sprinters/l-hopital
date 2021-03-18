@@ -1,5 +1,5 @@
 .p-body{
-  background-color:#fd6a02;
+  background-color:#fcf8f7;
 }
 .user-avatar {
   display: flex;
@@ -36,8 +36,8 @@
   flex-basis: 10vw;
 }
 .UserPanel{
-  background-color: #a5a89f;
-  color:white;
+  background-color: bisque;
+  color:black;
   width:49vw;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);
   margin-left:1vw;
@@ -49,8 +49,8 @@
   margin-bottom:6vh;
 }
 .box{
-  background-color: #a5a89f;
-  color:white;
+  background-color: bisque;
+  color:black;
   margin-top:-1vh;
   border-radius:10px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24);

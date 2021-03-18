@@ -4,12 +4,12 @@ import './Modal.css';
 function TnCModal(props) {
   return (
     <Modal
-      style={{backgroundColor:"#fcf8f7"}}
+    // style={{backgroundColor:"#fcf8f7"}}
       show={props.show} 
       onHide={props.onHide}
       backdrop="static"
       size={props.size}
-      className="special_modal"
+      // className="special_modal"
       centered
     >
       <Modal.Header closeButton>

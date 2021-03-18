@@ -69,7 +69,7 @@ function Row(props) {
         onHide={() => setModal(false)}
         onAgree={() => setModal(false)}
       />
-      <TableRow  style={{backgroundColor:'#ffae42'}} className={classes.root}>
+      <TableRow  style={{backgroundColor:'#fed8b1'}} className={classes.root}>
         <TableCell align="center" component="th" scope="row">
           {row.CenterName}
         </TableCell>
@@ -88,7 +88,7 @@ function Row(props) {
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow  style={{backgroundColor:'#fed8b1'}} >
+      <TableRow  style={{backgroundColor:'bisque'}} >
         <TableCell style={{  marginBottom: -10, marginTop: -10,paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
@@ -205,11 +205,11 @@ export default function CollapsibleTable({ testInfo }) {
         {start1 && convertToRows(testInfo)}
         <Table aria-label="collapsible table">
           <TableHead>
-            <TableRow style={{backgroundColor:'#ffae42'}}>
+            <TableRow style={{backgroundColor:'#fed8b1'}}>
               <TableCell align="center"><b>Center Name</b></TableCell>
               <TableCell align="center"><b>Test Name</b></TableCell>
               <TableCell align="center"><b>Date</b></TableCell>
-              <TableCell align="center"><b>Amount Paid&nbsp;(₹)</b></TableCell>
+              <TableCell align="center"><b>Payable Amount&nbsp;(₹)</b></TableCell>
               <TableCell align="center"><b>Status</b></TableCell>
               <TableCell align="center"><b>Result</b></TableCell>
               <TableCell/>
@@ -223,7 +223,7 @@ export default function CollapsibleTable({ testInfo }) {
         </Table>
       </TableContainer>
       <TablePagination
-        style={{backgroundColor:'#ffae42'}}
+        style={{backgroundColor:'#fed8b1'}}
         rowsPerPageOptions={[5, 10, 20]}
         component="div"
         count={rows.length}

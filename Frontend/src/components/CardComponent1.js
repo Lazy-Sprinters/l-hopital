@@ -9,18 +9,18 @@ import {Card , CardHeader , CardMedia , CardContent , CardActions , Collapse , A
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor:"#a5a89f",
+    backgroundColor:"bisque",
     maxWidth: '29.33%',
     boxShadow: '0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.24)',
     margin:'2% 2%',
   },
   media: {
-    color:"white",
+    color:"black",
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
   expand: {
-    color:"white",
+    color:"black",
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
     transition: theme.transitions.create('transform', {
@@ -28,18 +28,18 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   right: {
-    color:"white",
+    color:"black",
     textAlign:'right',
     marginRight:'20px',
     marginTop:'-5',
     fontSize:'100%'
   },
   left: {
-    color:"white",
+    color:"black",
     fontSize:'100%'
   },
   head:{
-    color:"white",
+    color:"black",
     margin:'10px 10px'
   },
   expandOpen: {
@@ -78,10 +78,10 @@ export default function CardComponent1({handleSlot,data,data1,img,Name,Address,C
       <Typography variant="body2" color="textPrimary" component="p"className={classes.left}>
          <b>Approximate Distance: </b>{Distance}km
       </Typography>
-        <Typography  style={{color:"white"}} component="p">
+        <Typography  style={{color:"black"}} component="p">
           <b>Address: </b>{Address}
         </Typography>
-        <Typography  style={{color:"white"}} component="p">
+        <Typography  style={{color:"black"}} component="p">
           <b>Open Hours: </b>{OpeningTime} - {ClosingTime}
         </Typography>
         <TagsComponent tags={Tags}/>

@@ -1,12 +1,12 @@
 .tags {
   background: transparent;
-  color:#fff;
+  color:#000;
   padding: 1px;
   overflow: hidden;
 }
 
 .tag {
-  color: #fff;
+  color: #000;
   font-weight: bold;
   float: left;
   padding: 0px 1px;

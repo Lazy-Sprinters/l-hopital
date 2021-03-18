@@ -120,7 +120,7 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
-      backgroundColor: "#a5a89f",
+      backgroundColor: "bisque",
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(1),
   },
@@ -172,8 +172,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    color: "white",
-      backgroundColor: "#a5a89f",
+    color: "black",
+      backgroundColor: "bisque",
       width: '100%',
     marginBottom: theme.spacing(2),
   },
@@ -302,7 +302,7 @@ export default function EnhancedTable({handleTime,slots}) {
           </Table>
         </TableContainer>
         <TablePagination
-        styles={{color:"white"}}
+        styles={{color:"black"}}
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={rows.length}
