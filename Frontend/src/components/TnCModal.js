@@ -1,4 +1,5 @@
 import {Button,Modal} from 'react-bootstrap';
+import './Modal.css';
 
 function TnCModal(props) {
   return (
@@ -8,6 +9,7 @@ function TnCModal(props) {
       onHide={props.onHide}
       backdrop="static"
       size={props.size}
+      className="special_modal"
       centered
     >
       <Modal.Header closeButton>

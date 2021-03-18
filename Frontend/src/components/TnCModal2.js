@@ -3,6 +3,7 @@ import Axios from "axios";
 import {Button,Modal} from 'react-bootstrap';
 import Rating from '@material-ui/lab/Rating';
 import {Typography,Box,TextField} from '@material-ui/core';
+import './Modal.css';
 
 function TnCModal2(props) {
   const [otp, setOtp] = React.useState("");
@@ -30,6 +31,7 @@ function TnCModal2(props) {
     show={props.show} 
       onHide={props.onHide}
       backdrop="static"
+      className="special_modal"
       dialogClassName="modal-60w"
       centered
     >

@@ -4,6 +4,8 @@ import {Button,Modal} from 'react-bootstrap';
 import Rating from '@material-ui/lab/Rating';
 import {Typography,Box,TextField} from '@material-ui/core';
 import './Test.css';
+import './Modal.css';
+
 function TnCModal(props) {
   const [value, setValue] = React.useState(2);
   const [review, setReview] = React.useState("");

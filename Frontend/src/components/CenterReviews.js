@@ -36,31 +36,10 @@ export class CenterReviews extends Component {
       }
       {/*<Progress style={{border:"2px solid  bisque" , boxShadow: "-10px 25px 50px #a5a89f"}}  value={reviews.posper}/>
 */}
-      {/*<PieChart
+      <FullOption  
         data={[
           { label: 'Positive Feedback', value: reviews.posper, color: 'green' },
           { label: 'Negative Feedback', value: reviews.negper, color: 'red' },
-        ]}
-      />*/}
-      {/*<PieChart
-        style={{ marginTop:'1vw' , height: '15vw' }}
-        data={[
-          { label: 'Positive Feedback',value: 60, color: 'green' },
-          { label: 'Negative Feedback', value: 40, color: 'red' },
-        ]}
-        radius={PieChart.defaultProps.radius - shiftSize}
-        segmentsShift={(index) => (index === 0 ? shiftSize : 0.5)}
-        label={({ dataEntry }) => dataEntry.label}
-        labelStyle={(index) => ({
-          fontSize: '5px',
-          fontStyle: 'bold',
-          fontFamily: 'sans-serif',
-      })}
-      />*/}
-      <FullOption 
-        data={[
-          { label: 'Positive Feedback',value: 60, color: 'green' },
-          { label: 'Negative Feedback', value: 40, color: 'red' },
         ]} />
       </div>
     </div>

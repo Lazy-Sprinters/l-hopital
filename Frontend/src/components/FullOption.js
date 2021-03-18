@@ -24,6 +24,8 @@ function FullOption(props) {
         fontFamily:
           '"Nunito Sans", -apple-system, Helvetica, Arial, sans-serif',
         fontSize: '0.5vw',
+        // boxShadow: "-10px 25px 50px #a5a89f",
+        // borderRadius:'50%',
         fontStyle:'bold',
         height:'16.75vw',
         marginTop:'2vw'
@@ -34,7 +36,7 @@ function FullOption(props) {
       segmentsStyle={{ transition: 'stroke .3s', cursor: 'pointer' }}
       segmentsShift={(index) => (index === selected ? 6 : 1)}
       animate
-      label={({ dataEntry }) => dataEntry.label}
+      label={({ dataEntry }) => dataEntry.value ? dataEntry.label : null}
        // Math.round(dataEntry.percentage) + '%'}
       labelPosition={100 - lineWidth/2 -10}
       labelStyle={{

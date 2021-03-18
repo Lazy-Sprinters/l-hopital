@@ -69,7 +69,7 @@ function Row(props) {
         onHide={() => setModal(false)}
         onAgree={() => setModal(false)}
       />
-      <TableRow className={classes.root}>
+      <TableRow  style={{backgroundColor:'#ffae42'}} className={classes.root}>
         <TableCell align="center" component="th" scope="row">
           {row.CenterName}
         </TableCell>
@@ -78,7 +78,7 @@ function Row(props) {
         <TableCell align="center">{row.Amount}</TableCell>
         <TableCell align="center">{row.Status}</TableCell>
         <TableCell align="center">{row.Result}</TableCell>
-        <TableCell>
+        <TableCell> 
           <IconButton
             aria-label="expand row"
             size="small"
@@ -88,7 +88,7 @@ function Row(props) {
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow>
+      <TableRow  style={{backgroundColor:'#fed8b1'}} >
         <TableCell style={{  marginBottom: -10, marginTop: -10,paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box margin={1}>
@@ -106,12 +106,12 @@ function Row(props) {
                 <TableBody>
                   {row.MoreInfo.map((moreinfo) => (
                     <TableRow key={moreinfo.TimeSlot}>
-                      <TableCell align="center" component="th" scope="row">
+                      <TableCell  align="center" component="th" scope="row">
                         {moreinfo.TimeSlot}
                       </TableCell>
-                      <TableCell align="center">{moreinfo.ContactDet}</TableCell>
+                      <TableCell  align="center">{moreinfo.ContactDet}</TableCell>
                       {(moreinfo.ContactDet!="--") &&
-                      <TableCell align="center">
+                      <TableCell  align="center">
                         <Button
                           style={{
                             border: "5px solid bisque",
@@ -205,14 +205,14 @@ export default function CollapsibleTable({ testInfo }) {
         {start1 && convertToRows(testInfo)}
         <Table aria-label="collapsible table">
           <TableHead>
-            <TableRow>
+            <TableRow style={{backgroundColor:'#ffae42'}}>
               <TableCell align="center"><b>Center Name</b></TableCell>
               <TableCell align="center"><b>Test Name</b></TableCell>
               <TableCell align="center"><b>Date</b></TableCell>
               <TableCell align="center"><b>Amount Paid&nbsp;(₹)</b></TableCell>
               <TableCell align="center"><b>Status</b></TableCell>
               <TableCell align="center"><b>Result</b></TableCell>
-              <TableCell />
+              <TableCell/>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -223,6 +223,7 @@ export default function CollapsibleTable({ testInfo }) {
         </Table>
       </TableContainer>
       <TablePagination
+        style={{backgroundColor:'#ffae42'}}
         rowsPerPageOptions={[5, 10, 20]}
         component="div"
         count={rows.length}
