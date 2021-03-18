@@ -7,7 +7,8 @@ const initialState ={
 	CentreValue:null,
 	centreList:null,
 	testInfo:null,
-	centerInfo:null
+	centerInfo:null,
+	bookInfo:null
 }
 
 const reducer = (state = initialState,action) =>{
@@ -62,10 +63,18 @@ const reducer = (state = initialState,action) =>{
 		}
 		case actionTypes.CHANGE_CENTERINFO:
 		{
-			console.log("CenterInfo edited")
+			// console.log("CenterInfo edited")
 			return{
 				...state,
 				centerInfo:action.centerInfo
+			}
+		}
+		case actionTypes.CHANGE_CENTERINFO:
+		{
+			// console.log("CenterInfo edited")
+			return{
+				...state,
+				bookInfo:action.bookInfo
 			}
 		}
 	}

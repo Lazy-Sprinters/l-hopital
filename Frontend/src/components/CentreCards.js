@@ -18,6 +18,7 @@ export class CentreCards extends React.Component {
     origcode: "",
     slots: "",
     CentreValue: "",
+    centreList:""
   };
   handleChange = (input) => (e) => {
     this.setState({ [input]: e.target.value });
@@ -45,10 +46,23 @@ export class CentreCards extends React.Component {
     this.props.onChangeslots(x.data);
     this.setState({ selected: true });
   };
-  show(centreList, userInfo) {
+  show( userInfo) {
     /* tochange */
+    const test=this.props.bookInfo.test;
+    const date=this.props.bookInfo.date;
+    const data={test,date,userInfo};
+    Axios.post("http://localhost:5000/user/match",data)
+      .then((res) => {
+        console.log(res);
+        // this.handleSearch(res);
+        this.setState({centreList:res.data});
+      })
+      .catch((err) => {
+          console.log("Axios", err.message);
+      }); 
     console.log(userInfo);
     this.setState({ initial: false });
+    const centreList=this.state.centreList;
     let len = centreList.length;
     let i;
     const code: JSX.Element[] = [];
@@ -177,6 +191,7 @@ export class CentreCards extends React.Component {
       origcode,
       slots,
       CentreValue,
+      centreList
     } = this.state;
 
     const values = {
@@ -186,7 +201,7 @@ export class CentreCards extends React.Component {
     };
     return (
       <div className="helper">
-        {initial && this.show(this.props.centreList, this.props.userInfo)}{" "}
+        {initial && this.show(this.props.userInfo)}{" "}
         {/* tochange */}
         {origcode}
         {selected && (
@@ -206,6 +221,7 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
     centreList: state.centreList,
+    bookInfo:state.bookInfo
   };
 };
 
@@ -220,6 +236,8 @@ const mapDispatchToProps = (dispatch) => {
         type: actionTypes.CHANGE_CENTREVALUE,
         CentreValue: CentreValue,
       }),
+    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList})
+
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CentreCards);

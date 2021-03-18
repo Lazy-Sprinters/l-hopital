@@ -40,8 +40,8 @@ export class BookAnAppointment extends React.Component {
     this.setState({onClose:true})
   };
   handleSearch = (x) =>{
-    // this.setState({centreList : x.data});
-    this.props.onChangecentreList(x.data);
+    this.setState({centreList : x.data});
+    // this.props.onChangecentreList(x.data);
     this.setState({recieved : true});
   };
   handleProceedFaulty = () =>  {
@@ -91,13 +91,14 @@ export class BookAnAppointment extends React.Component {
     this.setState({ ['isProceedFaulty']: false });
     const data={test,date,userInfo}
     console.log(data);
+    this.props.onChangebookInfo({test,date});
       Axios.post("http://localhost:5000/user/match",data)
       .then((res) => {
         console.log(res);
         this.handleSearch(res);
       })
       .catch((err) => {
-        if(err.response.status==403){
+        if(err.response.status==403 || err.response.status==404){
           this.handleVerfiyErr(err.response.data);
         }
         else{
@@ -224,7 +225,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>{
   return{
     onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
-    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList})
+    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
+    onChangebookInfo: (bookInfo) => dispatch({type:actionTypes.CHANGE_BOOKINFO , bookInfo:bookInfo})
   };
 };
 
