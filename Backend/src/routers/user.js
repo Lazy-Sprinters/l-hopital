@@ -136,11 +136,12 @@ router.post('/user/newotps',Authmiddleware,async (req,res)=>{
 
 // Route-5:Sending Matched center
 router.post('/user/match',Authmiddleware,async (req,res)=>{
-      // console.log(req.body);
+      // console.log(req.body.userInfo.data);
       try{
             const requiredFacility=req.body.test;
             const requiredDate=req.body.date;
             const user=req.body.userInfo.data.user;
+            // console.log(user);
             if (user.Status==false){
                   res.status(403).send("User Not Verified");
             }
@@ -167,12 +168,15 @@ router.post('/user/match',Authmiddleware,async (req,res)=>{
                               }
                         }
                   };
+                  // console.log(ids);
                   let ret=[];
                   for(let j=0;j<ids.length;j++)
                   {
                         let i=ids[j];
                         //handle unverified centres
                         const center=await Center.findOne({_id:i.own,Status:true});
+                        // console.log(user.PositionCoordinates);
+                        // console.log(center.PositionCoordinates);
                         const clientcoor=user.PositionCoordinates[0].toString()+','+user.PositionCoordinates[1].toString();
                         const centercoor=center.PositionCoordinates[0].toString()+','+center.PositionCoordinates[1].toString();
                         const url='https://router.hereapi.com/v8/routes?transportMode=car&origin='+clientcoor+'&destination='+centercoor+'&return=Summary&apiKey='+process.env.API_KEY;
@@ -190,7 +194,12 @@ router.post('/user/match',Authmiddleware,async (req,res)=>{
                         };
                         ret.push(retobj);
                   }
-                  res.status(200).send(ret);
+                  if (ret.length==0){
+                        res.status(404).send("No Test Centres found.Try sometime later!");
+                  }
+                  else{
+                        res.status(200).send(ret);
+                  }
             }
       }catch(err){
             console.log(err);

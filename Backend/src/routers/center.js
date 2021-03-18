@@ -39,7 +39,6 @@ router.post('/center/signup1',async (req,res)=>{
       center.OpeningTime=RegistrationUtil.formattimestring(req.body.OpeningTime);
       center.ClosingTime=RegistrationUtil.formattimestring(req.body.ClosingTime);
       try{
-            center.FrontImage='https://drive.google.com/thumbnail?id='+(center.FrontImage.slice(32,center.FrontImage.length-17));
             const hs=req.body.OpeningTime[0]+req.body.OpeningTime[1];
             const ms=req.body.OpeningTime[3]+req.body.OpeningTime[4];
             const he=req.body.ClosingTime[0]+req.body.ClosingTime[1];
@@ -88,6 +87,7 @@ router.post('/center/signup1',async (req,res)=>{
                   res.status(201).send({center,token});      
             }
             else{
+                  console.log('Mei randwa hu');
                   res.status(400).send('TIME ERROR');
             }
       }catch(err){
@@ -99,11 +99,10 @@ router.post('/center/signup1',async (req,res)=>{
             }
             else if (CenterinQuestion.PositionCoordinates.length==0){
                   await Center.deleteOne({Email:req.body.Email});
-                  res.status(400).send("User is already registered");
+                  res.status(400).send("Invalid Address");
             }
             else if(CenterinQuestion!=undefined){
-                  await Center.deleteOne({Email:req.body.Email});
-                  res.status(400).send("Invalid Address");
+                  res.status(400).send("User is already registered");
             }
       }
 })
