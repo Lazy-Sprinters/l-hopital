@@ -46,6 +46,7 @@ class Login extends Component {
     Axios.post("http://localhost:5000/user/login", data)
     .then((res) => {
       this.props.onChangeUserInfo(res);
+      this.props.onChangeloading(true);
       res.status == 200 ? this.handleLogin() : this.handleLoginFaulty();
     })
     .catch((err) => {
@@ -156,7 +157,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
-    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo})
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
+    
   };
 };
 

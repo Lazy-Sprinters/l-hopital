@@ -45,12 +45,13 @@ class LoginNavbar extends Component {
     e.preventDefault();
     this.closeMobileMenu();
     const userInfo = {userInfo:data}
+    this.props.onChangeloading(true)
       Axios.post("http://localhost:5000/user/allappointments",userInfo)
       .then((res) => {
           // this.setState({testInfo:res.data}); 
           this.props.onChangeTestInfo(res.data);
+                    
           this.setState({['succeed']:true});
-
       })
       .catch((err) => {
         console.log("Axios", err);
@@ -95,7 +96,7 @@ class LoginNavbar extends Component {
         onAgree={() => this.proceedToHome(false)}
       />
           <Navbar style={{backgroundColor:'#fd6a02' , fontColor:'bisque' ,opacity:'0.9'}} sticky="top" collapseOnSelect expand="lg" variant="dark">
-            <Navbar.Brand as={Link} to='/loginHome'><b style={{fontSize:"30px"}}>l'hopital</b></Navbar.Brand>
+          <Navbar.Brand as={Link} to='/loginHome' style={{marginTop:"7vh" }}><img style={{height:"20vh",width:"70%"}}src="logo3.png" />{/*<b style={{fontSize:"30px"}}>l'hopital</b>*/}</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"  />
             <Navbar.Collapse style={{marginTop:'1vh'}} id="responsive-navbar-nav">
               <Nav className="ml-auto" style={{marginRight:'30px'}} >
@@ -155,6 +156,7 @@ const mapDispatchToProps = dispatch =>{
     onChangeCheck: (check) => dispatch({type:actionTypes.CHANGE_CHECK , check:check}),
     onChangeCentreValue: (CentreValue) => dispatch({type:actionTypes.CHANGE_CENTREVALUE , CentreValue:CentreValue}),
     onChangeCenterList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeSlots: (slots) => dispatch({type:actionTypes.CHANGE_SLOTS , slots:slots})
   };
 };

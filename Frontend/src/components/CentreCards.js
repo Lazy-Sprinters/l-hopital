@@ -32,6 +32,7 @@ export class CentreCards extends React.Component {
     // console.log(flag1,flag2);
     const ret = { userInfo: flag2, flag1 };
     console.log(ret);
+    this.props.onChangeloading(true);
     Axios.post("http://localhost:5000/user/allslots", ret)
       .then((res) => {
         this.handleClick(res);
@@ -49,6 +50,7 @@ export class CentreCards extends React.Component {
   show( userInfo) {
     /* tochange */
     this.setState({ initial: false });
+    this.props.onChangeloading(true);
     const test=this.props.bookInfo.test;
     const date=this.props.bookInfo.date;
     const data={test,date,userInfo};
@@ -187,6 +189,7 @@ export class CentreCards extends React.Component {
         </div>
       );
     }
+    setTimeout(() => this.props.onChangeloading(false),2000);
     this.setState({ origcode: code });
   }
   render() {
@@ -229,7 +232,8 @@ const mapStateToProps = (state) => {
   return {
     userInfo: state.userInfo,
     centreList: state.centreList,
-    bookInfo:state.bookInfo
+    bookInfo:state.bookInfo,
+    loading:state.loading
   };
 };
 
@@ -244,7 +248,8 @@ const mapDispatchToProps = (dispatch) => {
         type: actionTypes.CHANGE_CENTREVALUE,
         CentreValue: CentreValue,
       }),
-    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList})
+    onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
 
   };
 };

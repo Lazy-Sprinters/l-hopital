@@ -4,6 +4,7 @@ import "../App.css";
 import BookAnAppointment from "./BookAnAppointment";
 import VerifyWarning from "./VerifyWarning";
 import LoginNavbar from "./LoginNavbar";
+import Pre1 from "./Pre1";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
@@ -19,10 +20,12 @@ export class LoginHome extends Component {
     this.setState({auth:false});
     const userInfo={userInfo:data}
     Axios.post("http://localhost:5000/helper/check",userInfo)      .then((res) => {
+        setTimeout(() => this.props.onChangeloading(false),2000);
         this.setState({auth2:true});
       })
       .catch((err) => {
         console.log("Invalid Route");
+        setTimeout(() => this.props.onChangeloading(false),2000);
         this.setState({auth1:true});
       }); 
   };
@@ -40,6 +43,7 @@ export class LoginHome extends Component {
       }} />}
       {auth2 && 
         <>
+        <Pre1/>
       <LoginNavbar
         userInfo={this.props.userInfo}
       />
@@ -60,7 +64,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
-    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo})
+    onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
   };
 };
 export default connect(mapStateToProps,mapDispatchToProps)(LoginHome);

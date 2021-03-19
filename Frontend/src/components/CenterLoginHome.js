@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import CenterLoginNavbar from "./CenterLoginNavbar";
 import CenterReviews from "./CenterReviews";
+import Pre1 from "./Pre1";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
@@ -21,9 +22,9 @@ export class CenterLoginHome extends Component {
   };
   handleButtonClick = (x) =>{
     switch(x){
-      case "success": this.setState({success:true});break;
-      case "info": this.setState({info:true});break;
-      case "danger": this.setState({danger:true});break;
+      case "success": this.props.onChangeloading(true); this.setState({success:true});break;
+      case "info":this.props.onChangeloading(true);  this.setState({info:true});break;
+      case "danger": this.props.onChangeloading(true); this.setState({danger:true});break;
 
     }
   }
@@ -36,11 +37,13 @@ export class CenterLoginHome extends Component {
       })
       .catch((err) => {
         console.log("Invalid Route");
+        setTimeout(() => this.props.onChangeloading(false),500);
         this.setState({auth1:true});
       }); 
     Axios.post("http://localhost:5000/center/reviewdet",centerInfo)      
     .then((res) => {
         this.setState({reviews:res.data});
+        setTimeout(() => this.props.onChangeloading(false),500);
         this.setState({auth2:true});
       })
       .catch((err) => {
@@ -65,6 +68,7 @@ export class CenterLoginHome extends Component {
       }} />}
       {auth2 && 
         <div className="cbody">
+        <Pre1 />
         <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
@@ -133,6 +137,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };

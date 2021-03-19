@@ -18,6 +18,8 @@ import {
 } from "@material-ui/core";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import TnCModal1 from "./TnCModal1";
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 const useRowStyles = makeStyles({
   root: {
@@ -155,7 +157,7 @@ Row.propTypes = {
   }).isRequired,
 };
 
-export default function CollapsibleTable({ testInfo }) {
+export function CollapsibleTable({ testInfo ,onChangeloading}) {
   const [start1, setStart] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -168,7 +170,7 @@ export default function CollapsibleTable({ testInfo }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const convertToRows = (x) => {
+  const convertToRows = (x,onChangeloading) => {
     setStart(false);
     let ans = [];
     if (x.length==0){
@@ -198,11 +200,13 @@ export default function CollapsibleTable({ testInfo }) {
       );
     }
     setRows(ans);
+    setTimeout(() => onChangeloading(false),500);
+
   };
   return (
     <Paper>
       <TableContainer component={Paper}>
-        {start1 && convertToRows(testInfo)}
+        {start1 && convertToRows(testInfo,onChangeloading)}
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow style={{backgroundColor:'#fed8b1'}}>
@@ -235,3 +239,15 @@ export default function CollapsibleTable({ testInfo }) {
     </Paper>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    loading:state.loading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(CollapsibleTable);

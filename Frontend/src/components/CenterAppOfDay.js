@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import CenterLoginNavbar from "./CenterLoginNavbar";
+import Pre1 from "./Pre1";
 import "./CenterLoginHome.css";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions';
@@ -206,10 +207,12 @@ export class CenterAppOfDay extends Component {
     Axios.post("http://localhost:5000/center/presapp", centerInfo)
     .then((res) => {
       this.setState({appointments:res.data})
+    this.props.onChangeloading(false)
       this.setState({display:true});
     })
     .catch((err) => {
       console.log("Axios", err);
+    this.props.onChangeloading(false)
     this.setState({ModalShow1:true});
     });
   }
@@ -261,6 +264,7 @@ export class CenterAppOfDay extends Component {
         onHide={() => this.ModalShow(false)}
         onAgree={() => this.ModalShow(false)}
       />
+      <Pre1 />
       <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
@@ -291,6 +295,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };

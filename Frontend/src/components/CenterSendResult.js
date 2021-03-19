@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router-dom';
 import CenterLoginNavbar from "./CenterLoginNavbar";
 import "./CenterLoginHome.css";
+import Pre1 from "./Pre1";
 import Footer from "./Footer";
 import * as actionTypes from './store/actions';
 import {connect} from 'react-redux';
@@ -208,10 +209,12 @@ export class CenterSendResult extends Component {
     Axios.post("http://localhost:5000/center/prevapp", centerInfo)
     .then((res) => {
       this.setState({appointments:res.data})
+    this.props.onChangeloading(false)
       this.setState({display:true});
     })
     .catch((err) => {
       console.log("Axios", err);
+    this.props.onChangeloading(false)
       this.setState({ModalShow:true});
     });
   };
@@ -243,6 +246,7 @@ export class CenterSendResult extends Component {
         onHide={() => this.handleModal(false)}
         onAgree={() => this.proceedToHome(false)}
       />
+      <Pre1 />
       <CenterLoginNavbar
           centerInfo={this.props.centerInfo}
         />
@@ -273,6 +277,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };

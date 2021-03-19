@@ -147,7 +147,7 @@
   left: -5px;
   width: 100%;
   height: 10px;
-  background: #a5a89f;
+  background: #fd6a02;
   trnasform-origin: top;
   transform: skewX(-41deg);
 }
@@ -158,7 +158,7 @@
   left: -9px;
   width: 9px;
   height: 100%;
-  background: #a5a89f;
+  background: #fd6a02;
   trnasform-origin: right;
   transform: skewY(-49deg);
 }
@@ -169,7 +169,7 @@
   width: 100%;
   height: 100%;
   display: flex !important;
-  background: #a5a89f;
+  background: #fd6a02;
   justify-content: center;
   align-items: center;
   color: #fff;

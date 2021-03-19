@@ -45,7 +45,8 @@ store.subscribe(() => {
   	slots:store.getState().slots,
   	CentreValue:store.getState().CentreValue,
   	centerInfo:store.getState().centerInfo,
-    bookInfo:store.getState().bookInfo
+    bookInfo:store.getState().bookInfo,
+    loading:store.getState().loading
   });
 });
 

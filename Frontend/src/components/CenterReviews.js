@@ -24,7 +24,7 @@ export class CenterReviews extends Component {
     <div>
     <div className="row">
       <div className="reviews">
-      <h1>Your Reviews</h1>
+      <h1>Reviews</h1>
         <StickyHeadTable arr={reviews.arr}/>
       </div>
       <div style={{marginLeft:'10vw', marginTop:'0vh'}}>

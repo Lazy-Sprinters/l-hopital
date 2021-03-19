@@ -88,6 +88,7 @@ export class BookAnAppointment extends React.Component {
   };
   proceed = (test,date,userInfo) => {
     this.setState({ show: false });
+    this.props.onChangeloading(true);
     this.setState({ ['isProceedFaulty']: false });
     const data={test,date,userInfo}
     console.log(data);
@@ -95,9 +96,11 @@ export class BookAnAppointment extends React.Component {
       Axios.post("http://localhost:5000/user/match",data)
       .then((res) => {
         console.log(res);
+        setTimeout(() => this.props.onChangeloading(false),1000);
         this.handleSearch(res);
       })
       .catch((err) => {
+        setTimeout(() => this.props.onChangeloading(false),1000);
         if(err.response.status==403 || err.response.status==404){
           this.handleVerfiyErr(err.response.data);
         }
@@ -226,7 +229,8 @@ const mapDispatchToProps = dispatch =>{
   return{
     onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
     onChangecentreList: (centreList) => dispatch({type:actionTypes.CHANGE_CENTRELIST , centreList:centreList}),
-    onChangebookInfo: (bookInfo) => dispatch({type:actionTypes.CHANGE_BOOKINFO , bookInfo:bookInfo})
+    onChangebookInfo: (bookInfo) => dispatch({type:actionTypes.CHANGE_BOOKINFO , bookInfo:bookInfo}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
   };
 };
 

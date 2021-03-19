@@ -4,6 +4,7 @@ import './ParticularCard.css';
 import LoginNavbar from "./LoginNavbar";
 import Footer from './Footer';
 import ParticularCard from './ParticularCard';
+import Pre1 from './Pre1';
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import Axios from "axios";
@@ -40,6 +41,7 @@ export class selectionPage1 extends Component {
       }} />}
       {auth2 && 
         <>
+        <Pre1/>
       <LoginNavbar            
       userInfo={this.props.userInfo}                  /* tochange */
       />

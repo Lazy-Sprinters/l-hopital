@@ -4,6 +4,7 @@ import "./Test.css";
 import LoginNavbar from "./LoginNavbar";
 import TestView from "./TestView";
 import Footer from "./Footer";
+import Pre1 from "./Pre1";
 import * as actionTypes from './store/actions'
 import {connect} from 'react-redux'
 import Axios from "axios";
@@ -39,6 +40,7 @@ export class Tests extends Component {
       }} />}
       {auth2 && 
       <>
+      <Pre1 />
       <LoginNavbar
         userInfo={this.props.userInfo}
       />

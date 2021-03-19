@@ -21,6 +21,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import * as actionTypes from './store/actions'
+import {connect} from 'react-redux'
 
 function createData(time, vacancy) {
   return { time, vacancy };
@@ -193,7 +195,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable({handleTime,slots}) {
+export function EnhancedTable({handleTime,slots}) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('vacancy');
@@ -240,6 +242,7 @@ export default function EnhancedTable({handleTime,slots}) {
       ans.push(createData(x[i].timeslot,x[i].capacity));
     }
     setRows(ans);
+    setTimeout(() => this.props.onChangeloading(false),500);
   };
   const isSelected = (time) => selected.indexOf(time) !== -1;
 
@@ -319,3 +322,16 @@ export default function EnhancedTable({handleTime,slots}) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    loading:state.loading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading})
+  };
+};
+export default connect(mapStateToProps,mapDispatchToProps)(EnhancedTable);
+

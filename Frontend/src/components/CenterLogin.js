@@ -42,6 +42,7 @@ class CenterLogin extends Component {
   
   login = (data) => {
     this.handleLoginLoad();
+    this.props.onChangeloading(true);
     Axios.post("http://localhost:5000/center/login", data)
     .then((res) => {
       this.props.onChangeCenterInfo(res);
@@ -49,6 +50,7 @@ class CenterLogin extends Component {
     })
     .catch((err) => {
       console.log("Axios", err);
+      this.props.onChangeloading(false);
       this.handleLoginFaulty();
     });
   };
@@ -155,6 +157,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeCenterInfo: (centerInfo) => dispatch({type:actionTypes.CHANGE_CENTERINFO , centerInfo:centerInfo}),
   };
 };

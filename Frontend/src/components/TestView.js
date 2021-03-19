@@ -15,7 +15,7 @@ export class TestView extends React.Component {
 
     return (
       <div>
-      <CollapsibleTable testInfo={this.props.testInfo}/>
+      <CollapsibleTable testInfo={this.props.testInfo} onChangeloading={this.props.onChangeloading}/>
       </div>
     );
   }
@@ -30,6 +30,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>{
   return{
     onChangeUserInfo: (userInfo) => dispatch({type:actionTypes.CHANGE_STATE , userInfo:userInfo}),
+    onChangeloading: (loading) => dispatch({type:actionTypes.CHANGE_LOADING , loading:loading}),
     onChangeTestInfo: (testInfo) => dispatch({type:actionTypes.CHANGE_TESTINFO , testInfo:testInfo})
   };
 };

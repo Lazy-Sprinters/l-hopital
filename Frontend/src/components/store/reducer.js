@@ -8,7 +8,8 @@ const initialState ={
 	centreList:null,
 	testInfo:null,
 	centerInfo:null,
-	bookInfo:null
+	bookInfo:null,
+	loading:false
 }
 
 const reducer = (state = initialState,action) =>{
@@ -75,6 +76,14 @@ const reducer = (state = initialState,action) =>{
 			return{
 				...state,
 				bookInfo:action.bookInfo
+			}
+		}
+		case actionTypes.CHANGE_LOADING:
+		{
+			// console.log("Loading edited")
+			return{
+				...state,
+				loading:action.loading
 			}
 		}
 	}
