@@ -3,10 +3,6 @@
 <img src="./Frontend/public/logo3.png" />
 
 <br />
-<br />
-
-# l-hopital 
-
 </div>
 
 <br />
